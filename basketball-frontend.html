@@ -2,7 +2,7 @@
 <html>
 
 <head>
-	<title>Basketball Scorebug</title>
+	<title>Basketball Scorebug 1970x1080</title>
 	<link rel="preconnect" href="https://fonts.googleapis.com">
 	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 	<link href="https://fonts.googleapis.com/css2?family=Rubik:ital,wght@0,300..900;1,300..900&display=swap" rel="stylesheet">
@@ -26,7 +26,7 @@
 			background-image: url('PC Basketball Scoreboard v4.png');
 			background-size: contain;
 			background-repeat: no-repeat;
-			z-index: 1;
+			z-index: 2;
 		}
 
 		/* Shot Clock Animation */
@@ -40,7 +40,32 @@
 			background: rgba(255, 0, 0, 0.5);
 			transform-origin: bottom;
 			display: none;
-			z-index: 2;
+			z-index: 3;
+		}
+
+		/* Timeout Animation */
+		#timeout-animation {
+			position: absolute;
+			top: 181px;
+			left: 169px;
+			width: 1774px;
+			height: 100px;
+			background: rgba(255, 165, 0, 0.7);
+			transform-origin: bottom;
+			transform: skew(-12.5deg) translateY(100%);
+			display: none;
+			z-index: 1;
+		}
+
+		#timeout-text {
+			position: absolute;
+			width: 100%;
+			text-align: center;
+			top: 50%;
+			transform: translateY(-50%) skew(12.5deg);
+			/* Counter-skew the text */
+			font-size: 48px;
+			color: white;
 		}
 
 		@keyframes shrinkHeight {
@@ -53,7 +78,45 @@
 			}
 		}
 
-		/* Clocks */
+		@keyframes slideIn {
+			from {
+				transform: skew(-12.5deg) translateY(100%);
+			}
+
+			to {
+				transform: skew(-12.5deg) translateY(0);
+			}
+		}
+
+		@keyframes slideOut {
+			from {
+				transform: skew(-12.5deg) translateY(0);
+			}
+
+			to {
+				transform: skew(-12.5deg) translateY(100%);
+			}
+		}
+
+		@keyframes clipOut {
+			from {
+				clip-path: inset(0% 0% 0% 0%);
+			}
+			to {
+				clip-path: inset(100% 0% 0% 0%);
+			}
+		}
+
+		@keyframes clipIn {
+			from {
+				clip-path: inset(100% 0% 0% 0%);
+			}
+			to {
+				clip-path: inset(0% 0% 0% 0%);
+			}
+		}
+
+		/* Existing styles remain the same */
 		.clock {
 			position: absolute;
 		}
@@ -77,10 +140,9 @@
 			right: 11.5%;
 			font-size: 125px;
 			font-weight: 600;
-			z-index: 3;
+			z-index: 4;
 		}
 
-		/* Score */
 		.score {
 			position: absolute;
 			font-size: 230px;
@@ -96,7 +158,6 @@
 			right: 54%;
 		}
 
-		/* Possession */
 		.possession {
 			position: absolute;
 			font-size: 190px;
@@ -112,7 +173,6 @@
 			left: 47%;
 		}
 
-		/* Timeouts */
 		.timeouts {
 			position: absolute;
 			font-size: 114px;
@@ -128,7 +188,6 @@
 			left: 12.5%;
 		}
 
-		/* Fouls */
 		.fouls {
 			position: absolute;
 			top: 52.5%;
@@ -147,6 +206,9 @@
 </head>
 
 <body>
+	<div id="timeout-animation">
+		<div id="timeout-text">Timeout</div>
+	</div>
 	<div id="scoreboard" class="scoreboard">
 		<div class="clock" id="main-clock">20:02</div>
 		<div class="clock" id="period">1st Quarter</div>
@@ -163,22 +225,26 @@
 		<div class="fouls" id="guest-fouls">0</div>
 
 		<div id="shot-clock-countdown"></div>
-		<div id="animated-top">Timeout Left: 0</div>
 	</div>
 
 	<script>
 		const TEST_MODE = false;
 
 		const shotClockCountdown = document.getElementById('shot-clock-countdown');
-		let currentAnimation = null;
-		let animationStartTime = null;
-		let lastShotClockTime = null;
+		const timeoutAnimation = document.getElementById('timeout-animation');
+		const timeoutText = document.getElementById('timeout-text');
+
+		let currentShotClockAnimation = null;
+		let currentTimeoutAnimation = null;
+		let timeoutAnimationState = 'hidden'; // Can be 'hidden', 'showing', or 'hiding'
+		let lastTimeoutTime = null;
 
 		function updateShotClock(shotClockTime) {
+			// Existing shot clock logic remains the same
 			if (TEST_MODE) {
 				shotClockCountdown.style.display = 'block';
-				if (currentAnimation) {
-					currentAnimation.cancel();
+				if (currentShotClockAnimation) {
+					currentShotClockAnimation.cancel();
 				}
 				shotClockCountdown.style.transform = 'skew(-12.5deg) scaleY(1)';
 				return;
@@ -186,44 +252,81 @@
 
 			const time = parseInt(shotClockTime);
 
-			// If shot clock is not active or above 5, hide the countdown
 			if (!time || time > 5) {
 				shotClockCountdown.style.display = 'none';
-				currentAnimation = null;
-				animationStartTime = null;
+				currentShotClockAnimation = null;
 				lastShotClockTime = null;
 				return;
 			}
 
-			// Only start a new animation if:
-			// 1. We don't have an animation running, or
-			// 2. The shot clock has reset/changed significantly (more than 1s difference)
-			if (!currentAnimation || !lastShotClockTime || Math.abs(time - lastShotClockTime) > 1) {
+			if (!currentShotClockAnimation || !lastShotClockTime || Math.abs(time - lastShotClockTime) > 1) {
 				shotClockCountdown.style.display = 'block';
 
-				// Cancel existing animation if any
-				if (currentAnimation) {
-					currentAnimation.cancel();
+				if (currentShotClockAnimation) {
+					currentShotClockAnimation.cancel();
 				}
 
-				// Create and start new animation
-				currentAnimation = shotClockCountdown.animate([
+				currentShotClockAnimation = shotClockCountdown.animate([
 					{ transform: 'skew(-12.5deg) scaleY(1)' },
 					{ transform: 'skew(-12.5deg) scaleY(0)' }
 				], {
-					duration: time * 1000, // Convert to milliseconds
+					duration: time * 1000,
 					easing: 'linear',
 					fill: 'forwards'
 				});
-
-				animationStartTime = Date.now();
 			}
 
 			lastShotClockTime = time;
 		}
 
-		const animationTop = document.getElementById('animated-top');
+		function updateTimeoutAnimation(timeoutClock) {
+				const time = parseFloat(timeoutClock);
 
+				if (!time || time <= 0) {
+					if (timeoutAnimationState === 'showing') {
+						timeoutAnimation.style.display = 'block';
+						if (currentTimeoutAnimation) {
+							currentTimeoutAnimation.cancel();
+						}
+
+						currentTimeoutAnimation = timeoutAnimation.animate([
+							{ clipPath: 'inset(0% 0% 0% 0%)' },
+							{ clipPath: 'inset(100% 0% 0% 0%)' }
+						], {
+							duration: 500,
+							easing: 'ease-out',
+							fill: 'forwards'
+						});
+
+						timeoutAnimationState = 'hiding';
+						currentTimeoutAnimation.onfinish = () => {
+							timeoutAnimation.style.display = 'none';
+							timeoutAnimationState = 'hidden';
+						};
+					}
+					return;
+				}
+
+				timeoutText.textContent = `Timeout: ${time.toFixed(1)}`;
+
+				if (timeoutAnimationState !== 'showing') {
+					timeoutAnimation.style.display = 'block';
+					if (currentTimeoutAnimation) {
+						currentTimeoutAnimation.cancel();
+					}
+
+					currentTimeoutAnimation = timeoutAnimation.animate([
+						{ clipPath: 'inset(100% 0% 0% 0%)' },
+						{ clipPath: 'inset(0% 0% 0% 0%)' }
+					], {
+						duration: 500,
+						easing: 'ease-out',
+						fill: 'forwards'
+					});
+
+					timeoutAnimationState = 'showing';
+				}
+			}
 
 		const textTransformations = {
 			"home-possession": {
@@ -288,8 +391,8 @@
 			document.getElementById('shot-clock').textContent = data.shot_clock || '--';
 			updateShotClock(data.shot_clock);
 
-			// Update timeout clock
-			document.getElementById('timeout-clock').textContent = data.timeout_clock || '--';
+			// Update timeout animation
+			updateTimeoutAnimation(data.timeout_clock);
 		}
 
 		function fetchData() {
