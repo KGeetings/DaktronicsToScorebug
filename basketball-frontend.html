@@ -1,0 +1,260 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<title>Basketball Scoreboard</title>
+	<link rel="preconnect" href="https://fonts.googleapis.com">
+	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+	<link href="https://fonts.googleapis.com/css2?family=Rubik:ital,wght@0,300..900;1,300..900&display=swap" rel="stylesheet">
+	<style>
+		body {
+			margin: 0;
+			padding: 0;
+			background: transparent;
+			font-family: "Rubik", serif;
+			font-style: italic;
+			font-weight: 600;
+			color: white;
+		}
+
+		.scoreboard {
+			position: relative;
+			top: 300px;
+			width: 1920px;
+			height: calc(1920px * (3014 / 7743));
+			background-image: url('PC Basketball Scoreboard v4.png');
+			background-size: contain;
+			background-repeat: no-repeat;
+		}
+
+
+		#shot-clock-countdown {
+			position: absolute;
+			top: 75.5%;
+			right: 11.5%;
+		}
+
+
+		/* Clocks */
+		.clock {
+			position: absolute;
+		}
+
+		#main-clock {
+			top: 73%;
+			right: 28%;
+			font-size: 141px;
+			font-weight: 600;
+		}
+
+		#period {
+			top: 77%;
+			left: 3.5%;
+			font-size: 93px;
+			font-weight: 500;
+		}
+
+		#shot-clock {
+			top: 75.5%;
+			right: 11.5%;
+			font-size: 125px;
+			font-weight: 600;
+		}
+
+
+		/* Score */
+		.score {
+			position: absolute;
+			font-size: 230px;
+			font-weight: 700;
+			top: 13%;
+		}
+
+		#home-score {
+			left: 57.5%;
+		}
+
+		#guest-score {
+			right: 54%;
+		}
+
+
+		/* Possession */
+		.possession {
+			position: absolute;
+			font-size: 190px;
+			font-weight: 700;
+			top: 10%;
+		}
+
+		#home-possession {
+			left: 55%;
+		}
+
+		#guest-possession {
+			left: 47%;
+		}
+
+
+		/* Timeouts */
+		.timeouts {
+			position: absolute;
+			font-size: 114px;
+			font-weight: 600;
+			top: 51%;
+		}
+
+		#home-timeouts {
+			left: 59.5%;
+		}
+
+		#guest-timeouts {
+			left: 12.5%;
+		}
+
+
+		/* Fouls */
+		.fouls {
+			position: absolute;
+			top: 52.5%;
+			font-size: 91px;
+			font-weight: 600;
+		}
+
+		#home-fouls {
+			left: 88.5%;
+		}
+
+		#guest-fouls {
+			left: 42%;
+		}
+	</style>
+</head>
+
+<body>
+	<div class="scoreboard">
+		<div class="clock" id="main-clock">20:02</div>
+		<div class="clock" id="period">1st Quarter</div>
+		<div class="clock" id="shot-clock">12</div>
+
+		<div class="possession" id="home-possession"></div>
+		<div class="score" id="home-score">0</div>
+		<div class="timeouts" id="home-timeouts"></div>
+		<div class="fouls" id="home-fouls">0</div>
+
+		<div class="possession" id="guest-possession"></div>
+		<div class="score" id="guest-score">0</div>
+		<div class="timeouts" id="guest-timeouts"></div>
+		<div class="fouls" id="guest-fouls">0</div>
+
+		<div id="shot-clock-countdown">
+			<video id="shotClockVideo" width="320" height="240" style="display: none;">
+				<source src="Countdown.webm" type="video/webm">
+				Your browser does not support the video tag.
+			</video>
+		</div>
+	</div>
+
+	<script>
+		const shotClockVideo = document.getElementById('shotClockVideo');
+		const shotClockDuration = 7; // Duration of the video in seconds
+		const organicShotClock = true;
+
+		function updateShotClock(shotClockTime) {
+			if (shotClockTime <= 6) {
+				shotClockVideo.style.display = 'block';
+				if (shotClockVideo.paused) {
+					shotClockVideo.currentTime = shotClockDuration - (6 - shotClockTime);
+					console.log(shotClockVideo.currentTime);
+					shotClockVideo.play();
+				}
+			} if (shotClockTime === 7) {
+				shotClockVideo.style.display = 'block';
+				shotClockVideo.currentTime = 0;
+				shotClockVideo.play();
+			} else {
+				shotClockVideo.style.display = 'none';
+				shotClockVideo.pause();
+				shotClockVideo.currentTime = 0;
+			}
+		}
+
+		const textTransformations = {
+			"home-possession": {
+				">": ".",
+				"<": ".",  // Remove left arrow if present
+				"None": "", // Handle "None" string
+				"": ""    // Handle empty string
+			},
+			"guest-possession": {
+				">": ".",
+				"<": ".",  // Remove left arrow if present
+				"None": "", // Handle "None" string
+				"": ""    // Handle empty string
+			},
+			"home-timeouts": (() => {
+				let obj = {};
+				for (let i = 0; i < 10; i++) {
+					obj[i.toString()] = "I ".repeat(i);
+				}
+				return obj;
+			})(),
+			"guest-timeouts": (() => {
+				let obj = {};
+				for (let i = 0; i < 10; i++) {
+					obj[i.toString()] = "I ".repeat(i);
+				}
+				return obj;
+			})()
+        };
+
+		function transformText(key, value) {
+			if (textTransformations[key] && textTransformations[key][value] !== undefined) {
+				return textTransformations[key][value];
+			}
+			return value;
+		}
+
+		function updateScoreboard(data) {
+			// Update scores
+			document.getElementById('home-score').textContent = data.home_score;
+			document.getElementById('guest-score').textContent = data.guest_score;
+
+			// Update clock
+			document.getElementById('main-clock').textContent = data.clock;
+
+			// Update period
+			document.getElementById('period').textContent = data.period_desc || data.period;
+
+			// Update timeouts
+			document.getElementById('home-timeouts').textContent = transformText("home-timeouts", data.home_timeouts);
+			document.getElementById('guest-timeouts').textContent = transformText("guest-timeouts", data.guest_timeouts);
+
+			// Update possession indicators
+			document.getElementById('home-possession').textContent = transformText("home-possession", data.home_possession ? '>' : '');
+			document.getElementById('guest-possession').textContent = transformText("guest-possession", data.guest_possession ? '>' : '');
+
+			// Update fouls
+			document.getElementById('home-fouls').textContent = data.home_fouls;
+			document.getElementById('guest-fouls').textContent = data.guest_fouls;
+
+			// Update shot clock
+			document.getElementById('shot-clock').textContent = data.shot_clock || '--';
+			updateShotClock(data.shot_clock);
+		}
+
+		function fetchData() {
+			fetch('http://localhost:5000/data')
+				.then(response => response.json())
+				.then(data => {
+					updateScoreboard(data);
+				})
+				.catch(error => console.error('Error fetching data:', error));
+		}
+
+		// Update every 10ms
+		setInterval(fetchData, 50);
+	</script>
+</body>
+
+</html>

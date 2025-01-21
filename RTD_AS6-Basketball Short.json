@@ -1,0 +1,244 @@
+{
+	"table": [
+		{
+			"name": "RTD/AS5-Basketball",
+			"expires": "P1Y",
+			"modified": "Tue, 17 Dec 2024 01:08:20 +0000",
+			"attributes": 48,
+			"range": {
+				"etag": 207924,
+				"column": [
+					{
+						"name": "Main_Clock_Time__mm_ss_ss_t__",
+						"title": "Main_Clock_Time__mm_ss_ss_t__",
+						"primaryKey": false
+					},
+					{
+						"name": "Main_Clock_Time__mm_ss_t__",
+						"title": "Main_Clock_Time__mm_ss_t__",
+						"primaryKey": false
+					},
+					{
+						"name": "Main_Clock_Time_Out_TOD__mm_ss_ss_t__",
+						"title": "Main_Clock_Time_Out_TOD__mm_ss_ss_t__",
+						"primaryKey": false
+					},
+					{
+						"name": "Main_Clock_Time_Out_TOD__mm_ss_t__",
+						"title": "Main_Clock_Time_Out_TOD__mm_ss_t__",
+						"primaryKey": false
+					},
+					{
+						"name": "Main_Clock__0______or__z__",
+						"title": "Main_Clock__0______or__z__",
+						"primaryKey": false
+					},
+					{
+						"name": "Main_Clock_Stopped______or__s__",
+						"title": "Main_Clock_Stopped______or__s__",
+						"primaryKey": false
+					},
+					{
+						"name": "Main_Clock_Time_Out_Horn______or__h__",
+						"title": "Main_Clock_Time_Out_Horn______or__h__",
+						"primaryKey": false
+					},
+					{
+						"name": "Main_Clock_Horn______or__h__",
+						"title": "Main_Clock_Horn______or__h__",
+						"primaryKey": false
+					},
+					{
+						"name": "Time_Out_Horn______or__h__",
+						"title": "Time_Out_Horn______or__h__",
+						"primaryKey": false
+					},
+					{
+						"name": "Time_Out_Time__mm_ss____",
+						"title": "Time_Out_Time__mm_ss____",
+						"primaryKey": false
+					},
+					{
+						"name": "Time_of_Day__hh_mm_ss_",
+						"title": "Time_of_Day__hh_mm_ss_",
+						"primaryKey": false
+					},
+					{
+						"name": "Home_Team_Name",
+						"title": "Home_Team_Name",
+						"primaryKey": false
+					},
+					{
+						"name": "Guest_Team_Name",
+						"title": "Guest_Team_Name",
+						"primaryKey": false
+					},
+					{
+						"name": "Home_Team_Abbreviation",
+						"title": "Home_Team_Abbreviation",
+						"primaryKey": false
+					},
+					{
+						"name": "Guest_Team_Abbreviation",
+						"title": "Guest_Team_Abbreviation",
+						"primaryKey": false
+					},
+					{
+						"name": "Home_Team_Score",
+						"title": "Home_Team_Score",
+						"primaryKey": false
+					},
+					{
+						"name": "Guest_Team_Score",
+						"title": "Guest_Team_Score",
+						"primaryKey": false
+					},
+					{
+						"name": "Home_Time_Outs_Left___Full",
+						"title": "Home_Time_Outs_Left___Full",
+						"primaryKey": false
+					},
+					{
+						"name": "Home_Time_Outs_Left___Partial",
+						"title": "Home_Time_Outs_Left___Partial",
+						"primaryKey": false
+					},
+					{
+						"name": "Home_Time_Outs_Left___Television",
+						"title": "Home_Time_Outs_Left___Television",
+						"primaryKey": false
+					},
+					{
+						"name": "Home_Time_Outs_Left___Total",
+						"title": "Home_Time_Outs_Left___Total",
+						"primaryKey": false
+					},
+					{
+						"name": "Guest_Time_Outs_Left___Full",
+						"title": "Guest_Time_Outs_Left___Full",
+						"primaryKey": false
+					},
+					{
+						"name": "Guest_Time_Outs_Left___Partial",
+						"title": "Guest_Time_Outs_Left___Partial",
+						"primaryKey": false
+					},
+					{
+						"name": "Guest_Time_Outs_Left___Television",
+						"title": "Guest_Time_Outs_Left___Television",
+						"primaryKey": false
+					},
+					{
+						"name": "Guest_Time_Outs_Left___Total",
+						"title": "Guest_Time_Outs_Left___Total",
+						"primaryKey": false
+					},
+					{
+						"name": "Home_Time_Out_Indicator______or_____",
+						"title": "Home_Time_Out_Indicator______or_____",
+						"primaryKey": false
+					},
+					{
+						"name": "Home_Time_Out_Text_________or__TIME__",
+						"title": "Home_Time_Out_Text_________or__TIME__",
+						"primaryKey": false
+					},
+					{
+						"name": "Guest_Time_Out_Indicator______or_____",
+						"title": "Guest_Time_Out_Indicator______or_____",
+						"primaryKey": false
+					},
+					{
+						"name": "Guest_Time_Out_Text_________or__TIME__",
+						"title": "Guest_Time_Out_Text_________or__TIME__",
+						"primaryKey": false
+					},
+					{
+						"name": "Period",
+						"title": "Period",
+						"primaryKey": false
+					},
+					{
+						"name": "Period_Text___1st_____OT______OT_2__",
+						"title": "Period_Text___1st_____OT______OT_2__",
+						"primaryKey": false
+					},
+					{
+						"name": "Period_Description___End_of_1st____",
+						"title": "Period_Description___End_of_1st____",
+						"primaryKey": false
+					}
+				],
+				"row": [
+					{
+						"title": "Value",
+						"field": [
+							{
+								"name": "Main_Clock_Time__mm_ss_ss_t__",
+								"value": "1:16"
+							},
+							{
+								"name": "Main_Clock_Time__mm_ss_t__",
+								"value": "1:16"
+							},
+							{
+								"name": "Main_Clock_Time_Out_TOD__mm_ss_ss_t__",
+								"value": "1:16"
+							},
+							{
+								"name": "Period",
+								"value": "4"
+							},
+							{
+								"name": "Period_Text___1st_____OT______OT_2__",
+								"value": "4TH"
+							},
+							{
+								"name": "Period_Description___End_of_1st____",
+								"value": "4TH Quarter"
+							}
+						]
+					},
+					{
+						"title": "Length",
+						"field": [
+							{
+								"name": "Main_Clock_Time__mm_ss_ss_t__",
+								"value": "5"
+							},
+							{
+								"name": "Main_Clock_Time__mm_ss_t__",
+								"value": "8"
+							},
+							{
+								"name": "Main_Clock_Time_Out_TOD__mm_ss_ss_t__",
+								"value": "5"
+							},
+							{
+								"name": "Main_Clock_Time_Out_TOD__mm_ss_t__",
+								"value": "8"
+							},
+							{
+								"name": "Period",
+								"value": "2"
+							}
+						]
+					},
+					{
+						"title": "Disposition",
+						"field": [
+							{
+								"name": "Main_Clock_Time__mm_ss_ss_t__",
+								"value": ""
+							},
+							{
+								"name": "Main_Clock_Time__mm_ss_t__",
+								"value": ""
+							}
+						]
+					}
+				]
+			}
+		}
+	]
+}
