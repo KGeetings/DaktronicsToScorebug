@@ -2,10 +2,11 @@
 <html>
 
 <head>
-	<title>Basketball Scoreboard</title>
+	<title>Basketball Scorebug</title>
 	<link rel="preconnect" href="https://fonts.googleapis.com">
 	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 	<link href="https://fonts.googleapis.com/css2?family=Rubik:ital,wght@0,300..900;1,300..900&display=swap" rel="stylesheet">
+
 	<style>
 		body {
 			margin: 0;
@@ -17,7 +18,7 @@
 			color: white;
 		}
 
-		.scoreboard {
+		#scoreboard {
 			position: relative;
 			top: 300px;
 			width: 1920px;
@@ -25,15 +26,32 @@
 			background-image: url('PC Basketball Scoreboard v4.png');
 			background-size: contain;
 			background-repeat: no-repeat;
+			z-index: 1;
 		}
 
-
+		/* Shot Clock Animation */
 		#shot-clock-countdown {
 			position: absolute;
-			top: 75.5%;
-			right: 11.5%;
+			top: 71.7%;
+			right: 7.9%;
+			width: 291.9px;
+			height: 193px;
+			transform: skew(-12.5deg);
+			background: rgba(255, 0, 0, 0.5);
+			transform-origin: bottom;
+			display: none;
+			z-index: 2;
 		}
 
+		@keyframes shrinkHeight {
+			from {
+				transform: skew(-12.5deg) scaleY(1);
+			}
+
+			to {
+				transform: skew(-12.5deg) scaleY(0);
+			}
+		}
 
 		/* Clocks */
 		.clock {
@@ -59,8 +77,8 @@
 			right: 11.5%;
 			font-size: 125px;
 			font-weight: 600;
+			z-index: 3;
 		}
-
 
 		/* Score */
 		.score {
@@ -78,7 +96,6 @@
 			right: 54%;
 		}
 
-
 		/* Possession */
 		.possession {
 			position: absolute;
@@ -95,7 +112,6 @@
 			left: 47%;
 		}
 
-
 		/* Timeouts */
 		.timeouts {
 			position: absolute;
@@ -111,7 +127,6 @@
 		#guest-timeouts {
 			left: 12.5%;
 		}
-
 
 		/* Fouls */
 		.fouls {
@@ -132,7 +147,7 @@
 </head>
 
 <body>
-	<div class="scoreboard">
+	<div id="scoreboard" class="scoreboard">
 		<div class="clock" id="main-clock">20:02</div>
 		<div class="clock" id="period">1st Quarter</div>
 		<div class="clock" id="shot-clock">12</div>
@@ -147,50 +162,81 @@
 		<div class="timeouts" id="guest-timeouts"></div>
 		<div class="fouls" id="guest-fouls">0</div>
 
-		<div id="shot-clock-countdown">
-			<video id="shotClockVideo" width="320" height="240" style="display: none;">
-				<source src="Countdown.webm" type="video/webm">
-				Your browser does not support the video tag.
-			</video>
-		</div>
+		<div id="shot-clock-countdown"></div>
+		<div id="animated-top">Timeout Left: 0</div>
 	</div>
 
 	<script>
-		const shotClockVideo = document.getElementById('shotClockVideo');
-		const shotClockDuration = 7; // Duration of the video in seconds
-		const organicShotClock = true;
+		const TEST_MODE = false;
+
+		const shotClockCountdown = document.getElementById('shot-clock-countdown');
+		let currentAnimation = null;
+		let animationStartTime = null;
+		let lastShotClockTime = null;
 
 		function updateShotClock(shotClockTime) {
-			if (shotClockTime <= 6) {
-				shotClockVideo.style.display = 'block';
-				if (shotClockVideo.paused) {
-					shotClockVideo.currentTime = shotClockDuration - (6 - shotClockTime);
-					console.log(shotClockVideo.currentTime);
-					shotClockVideo.play();
+			if (TEST_MODE) {
+				shotClockCountdown.style.display = 'block';
+				if (currentAnimation) {
+					currentAnimation.cancel();
 				}
-			} if (shotClockTime === 7) {
-				shotClockVideo.style.display = 'block';
-				shotClockVideo.currentTime = 0;
-				shotClockVideo.play();
-			} else {
-				shotClockVideo.style.display = 'none';
-				shotClockVideo.pause();
-				shotClockVideo.currentTime = 0;
+				shotClockCountdown.style.transform = 'skew(-12.5deg) scaleY(1)';
+				return;
 			}
+
+			const time = parseInt(shotClockTime);
+
+			// If shot clock is not active or above 5, hide the countdown
+			if (!time || time > 5) {
+				shotClockCountdown.style.display = 'none';
+				currentAnimation = null;
+				animationStartTime = null;
+				lastShotClockTime = null;
+				return;
+			}
+
+			// Only start a new animation if:
+			// 1. We don't have an animation running, or
+			// 2. The shot clock has reset/changed significantly (more than 1s difference)
+			if (!currentAnimation || !lastShotClockTime || Math.abs(time - lastShotClockTime) > 1) {
+				shotClockCountdown.style.display = 'block';
+
+				// Cancel existing animation if any
+				if (currentAnimation) {
+					currentAnimation.cancel();
+				}
+
+				// Create and start new animation
+				currentAnimation = shotClockCountdown.animate([
+					{ transform: 'skew(-12.5deg) scaleY(1)' },
+					{ transform: 'skew(-12.5deg) scaleY(0)' }
+				], {
+					duration: time * 1000, // Convert to milliseconds
+					easing: 'linear',
+					fill: 'forwards'
+				});
+
+				animationStartTime = Date.now();
+			}
+
+			lastShotClockTime = time;
 		}
+
+		const animationTop = document.getElementById('animated-top');
+
 
 		const textTransformations = {
 			"home-possession": {
 				">": ".",
-				"<": ".",  // Remove left arrow if present
-				"None": "", // Handle "None" string
-				"": ""    // Handle empty string
+				"<": ".",
+				"None": "",
+				"": ""
 			},
 			"guest-possession": {
 				">": ".",
-				"<": ".",  // Remove left arrow if present
-				"None": "", // Handle "None" string
-				"": ""    // Handle empty string
+				"<": ".",
+				"None": "",
+				"": ""
 			},
 			"home-timeouts": (() => {
 				let obj = {};
@@ -206,7 +252,7 @@
 				}
 				return obj;
 			})()
-        };
+		};
 
 		function transformText(key, value) {
 			if (textTransformations[key] && textTransformations[key][value] !== undefined) {
@@ -241,6 +287,9 @@
 			// Update shot clock
 			document.getElementById('shot-clock').textContent = data.shot_clock || '--';
 			updateShotClock(data.shot_clock);
+
+			// Update timeout clock
+			document.getElementById('timeout-clock').textContent = data.timeout_clock || '--';
 		}
 
 		function fetchData() {
@@ -252,7 +301,7 @@
 				.catch(error => console.error('Error fetching data:', error));
 		}
 
-		// Update every 10ms
+		// Update every 50ms
 		setInterval(fetchData, 50);
 	</script>
 </body>
