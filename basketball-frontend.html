@@ -260,7 +260,7 @@
 				return;
 			}
 
-			timeoutText.textContent = `Timeout/Break: ${minutes}:${seconds < 10 ? '0' : ''}${seconds}`;
+			timeoutText.textContent = `Timeout: ${minutes}:${seconds < 10 ? '0' : ''}${seconds}`;
 
 			if (timeoutAnimationState !== 'showing') {
 				timeoutAnimation.style.display = 'block';
