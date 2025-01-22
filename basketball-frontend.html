@@ -190,43 +190,62 @@
 		let timeoutAnimationState = 'hidden'; // Can be 'hidden', 'showing', or 'hiding'
 		let lastTimeoutTime = null;
 
-		function updateShotClock(shotClockTime) {
-			// Existing shot clock logic remains the same
-			if (TEST_MODE) {
-				shotClockCountdown.style.display = 'block';
-				if (currentShotClockAnimation) {
-					currentShotClockAnimation.cancel();
-				}
-				shotClockCountdown.style.transform = 'skew(-12.5deg) scaleY(1)';
-				return;
-			}
+		let lastShotClockStatus = null;
+		let animationStartTime = null;
+		let remainingDuration = null;
 
+		function updateShotClock(shotClockTime, shotClockStatus) {
 			const time = parseInt(shotClockTime);
 
 			if (!time || time > 10) {
 				shotClockCountdown.style.display = 'none';
 				currentShotClockAnimation = null;
 				lastShotClockTime = null;
+				lastShotClockStatus = null;
+				animationStartTime = null;
+				remainingDuration = null;
 				return;
 			}
 
-			if (!currentShotClockAnimation || !lastShotClockTime || Math.abs(time - lastShotClockTime) > 1) {
-				shotClockCountdown.style.display = 'block';
+			// Handle shot clock status changes
+			if (shotClockStatus !== lastShotClockStatus) {
+				if (shotClockStatus === "") { // Shot clock stopped
+					if (currentShotClockAnimation) {
+						currentShotClockAnimation.pause();
+						// Calculate remaining duration
+						const currentTime = performance.now();
+						const elapsedTime = currentTime - animationStartTime;
+						remainingDuration = time * 1000 - elapsedTime;
+					}
+				} else if (shotClockStatus === "1") { // Shot clock running
+					if (currentShotClockAnimation && remainingDuration !== null) {
+						// Resume from where we left off
+						currentShotClockAnimation.play();
+						animationStartTime = performance.now() - (time * 1000 - remainingDuration);
+					} else {
+						// Start new animation
+						shotClockCountdown.style.display = 'block';
+						if (currentShotClockAnimation) {
+							currentShotClockAnimation.cancel();
+						}
 
-				if (currentShotClockAnimation) {
-					currentShotClockAnimation.cancel();
+						currentShotClockAnimation = shotClockCountdown.animate([
+							{ transform: 'skew(-12.5deg) scaleY(1)' },
+							{ transform: 'skew(-12.5deg) scaleY(0)' }
+						], {
+							duration: time * 1000,
+							easing: 'linear',
+							fill: 'forwards'
+						});
+
+						animationStartTime = performance.now();
+						remainingDuration = time * 1000;
+					}
 				}
-
-				currentShotClockAnimation = shotClockCountdown.animate([
-					{ transform: 'skew(-12.5deg) scaleY(1)' },
-					{ transform: 'skew(-12.5deg) scaleY(0)' }
-				], {
-					duration: time * 1000,
-					easing: 'linear',
-					fill: 'forwards'
-				});
+				lastShotClockStatus = shotClockStatus;
 			}
 
+			// Update the time display
 			lastShotClockTime = time;
 		}
 
@@ -340,9 +359,9 @@
 			document.getElementById('home-fouls').textContent = data.home_fouls;
 			document.getElementById('guest-fouls').textContent = data.guest_fouls;
 
-			// Update shot clock
+			// Update shot clock and status
 			document.getElementById('shot-clock').textContent = data.shot_clock || '--';
-			updateShotClock(data.shot_clock);
+			updateShotClock(data.shot_clock, data.shot_clock_status);
 
 			// Update timeout animation
 			updateTimeoutAnimation(data.timeout_clock);

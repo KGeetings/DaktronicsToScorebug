@@ -5,6 +5,11 @@ import json
 import threading
 import time
 import os
+import logging
+
+# Set the logging level to ERROR
+log = logging.getLogger('werkzeug')
+log.setLevel(logging.ERROR)
 
 # Create Flask app with static file support
 app = Flask(__name__, static_url_path='', static_folder='.')
@@ -24,7 +29,8 @@ current_game_data = {
     'home_fouls': '5',
     'guest_fouls': '5',
     'shot_clock': '5',
-    'timeout_clock': '55:55'
+    'timeout_clock': '55:55',
+    'shot_clock_status': '1'
 }
 
 class BasketballDataFetcher:
@@ -43,7 +49,8 @@ class BasketballDataFetcher:
             'Home_Team_Fouls': 'home_fouls',
             'Guest_Team_Fouls': 'guest_fouls',
             'Shot_Clock_Time__mm_ss____': 'shot_clock',
-            'Time_Out_Time__mm_ss____': 'timeout_clock'
+            'Time_Out_Time__mm_ss____': 'timeout_clock',
+            'Shot_Clock__0______or__z__': 'shot_clock_status',
         }
 
     def extract_field_value(self, data, field_name):
