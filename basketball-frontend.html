@@ -68,54 +68,6 @@
 			color: white;
 		}
 
-		@keyframes shrinkHeight {
-			from {
-				transform: skew(-12.5deg) scaleY(1);
-			}
-
-			to {
-				transform: skew(-12.5deg) scaleY(0);
-			}
-		}
-
-		@keyframes slideIn {
-			from {
-				transform: skew(-12.5deg) translateY(100%);
-			}
-
-			to {
-				transform: skew(-12.5deg) translateY(0);
-			}
-		}
-
-		@keyframes slideOut {
-			from {
-				transform: skew(-12.5deg) translateY(0);
-			}
-
-			to {
-				transform: skew(-12.5deg) translateY(100%);
-			}
-		}
-
-		@keyframes clipOut {
-			from {
-				clip-path: inset(0% 0% 0% 0%);
-			}
-			to {
-				clip-path: inset(100% 0% 0% 0%);
-			}
-		}
-
-		@keyframes clipIn {
-			from {
-				clip-path: inset(100% 0% 0% 0%);
-			}
-			to {
-				clip-path: inset(0% 0% 0% 0%);
-			}
-		}
-
 		/* Existing styles remain the same */
 		.clock {
 			position: absolute;
@@ -293,7 +245,7 @@
 							{ clipPath: 'inset(0% 0% 0% 0%)' },
 							{ clipPath: 'inset(100% 0% 0% 0%)' }
 						], {
-							duration: 500,
+							duration: 2000,
 							easing: 'ease-out',
 							fill: 'forwards'
 						});
@@ -319,7 +271,7 @@
 						{ clipPath: 'inset(100% 0% 0% 0%)' },
 						{ clipPath: 'inset(0% 0% 0% 0%)' }
 					], {
-						duration: 500,
+						duration: 2000,
 						easing: 'ease-out',
 						fill: 'forwards'
 					});
