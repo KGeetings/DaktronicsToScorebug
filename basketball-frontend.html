@@ -46,10 +46,10 @@
 		/* Timeout Animation */
 		#timeout-animation {
 			position: absolute;
-			top: 142px;
-			left: 173px;
+			top: 100px;
+			left: 177.7px;
 			width: 1773px;
-			height: 120px;
+			height: 140px;
 			background: rgba(255, 165, 0, 0.7);
 			transform-origin: bottom;
 			transform: skew(-12.5deg) translateY(100%);
@@ -64,7 +64,7 @@
 			top: 50%;
 			transform: translateY(-50%) skew(12.5deg);
 			/* Counter-skew the text */
-			font-size: 80px;
+			font-size: 122px;
 			color: white;
 		}
 
@@ -203,7 +203,7 @@
 
 			const time = parseInt(shotClockTime);
 
-			if (!time || time > 5) {
+			if (!time || time > 10) {
 				shotClockCountdown.style.display = 'none';
 				currentShotClockAnimation = null;
 				lastShotClockTime = null;
