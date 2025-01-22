@@ -6,7 +6,8 @@ from flask import Flask, jsonify, send_file, send_from_directory
 app = Flask(__name__)
 current_game_data = {}
 shot_clock = 10  # Initialize shot clock to 10 seconds
-timeout_clock = 10  # Initialize timeout clock to 10 seconds
+timeout_clock_min = 1  # Initialize timeout clock to 10 minutes
+timeout_clock_sec = 30
 
 class BasketballDataFetcher:
 	def __init__(self, url):
@@ -18,16 +19,14 @@ class BasketballDataFetcher:
 
 def generate_fake_data():
 	global shot_clock
-	global timeout_clock
+	global timeout_clock_min
+	global timeout_clock_sec
+
 	# Generate fake game clock data
 	fake_data = {
-		# Fake game clock in MM:SS.sss format
-		#"clock": time.strftime("%M:%S", time.gmtime(time.time() % 600))
-		#"clock": time.strftime("%M:%S") + f".{int(time.time() * 1000) % 1000:03d}",
-		#"clock": time.strftime("%M:%S") + f".{int(time.time() * 100) % 10}",
 		"clock": datetime.now().strftime("%M:%S.%f")[:-5],
 		"shot_clock": str(shot_clock),
-		"timeout_clock": str(timeout_clock),
+		"timeout_clock": f"{timeout_clock_min:02}:{timeout_clock_sec:02}"
 	}
 	print(fake_data)
 
@@ -36,9 +35,16 @@ def generate_fake_data():
 	if shot_clock <= 0:
 		shot_clock = 10  # Reset shot clock to 10 seconds
 
-	timeout_clock -= 1
-	if timeout_clock <= -3:
-		timeout_clock = 10
+	# Decrement the timeout clock
+	if timeout_clock_sec == 0:
+		if timeout_clock_min > 0:
+			timeout_clock_min -= 1
+			timeout_clock_sec = 59
+		else:
+			timeout_clock_min = 1
+			timeout_clock_sec = 30
+	else:
+		timeout_clock_sec -= 1
 
 	return fake_data
 
