@@ -64,11 +64,10 @@
 			top: 50%;
 			transform: translateY(-50%) skew(12.5deg);
 			/* Counter-skew the text */
-			font-size: 48px;
+			font-size: 60px;
 			color: white;
 		}
 
-		/* Existing styles remain the same */
 		.clock {
 			position: absolute;
 		}
@@ -232,53 +231,54 @@
 		}
 
 		function updateTimeoutAnimation(timeoutClock) {
-				const time = parseFloat(timeoutClock);
+			const [minutes, seconds] = timeoutClock.split(':').map(parseFloat);
+			const time = minutes * 60 + seconds;
 
-				if (!time || time <= 0) {
-					if (timeoutAnimationState === 'showing') {
-						timeoutAnimation.style.display = 'block';
-						if (currentTimeoutAnimation) {
-							currentTimeoutAnimation.cancel();
-						}
-
-						currentTimeoutAnimation = timeoutAnimation.animate([
-							{ clipPath: 'inset(0% 0% 0% 0%)' },
-							{ clipPath: 'inset(100% 0% 0% 0%)' }
-						], {
-							duration: 2000,
-							easing: 'ease-out',
-							fill: 'forwards'
-						});
-
-						timeoutAnimationState = 'hiding';
-						currentTimeoutAnimation.onfinish = () => {
-							timeoutAnimation.style.display = 'none';
-							timeoutAnimationState = 'hidden';
-						};
-					}
-					return;
-				}
-
-				timeoutText.textContent = `Timeout/Break: ${time.toFixed(1)}`;
-
-				if (timeoutAnimationState !== 'showing') {
+			if (!time || time <= 0) {
+				if (timeoutAnimationState === 'showing') {
 					timeoutAnimation.style.display = 'block';
 					if (currentTimeoutAnimation) {
 						currentTimeoutAnimation.cancel();
 					}
 
 					currentTimeoutAnimation = timeoutAnimation.animate([
-						{ clipPath: 'inset(100% 0% 0% 0%)' },
-						{ clipPath: 'inset(0% 0% 0% 0%)' }
+						{ clipPath: 'inset(0% 0% 0% 0%)' },
+						{ clipPath: 'inset(100% 0% 0% 0%)' }
 					], {
 						duration: 2000,
 						easing: 'ease-out',
 						fill: 'forwards'
 					});
 
-					timeoutAnimationState = 'showing';
+					timeoutAnimationState = 'hiding';
+					currentTimeoutAnimation.onfinish = () => {
+						timeoutAnimation.style.display = 'none';
+						timeoutAnimationState = 'hidden';
+					};
 				}
+				return;
 			}
+
+			timeoutText.textContent = `Timeout/Break: ${time.toFixed(1)}`;
+
+			if (timeoutAnimationState !== 'showing') {
+				timeoutAnimation.style.display = 'block';
+				if (currentTimeoutAnimation) {
+					currentTimeoutAnimation.cancel();
+				}
+
+				currentTimeoutAnimation = timeoutAnimation.animate([
+					{ clipPath: 'inset(100% 0% 0% 0%)' },
+					{ clipPath: 'inset(0% 0% 0% 0%)' }
+				], {
+					duration: 2000,
+					easing: 'ease-out',
+					fill: 'forwards'
+				});
+
+				timeoutAnimationState = 'showing';
+			}
+		}
 
 		const textTransformations = {
 			"home-possession": {

@@ -24,7 +24,7 @@ current_game_data = {
     'home_fouls': '5',
     'guest_fouls': '5',
     'shot_clock': '5',
-    'timeout_clock': '55'
+    'timeout_clock': '55:55'
 }
 
 class BasketballDataFetcher:
