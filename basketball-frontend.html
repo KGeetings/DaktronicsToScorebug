@@ -209,7 +209,7 @@
 
 			// Handle shot clock status changes
 			if (shotClockStatus !== lastShotClockStatus) {
-				if (shotClockStatus === "") { // Shot clock stopped
+				if (shotClockStatus === "" || shotClockStatus === "0") { // Shot clock stopped
 					if (currentShotClockAnimation) {
 						currentShotClockAnimation.pause();
 						// Calculate remaining duration
