@@ -222,68 +222,144 @@
 		const shotClockCountdown = document.getElementById('shot-clock-countdown');
 		const timeoutAnimation = document.getElementById('timeout-animation');
 		const timeoutText = document.getElementById('timeout-text');
+		const homeStatsAnimation = document.getElementById('home-stats-animation');
+		const guestStatsAnimation = document.getElementById('guest-stats-animation');
 
-		let currentShotClockAnimation = null;
 		let currentTimeoutAnimation = null;
+		let currentHomeStatsAnimation = null;
+		let currentGuestStatsAnimation = null;
 		let timeoutAnimationState = 'hidden'; // Can be 'hidden', 'showing', or 'hiding'
 
-		let lastShotClockStatus = null;
-		let animationStartTime = null;
-		let remainingDuration = null;
+		let lastHomeStats = null;
+		let lastGuestStats = null;
+		function updateStatsAnimation(statsElement, statsText, isHome) {
+			// If no stats or stats haven't changed, do nothing
+			const currentStats = statsText.textContent;
+			const lastStats = isHome ? lastHomeStats : lastGuestStats;
 
-		function updateShotClock(shotClockTime, shotClockStatus) {
-			const time = parseInt(shotClockTime);
+			if (currentStats === lastStats) return;
 
-			if (!time || time > 10) {
-				shotClockCountdown.style.display = 'none';
-				currentShotClockAnimation = null;
-				lastShotClockTime = null;
-				lastShotClockStatus = null;
-				animationStartTime = null;
-				remainingDuration = null;
+			// Update the tracked last stats
+			if (isHome) {
+				lastHomeStats = currentStats;
+			} else {
+				lastGuestStats = currentStats;
+			}
+
+			// Cancel any existing animation for this stats element
+			if (isHome && currentHomeStatsAnimation) {
+				currentHomeStatsAnimation.cancel();
+			}
+			if (!isHome && currentGuestStatsAnimation) {
+				currentGuestStatsAnimation.cancel();
+			}
+
+			// Show the stats animation
+			statsElement.style.display = 'block';
+
+			// Animate sliding in
+			const slideInAnimation = statsElement.animate([
+				{ transform: 'skew(-12.5deg) translateX(100%)' },
+				{ transform: 'skew(-12.5deg) translateX(0)' }
+			], {
+				duration: 1000,
+				easing: 'ease-out',
+				fill: 'forwards'
+			});
+
+			// Callback to start hiding after 3 seconds
+			slideInAnimation.onfinish = () => {
+				// Animate sliding out after 3 seconds
+				const slideOutAnimation = statsElement.animate([
+					{ transform: 'skew(-12.5deg) translateX(0)' },
+					{ transform: 'skew(-12.5deg) translateX(100%)' }
+				], {
+					duration: 1000,
+					easing: 'ease-in',
+					fill: 'forwards',
+					delay: 3000
+				});
+
+				slideOutAnimation.onfinish = () => {
+					statsElement.style.display = 'none';
+				};
+
+				// Store the current animation
+				if (isHome) {
+					currentHomeStatsAnimation = slideOutAnimation;
+				} else {
+					currentGuestStatsAnimation = slideOutAnimation;
+				}
+			};
+
+			// Store the current animation
+			if (isHome) {
+				currentHomeStatsAnimation = slideInAnimation;
+			} else {
+				currentGuestStatsAnimation = slideInAnimation;
+			}
+		}
+
+		// Add new variables for shot clock tracking
+		let lastShotClockTime = null;
+		let lastShotClockScale = 1;
+
+		function updateShotClock(shotClockTime) {
+			const currentTime = parseInt(shotClockTime, 10) || 0;
+
+			// No change from previous update
+			if (currentTime === lastShotClockTime) return;
+
+			// Initial state setup
+			if (lastShotClockTime === null) {
+				if (currentTime <= 10) {
+					shotClockCountdown.style.display = 'block';
+					const targetScale = currentTime / 10;
+					shotClockCountdown.style.transform = `skew(-12.5deg) scaleY(${targetScale})`;
+					lastShotClockScale = targetScale;
+				} else {
+					shotClockCountdown.style.display = 'none';
+					lastShotClockScale = 1;
+				}
+				lastShotClockTime = currentTime;
 				return;
 			}
 
-			// Handle shot clock status changes
-			if (shotClockStatus !== lastShotClockStatus) {
-				if (shotClockStatus === "" || shotClockStatus === "0") { // Shot clock stopped
-					if (currentShotClockAnimation) {
-						currentShotClockAnimation.pause();
-						// Calculate remaining duration
-						const currentTime = performance.now();
-						const elapsedTime = currentTime - animationStartTime;
-						remainingDuration = time * 1000 - elapsedTime;
-					}
-				} else if (shotClockStatus === "1") { // Shot clock running
-					if (currentShotClockAnimation && remainingDuration !== null) {
-						// Resume from where we left off
-						currentShotClockAnimation.play();
-						animationStartTime = performance.now() - (time * 1000 - remainingDuration);
-					} else {
-						// Start new animation
-						shotClockCountdown.style.display = 'block';
-						if (currentShotClockAnimation) {
-							currentShotClockAnimation.cancel();
-						}
+			// Determine if the change is a consecutive decrement
+			const buffer = .5;
+			const animate = currentTime >= lastShotClockTime - buffer && currentTime < lastShotClockTime;
 
-						currentShotClockAnimation = shotClockCountdown.animate([
-							{ transform: 'skew(-12.5deg) scaleY(1)' },
-							{ transform: 'skew(-12.5deg) scaleY(0)' }
-						], {
-							duration: time * 1000,
-							easing: 'linear',
-							fill: 'forwards'
-						});
+			if (currentTime <= 10) {
+				shotClockCountdown.style.display = 'block';
+				const targetScale = currentTime / 10;
 
-						animationStartTime = performance.now();
-						remainingDuration = time * 1000;
-					}
+				if (animate) {
+					// Animate the scaleY transition
+					const animation = shotClockCountdown.animate([
+						{ transform: `skew(-12.5deg) scaleY(${lastShotClockScale})` },
+						{ transform: `skew(-12.5deg) scaleY(${targetScale})` }
+					], {
+						duration: 1000,
+						easing: 'linear',
+						fill: 'forwards'
+					});
+
+					animation.onfinish = () => {
+						shotClockCountdown.style.transform = `skew(-12.5deg) scaleY(${targetScale})`;
+						lastShotClockScale = targetScale;
+					};
+				} else {
+					// Update immediately without animation
+					shotClockCountdown.style.transform = `skew(-12.5deg) scaleY(${targetScale})`;
+					lastShotClockScale = targetScale;
 				}
-				lastShotClockStatus = shotClockStatus;
+			} else {
+				// Hide and reset when shot clock is above 10
+				shotClockCountdown.style.display = 'none';
+				lastShotClockScale = 1;
 			}
 
-			// Update the time display
-			lastShotClockTime = time;
+			lastShotClockTime = currentTime;
 		}
 
 		function updateTimeoutAnimation(timeoutClock) {
@@ -398,10 +474,16 @@
 
 			// Update shot clock and status
 			document.getElementById('shot-clock').textContent = data.shot_clock || '--';
-			updateShotClock(data.shot_clock, data.shot_clock_status);
+			updateShotClock(data.shot_clock);
 
 			// Update timeout animation
 			updateTimeoutAnimation(data.timeout_clock);
+
+			// Update home and guest team stats
+			/* document.getElementById('home-stats-text').textContent = data.home_stats;
+			document.getElementById('guest-stats-text').textContent = data.guest_stats;
+			updateStatsAnimation(homeStatsAnimation, data.home_stats, true);
+			updateStatsAnimation(guestStatsAnimation, data.guest_stats, false); */
 		}
 
 		function fetchData() {
