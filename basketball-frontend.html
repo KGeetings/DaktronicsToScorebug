@@ -479,8 +479,8 @@
 			// Update clock
 			document.getElementById('main-clock').textContent = data.clock;
 
-			// Update period
-			document.getElementById('period').textContent = data.period_desc || data.period;
+			// Update period, make sure UPPERCASE is used for period_desc
+			document.getElementById('period').textContent = data.period_desc.toUpperCase() || data.period;
 
 			// Update timeouts
 			document.getElementById('home-timeouts').textContent = transformText("home-timeouts", data.home_timeouts);

@@ -20,6 +20,7 @@ timeout_clock_min = 1
 timeout_clock_sec = 30
 guest_stats_data = "Test Guest Data"
 home_stats_data = "Test Home Data"
+home_score = 0
 
 class BasketballDataFetcher:
 	def __init__(self, url):
@@ -36,6 +37,7 @@ def generate_fake_data():
 	global shot_clock_status
 	global guest_stats_data
 	global home_stats_data
+	global home_score
 
 	# Generate fake game clock data
 	fake_data = {
@@ -43,7 +45,8 @@ def generate_fake_data():
 		"shot_clock": str(shot_clock),
 		"timeout_clock": f"{timeout_clock_min:02}:{timeout_clock_sec:02}",
 		"home_stats": home_stats_data,
-		"guest_stats": guest_stats_data
+		"guest_stats": guest_stats_data,
+		"home_score": str(home_score),
 	}
 	print(fake_data)
 
@@ -71,6 +74,10 @@ def generate_fake_data():
 	else:
 		guest_stats_data = f"Test Guest Data {random.randint(1, 100)}"
 		home_stats_data = f"Test Home Data {random.randint(1, 100)}"
+
+	# Increment the home score
+	if random.random() < 0.1:
+		home_score += 2
 
 	return fake_data
 

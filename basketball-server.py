@@ -23,7 +23,7 @@ current_game_data = {
 	'home_timeouts': 'III',
 	'guest_timeouts': 'III',
 	'period': '5TH',
-	'period_desc': 'FIFTH QUARTER',
+	'period_desc': '5TH Quarter',
 	'home_possession': '.',
 	'guest_possession': '.',
 	'home_fouls': '5',
