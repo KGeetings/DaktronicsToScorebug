@@ -305,6 +305,13 @@
 		let lastShotClockScale = 1;
 
 		function updateShotClock(shotClockTime) {
+			console.log("Shot Clock Time: " + shotClockTime + " lastShotClockScale: " + lastShotClockScale + " lastShotClockTime: " + lastShotClockTime);
+			if (shotClockTime === null || shotClockTime === undefined || shotClockTime === '--') {
+				shotClockCountdown.style.display = 'none';
+				lastShotClockTime = null;
+				lastShotClockScale = 1;
+				return;
+			}
 			const currentTime = parseInt(shotClockTime, 10) || 0;
 
 			// No change from previous update
@@ -326,8 +333,12 @@
 			}
 
 			// Determine if the change is a consecutive decrement
-			const buffer = .5;
-			const animate = currentTime >= lastShotClockTime - buffer && currentTime < lastShotClockTime;
+			const buffer = 1;
+			const isCurrentTimeGreaterThanLastMinusBuffer = currentTime >= lastShotClockTime - buffer;
+			const isCurrentTimeLessThanLast = currentTime < lastShotClockTime;
+			const animate = isCurrentTimeGreaterThanLastMinusBuffer && isCurrentTimeLessThanLast;
+			console.log("isCurrentTimeGreaterThanLastMinusBuffer: " + isCurrentTimeGreaterThanLastMinusBuffer + " isCurrentTimeLessThanLast: " + isCurrentTimeLessThanLast + " animate: " + animate + " currentTime: " + currentTime + " lastShotClockTime: " + lastShotClockTime);
+
 
 			if (currentTime <= 10) {
 				shotClockCountdown.style.display = 'block';
@@ -365,7 +376,7 @@
 		function updateTimeoutAnimation(timeoutClock) {
 			const [minutes, seconds] = timeoutClock.split(':').map(parseFloat);
 			const time = minutes * 60 + seconds;
-			console.log("Minutes: " + minutes + " Seconds: " + seconds + " Time: " + time);
+			// console.log("Minutes: " + minutes + " Seconds: " + seconds + " Time: " + time);
 
 			if (!time || time <= 0) {
 				if (timeoutAnimationState === 'showing') {

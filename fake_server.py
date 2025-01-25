@@ -77,7 +77,7 @@ def generate_fake_data():
 def toggle_shot_clock():
 	global shot_clock_status
 	while True:
-		time.sleep(random.randint(3, 5))
+		time.sleep(random.randint(5, 15))
 		if shot_clock_status == "1":
 			shot_clock_status = ""
 		else:
