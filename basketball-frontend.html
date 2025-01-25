@@ -303,10 +303,11 @@
 		// Add new variables for shot clock tracking
 		let lastShotClockTime = null;
 		let lastShotClockScale = 1;
+		let currentShotClockAnimation = null;
 
 		function updateShotClock(shotClockTime) {
 			console.log("Shot Clock Time: " + shotClockTime + " lastShotClockScale: " + lastShotClockScale + " lastShotClockTime: " + lastShotClockTime);
-			if (shotClockTime === null || shotClockTime === undefined || shotClockTime === '--') {
+			if (shotClockTime === null || shotClockTime === undefined || shotClockTime === '--' || shotClockTime === "") {
 				shotClockCountdown.style.display = 'none';
 				lastShotClockTime = null;
 				lastShotClockScale = 1;
@@ -339,11 +340,15 @@
 			const animate = isCurrentTimeGreaterThanLastMinusBuffer && isCurrentTimeLessThanLast;
 			console.log("isCurrentTimeGreaterThanLastMinusBuffer: " + isCurrentTimeGreaterThanLastMinusBuffer + " isCurrentTimeLessThanLast: " + isCurrentTimeLessThanLast + " animate: " + animate + " currentTime: " + currentTime + " lastShotClockTime: " + lastShotClockTime);
 
-
 			if (currentTime <= 10) {
 				shotClockCountdown.style.display = 'block';
 				const targetScale = currentTime / 10;
+				console.log("Target Scale: " + targetScale);
 
+				// Cancel any ongoing animation before starting a new one
+				if (currentShotClockAnimation) {
+					currentShotClockAnimation.cancel();
+				}
 				if (animate) {
 					// Animate the scaleY transition
 					const animation = shotClockCountdown.animate([
@@ -355,16 +360,22 @@
 						fill: 'forwards'
 					});
 
+					currentShotClockAnimation = animation; // Track the new animation
+					lastShotClockScale = targetScale;
+
 					animation.onfinish = () => {
 						shotClockCountdown.style.transform = `skew(-12.5deg) scaleY(${targetScale})`;
 						lastShotClockScale = targetScale;
+						currentShotClockAnimation = null; // Reset tracking
 					};
 				} else {
+					console.log("Update immediately without animation");
 					// Update immediately without animation
 					shotClockCountdown.style.transform = `skew(-12.5deg) scaleY(${targetScale})`;
 					lastShotClockScale = targetScale;
 				}
 			} else {
+				console.log("Hide and reset when shot clock is above 10");
 				// Hide and reset when shot clock is above 10
 				shotClockCountdown.style.display = 'none';
 				lastShotClockScale = 1;
