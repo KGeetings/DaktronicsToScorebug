@@ -306,7 +306,6 @@
 		let currentShotClockAnimation = null;
 
 		function updateShotClock(shotClockTime) {
-			console.log("Shot Clock Time: " + shotClockTime + " lastShotClockScale: " + lastShotClockScale + " lastShotClockTime: " + lastShotClockTime);
 			if (shotClockTime === null || shotClockTime === undefined || shotClockTime === '--' || shotClockTime === "") {
 				shotClockCountdown.style.display = 'none';
 				lastShotClockTime = null;
@@ -338,12 +337,10 @@
 			const isCurrentTimeGreaterThanLastMinusBuffer = currentTime >= lastShotClockTime - buffer;
 			const isCurrentTimeLessThanLast = currentTime < lastShotClockTime;
 			const animate = isCurrentTimeGreaterThanLastMinusBuffer && isCurrentTimeLessThanLast;
-			console.log("isCurrentTimeGreaterThanLastMinusBuffer: " + isCurrentTimeGreaterThanLastMinusBuffer + " isCurrentTimeLessThanLast: " + isCurrentTimeLessThanLast + " animate: " + animate + " currentTime: " + currentTime + " lastShotClockTime: " + lastShotClockTime);
 
 			if (currentTime <= 10) {
 				shotClockCountdown.style.display = 'block';
 				const targetScale = currentTime / 10;
-				console.log("Target Scale: " + targetScale);
 
 				// Cancel any ongoing animation before starting a new one
 				if (currentShotClockAnimation) {
@@ -369,13 +366,11 @@
 						currentShotClockAnimation = null; // Reset tracking
 					};
 				} else {
-					console.log("Update immediately without animation");
 					// Update immediately without animation
 					shotClockCountdown.style.transform = `skew(-12.5deg) scaleY(${targetScale})`;
 					lastShotClockScale = targetScale;
 				}
 			} else {
-				console.log("Hide and reset when shot clock is above 10");
 				// Hide and reset when shot clock is above 10
 				shotClockCountdown.style.display = 'none';
 				lastShotClockScale = 1;
@@ -387,7 +382,6 @@
 		function updateTimeoutAnimation(timeoutClock) {
 			const [minutes, seconds] = timeoutClock.split(':').map(parseFloat);
 			const time = minutes * 60 + seconds;
-			// console.log("Minutes: " + minutes + " Seconds: " + seconds + " Time: " + time);
 
 			if (!time || time <= 0) {
 				if (timeoutAnimationState === 'showing') {

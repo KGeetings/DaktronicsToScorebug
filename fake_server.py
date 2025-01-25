@@ -47,6 +47,7 @@ def generate_fake_data():
 		"home_stats": home_stats_data,
 		"guest_stats": guest_stats_data,
 		"home_score": str(home_score),
+		"period_desc": "5TH Quarter",
 	}
 	print(fake_data)
 
