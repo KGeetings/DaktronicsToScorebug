@@ -306,7 +306,7 @@
 
 		function updateShotClock(shotClockTime) {
 			console.log("Shot Clock Time: " + shotClockTime + " lastShotClockScale: " + lastShotClockScale + " lastShotClockTime: " + lastShotClockTime);
-			if (shotClockTime === null || shotClockTime === undefined || shotClockTime === '--') {
+			if (shotClockTime === null || shotClockTime === undefined || shotClockTime === '--' || shotClockTime === "") {
 				shotClockCountdown.style.display = 'none';
 				lastShotClockTime = null;
 				lastShotClockScale = 1;
