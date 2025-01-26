@@ -16,8 +16,8 @@ log.setLevel(logging.ERROR)
 shot_clock_status = "1"
 current_game_data = {}
 shot_clock = 15
-timeout_clock_min = 1
-timeout_clock_sec = 30
+timeout_clock_min = 0
+timeout_clock_sec = 20
 guest_stats_data = "Test Guest Data"
 home_stats_data = "Test Home Data"
 home_score = 0
@@ -47,6 +47,7 @@ def generate_fake_data():
 		"home_stats": home_stats_data,
 		"guest_stats": guest_stats_data,
 		"home_score": str(home_score),
+		"guest_score": "10",
 		"period_desc": "5TH Quarter",
 	}
 	print(fake_data)

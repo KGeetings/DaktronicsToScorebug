@@ -131,11 +131,23 @@
 			z-index: 4;
 		}
 
-		.score {
+		.number-ticker {
+			overflow: hidden;
+			height: 1em;
+			background: transparent;
 			position: absolute;
 			font-size: 230px;
 			font-weight: 700;
-			top: 13%;
+			top: 15%;
+			font-family: "Rubik", serif;
+			font-style: italic;
+		}
+
+		.digit {
+			float: left;
+			line-height: 1;
+			transition: margin-top 3s ease;
+			font-variant-numeric: tabular-nums;
 		}
 
 		#home-score {
@@ -209,12 +221,12 @@
 		<div class="clock" id="shot-clock">12</div>
 
 		<div class="possession" id="home-possession"></div>
-		<div class="score" id="home-score">0</div>
+		<div class="score number-ticker" id="home-score" data-value="0"></div>
 		<div class="timeouts" id="home-timeouts"></div>
 		<div class="fouls" id="home-fouls">0</div>
 
 		<div class="possession" id="guest-possession"></div>
-		<div class="score" id="guest-score">0</div>
+		<div class="score number-ticker" id="guest-score" data-value="0"></div>
 		<div class="timeouts" id="guest-timeouts"></div>
 		<div class="fouls" id="guest-fouls">0</div>
 
@@ -456,10 +468,69 @@
 			return value;
 		}
 
+		const defaultDigitNode = document.createElement('div');
+		defaultDigitNode.classList.add('digit');
+		for (let i = 0; i < 10; i++) {
+			defaultDigitNode.innerHTML += i + '<br>';
+		}
+
+		function createNumberTicker(element) {
+			let currentValue = 0;
+			let digits = [];
+
+			function generateDigits(amount) {
+				for (let i = 0; i < amount; i++) {
+					const d = defaultDigitNode.cloneNode(true);
+					element.appendChild(d);
+					digits.unshift(d);
+				}
+			}
+
+			function setValue(newValue) {
+				const newNumber = parseInt(newValue, 10);
+				if (newNumber === currentValue) return;
+
+				const s = String(newNumber).split('').reverse().join('');
+				if (s.length > digits.length) {
+					generateDigits(s.length - digits.length);
+				}
+
+				digits.forEach((digit, index) => {
+					const num = s[index] || '0';
+					digit.style.marginTop = `-${num}em`;
+				});
+
+				currentValue = newNumber;
+			}
+
+			// Initialize with current value
+			const initialValue = parseInt(element.getAttribute('data-value'), 10) || 0;
+			setValue(initialValue);
+
+			return { setValue };
+		}
+
+		// Initialize tickers
+		const homeTicker = createNumberTicker(document.getElementById('home-score'));
+		const guestTicker = createNumberTicker(document.getElementById('guest-score'));
+
+		let lastHomeScore = 0;
+		let lastGuestScore = 0;
+
 		function updateScoreboard(data) {
-			// Update scores
-			document.getElementById('home-score').textContent = data.home_score;
-			document.getElementById('guest-score').textContent = data.guest_score;
+			// Update scores with animation
+			const homeScore = parseInt(data.home_score, 10);
+			const guestScore = parseInt(data.guest_score, 10);
+
+			if (homeScore !== lastHomeScore) {
+				homeTicker.setValue(homeScore);
+				lastHomeScore = homeScore;
+			}
+
+			if (guestScore !== lastGuestScore) {
+				guestTicker.setValue(guestScore);
+				lastGuestScore = guestScore;
+			}
 
 			// Update clock
 			document.getElementById('main-clock').textContent = data.clock;
