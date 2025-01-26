@@ -44,6 +44,11 @@
 			z-index: 3;
 		}
 
+		@keyframes flashRed {
+			0% { background: rgba(255, 0, 0, 1); } /* Fully Red */
+			100% { background: rgba(255, 0, 0, 0.3); } /* Fades out */
+		}
+
 		/* Timeout Animation */
 		#timeout-animation {
 			position: absolute;
@@ -305,12 +310,13 @@
 		let lastShotClockScale = 1;
 
 		function updateShotClock(shotClockTime) {
-			if (shotClockTime === null || shotClockTime === undefined || shotClockTime === '--' || shotClockTime === "") {
+			if (!shotClockTime || shotClockTime === '--' || shotClockTime === "") {
 				shotClockCountdown.style.display = 'none';
 				lastShotClockTime = null;
 				lastShotClockScale = 1;
 				return;
 			}
+
 			const currentTime = parseInt(shotClockTime, 10) || 0;
 
 			// No change from previous update
@@ -335,13 +341,14 @@
 			const buffer = 1;
 			const animate = currentTime >= lastShotClockTime - buffer && currentTime < lastShotClockTime;
 
+			// When shot clock is 1 or below, flash at full scale
 			if (currentTime <= 10) {
 				shotClockCountdown.style.display = 'block';
 				const targetScale = currentTime / 10;
 
 				if (animate) {
 					// Animate the scaleY transition
-					const animation = shotClockCountdown.animate([
+					shotClockCountdown.animate([
 						{ transform: `skew(-12.5deg) scaleY(${lastShotClockScale})` },
 						{ transform: `skew(-12.5deg) scaleY(${targetScale})` }
 					], {
@@ -349,13 +356,11 @@
 						easing: 'linear',
 						fill: 'forwards'
 					});
-
-					lastShotClockScale = targetScale;
 				} else {
 					// Update immediately without animation
 					shotClockCountdown.style.transform = `skew(-12.5deg) scaleY(${targetScale})`;
-					lastShotClockScale = targetScale;
 				}
+				lastShotClockScale = targetScale;
 			} else {
 				// Hide and reset when shot clock is above 10
 				shotClockCountdown.style.display = 'none';
