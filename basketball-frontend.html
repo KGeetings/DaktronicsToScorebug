@@ -481,8 +481,9 @@
 			function generateDigits(amount) {
 				for (let i = 0; i < amount; i++) {
 					const d = defaultDigitNode.cloneNode(true);
+					d.isNew = true; // Mark as new
 					element.appendChild(d);
-					digits.unshift(d);
+					digits.unshift(d); // Add to start of array
 				}
 			}
 
@@ -497,7 +498,15 @@
 
 				digits.forEach((digit, index) => {
 					const num = s[index] || '0';
-					digit.style.marginTop = `-${num}em`;
+					if (digit.isNew) {
+						// Start new digit at 0 and animate to target
+						digit.style.marginTop = '0em';
+						void digit.offsetHeight; // Trigger reflow
+						digit.style.marginTop = `-${num}em`;
+						digit.isNew = false; // Mark as initialized
+					} else {
+						digit.style.marginTop = `-${num}em`;
+					}
 				});
 
 				currentValue = newNumber;
