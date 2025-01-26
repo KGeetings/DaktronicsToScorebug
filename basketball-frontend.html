@@ -78,7 +78,7 @@
 			background: rgba(19, 203, 209, 0.7);
 			transform-origin: bottom;
 			transform: skew(-12.5deg) translateX(100%);
-			display: none;
+			/* display: none; */
 			z-index: 1;
 		}
 
@@ -303,7 +303,6 @@
 		// Add new variables for shot clock tracking
 		let lastShotClockTime = null;
 		let lastShotClockScale = 1;
-		let currentShotClockAnimation = null;
 
 		function updateShotClock(shotClockTime) {
 			if (shotClockTime === null || shotClockTime === undefined || shotClockTime === '--' || shotClockTime === "") {
@@ -334,18 +333,12 @@
 
 			// Determine if the change is a consecutive decrement
 			const buffer = 1;
-			const isCurrentTimeGreaterThanLastMinusBuffer = currentTime >= lastShotClockTime - buffer;
-			const isCurrentTimeLessThanLast = currentTime < lastShotClockTime;
-			const animate = isCurrentTimeGreaterThanLastMinusBuffer && isCurrentTimeLessThanLast;
+			const animate = currentTime >= lastShotClockTime - buffer && currentTime < lastShotClockTime;
 
 			if (currentTime <= 10) {
 				shotClockCountdown.style.display = 'block';
 				const targetScale = currentTime / 10;
 
-				// Cancel any ongoing animation before starting a new one
-				if (currentShotClockAnimation) {
-					currentShotClockAnimation.cancel();
-				}
 				if (animate) {
 					// Animate the scaleY transition
 					const animation = shotClockCountdown.animate([
@@ -357,14 +350,7 @@
 						fill: 'forwards'
 					});
 
-					currentShotClockAnimation = animation; // Track the new animation
 					lastShotClockScale = targetScale;
-
-					animation.onfinish = () => {
-						shotClockCountdown.style.transform = `skew(-12.5deg) scaleY(${targetScale})`;
-						lastShotClockScale = targetScale;
-						currentShotClockAnimation = null; // Reset tracking
-					};
 				} else {
 					// Update immediately without animation
 					shotClockCountdown.style.transform = `skew(-12.5deg) scaleY(${targetScale})`;
@@ -496,10 +482,10 @@
 			updateTimeoutAnimation(data.timeout_clock);
 
 			// Update home and guest team stats
-			/* document.getElementById('home-stats-text').textContent = data.home_stats;
+			document.getElementById('home-stats-text').textContent = data.home_stats;
 			document.getElementById('guest-stats-text').textContent = data.guest_stats;
 			updateStatsAnimation(homeStatsAnimation, data.home_stats, true);
-			updateStatsAnimation(guestStatsAnimation, data.guest_stats, false); */
+			updateStatsAnimation(guestStatsAnimation, data.guest_stats, false);
 		}
 
 		function fetchData() {
