@@ -480,10 +480,10 @@
 
 			function generateDigits(amount) {
 				for (let i = 0; i < amount; i++) {
-					const d = defaultDigitNode.cloneNode(true);
-					d.isNew = true; // Mark as new
-					element.appendChild(d);
-					digits.unshift(d); // Add to start of array
+					const digitNode = defaultDigitNode.cloneNode(true);
+					digitNode.isNew = true; // Mark as new
+					element.appendChild(digitNode);
+					digits.unshift(digitNode); // Add to start of array
 				}
 			}
 
@@ -491,13 +491,13 @@
 				const newNumber = parseInt(newValue, 10);
 				if (newNumber === currentValue) return;
 
-				const s = String(newNumber).split('').reverse().join('');
-				if (s.length > digits.length) {
-					generateDigits(s.length - digits.length);
+				const reversedNumberString = String(newNumber).split('').reverse().join('');
+				if (reversedNumberString.length > digits.length) {
+					generateDigits(reversedNumberString.length - digits.length);
 				}
 
 				digits.forEach((digit, index) => {
-					const num = s[index] || '0';
+					const num = reversedNumberString[index] || '0';
 					if (digit.isNew) {
 						// Start new digit at 0 and animate to target
 						digit.style.marginTop = '0em';
