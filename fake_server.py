@@ -91,7 +91,7 @@ def generate_fake_data():
 		guest_stats_data = f"Test Guest Data {random.randint(1, 100)}"
 		home_stats_data = f"Test Home Data {random.randint(1, 100)}"
 
-	# Increment the home score
+	# Increment/decrement the score, fouls, timeouts
 	if random.random() < 0.1:
 		home_score += 3
 		guest_score += 1
@@ -99,6 +99,9 @@ def generate_fake_data():
 		guest_fouls += 1
 		home_timeouts -= 1
 		guest_timeouts -= 1
+
+	if home_score > 15:
+		home_score = 0
 
 	return fake_data
 
