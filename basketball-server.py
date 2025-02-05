@@ -18,8 +18,8 @@ CORS(app)  # Enable CORS for all routes
 # Global variable to store the latest game data
 current_game_data = {
 	'clock': '55:55',
-	'home_score': '0',
-	'guest_score': '0',
+	'home_score': '1',
+	'guest_score': '1',
 	'home_timeouts': 'III',
 	'guest_timeouts': 'III',
 	'period': '5TH',
