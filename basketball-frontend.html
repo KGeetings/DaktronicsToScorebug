@@ -225,6 +225,19 @@
 		.blink {
 			animation: blink 0.5s ease-in-out 3;
 		}
+
+		.timeouts span {
+			transition: opacity 0.3s ease-in-out;
+		}
+
+		.timeouts span.blink {
+			animation: blinkTimeout 0.5s ease-in-out 6;
+		}
+
+		@keyframes blinkTimeout {
+			0%, 100% { opacity: 1; }
+			50% { opacity: 0; }
+		}
 	</style>
 </head>
 
@@ -455,6 +468,50 @@
 			}
 		}
 
+		function createTimeoutDisplay(elementId) {
+			const element = document.getElementById(elementId);
+			element.innerHTML = ''; // Clears any existing content, otherwise we just append a LOT more...oops
+			let currentTimeouts = [];
+			let isAnimating = false;
+
+			function updateTimeouts(newCount) {
+				newCount = parseInt(newCount) || 0;
+				const previousCount = currentTimeouts.length;
+
+				if (newCount === previousCount) return;
+
+				// Clear existing timeouts first
+				element.innerHTML = '';
+				currentTimeouts = [];
+
+				// Create all new timeout indicators
+				for (let i = 0; i < newCount; i++) {
+					const timeoutSpan = document.createElement('span');
+					timeoutSpan.textContent = 'I ';
+					element.appendChild(timeoutSpan);
+					currentTimeouts.push(timeoutSpan);
+				}
+
+				// If we're removing timeouts and not currently animating
+				if (newCount < previousCount && !isAnimating) {
+					for (let i = newCount; i < previousCount; i++) {
+						const timeoutSpan = document.createElement('span');
+						timeoutSpan.textContent = 'I ';
+						timeoutSpan.classList.add('blink');
+						element.appendChild(timeoutSpan);
+
+						isAnimating = true;
+						setTimeout(() => {
+							timeoutSpan.remove();
+							isAnimating = false;
+						}, 3000);
+					}
+				}
+			}
+
+			return { updateTimeouts };
+		}
+
 		const textTransformations = {
 			"home-possession": {
 				">": ".",
@@ -467,21 +524,7 @@
 				"<": ".",
 				"None": "",
 				"": ""
-			},
-			"home-timeouts": (() => {
-				let obj = {};
-				for (let i = 0; i < 10; i++) {
-					obj[i.toString()] = "I ".repeat(i);
-				}
-				return obj;
-			})(),
-			"guest-timeouts": (() => {
-				let obj = {};
-				for (let i = 0; i < 10; i++) {
-					obj[i.toString()] = "I ".repeat(i);
-				}
-				return obj;
-			})()
+			}
 		};
 
 		function transformText(key, value) {
@@ -557,6 +600,9 @@
 		const homeTicker = createNumberTicker(document.getElementById('home-score'));
 		const guestTicker = createNumberTicker(document.getElementById('guest-score'));
 
+		const homeTimeoutDisplay = createTimeoutDisplay('home-timeouts');
+		const guestTimeoutDisplay = createTimeoutDisplay('guest-timeouts');
+
 		let lastHomeScore = 0;
 		let lastGuestScore = 0;
 		let lastHomeTimeouts = 0;
@@ -589,20 +635,9 @@
 			const homeTimeouts = parseInt(data.home_timeouts, 10) || 0;
 			const guestTimeouts = parseInt(data.guest_timeouts, 10) || 0;
 
-			// Home timeouts animation
-			if (homeTimeouts < lastHomeTimeouts) {
-				const element = document.getElementById('home-timeouts');
-				element.classList.add('blink');
-				setTimeout(() => element.classList.remove('blink'), 3000);
-			}
-			// Guest timeouts animation
-			if (guestTimeouts < lastGuestTimeouts) {
-				const element = document.getElementById('guest-timeouts');
-				element.classList.add('blink');
-				setTimeout(() => element.classList.remove('blink'), 3000);
-			}
-			document.getElementById('home-timeouts').textContent = transformText("home-timeouts", data.home_timeouts);
-			document.getElementById('guest-timeouts').textContent = transformText("guest-timeouts", data.guest_timeouts);
+			homeTimeoutDisplay.updateTimeouts(homeTimeouts);
+			guestTimeoutDisplay.updateTimeouts(guestTimeouts);
+
 			lastHomeTimeouts = homeTimeouts;
 			lastGuestTimeouts = guestTimeouts;
 
