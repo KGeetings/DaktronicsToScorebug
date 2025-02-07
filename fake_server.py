@@ -64,7 +64,8 @@ def generate_fake_data():
 		"guest_fouls": str(guest_fouls),
 		"period_desc": "5TH Quarter",
 	}
-	print(fake_data)
+	#print(fake_data)
+	print("Home Score: ", home_score, " Guest Score: ", guest_score, " Home Fouls: ", home_fouls, " Guest Fouls: ", guest_fouls, " Home Timeouts: ", home_timeouts, " Guest Timeouts: ", guest_timeouts)
 
 	# Decrement the shot clock only if the shot clock status is "1"
 	if shot_clock_status == "1":
@@ -102,6 +103,9 @@ def generate_fake_data():
 
 	if home_score > 15:
 		home_score = 0
+	if home_timeouts < 0:
+		home_timeouts = 5
+		guest_timeouts = 5
 
 	return fake_data
 

@@ -45,8 +45,16 @@
 		}
 
 		@keyframes flashRed {
-			0% { background: rgba(255, 0, 0, 1); } /* Fully Red */
-			100% { background: rgba(255, 0, 0, 0.3); } /* Fades out */
+			0% {
+				background: rgba(255, 0, 0, 1);
+			}
+
+			/* Fully Red */
+			100% {
+				background: rgba(255, 0, 0, 0.3);
+			}
+
+			/* Fades out */
 		}
 
 		/* Timeout Animation */
@@ -201,6 +209,21 @@
 
 		#guest-fouls {
 			left: 42%;
+		}
+
+		@keyframes blink {
+			0%,
+			100% {
+				opacity: 1;
+			}
+
+			50% {
+				opacity: 0;
+			}
+		}
+
+		.blink {
+			animation: blink 0.5s ease-in-out 3;
 		}
 	</style>
 </head>
@@ -525,6 +548,10 @@
 
 		let lastHomeScore = 0;
 		let lastGuestScore = 0;
+		let lastHomeTimeouts = 0;
+		let lastGuestTimeouts = 0;
+		let lastHomeFouls = 0;
+		let lastGuestFouls = 0;
 
 		function updateScoreboard(data) {
 			// Update scores with animation
@@ -547,17 +574,53 @@
 			// Update period, make sure UPPERCASE is used for period_desc
 			document.getElementById('period').textContent = data.period_desc.toUpperCase() || data.period;
 
-			// Update timeouts
+			// Update timeouts with animation
+			const homeTimeouts = parseInt(data.home_timeouts, 10) || 0;
+			const guestTimeouts = parseInt(data.guest_timeouts, 10) || 0;
+
+			// Home timeouts animation
+			if (homeTimeouts < lastHomeTimeouts) {
+				const element = document.getElementById('home-timeouts');
+				element.classList.add('blink');
+				setTimeout(() => element.classList.remove('blink'), 3000);
+			}
+			// Guest timeouts animation
+			if (guestTimeouts < lastGuestTimeouts) {
+				const element = document.getElementById('guest-timeouts');
+				element.classList.add('blink');
+				setTimeout(() => element.classList.remove('blink'), 3000);
+			}
 			document.getElementById('home-timeouts').textContent = transformText("home-timeouts", data.home_timeouts);
 			document.getElementById('guest-timeouts').textContent = transformText("guest-timeouts", data.guest_timeouts);
+			lastHomeTimeouts = homeTimeouts;
+			lastGuestTimeouts = guestTimeouts;
+
+			// Update fouls with animation
+			const homeFouls = parseInt(data.home_fouls, 10) || 0;
+			const guestFouls = parseInt(data.guest_fouls, 10) || 0;
+
+			console.log("homeFouls: " + homeFouls, " LastHomeFouls: " + lastHomeFouls, " homeTimeouts: " + homeTimeouts, " LastHomeTimeouts: " + lastHomeTimeouts);
+
+			// Home fouls animation
+			if (homeFouls !== lastHomeFouls) {
+				const element = document.getElementById('home-fouls');
+				element.classList.add('blink');
+				setTimeout(() => element.classList.remove('blink'), 3000);
+			}
+			// Guest fouls animation
+			if (guestFouls !== lastGuestFouls) {
+				const element = document.getElementById('guest-fouls');
+				element.classList.add('blink');
+				setTimeout(() => element.classList.remove('blink'), 3000);
+			}
+			document.getElementById('home-fouls').textContent = homeFouls;
+			document.getElementById('guest-fouls').textContent = guestFouls;
+			lastHomeFouls = homeFouls;
+			lastGuestFouls = guestFouls;
 
 			// Update possession indicators
 			document.getElementById('home-possession').textContent = transformText("home-possession", data.home_possession ? '>' : '');
 			document.getElementById('guest-possession').textContent = transformText("guest-possession", data.guest_possession ? '>' : '');
-
-			// Update fouls
-			document.getElementById('home-fouls').textContent = data.home_fouls;
-			document.getElementById('guest-fouls').textContent = data.guest_fouls;
 
 			// Update shot clock and status
 			document.getElementById('shot-clock').textContent = data.shot_clock || '--';
