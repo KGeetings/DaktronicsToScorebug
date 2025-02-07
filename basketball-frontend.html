@@ -330,8 +330,8 @@
 
 			// Animate sliding in
 			const slideInAnimation = statsElement.animate([
-				{ clipPath: isHome ? 'inset(0% 0% 0% 100%)' : 'inset(0% 0% 0% 0%)' },
-				{ clipPath: isHome ? 'inset(0% 0% 0% 0%)' : 'inset(0% 0% 0% 100%)' }
+				{ clipPath: isHome ? 'inset(0% 100% 0% 0%)' : 'inset(0% 0% 0% 100%)' },
+				{ clipPath: isHome ? 'inset(0% 0% 0% 0%)' : 'inset(0% 0% 0% 0%)' }
 			], {
 				duration: 1000,
 				easing: 'ease-out',
@@ -342,8 +342,8 @@
 			slideInAnimation.onfinish = () => {
 				// Animate sliding out after 3 seconds
 				const slideOutAnimation = statsElement.animate([
-					{ clipPath: isHome ? 'inset(0% 0% 0% 0%)' : 'inset(0% 0% 0% 100%)' },
-					{ clipPath: isHome ? 'inset(0% 0% 0% 100%)' : 'inset(0% 0% 0% 0%)' }
+					{ clipPath: isHome ? 'inset(0% 0% 0% 0%)' : 'inset(0% 0% 0% 0%)' },
+					{ clipPath: isHome ? 'inset(0% 100% 0% 0%)' : 'inset(0% 0% 0% 100%)' }
 				], {
 					duration: 1000,
 					easing: 'ease-in',
