@@ -20,6 +20,8 @@ timeout_clock_min = 0
 timeout_clock_sec = 20
 guest_stats = "Test Guest Data"
 home_stats = "Test Home Data"
+home_stats_duration = 3
+guest_stats_duration = 3
 home_score = 0
 guest_score = 0
 home_timeouts = 5
@@ -36,7 +38,7 @@ class BasketballDataFetcher:
 		return generate_fake_data()
 
 def update_stats():
-	global home_score, guest_score, home_fouls, guest_fouls, home_timeouts, guest_timeouts, guest_stats, home_stats
+	global home_score, guest_score, home_fouls, guest_fouls, home_timeouts, guest_timeouts, guest_stats, home_stats, home_stats_duration, guest_stats_duration
 
 	home_score += 3
 	guest_score += 1
@@ -69,6 +71,8 @@ def generate_fake_data():
 	global guest_timeouts
 	global home_fouls
 	global guest_fouls
+	global home_stats_duration
+	global guest_stats_duration
 
 	# Generate fake game clock data
 	fake_data = {
@@ -84,9 +88,11 @@ def generate_fake_data():
 		"home_fouls": str(home_fouls),
 		"guest_fouls": str(guest_fouls),
 		"period_desc": "5TH Quarter",
+		'home_stats_duration': home_stats_duration,
+		'guest_stats_duration': guest_stats_duration,
 	}
 
-	print("Home Stats: ", home_stats, "\tGuest Stats: ", guest_stats)
+	print("Home Stats: ", home_stats, "\tHome Stats Duration: ", home_stats_duration)
 
 	# Decrement the shot clock only if the shot clock status is "1"
 	if shot_clock_status == "1":
@@ -108,15 +114,27 @@ def generate_fake_data():
 	return fake_data
 
 def toggle_shot_clock():
-	global shot_clock_status
+	global shot_clock_status, home_stats_duration, guest_stats_duration
 	if shot_clock_status == "1":
 		shot_clock_status = ""
+		home_stats_duration = 0
+		guest_stats_duration = 0
 	else:
 		shot_clock_status = "1"
+		home_stats_duration = 3
+		guest_stats_duration = 3
+
+def clear_stats():
+	global guest_stats, home_stats, home_stats_duration, guest_stats_duration
+	guest_stats = ""
+	home_stats = ""
+	home_stats_duration = 0
+	guest_stats_duration = 0
 
 def handle_keyboard_input():
 	keyboard.on_press_key("n", lambda _: update_stats())
 	keyboard.on_press_key("t", lambda _: toggle_shot_clock())
+	keyboard.on_press_key("m", lambda _: clear_stats())
 
 def update_data_loop(fetcher):
 	global current_game_data

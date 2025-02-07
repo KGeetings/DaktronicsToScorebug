@@ -281,12 +281,7 @@
 		const guestStatsAnimation = document.getElementById('guest-stats-animation');
 
 		let currentTimeoutAnimation = null;
-		let currentHomeStatsAnimation = null;
-		let currentGuestStatsAnimation = null;
 		let timeoutAnimationState = 'hidden'; // Can be 'hidden', 'showing', or 'hiding'
-
-		let lastHomeStats = null;
-		let lastGuestStats = null;
 
 		// Add new variables for shot clock tracking
 		let lastShotClockTime = null;
@@ -305,18 +300,42 @@
 		let lastHomeFouls = 0;
 		let lastGuestFouls = 0;
 
-		function updateStatsAnimation(statsElement, statsText, isHome) {
+		// Stats animation state and tracking
+		let currentHomeStatsAnimation = null;
+		let currentGuestStatsAnimation = null;
+		let lastHomeStats = null;
+		let lastGuestStats = null;
+		let homeStatsTimeout = null;
+		let guestStatsTimeout = null;
+
+		function updateStatsAnimation(statsElement, statsText, duration, isHome) {
 			// If no stats or stats haven't changed, do nothing
 			const currentStats = statsText.trim();
 			const lastStats = isHome ? lastHomeStats : lastGuestStats;
 
+			console.log("currentStats: " + currentStats, " lastStats: " + lastStats, " duration: " + duration);
 			if (currentStats === lastStats) return;
+
+			// Clear any existing timeouts
+			if (isHome && homeStatsTimeout) {
+				clearTimeout(homeStatsTimeout);
+				homeStatsTimeout = null;
+			} else if (!isHome && guestStatsTimeout) {
+				clearTimeout(guestStatsTimeout);
+				guestStatsTimeout = null;
+			}
 
 			// Update the tracked last stats
 			if (isHome) {
 				lastHomeStats = currentStats;
 			} else {
 				lastGuestStats = currentStats;
+			}
+
+			// If stats are empty, hide the element
+			if (!currentStats) {
+				statsElement.style.display = 'none';
+				return;
 			}
 
 			// Cancel any existing animation for this stats element
@@ -340,37 +359,43 @@
 				fill: 'forwards'
 			});
 
-			// Callback to start hiding after 3 seconds
-			slideInAnimation.onfinish = () => {
-				// Animate sliding out after 3 seconds
-				const slideOutAnimation = statsElement.animate([
-					{ clipPath: isHome ? 'inset(0% 0% 0% 0%)' : 'inset(0% 0% 0% 0%)' },
-					{ clipPath: isHome ? 'inset(0% 100% 0% 0%)' : 'inset(0% 0% 0% 100%)' }
-				], {
-					duration: 1000,
-					easing: 'ease-in',
-					fill: 'forwards',
-					delay: 3000
-					/* delay: 10000000 */
-				});
-
-				slideOutAnimation.onfinish = () => {
-					statsElement.style.display = 'none';
-				};
-
-				// Store the current animation
-				if (isHome) {
-					currentHomeStatsAnimation = slideOutAnimation;
-				} else {
-					currentGuestStatsAnimation = slideOutAnimation;
-				}
-			};
-
 			// Store the current animation
 			if (isHome) {
 				currentHomeStatsAnimation = slideInAnimation;
 			} else {
 				currentGuestStatsAnimation = slideInAnimation;
+			}
+
+			// If duration is set (not infinite), schedule the hide animation
+			if (duration > 0) {
+				const hideTimeout = setTimeout(() => {
+					const slideOutAnimation = statsElement.animate([
+						{ clipPath: isHome ? 'inset(0% 0% 0% 0%)' : 'inset(0% 0% 0% 0%)' },
+						{ clipPath: isHome ? 'inset(0% 100% 0% 0%)' : 'inset(0% 0% 0% 100%)' }
+					], {
+						duration: 1000,
+						easing: 'ease-in',
+						fill: 'forwards'
+					});
+
+					slideOutAnimation.onfinish = () => {
+						statsElement.style.display = 'none';
+					};
+
+					// Store the current animation
+					if (isHome) {
+						currentHomeStatsAnimation = slideOutAnimation;
+					} else {
+						currentGuestStatsAnimation = slideOutAnimation;
+					}
+				}, duration * 1000);
+
+				// Store the timeout
+				if (isHome) {
+					homeStatsTimeout = hideTimeout;
+				} else {
+					guestStatsTimeout = hideTimeout;
+				}
 			}
 		}
 
@@ -678,14 +703,17 @@
 			// Update timeout animation
 			updateTimeoutAnimation(data.timeout_clock);
 
-			// Update home and guest team stats
+			 // Update home and guest team stats with durations
 			const homeStats = data.home_stats;
 			const guestStats = data.guest_stats;
-			document.getElementById('home-stats-text').textContent = homeStats;
-			document.getElementById('guest-stats-text').textContent = guestStats;
-			updateStatsAnimation(homeStatsAnimation, homeStats, true);
-			updateStatsAnimation(guestStatsAnimation, guestStats, false);
-			console.log("Home Stats: " + homeStats, " Guest Stats: " + guestStats);
+			const homeStatsDuration = data.home_stats_duration;
+			const guestStatsDuration = data.guest_stats_duration;
+
+			document.getElementById('home-stats-text').innerHTML = homeStats;  // Using innerHTML to support HTML formatting
+			document.getElementById('guest-stats-text').innerHTML = guestStats;
+
+			updateStatsAnimation(homeStatsAnimation, homeStats, homeStatsDuration, true);
+			updateStatsAnimation(guestStatsAnimation, guestStats, guestStatsDuration, false);
 		}
 
 		function fetchData() {
