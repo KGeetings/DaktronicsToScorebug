@@ -510,13 +510,24 @@
 				}
 			}
 
+			function removeExtraDigits(targetLength) {
+				while (digits.length > targetLength) {
+					const digitToRemove = digits.shift(); // Remove from start of array
+					element.removeChild(digitToRemove);
+				}
+			}
+
 			function setValue(newValue) {
 				const newNumber = parseInt(newValue, 10);
 				if (newNumber === currentValue) return;
 
 				const reversedNumberString = String(newNumber).split('').reverse().join('');
+
+				// Handle adding or removing digits
 				if (reversedNumberString.length > digits.length) {
 					generateDigits(reversedNumberString.length - digits.length);
+				} else if (reversedNumberString.length < digits.length) {
+					removeExtraDigits(reversedNumberString.length);
 				}
 
 				digits.forEach((digit, index) => {
