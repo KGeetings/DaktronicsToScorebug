@@ -35,6 +35,27 @@ class BasketballDataFetcher:
 		# Generate fake data
 		return generate_fake_data()
 
+def update_stats():
+	global home_score, guest_score, home_fouls, guest_fouls, home_timeouts, guest_timeouts, guest_stats, home_stats
+
+	home_score += 3
+	guest_score += 1
+	home_fouls += 1
+	guest_fouls += 1
+	home_timeouts -= 1
+	guest_timeouts -= 1
+
+	# Generate new stats data
+	guest_stats = f"Test Guest Data {guest_fouls}"
+	home_stats = f"Test Home Data {home_fouls}"
+
+	# Reset scores and timeouts if needed
+	if home_score > 15:
+		home_score = 0
+	if home_timeouts < 0:
+		home_timeouts = 5
+		guest_timeouts = 5
+
 def generate_fake_data():
 	global shot_clock
 	global timeout_clock_min
@@ -64,9 +85,8 @@ def generate_fake_data():
 		"guest_fouls": str(guest_fouls),
 		"period_desc": "5TH Quarter",
 	}
-	#print(fake_data)
+
 	print("Home Stats: ", home_stats, "\tGuest Stats: ", guest_stats)
-	#print("Home Score: ", home_score, " Guest Score: ", guest_score, " Home Fouls: ", home_fouls, " Guest Fouls: ", guest_fouls, " Home Timeouts: ", home_timeouts, " Guest Timeouts: ", guest_timeouts)
 
 	# Decrement the shot clock only if the shot clock status is "1"
 	if shot_clock_status == "1":
@@ -85,38 +105,18 @@ def generate_fake_data():
 	else:
 		timeout_clock_sec -= 1
 
-	# Increment/decrement the score, fouls, timeouts
-	if random.random() < 0.05:
-		home_score += 3
-		guest_score += 1
-		home_fouls += 1
-		guest_fouls += 1
-		home_timeouts -= 1
-		guest_timeouts -= 1
-		# Generate and occasionally clear fake stats data
-		if random.random() < 0.2:
-			guest_stats = ""
-			home_stats = ""
-		if random.random() > 0.2:
-			guest_stats = f"Test Guest Data {random.randint(1, 100)}"
-			home_stats = f"Test Home Data {random.randint(1, 100)}"
-
-	if home_score > 15:
-		home_score = 0
-	if home_timeouts < 0:
-		home_timeouts = 5
-		guest_timeouts = 5
-
 	return fake_data
 
 def toggle_shot_clock():
 	global shot_clock_status
-	while True:
-		time.sleep(random.randint(5, 15))
-		if shot_clock_status == "1":
-			shot_clock_status = ""
-		else:
-			shot_clock_status = "1"
+	if shot_clock_status == "1":
+		shot_clock_status = ""
+	else:
+		shot_clock_status = "1"
+
+def handle_keyboard_input():
+	keyboard.on_press_key("n", lambda _: update_stats())
+	keyboard.on_press_key("t", lambda _: toggle_shot_clock())
 
 def update_data_loop(fetcher):
 	global current_game_data
@@ -132,7 +132,6 @@ def get_data():
 def serve_html():
 	return send_file('basketball-frontend.html')
 
-# Add route for serving static files
 @app.route('/<path:filename>')
 def serve_static(filename):
 	return send_from_directory('.', filename)
@@ -146,10 +145,9 @@ def main():
 	fetch_thread = threading.Thread(target=update_data_loop, args=(fetcher,), daemon=True)
 	fetch_thread.start()
 
-	# Start the shot clock toggling thread
-	toggle_thread = threading.Thread(target=toggle_shot_clock)
-	toggle_thread.daemon = True
-	toggle_thread.start()
+	# Start keyboard listener
+	keyboard_thread = threading.Thread(target=handle_keyboard_input, daemon=True)
+	keyboard_thread.start()
 
 	# Run the Flask app
 	app.run(host='0.0.0.0', port=5000)
