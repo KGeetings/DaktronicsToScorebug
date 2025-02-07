@@ -334,7 +334,17 @@
 
 			// If stats are empty, hide the element
 			if (!currentStats) {
-				statsElement.style.display = 'none';
+				const slideOutAnimation = statsElement.animate([
+					{ clipPath: isHome ? 'inset(0% 0% 0% 0%)' : 'inset(0% 0% 0% 0%)' },
+					{ clipPath: isHome ? 'inset(0% 100% 0% 0%)' : 'inset(0% 0% 0% 100%)' }
+				], {
+					duration: 1000,
+					easing: 'ease-in',
+					fill: 'forwards'
+				});
+				slideOutAnimation.onfinish = () => {
+					statsElement.style.display = 'none';
+				};
 				return;
 			}
 
