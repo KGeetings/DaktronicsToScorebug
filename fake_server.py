@@ -18,8 +18,8 @@ current_game_data = {}
 shot_clock = 15
 timeout_clock_min = 0
 timeout_clock_sec = 20
-guest_stats_data = "Test Guest Data"
-home_stats_data = "Test Home Data"
+guest_stats = "Test Guest Data"
+home_stats = "Test Home Data"
 home_score = 0
 guest_score = 0
 home_timeouts = 5
@@ -40,8 +40,8 @@ def generate_fake_data():
 	global timeout_clock_min
 	global timeout_clock_sec
 	global shot_clock_status
-	global guest_stats_data
-	global home_stats_data
+	global guest_stats
+	global home_stats
 	global home_score
 	global guest_score
 	global home_timeouts
@@ -54,8 +54,8 @@ def generate_fake_data():
 		"clock": datetime.now().strftime("%M:%S.%f")[:-5],
 		"shot_clock": str(shot_clock),
 		"timeout_clock": f"{timeout_clock_min:02}:{timeout_clock_sec:02}",
-		"home_stats": home_stats_data,
-		"guest_stats": guest_stats_data,
+		"home_stats": home_stats,
+		"guest_stats": str(guest_stats),
 		"home_score": str(home_score),
 		"guest_score": str(guest_score),
 		"home_timeouts": str(home_timeouts),
@@ -65,6 +65,7 @@ def generate_fake_data():
 		"period_desc": "5TH Quarter",
 	}
 	#print(fake_data)
+	print("Home Stats: ", home_stats, "\tGuest Stats: ", guest_stats)
 	#print("Home Score: ", home_score, " Guest Score: ", guest_score, " Home Fouls: ", home_fouls, " Guest Fouls: ", guest_fouls, " Home Timeouts: ", home_timeouts, " Guest Timeouts: ", guest_timeouts)
 
 	# Decrement the shot clock only if the shot clock status is "1"
@@ -84,22 +85,21 @@ def generate_fake_data():
 	else:
 		timeout_clock_sec -= 1
 
-	# Generate and occasionally clear fake stats data
-	if random.random() < 0.1:
-		guest_stats_data = ""
-		home_stats_data = ""
-	else:
-		guest_stats_data = f"Test Guest Data {random.randint(1, 100)}"
-		home_stats_data = f"Test Home Data {random.randint(1, 100)}"
-
 	# Increment/decrement the score, fouls, timeouts
-	if random.random() < 0.1:
+	if random.random() < 0.05:
 		home_score += 3
 		guest_score += 1
 		home_fouls += 1
 		guest_fouls += 1
 		home_timeouts -= 1
 		guest_timeouts -= 1
+		# Generate and occasionally clear fake stats data
+		if random.random() < 0.2:
+			guest_stats = ""
+			home_stats = ""
+		if random.random() > 0.2:
+			guest_stats = f"Test Guest Data {random.randint(1, 100)}"
+			home_stats = f"Test Home Data {random.randint(1, 100)}"
 
 	if home_score > 15:
 		home_score = 0

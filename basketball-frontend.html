@@ -305,7 +305,7 @@
 
 		function updateStatsAnimation(statsElement, statsText, isHome) {
 			// If no stats or stats haven't changed, do nothing
-			const currentStats = statsText.textContent;
+			const currentStats = statsText.trim();
 			const lastStats = isHome ? lastHomeStats : lastGuestStats;
 
 			if (currentStats === lastStats) return;
@@ -330,8 +330,8 @@
 
 			// Animate sliding in
 			const slideInAnimation = statsElement.animate([
-				{ transform: 'skew(-12.5deg) translateX(100%)' },
-				{ transform: 'skew(-12.5deg) translateX(0)' }
+				{ clipPath: isHome ? 'inset(0% 0% 0% 100%)' : 'inset(0% 0% 0% 0%)' },
+				{ clipPath: isHome ? 'inset(0% 0% 0% 0%)' : 'inset(0% 0% 0% 100%)' }
 			], {
 				duration: 1000,
 				easing: 'ease-out',
@@ -342,8 +342,8 @@
 			slideInAnimation.onfinish = () => {
 				// Animate sliding out after 3 seconds
 				const slideOutAnimation = statsElement.animate([
-					{ transform: 'skew(-12.5deg) translateX(0)' },
-					{ transform: 'skew(-12.5deg) translateX(100%)' }
+					{ clipPath: isHome ? 'inset(0% 0% 0% 0%)' : 'inset(0% 0% 0% 100%)' },
+					{ clipPath: isHome ? 'inset(0% 0% 0% 100%)' : 'inset(0% 0% 0% 0%)' }
 				], {
 					duration: 1000,
 					easing: 'ease-in',
@@ -676,10 +676,13 @@
 			updateTimeoutAnimation(data.timeout_clock);
 
 			// Update home and guest team stats
-			document.getElementById('home-stats-text').textContent = data.home_stats;
-			document.getElementById('guest-stats-text').textContent = data.guest_stats;
-			updateStatsAnimation(homeStatsAnimation, data.home_stats, true);
-			updateStatsAnimation(guestStatsAnimation, data.guest_stats, false);
+			const homeStats = data.home_stats;
+			const guestStats = data.guest_stats;
+			document.getElementById('home-stats-text').textContent = homeStats;
+			document.getElementById('guest-stats-text').textContent = guestStats;
+			updateStatsAnimation(homeStatsAnimation, homeStats, true);
+			updateStatsAnimation(guestStatsAnimation, guestStats, false);
+			console.log("Home Stats: " + homeStats, " Guest Stats: " + guestStats);
 		}
 
 		function fetchData() {
