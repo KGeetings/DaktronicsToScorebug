@@ -8,6 +8,7 @@
 	<link href="https://fonts.googleapis.com/css2?family=Rubik:ital,wght@0,300..900;1,300..900&display=swap" rel="stylesheet">
 
 	<style>
+		/* ----- Main ----- */
 		body {
 			margin: 0;
 			padding: 0;
@@ -30,59 +31,7 @@
 			z-index: 2;
 		}
 
-		/* Shot Clock Animation */
-		#shot-clock-countdown {
-			position: absolute;
-			top: 71.7%;
-			right: 7.9%;
-			width: 291.9px;
-			height: 193px;
-			transform: skew(-12.5deg);
-			background: rgba(255, 0, 0, 0.5);
-			transform-origin: bottom;
-			display: none;
-			z-index: 3;
-		}
-
-		@keyframes flashRed {
-			0% {
-				background: rgba(255, 0, 0, 1);
-			}
-
-			/* Fully Red */
-			100% {
-				background: rgba(255, 0, 0, 0.3);
-			}
-
-			/* Fades out */
-		}
-
-		/* Timeout Animation */
-		#timeout-animation {
-			position: absolute;
-			top: 100px;
-			left: 1778.7px;
-			width: 1773px;
-			height: 140px;
-			background: rgba(255, 165, 0, 0.7);
-			transform-origin: bottom;
-			transform: skew(-12.5deg) translateY(100%);
-			display: none;
-			z-index: 1;
-		}
-
-		#timeout-text {
-			position: absolute;
-			width: 100%;
-			text-align: center;
-			top: 50%;
-			transform: translateY(-50%) skew(12.5deg);
-			/* Counter-skew the text */
-			font-size: 122px;
-			color: white;
-		}
-
-		/* Home/Away Stats Animation */
+		/* ----- Stats ----- */
 		.stats-animation {
 			position: absolute;
 			top: 380px;
@@ -91,7 +40,7 @@
 			background: rgba(19, 203, 209, 0.7);
 			transform-origin: bottom;
 			transform: skew(-12.5deg) translateX(100%);
-			display: none;
+			/* display: none; */
 			z-index: 1;
 		}
 
@@ -113,32 +62,7 @@
 			color: white;
 		}
 
-		.clock {
-			position: absolute;
-		}
-
-		#main-clock {
-			top: 73%;
-			right: 28%;
-			font-size: 141px;
-			font-weight: 600;
-		}
-
-		#period {
-			top: 77%;
-			left: 3.5%;
-			font-size: 93px;
-			font-weight: 500;
-		}
-
-		#shot-clock {
-			top: 75.5%;
-			right: 11.5%;
-			font-size: 125px;
-			font-weight: 600;
-			z-index: 4;
-		}
-
+		/* ----- Score ----- */
 		.number-ticker {
 			overflow: hidden;
 			height: 1.042em;
@@ -166,6 +90,7 @@
 			right: 54%;
 		}
 
+		/* ----- Possession ----- */
 		.possession {
 			position: absolute;
 			font-size: 190px;
@@ -181,6 +106,7 @@
 			left: 47%;
 		}
 
+		/* ----- Timeouts ----- */
 		.timeouts {
 			position: absolute;
 			font-size: 114px;
@@ -196,6 +122,44 @@
 			left: 12.5%;
 		}
 
+		.timeouts span {
+			transition: opacity 0.3s ease-in-out;
+		}
+
+		.timeouts span.blink {
+			animation: blinkTimeout 0.5s ease-in-out 6;
+		}
+
+		@keyframes blinkTimeout {
+			0%, 100% { opacity: 1; }
+			50% { opacity: 0; }
+		}
+
+		#timeout-animation {
+			position: absolute;
+			top: 100px;
+			left: 1778.7px;
+			width: 1773px;
+			height: 140px;
+			background: rgba(255, 165, 0, 0.7);
+			transform-origin: bottom;
+			transform: skew(-12.5deg) translateY(100%);
+			display: none;
+			z-index: 1;
+		}
+
+		#timeout-text {
+			position: absolute;
+			width: 100%;
+			text-align: center;
+			top: 50%;
+			transform: translateY(-50%) skew(12.5deg);
+			/* Counter-skew the text */
+			font-size: 122px;
+			color: white;
+		}
+
+		/* ----- Fouls ----- */
 		.fouls {
 			position: absolute;
 			top: 52.5%;
@@ -226,22 +190,59 @@
 			animation: blink 0.5s ease-in-out 3;
 		}
 
-		.timeouts span {
-			transition: opacity 0.3s ease-in-out;
+		/* ----- Clocks ----- */
+		.clock {
+			position: absolute;
 		}
 
-		.timeouts span.blink {
-			animation: blinkTimeout 0.5s ease-in-out 6;
+		#main-clock {
+			top: 73%;
+			right: 28%;
+			font-size: 141px;
+			font-weight: 600;
 		}
 
-		@keyframes blinkTimeout {
-			0%, 100% { opacity: 1; }
-			50% { opacity: 0; }
+		#period {
+			top: 77%;
+			left: 3.5%;
+			font-size: 93px;
+			font-weight: 500;
+		}
+
+		#shot-clock {
+			top: 75.5%;
+			right: 11.5%;
+			font-size: 125px;
+			font-weight: 600;
+			z-index: 4;
+		}
+
+		#shot-clock-countdown {
+			position: absolute;
+			top: 71.7%;
+			right: 7.9%;
+			width: 291.9px;
+			height: 193px;
+			transform: skew(-12.5deg);
+			background: rgba(255, 0, 0, 0.5);
+			transform-origin: bottom;
+			display: none;
+			z-index: 3;
+		}
+
+		@keyframes flashRed {
+			0% {
+				background: rgba(255, 0, 0, 1);
+			}
+			100% {
+				background: rgba(255, 0, 0, 0.3);
+			}
 		}
 	</style>
 </head>
 
 <body>
+	<!----- HTML  ----->
 	<div id="timeout-animation">
 		<div id="timeout-text">Timeout</div>
 	</div>
@@ -269,9 +270,8 @@
 		<div id="shot-clock-countdown"></div>
 	</div>
 
+	<!----- JavaScript  ----->
 	<script>
-		const TEST_MODE = false;
-
 		const shotClockCountdown = document.getElementById('shot-clock-countdown');
 		const timeoutAnimation = document.getElementById('timeout-animation');
 		const timeoutText = document.getElementById('timeout-text');
@@ -285,6 +285,24 @@
 
 		let lastHomeStats = null;
 		let lastGuestStats = null;
+
+		// Add new variables for shot clock tracking
+		let lastShotClockTime = null;
+		let lastShotClockScale = 1;
+
+		// Initialize tickers
+		const homeTicker = createNumberTicker(document.getElementById('home-score'));
+		const guestTicker = createNumberTicker(document.getElementById('guest-score'));
+		const homeTimeoutDisplay = createTimeoutDisplay('home-timeouts');
+		const guestTimeoutDisplay = createTimeoutDisplay('guest-timeouts');
+
+		let lastHomeScore = 0;
+		let lastGuestScore = 0;
+		let lastHomeTimeouts = 0;
+		let lastGuestTimeouts = 0;
+		let lastHomeFouls = 0;
+		let lastGuestFouls = 0;
+
 		function updateStatsAnimation(statsElement, statsText, isHome) {
 			// If no stats or stats haven't changed, do nothing
 			const currentStats = statsText.textContent;
@@ -352,10 +370,6 @@
 				currentGuestStatsAnimation = slideInAnimation;
 			}
 		}
-
-		// Add new variables for shot clock tracking
-		let lastShotClockTime = null;
-		let lastShotClockScale = 1;
 
 		function updateShotClock(shotClockTime) {
 			if (!shotClockTime || shotClockTime === '--' || shotClockTime === "") {
@@ -596,20 +610,6 @@
 			return { setValue };
 		}
 
-		// Initialize tickers
-		const homeTicker = createNumberTicker(document.getElementById('home-score'));
-		const guestTicker = createNumberTicker(document.getElementById('guest-score'));
-
-		const homeTimeoutDisplay = createTimeoutDisplay('home-timeouts');
-		const guestTimeoutDisplay = createTimeoutDisplay('guest-timeouts');
-
-		let lastHomeScore = 0;
-		let lastGuestScore = 0;
-		let lastHomeTimeouts = 0;
-		let lastGuestTimeouts = 0;
-		let lastHomeFouls = 0;
-		let lastGuestFouls = 0;
-
 		function updateScoreboard(data) {
 			// Update scores with animation
 			const homeScore = parseInt(data.home_score, 10);
@@ -645,7 +645,7 @@
 			const homeFouls = parseInt(data.home_fouls, 10) || 0;
 			const guestFouls = parseInt(data.guest_fouls, 10) || 0;
 
-			console.log("homeFouls: " + homeFouls, " LastHomeFouls: " + lastHomeFouls, " homeTimeouts: " + homeTimeouts, " LastHomeTimeouts: " + lastHomeTimeouts);
+			// console.log("homeFouls: " + homeFouls, " LastHomeFouls: " + lastHomeFouls, " homeTimeouts: " + homeTimeouts, " LastHomeTimeouts: " + lastHomeTimeouts);
 
 			// Home fouls animation
 			if (homeFouls !== lastHomeFouls) {
