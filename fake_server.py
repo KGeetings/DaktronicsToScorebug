@@ -48,9 +48,9 @@ def update_stats():
 	guest_timeouts -= 1
 
 	# Generate new stats data
-	guest_stats = f'<div style="color:black;"><b>And One</b></div>#2 - Jacob Harman<br>Fouls: {home_fouls}&emsp;&emsp;Points: {home_score}<hr style="border-color:white;width:1500px;"<br>Shot 1 - Made<br>Shot 2 - Made'
-	#home_stats = f'<div style="color:black;"><b>Three Points</b></div>#1 - Kenyon Geetings<br>Fouls: {home_fouls}&emsp;&emsp;Points: {home_score}'
-	home_stats = f'<div style="color:black;"><b>Fouled By</b></div>#1 - Kenyon Geetings<br>Fouls: {home_fouls}&emsp;&emsp;Points: {home_score}'
+	guest_stats = f'<div style="color:rgb(255, 215, 0);"><b>And One</b></div>#2 - Jacob Harman<br>Fouls: {home_fouls}&emsp;&emsp;Points: {home_score}<hr style="border-color:white;width:1500px;"<br>Shot 1 - Made<br>Shot 2 - Made'
+	#home_stats = f'<div style="color:rgb(255, 215, 0);"><b>Three Points</b></div>#1 - Kenyon Geetings<br>Fouls: {home_fouls}&emsp;&emsp;Points: {home_score}'
+	home_stats = f'<div style="color:rgb(255, 215, 0);"><b>Fouled By</b></div>#1 - Kenyon Geetings<br>Fouls: {home_fouls}&emsp;&emsp;Points: {home_score}'
 
 	# Reset scores and timeouts if needed
 	if home_score > 15:
