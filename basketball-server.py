@@ -56,6 +56,10 @@ class StatsServer:
 		Connects to the socket server (port 5001)
 		Sends messages with a 4-byte length prefix (network byte order)
 		Formats the JSON messages as shown above
+		Examples of HTML formatted message:
+			guest_stats = f'<div style="color:rgb(255, 215, 0);"><b>And One</b></div>#2 - Jacob Harman<br>Fouls: {home_fouls}&emsp;&emsp;Points: {home_score}<hr style="border-color:white;width:1500px;"<br>Shot 1 - Made<br>Shot 2 - Made'
+			home_stats = f'<div style="color:rgb(255, 215, 0);"><b>Three Points</b></div>#1 - Kenyon Geetings<br>Fouls: {home_fouls}&emsp;&emsp;Points: {home_score}'
+			home_stats = f'<div style="color:rgb(255, 215, 0);"><b>Fouled By</b></div>#1 - Kenyon Geetings<br>Fouls: {home_fouls}&emsp;&emsp;Points: {home_score}'
 	"""
 	def __init__(self, host='0.0.0.0', port=5001):
 		self.host = host
