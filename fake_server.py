@@ -48,8 +48,9 @@ def update_stats():
 	guest_timeouts -= 1
 
 	# Generate new stats data
-	guest_stats = f"Test Guest Data {guest_fouls}"
-	home_stats = f"Test Home Data {home_fouls}"
+	guest_stats = f'<div style="color:black;"><b>And One</b></div>#2 - Jacob Harman<br>Fouls: {home_fouls}&emsp;&emsp;Points: {home_score}<hr style="border-color:white;width:1500px;"<br>Shot 1 - Made<br>Shot 2 - Made'
+	#home_stats = f'<div style="color:black;"><b>Three Points</b></div>#1 - Kenyon Geetings<br>Fouls: {home_fouls}&emsp;&emsp;Points: {home_score}'
+	home_stats = f'<div style="color:black;"><b>Fouled By</b></div>#1 - Kenyon Geetings<br>Fouls: {home_fouls}&emsp;&emsp;Points: {home_score}'
 
 	# Reset scores and timeouts if needed
 	if home_score > 15:
