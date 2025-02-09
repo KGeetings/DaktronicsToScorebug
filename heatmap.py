@@ -20,12 +20,56 @@ def extract_shots(team_players):
                 shot_made.append(shot['Made'])
     return shot_positions, shot_made
 
+def extract_team_names(data):
+	team1 = data['Team1Name']
+	team2 = data['Team2Name']
+	return team1, team2
+
+# Function to calculate shot percentages
+def calculate_percentages(team_players):
+    total_shots = 0
+    made_threes = 0
+    made_twos = 0
+    made_frees = 0
+    attempted_threes = 0
+    attempted_twos = 0
+    attempted_frees = 0
+
+    for player in team_players:
+        for shot in player['Shots']:
+            total_shots += 1
+            if shot['PointValue'] == 3:
+                attempted_threes += 1
+                if shot['Made']:
+                    made_threes += 1
+            elif shot['PointValue'] == 2:
+                attempted_twos += 1
+                if shot['Made']:
+                    made_twos += 1
+            elif shot['PointValue'] == 1:
+                attempted_frees += 1
+                if shot['Made']:
+                    made_frees += 1
+
+    three_percentage = (made_threes / attempted_threes * 100) if attempted_threes else 0
+    two_percentage = (made_twos / attempted_twos * 100) if attempted_twos else 0
+    free_percentage = (made_frees / attempted_frees * 100) if attempted_frees else 0
+
+    return three_percentage, two_percentage, free_percentage
+
+# Extract team names
+team1_name, team2_name = extract_team_names(data)
+
 # Extract shots for both teams
 team1_shot_positions, team1_shot_made = extract_shots(data['Team1Players'])
 team2_shot_positions, team2_shot_made = extract_shots(data['Team2Players'])
 
+# Calculate percentages for both teams
+team1_percentages = calculate_percentages(data['Team1Players'])
+team2_percentages = calculate_percentages(data['Team2Players'])
+
 # Function to create heatmap for a given team
-def create_heatmap(shot_positions, shot_made, team_name):
+def create_heatmap(shot_positions, shot_made, team_name, team_num, percentages):
     # Load basketball court image and resize it to 1920x1050
     court_img = Image.open('court.png')
     court_img = court_img.resize((1920, 1050))
@@ -81,15 +125,23 @@ def create_heatmap(shot_positions, shot_made, team_name):
     # Remove axes
     ax.set_axis_off()
 
+    # Add title to the heatmap
+    ax.set_title(f'{team_name} Shot Heatmap', fontsize=16, color='black')
+
+    # Add text for percentages below the title
+    three_percentage, two_percentage, free_percentage = percentages
+    fig.text(0.5, 0.92, f'Three-Point %: {three_percentage:.2f}% | Two-Point %: {two_percentage:.2f}% | Free Throw %: {free_percentage:.2f}%', color='black', fontsize=12, ha='center')
+
     # Save plot to a file
-    plt.savefig(f'heatmap_{team_name}.png', bbox_inches='tight', dpi=200)
+    plt.savefig(f'heatmap_{team_num}.png', bbox_inches='tight', dpi=200)
     plt.close()
 
 # Create heatmaps for both teams
-create_heatmap(team1_shot_positions, team1_shot_made, 'Team1')
-create_heatmap(team2_shot_positions, team2_shot_made, 'Team2')
+create_heatmap(team1_shot_positions, team1_shot_made, f'{team1_name}', "team1", team1_percentages)
+create_heatmap(team2_shot_positions, team2_shot_made, f'{team2_name}', "team2", team2_percentages)
 
 # Create combined heatmap
 combined_shot_positions = team1_shot_positions + team2_shot_positions
 combined_shot_made = team1_shot_made + team2_shot_made
-create_heatmap(combined_shot_positions, combined_shot_made, 'Combined')
+combined_percentages = calculate_percentages(data['Team1Players'] + data['Team2Players'])
+create_heatmap(combined_shot_positions, combined_shot_made, f'{team1_name} and {team2_name} Combined', "Combined", combined_percentages)
