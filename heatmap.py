@@ -128,15 +128,16 @@ def create_heatmap(shot_positions, shot_made, team_name, team_num, percentages, 
     # Add title to the heatmap
     ax.set_title(f'{team_name} Shot Heatmap', fontsize=16, color='black')
 
-    # Add text for percentages below the title
+    # Add text for percentages below the graph
     three_percentage, two_percentage, free_percentage = percentages
-    fig.text(0.5, 0.92, f'Three-Point %: {three_percentage:.2f}% | Two-Point %: {two_percentage:.2f}% | Free Throw %: {free_percentage:.2f}%', color='black', fontsize=12, ha='center')
+    fig.text(0.5, 0.14, f'Three-Point %: {three_percentage:.2f}% | Two-Point %: {two_percentage:.2f}% | Free Throw %: {free_percentage:.2f}%', color='black', fontsize=16, ha='center')
 
     # Add player names below the percentages if provided
     if player_names:
-        fig.text(0.5, 0.88, f'Players: {", ".join(player_names)}', color='black', fontsize=12, ha='center')
+        fig.text(0.5, 0.86, f'Players: {", ".join(player_names)}', color='black', fontsize=12, ha='center')
 
     # Save plot to a file
+    #plt.savefig(f'heatmap_{team_num}.png', bbox_inches='tight', dpi=200, transparent=True)
     plt.savefig(f'heatmap_{team_num}.png', bbox_inches='tight', dpi=200)
     plt.close()
 
