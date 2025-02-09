@@ -5,7 +5,7 @@ from PIL import Image
 import numpy as np
 
 # Load JSON data
-with open('Newton_PC_Boys.json') as f:
+with open('data.json') as f:
     data = json.load(f)
 
 # Function to extract shot positions and made status for a given team
@@ -16,6 +16,8 @@ def extract_shots(team_players):
         for shot in player['Shots']:
             x, y = map(float, shot['ShotPosition'].split(','))
             if (x, y) != (0, 0):  # Skip shots at (0,0)
+                # Flip the Y coordinate
+                y = 671 - y
                 shot_positions.append((x, y))
                 shot_made.append(shot['Made'])
     return shot_positions, shot_made
@@ -64,19 +66,26 @@ team1_name, team2_name = extract_team_names(data)
 team1_shot_positions, team1_shot_made = extract_shots(data['Team1Players'])
 team2_shot_positions, team2_shot_made = extract_shots(data['Team2Players'])
 
+print("Team 1 Shot Positions: ", team1_shot_positions)
+print("Team 2 Shot Positions: ", team2_shot_positions)
+
 # Calculate percentages for both teams
 team1_percentages = calculate_percentages(data['Team1Players'])
 team2_percentages = calculate_percentages(data['Team2Players'])
 
 # Function to create heatmap for a given team
 def create_heatmap(shot_positions, shot_made, team_name, team_num, percentages, player_names=None):
-    # Load basketball court image and resize it to 1920x1050
-    court_img = Image.open('court.png')
-    court_img = court_img.resize((1920, 1050))
+    if not shot_positions or not shot_made:
+        print(f"No shot data available for {team_name}. Skipping heatmap creation.")
+        return
+
+    # Load basketball court image and resize it to 1920x1610
+    court_img = Image.open('court-one-side-eagle.png')
+    court_img = court_img.resize((1920, 1610))
     court_width, court_height = court_img.size
 
-    # Scale shot positions from 800x425 to 1920x1050
-    scaled_shot_positions = [(x * (1920 / 800), y * (1050 / 425)) for x, y in shot_positions]
+    # Scale shot positions from 800x671 to 1920x1610
+    scaled_shot_positions = [(x * (1920 / 800), y * (1610 / 671)) for x, y in shot_positions]
 
     # Separate made and missed shots
     made_shot_positions = [pos for pos, made in zip(scaled_shot_positions, shot_made) if made]
@@ -130,11 +139,11 @@ def create_heatmap(shot_positions, shot_made, team_name, team_num, percentages, 
 
     # Add text for percentages below the graph
     three_percentage, two_percentage, free_percentage = percentages
-    fig.text(0.5, 0.14, f'Three-Point %: {three_percentage:.2f}% | Two-Point %: {two_percentage:.2f}% | Free Throw %: {free_percentage:.2f}%', color='black', fontsize=16, ha='center')
+    fig.text(0.5, 0.07, f'Three-Point %: {three_percentage:.2f}% | Two-Point %: {two_percentage:.2f}% | Free Throw %: {free_percentage:.2f}%', color='black', fontsize=16, ha='center')
 
     # Add player names below the percentages if provided
     if player_names:
-        fig.text(0.5, 0.86, f'Players: {", ".join(player_names)}', color='black', fontsize=12, ha='center')
+        fig.text(0.5, 0.93, f'Players: {", ".join(player_names)}', color='black', fontsize=12, ha='center')
 
     # Save plot to a file
     #plt.savefig(f'heatmap_{team_num}.png', bbox_inches='tight', dpi=200, transparent=True)
@@ -152,6 +161,10 @@ def create_individual_heatmap(team_num, player_numbers):
 
     selected_players = [player for player in team_players if player['PlayerNumber'] in player_numbers]
     shot_positions, shot_made = extract_shots(selected_players)
+    if not shot_positions or not shot_made:
+        print(f"No shot data available for selected players in {team_name}. Skipping heatmap creation.")
+        return
+
     percentages = calculate_percentages(selected_players)
     player_names = [player['PlayerName'] for player in selected_players]
 
