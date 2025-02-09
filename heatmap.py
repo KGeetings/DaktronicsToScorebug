@@ -27,6 +27,8 @@ def extract_shots(team_players):
                 y = shot_height_y - y
                 shot_positions.append((x, y))
                 shot_made.append(shot['Made'])
+            else:
+                print(f"Invalid shot detected for player {player['PlayerName']} at position ({x}, {y})")
     return shot_positions, shot_made
 
 def extract_team_names(data):
@@ -72,9 +74,6 @@ team1_name, team2_name = extract_team_names(data)
 # Extract shots for both teams
 team1_shot_positions, team1_shot_made = extract_shots(data['Team1Players'])
 team2_shot_positions, team2_shot_made = extract_shots(data['Team2Players'])
-
-print("Team 1 Shot Positions: ", team1_shot_positions)
-print("Team 2 Shot Positions: ", team2_shot_positions)
 
 # Calculate percentages for both teams
 team1_percentages = calculate_percentages(data['Team1Players'])
