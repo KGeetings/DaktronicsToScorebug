@@ -49,6 +49,7 @@ class StatsServer:
 			"team": "home",  // or "guest"
 			"text": "<html formatted stats>",
 			"duration": 10  // seconds (0 for infinite)
+			"new_animation": true  // Triggers a new animation, or just updates text, default is True
 		}
 	To clear all stats:
 		{
@@ -75,7 +76,7 @@ class StatsServer:
 	def handle_client(self, client_socket):
 		while True:
 			try:
-				# First receive the message length (4 bytes)
+				# First receive the message length (4 bytes, network byte order)
 				msg_len_bytes = client_socket.recv(4)
 				if not msg_len_bytes:
 					break
@@ -109,11 +110,15 @@ class StatsServer:
 				current_game_data['guest_stats'] = ''
 				current_game_data['home_stats_duration'] = 0
 				current_game_data['guest_stats_duration'] = 0
+				current_game_data['home_new_animation'] = True
+				current_game_data['guest_new_animation'] = True
 			elif data.get('command') == 'stats':
 				team = data.get('team', '').lower()
 				if team in ['home', 'guest']:
 					current_game_data[f'{team}_stats'] = data.get('text', '')
 					current_game_data[f'{team}_stats_duration'] = data.get('duration', 0)
+					new_animation = data.get('new_animation', True)
+					current_game_data[f'{team}_new_animation'] = new_animation
 
 					# If duration is not 0 (infinite), start a timer to clear the stats
 					if data.get('duration', 0) > 0:
@@ -121,6 +126,7 @@ class StatsServer:
 							time.sleep(data['duration'])
 							current_game_data[f'{team}_stats'] = ''
 							current_game_data[f'{team}_stats_duration'] = 0
+							current_game_data[f'{team}_new_animation'] = new_animation
 
 						threading.Thread(target=clear_stats, daemon=True).start()
 
