@@ -4,12 +4,19 @@ import seaborn as sns
 from PIL import Image
 import numpy as np
 
+# Set width and height
+shot_width_x = 800 # Determined by StatsAppClient
+shot_height_y = 671 # Determined by StatsAppClient
+court_width_x = 1920 # Determined by Court.png
+court_height_y = 1610 # Determined by Court.png
+
 # Load JSON data
 with open('data.json') as f:
     data = json.load(f)
 
 # Function to extract shot positions and made status for a given team
 def extract_shots(team_players):
+    global shot_width_x, shot_height_y
     shot_positions = []
     shot_made = []
     for player in team_players:
@@ -17,7 +24,7 @@ def extract_shots(team_players):
             x, y = map(float, shot['ShotPosition'].split(','))
             if (x, y) != (0, 0):  # Skip shots at (0,0)
                 # Flip the Y coordinate
-                y = 671 - y
+                y = shot_height_y - y
                 shot_positions.append((x, y))
                 shot_made.append(shot['Made'])
     return shot_positions, shot_made
@@ -79,13 +86,13 @@ def create_heatmap(shot_positions, shot_made, team_name, team_num, percentages, 
         print(f"No shot data available for {team_name}. Skipping heatmap creation.")
         return
 
-    # Load basketball court image and resize it to 1920x1610
+    # Load basketball court image and resize it to court_width_x, court_height_y
     court_img = Image.open('court-one-side-eagle.png')
-    court_img = court_img.resize((1920, 1610))
+    court_img = court_img.resize((court_width_x, court_height_y))
     court_width, court_height = court_img.size
 
-    # Scale shot positions from 800x671 to 1920x1610
-    scaled_shot_positions = [(x * (1920 / 800), y * (1610 / 671)) for x, y in shot_positions]
+    # Scale shot positions from shot_width_x, shot_height_y to court_width_x, court_height_y
+    scaled_shot_positions = [(x * (court_width_x / shot_width_x), y * (court_height_y / shot_height_y)) for x, y in shot_positions]
 
     # Separate made and missed shots
     made_shot_positions = [pos for pos, made in zip(scaled_shot_positions, shot_made) if made]
