@@ -115,15 +115,15 @@ def create_heatmap(shot_positions, shot_made, team_name, team_num, percentages, 
     sns.kdeplot(
         x=x_coords,
         y=y_coords,
-        cmap='inferno',  # Using inferno colormap like the NBA example
-        fill=True, # Fills the area under the KDE curve.
+        cmap='inferno', # Using inferno colormap
+        fill=True, # Fills the area under the KDE curve
         alpha=0.7, # Set transparency level
-        levels=50,  # Increase number of contour levels for smoother gradient, 50 is a good value
+        levels=50, # Increase number of contour levels for smoother gradient, 50 is a good value
         thresh=0, # Set threshold to 0 to include all data points
         ax=ax, # Plot on the same axis
-        bw_adjust=0.8,  # Adjust bandwidth
-        clip=((0, court_width_x), (0, court_height_y)),  # Clip KDE plot to court dimensions
-        gridsize=100  # Increase grid size for smoother plot
+        bw_adjust=0.8, # Adjust bandwidth
+        clip=((0, court_width_x), (0, court_height_y)), # Clip KDE plot to court dimensions
+        gridsize=100 # Increase grid size for smoother plot
     )
 
     # Add small dots for shot locations, green if made, red if missed
@@ -177,8 +177,8 @@ def create_individual_heatmap(team_num, player_numbers):
     create_heatmap(shot_positions, shot_made, f'{team_name} Selected Players', f'Team{team_num}_Selected', percentages, player_names)
 
 # Create heatmaps for both teams
-create_heatmap(team1_shot_positions, team1_shot_made, f'{team1_name}', "team1", team1_percentages)
-create_heatmap(team2_shot_positions, team2_shot_made, f'{team2_name}', "team2", team2_percentages)
+#create_heatmap(team1_shot_positions, team1_shot_made, f'{team1_name}', "team1", team1_percentages)
+#create_heatmap(team2_shot_positions, team2_shot_made, f'{team2_name}', "team2", team2_percentages)
 
 # Create combined heatmap
 combined_shot_positions = team1_shot_positions + team2_shot_positions
@@ -187,5 +187,5 @@ combined_percentages = calculate_percentages(data['Team1Players'] + data['Team2P
 create_heatmap(combined_shot_positions, combined_shot_made, f'{team1_name} and {team2_name} Combined', "Combined", combined_percentages)
 
 # Example usage for individual players
-create_individual_heatmap(1, ["2", "4"]) # Team 1, players 2 and 4
-create_individual_heatmap(2, ["1", "3"]) # Team 2, players 1 and 3
+#create_individual_heatmap(1, ["2", "4"]) # Team 1, players 2 and 4
+#create_individual_heatmap(2, ["1", "3"]) # Team 2, players 1 and 3
