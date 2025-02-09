@@ -11,7 +11,7 @@ court_width_x = 1920 # Determined by Court.png
 court_height_y = 1610 # Determined by Court.png
 
 # Load JSON data
-with open('data.json') as f:
+with open('data1.json') as f:
     data = json.load(f)
 
 # Function to extract shot positions and made status for a given team
@@ -122,7 +122,7 @@ def create_heatmap(shot_positions, shot_made, team_name, team_num, percentages, 
         thresh=0, # Set threshold to 0 to include all data points
         ax=ax, # Plot on the same axis
         bw_adjust=0.8,  # Adjust bandwidth
-        clip=((0, court_width), (0, court_height)),  # Clip KDE plot to court dimensions
+        clip=((0, court_width_x), (0, court_height_y)),  # Clip KDE plot to court dimensions
         gridsize=100  # Increase grid size for smoother plot
     )
 
@@ -134,8 +134,8 @@ def create_heatmap(shot_positions, shot_made, team_name, team_num, percentages, 
             ax.scatter(x, y, c='red', marker='x', s=50, linewidths=1, alpha=0.6)
 
     # Set plot limits to match the court image
-    ax.set_xlim(0, court_width)
-    ax.set_ylim(0, court_height)
+    ax.set_xlim(0, court_width_x)
+    ax.set_ylim(0, court_height_y)
 
     # Remove axes
     ax.set_axis_off()
@@ -152,8 +152,8 @@ def create_heatmap(shot_positions, shot_made, team_name, team_num, percentages, 
         fig.text(0.5, 0.93, f'Players: {", ".join(player_names)}', color='black', fontsize=12, ha='center')
 
     # Save plot to a file
-    #plt.savefig(f'heatmap_{team_num}.png', bbox_inches='tight', dpi=200, transparent=True)
     plt.savefig(f'heatmap_{team_num}.png', bbox_inches='tight', dpi=200)
+    #plt.show()
     plt.close()
 
 # Function to create heatmap for individual players
