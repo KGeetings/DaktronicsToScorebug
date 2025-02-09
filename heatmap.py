@@ -20,21 +20,24 @@ for player in data['Team1Players'] + data['Team2Players']:
             shot_made.append(shot['Made'])
 
 print("Shot Positions: ", shot_positions)
-# Load basketball court image and resize it to 800x425
+# Load basketball court image and resize it to 1920x1050
 court_img = Image.open('court.png')
-court_img = court_img.resize((800, 425))
+court_img = court_img.resize((1920, 1050))
 court_width, court_height = court_img.size
 
+# Scale shot positions from 800x425 to 1920x1050
+scaled_shot_positions = [(x * (1920 / 800), y * (1050 / 425)) for x, y in shot_positions]
+
 # Create plot with white background
-fig, ax = plt.subplots(figsize=(12, 8))
+fig, ax = plt.subplots(figsize=(12, 8), dpi=200)
 ax.set_facecolor('white')
 fig.set_facecolor('white')
 
 # Display court image
 ax.imshow(court_img, extent=[0, court_width, 0, court_height])
 
-# Convert shot positions to arrays for plotting
-x_coords, y_coords = zip(*shot_positions)
+# Convert scaled shot positions to arrays for plotting
+x_coords, y_coords = zip(*scaled_shot_positions)
 
 # Create heatmap using KDE plot
 sns.kdeplot(
@@ -63,4 +66,5 @@ ax.set_ylim(0, court_height)
 ax.set_axis_off()
 
 # Save plot to a file
-plt.savefig('heatmap.png', bbox_inches='tight')
+plt.savefig('heatmap.png', bbox_inches='tight', dpi=200)
+plt.show()
