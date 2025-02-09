@@ -22,7 +22,7 @@ def extract_shots(team_players):
     for player in team_players:
         for shot in player['Shots']:
             x, y = map(float, shot['ShotPosition'].split(','))
-            if (x, y) != (0, 0):  # Skip shots at (0,0)
+            if (x, y) != (0, 0) and 0 <= x <= shot_width_x and 0 <= y <= shot_height_y: # Filter out invalid shots, and free throws
                 # Flip the Y coordinate
                 y = shot_height_y - y
                 shot_positions.append((x, y))
