@@ -313,7 +313,7 @@
 			const currentStats = statsText.trim();
 			const lastStats = isHome ? lastHomeStats : lastGuestStats;
 
-			// console.log("currentStats: " + currentStats, " lastStats: " + lastStats, " duration: " + duration);
+			console.log("currentStats: " + currentStats, " lastStats: " + lastStats, " duration: " + duration);
 			if (currentStats === lastStats) return;
 
 			// Clear any existing timeouts
@@ -718,12 +718,18 @@
 			const guestStats = data.guest_stats;
 			const homeStatsDuration = data.home_stats_duration;
 			const guestStatsDuration = data.guest_stats_duration;
+			const homeNewAnimation = data.home_new_animation;
+			const guestNewAnimation = data.guest_new_animation;
 
 			document.getElementById('home-stats-text').innerHTML = homeStats;  // Using innerHTML to support HTML formatting
 			document.getElementById('guest-stats-text').innerHTML = guestStats;
 
-			updateStatsAnimation(homeStatsAnimation, homeStats, homeStatsDuration, true);
-			updateStatsAnimation(guestStatsAnimation, guestStats, guestStatsDuration, false);
+			if (homeNewAnimation) {
+				updateStatsAnimation(homeStatsAnimation, homeStats, homeStatsDuration, true)
+			}
+			if (guestNewAnimation) {
+				updateStatsAnimation(guestStatsAnimation, guestStats, guestStatsDuration, false)
+			}
 		}
 
 		function fetchData() {

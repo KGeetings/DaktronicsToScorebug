@@ -1,5 +1,4 @@
 import threading
-import random
 import time
 from datetime import datetime
 from flask import Flask, jsonify, send_file, send_from_directory
@@ -22,6 +21,8 @@ guest_stats = "Test Guest Data"
 home_stats = "Test Home Data"
 home_stats_duration = 3
 guest_stats_duration = 3
+home_new_animation = True
+guest_new_animation = True
 home_score = 0
 guest_score = 0
 home_timeouts = 5
@@ -38,7 +39,7 @@ class BasketballDataFetcher:
 		return generate_fake_data()
 
 def update_stats():
-	global home_score, guest_score, home_fouls, guest_fouls, home_timeouts, guest_timeouts, guest_stats, home_stats, home_stats_duration, guest_stats_duration
+	global home_score, guest_score, home_fouls, guest_fouls, home_timeouts, guest_timeouts, guest_stats, home_stats, home_stats_duration, guest_stats_duration, home_new_animation, guest_new_animation
 
 	home_score += 3
 	guest_score += 1
@@ -74,6 +75,8 @@ def generate_fake_data():
 	global guest_fouls
 	global home_stats_duration
 	global guest_stats_duration
+	global home_new_animation
+	global guest_new_animation
 
 	# Generate fake game clock data
 	fake_data = {
@@ -91,9 +94,11 @@ def generate_fake_data():
 		"period_desc": "5TH Quarter",
 		'home_stats_duration': home_stats_duration,
 		'guest_stats_duration': guest_stats_duration,
+		'home_new_animation': home_new_animation,
+		'guest_new_animation': guest_new_animation,
 	}
 
-	print("Home Stats: ", home_stats, "\tHome Stats Duration: ", home_stats_duration)
+	print("Home Stats: ", home_stats, "\tHome Stats Duration: ", home_stats_duration, "\tHome New Animation: ", home_new_animation)
 
 	# Decrement the shot clock only if the shot clock status is "1"
 	if shot_clock_status == "1":
@@ -126,16 +131,24 @@ def toggle_shot_clock():
 		guest_stats_duration = 3
 
 def clear_stats():
-	global guest_stats, home_stats, home_stats_duration, guest_stats_duration
+	global guest_stats, home_stats, home_stats_duration, guest_stats_duration, home_new_animation, guest_new_animation
 	guest_stats = ""
 	home_stats = ""
 	home_stats_duration = 0
 	guest_stats_duration = 0
+	home_new_animation = True
+	guest_new_animation = True
+
+def toggle_new_animation():
+	global home_new_animation, guest_new_animation
+	home_new_animation = not home_new_animation
+	guest_new_animation = not guest_new_animation
 
 def handle_keyboard_input():
 	keyboard.on_press_key("n", lambda _: update_stats())
 	keyboard.on_press_key("t", lambda _: toggle_shot_clock())
 	keyboard.on_press_key("m", lambda _: clear_stats())
+	keyboard.on_press_key("b", lambda _: toggle_new_animation())
 
 def update_data_loop(fetcher):
 	global current_game_data

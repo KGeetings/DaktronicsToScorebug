@@ -37,6 +37,8 @@ current_game_data = {
 	'guest_stats': '',
 	'home_stats_duration': 0,
 	'guest_stats_duration': 0,
+	'home_new_animation': True,
+	'guest_new_animation': True,
 }
 
 class StatsServer:
