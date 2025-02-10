@@ -178,8 +178,8 @@ def create_individual_heatmap(team_num, player_numbers):
     create_heatmap(shot_positions, shot_made, f'{team_name} Selected Players', f'Team{team_num}_Selected', percentages, player_names)
 
 # Create heatmaps for both teams
-#create_heatmap(team1_shot_positions, team1_shot_made, f'{team1_name}', "team1", team1_percentages)
-#create_heatmap(team2_shot_positions, team2_shot_made, f'{team2_name}', "team2", team2_percentages)
+create_heatmap(team1_shot_positions, team1_shot_made, f'{team1_name}', "team1", team1_percentages)
+create_heatmap(team2_shot_positions, team2_shot_made, f'{team2_name}', "team2", team2_percentages)
 
 # Create combined heatmap
 combined_shot_positions = team1_shot_positions + team2_shot_positions
@@ -188,5 +188,5 @@ combined_percentages = calculate_percentages(data['Team1Players'] + data['Team2P
 create_heatmap(combined_shot_positions, combined_shot_made, f'{team1_name} and {team2_name} Combined', "Combined", combined_percentages)
 
 # Example usage for individual players
-#create_individual_heatmap(1, ["2", "4"]) # Team 1, players 2 and 4
-#create_individual_heatmap(2, ["1", "3"]) # Team 2, players 1 and 3
+create_individual_heatmap(1, ["2", "4"]) # Team 1, players 2 and 4
+create_individual_heatmap(2, ["1", "3"]) # Team 2, players 1 and 3
