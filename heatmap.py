@@ -123,7 +123,8 @@ def create_heatmap(shot_positions, shot_made, team_name, team_num, percentages, 
         ax=ax, # Plot on the same axis
         bw_adjust=0.8, # Adjust bandwidth
         clip=((0, court_width_x), (0, court_height_y)), # Clip KDE plot to court dimensions
-        gridsize=100 # Increase grid size for smoother plot
+        gridsize=100, # Increase grid size for smoother plot
+        cut=100
     )
 
     # Add small dots for shot locations, green if made, red if missed
