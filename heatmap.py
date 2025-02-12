@@ -14,6 +14,13 @@ court_height_y = 1610 # Determined by Court.png
 with open('X:\\data.json') as f:
     data = json.load(f)
 
+#with open('W:\\PC vs DCG Girls 25.json') as f:
+#    data = json.load(f)
+
+# Set font properties
+plt.rcParams['font.family'] = 'Rubik'
+plt.rcParams['font.sans-serif'] = 'Rubik'
+
 # Function to extract shot positions and made status for a given team
 def extract_shots(team_players):
     global shot_width_x, shot_height_y
@@ -27,8 +34,8 @@ def extract_shots(team_players):
                 y = shot_height_y - y
                 shot_positions.append((x, y))
                 shot_made.append(shot['Made'])
-            else:
-                print(f"Invalid shot detected for player {player['PlayerName']} at position ({x}, {y})")
+            #else:
+                #print(f"Invalid shot detected for player {player['PlayerName']} at position ({x}, {y})")
     return shot_positions, shot_made
 
 def extract_team_names(data):
@@ -146,7 +153,7 @@ def create_heatmap(shot_positions, shot_made, team_name, team_num, percentages, 
 
     # Add text for percentages below the graph
     three_percentage, two_percentage, free_percentage = percentages
-    fig.text(0.5, 0.04, f'Three-Point: {three_percentage:.2f}% | Two-Point: {two_percentage:.2f}%\nFree Throw: {free_percentage:.2f}%', color='black', fontsize=16, ha='center')
+    fig.text(0.5, 0.04, f'Three-Points: {three_percentage:.2f}% | Two-Points: {two_percentage:.2f}%\nFree Throw: {free_percentage:.2f}%', color='black', fontsize=16, ha='center')
 
     # Add player names below the percentages if provided
     if player_names:
@@ -188,5 +195,5 @@ combined_percentages = calculate_percentages(data['Team1Players'] + data['Team2P
 create_heatmap(combined_shot_positions, combined_shot_made, f'{team1_name} and {team2_name} Combined', "Combined", combined_percentages)
 
 # Example usage for individual players
-#create_individual_heatmap(1, ["2", "4"]) # Team 1, players 2 and 4
+create_individual_heatmap(1, ["2", "4"]) # Team 1 (Eagles), players 2 and 4
 #create_individual_heatmap(2, ["1", "3"]) # Team 2, players 1 and 3
