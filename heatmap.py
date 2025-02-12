@@ -146,7 +146,7 @@ def create_heatmap(shot_positions, shot_made, team_name, team_num, percentages, 
 
     # Add text for percentages below the graph
     three_percentage, two_percentage, free_percentage = percentages
-    fig.text(0.5, 0.04, f'Three-Point %: {three_percentage:.2f}% | Two-Point %: {two_percentage:.2f}%\nFree Throw %: {free_percentage:.2f}%', color='black', fontsize=16, ha='center')
+    fig.text(0.5, 0.04, f'Three-Point: {three_percentage:.2f}% | Two-Point: {two_percentage:.2f}%\nFree Throw: {free_percentage:.2f}%', color='black', fontsize=16, ha='center')
 
     # Add player names below the percentages if provided
     if player_names:
