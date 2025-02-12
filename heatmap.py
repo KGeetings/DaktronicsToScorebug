@@ -11,11 +11,11 @@ court_width_x = 1920 # Determined by Court.png
 court_height_y = 1610 # Determined by Court.png
 
 # Load JSON data
-with open('X:\\data.json') as f:
-    data = json.load(f)
+""" with open('X:\\data.json') as f:
+    data = json.load(f) """
 
-#with open('W:\\PC vs DCG Girls 25.json') as f:
-#    data = json.load(f)
+with open('W:\\PC vs DCG boys 25.json') as f:
+    data = json.load(f)
 
 # Set font properties
 plt.rcParams['font.family'] = 'Rubik'
@@ -73,7 +73,7 @@ def calculate_percentages(team_players):
     two_percentage = (made_twos / attempted_twos * 100) if attempted_twos else 0
     free_percentage = (made_frees / attempted_frees * 100) if attempted_frees else 0
 
-    return three_percentage, two_percentage, free_percentage
+    return three_percentage, two_percentage, free_percentage, made_threes, attempted_threes, made_twos, attempted_twos, made_frees, attempted_frees
 
 # Extract team names
 team1_name, team2_name = extract_team_names(data)
@@ -152,8 +152,8 @@ def create_heatmap(shot_positions, shot_made, team_name, team_num, percentages, 
     ax.set_title(f'{team_name} Shot Heatmap', fontsize=16, color='black')
 
     # Add text for percentages below the graph
-    three_percentage, two_percentage, free_percentage = percentages
-    fig.text(0.5, 0.04, f'Three-Points: {three_percentage:.2f}% | Two-Points: {two_percentage:.2f}%\nFree Throw: {free_percentage:.2f}%', color='black', fontsize=16, ha='center')
+    three_percentage, two_percentage, free_percentage, made_threes, attempted_threes, made_twos, attempted_twos, made_frees, attempted_frees = percentages
+    fig.text(0.5, 0.04, f'Three-Points: {made_threes}/{attempted_threes} ({three_percentage:.2f}%) | Two-Points: {made_twos}/{attempted_twos} ({two_percentage:.2f}%)\nFree Throw: {made_frees}/{attempted_frees} ({free_percentage:.2f}%)', color='black', fontsize=16, ha='center')
 
     # Add player names below the percentages if provided
     if player_names:
