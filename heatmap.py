@@ -11,11 +11,11 @@ court_width_x = 1920 # Determined by Court.png
 court_height_y = 1610 # Determined by Court.png
 
 # Load JSON data
-""" with open('X:\\data.json') as f:
-    data = json.load(f) """
-
-with open('W:\\PC vs DCG boys 25.json') as f:
+with open('X:\\data.json') as f:
     data = json.load(f)
+
+""" with open('W:\\PC vs DCG boys 25.json') as f:
+    data = json.load(f) """
 
 # Set font properties
 plt.rcParams['font.family'] = 'Rubik'
@@ -29,13 +29,14 @@ def extract_shots(team_players):
     for player in team_players:
         for shot in player['Shots']:
             x, y = map(float, shot['ShotPosition'].split(','))
-            if (x, y) != (0, 0) and 0 <= x <= shot_width_x and 0 <= y <= shot_height_y: # Filter out invalid shots, and free throws
-                # Flip the Y coordinate
-                y = shot_height_y - y
-                shot_positions.append((x, y))
-                shot_made.append(shot['Made'])
-            #else:
-                #print(f"Invalid shot detected for player {player['PlayerName']} at position ({x}, {y})")
+            if (x, y) != (0, 0): # Filter out free throws
+                if 0 <= x <= shot_width_x and 0 <= y <= shot_height_y: # Filter out invalid shots, and free throws
+                    # Flip the Y coordinate
+                    y = shot_height_y - y
+                    shot_positions.append((x, y))
+                    shot_made.append(shot['Made'])
+                else:
+                    print(f"Invalid shot detected for player {player['PlayerName']} at position ({x}, {y})")
     return shot_positions, shot_made
 
 def extract_team_names(data):

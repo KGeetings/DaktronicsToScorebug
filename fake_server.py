@@ -134,8 +134,8 @@ def clear_stats():
 	global guest_stats, home_stats, home_stats_duration, guest_stats_duration, home_new_animation, guest_new_animation
 	guest_stats = ""
 	home_stats = ""
-	home_stats_duration = 0
-	guest_stats_duration = 0
+	""" home_stats_duration = 0
+	guest_stats_duration = 0 """
 	home_new_animation = True
 	guest_new_animation = True
 
