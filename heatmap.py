@@ -154,7 +154,7 @@ def create_heatmap(shot_positions, shot_made, team_name, team_num, percentages, 
 
     # Add text for percentages below the graph
     three_percentage, two_percentage, free_percentage, made_threes, attempted_threes, made_twos, attempted_twos, made_frees, attempted_frees = percentages
-    fig.text(0.5, 0.04, f'Three-Points: {made_threes}/{attempted_threes} ({three_percentage:.2f}%) | Two-Points: {made_twos}/{attempted_twos} ({two_percentage:.2f}%)\nFree Throw: {made_frees}/{attempted_frees} ({free_percentage:.2f}%)', color='black', fontsize=16, ha='center')
+    fig.text(0.5, 0.04, f'Three-Points: {made_threes}/{attempted_threes} ({three_percentage:.2f}%) | Two-Points: {made_twos}/{attempted_twos} ({two_percentage:.2f}%)\nFree Throw: {made_frees}/{attempted_frees} ({free_percentage:.2f}%)', color='black', fontsize=18, ha='center')
 
     # Add player names below the percentages if provided
     if player_names:
@@ -197,4 +197,4 @@ create_heatmap(combined_shot_positions, combined_shot_made, f'{team1_name} and {
 
 # Example usage for individual players
 #create_individual_heatmap(1, ["2", "4"]) # Team 1 (Eagles), players 2 and 4
-#create_individual_heatmap(2, ["1", "3"]) # Team 2, players 1 and 3
+#create_individual_heatmap(2, ["23"]) # Team 2, players 1 and 3
