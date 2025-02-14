@@ -196,5 +196,5 @@ combined_percentages = calculate_percentages(data['Team1Players'] + data['Team2P
 create_heatmap(combined_shot_positions, combined_shot_made, f'{team1_name} and {team2_name} Combined', "Combined", combined_percentages)
 
 # Example usage for individual players
-create_individual_heatmap(1, ["2", "4"]) # Team 1 (Eagles), players 2 and 4
+#create_individual_heatmap(1, ["2", "4"]) # Team 1 (Eagles), players 2 and 4
 #create_individual_heatmap(2, ["1", "3"]) # Team 2, players 1 and 3
