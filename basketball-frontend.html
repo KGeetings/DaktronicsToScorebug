@@ -692,13 +692,13 @@
 			if (homeFouls !== lastHomeFouls) {
 				const element = document.getElementById('home-fouls');
 				element.classList.add('blink');
-				setTimeout(() => element.classList.remove('blink'), 3000);
+				setTimeout(() => element.classList.remove('blink'), 6000);
 			}
 			// Guest fouls animation
 			if (guestFouls !== lastGuestFouls) {
 				const element = document.getElementById('guest-fouls');
 				element.classList.add('blink');
-				setTimeout(() => element.classList.remove('blink'), 3000);
+				setTimeout(() => element.classList.remove('blink'), 6000);
 			}
 			document.getElementById('home-fouls').textContent = homeFouls;
 			document.getElementById('guest-fouls').textContent = guestFouls;
