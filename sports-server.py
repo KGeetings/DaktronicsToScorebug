@@ -18,27 +18,132 @@ app = Flask(__name__, static_url_path='', static_folder='.')
 CORS(app)  # Enable CORS for all routes
 
 # Global variables to store the game data
-current_game_data = {
-	'clock': '55:55',
-	'home_score': '1',
-	'guest_score': '1',
-	'home_timeouts': 'III',
-	'guest_timeouts': 'III',
-	'period': '5TH',
-	'period_desc': '5TH Quarter',
-	'home_possession': '.',
-	'guest_possession': '.',
-	'home_fouls': '5',
-	'guest_fouls': '5',
-	'shot_clock': '5',
-	'timeout_clock': '00:00',
-	'shot_clock_status': '1',
-	'home_stats': '',
-	'guest_stats': '',
-	'home_stats_duration': 0,
-	'guest_stats_duration': 0,
-	'home_new_animation': True,
-	'guest_new_animation': True,
+current_game_data = {}
+current_sport = 'basketball'  # Default sport
+
+# Sport-specific configurations
+SPORT_CONFIGS = {
+	'basketball': {
+		'data_template': {
+			'sport': 'basketball',
+			'clock': '55:55',
+			'home_score': '1',
+			'guest_score': '1',
+			'home_timeouts': 'III',
+			'guest_timeouts': 'III',
+			'period': '5TH',
+			'period_desc': '5TH Quarter',
+			'home_possession': '.',
+			'guest_possession': '.',
+			'home_fouls': '5',
+			'guest_fouls': '5',
+			'shot_clock': '5',
+			'timeout_clock': '00:00',
+			'shot_clock_status': '1',
+			'home_stats': '',
+			'guest_stats': '',
+			'home_stats_duration': 0,
+			'guest_stats_duration': 0,
+			'home_new_animation': True,
+			'guest_new_animation': True,
+		},
+		'fields_mapping': {
+			'Main_Clock_Time__mm_ss_ss_t__': 'clock',
+			'Home_Team_Score': 'home_score',
+			'Guest_Team_Score': 'guest_score',
+			'Home_Time_Outs_Left___Total': 'home_timeouts',
+			'Guest_Time_Outs_Left___Total': 'guest_timeouts',
+			'Period_Text___1st_____OT______OT_2__': 'period',
+			'Period_Description___End_of_1st____': 'period_desc',
+			'Home_Possession_Indicator______or_____': 'home_possession',
+			'Guest_Possession_Indicator______or_____': 'guest_possession',
+			'Home_Team_Fouls': 'home_fouls',
+			'Guest_Team_Fouls': 'guest_fouls',
+			'Shot_Clock_Time__mm_ss____': 'shot_clock',
+			'Time_Out_Time__mm_ss____': 'timeout_clock',
+			'Shot_Clock__0______or__z__': 'shot_clock_status',
+		}
+	},
+	'volleyball': {
+		'data_template': {
+			'sport': 'volleyball',
+			'clock': '00:00',
+			'home_score': '0',
+			'guest_score': '0',
+			'home_timeouts': 'II',
+			'guest_timeouts': 'II',
+			'set_number': '1',
+			'period_desc': '1st Set',
+			'home_possession': '.',
+			'guest_possession': '.',
+			'home_sets_won': '0',
+			'guest_sets_won': '0',
+			'serving_team': '',
+			'timeout_clock': '00:00',
+			'home_stats': '',
+			'guest_stats': '',
+			'home_stats_duration': 0,
+			'guest_stats_duration': 0,
+			'home_new_animation': True,
+			'guest_new_animation': True,
+		},
+		'fields_mapping': {
+			'Main_Clock_Time__mm_ss_ss_t__': 'clock',
+			'Home_Team_Score': 'home_score',
+			'Guest_Team_Score': 'guest_score',
+			'Home_Time_Outs_Left___Total': 'home_timeouts',
+			'Guest_Time_Outs_Left___Total': 'guest_timeouts',
+			'Set_Number': 'set_number',
+			'Period_Description___End_of_1st____': 'period_desc',
+			'Home_Possession_Indicator______or_____': 'home_possession',
+			'Guest_Possession_Indicator______or_____': 'guest_possession',
+			'Home_Sets_Won': 'home_sets_won',
+			'Guest_Sets_Won': 'guest_sets_won',
+			'Serving_Team': 'serving_team',
+			'Time_Out_Time__mm_ss____': 'timeout_clock',
+		}
+	},
+	'football': {
+		'data_template': {
+			'sport': 'football',
+			'clock': '15:00',
+			'home_score': '0',
+			'guest_score': '0',
+			'home_timeouts': 'III',
+			'guest_timeouts': 'III',
+			'quarter': '1',
+			'period_desc': '1st Quarter',
+			'down': '1',
+			'distance': '10',
+			'yard_line': '50',
+			'home_possession': '.',
+			'guest_possession': '.',
+			'play_clock': '40',
+			'timeout_clock': '00:00',
+			'home_stats': '',
+			'guest_stats': '',
+			'home_stats_duration': 0,
+			'guest_stats_duration': 0,
+			'home_new_animation': True,
+			'guest_new_animation': True,
+		},
+		'fields_mapping': {
+			'Main_Clock_Time__mm_ss_ss_t__': 'clock',
+			'Home_Team_Score': 'home_score',
+			'Guest_Team_Score': 'guest_score',
+			'Home_Time_Outs_Left___Total': 'home_timeouts',
+			'Guest_Time_Outs_Left___Total': 'guest_timeouts',
+			'Quarter_Number': 'quarter',
+			'Period_Description___End_of_1st____': 'period_desc',
+			'Down_Number': 'down',
+			'Distance_to_Go': 'distance',
+			'Yard_Line_Position': 'yard_line',
+			'Home_Possession_Indicator______or_____': 'home_possession',
+			'Guest_Possession_Indicator______or_____': 'guest_possession',
+			'Play_Clock_Time': 'play_clock',
+			'Time_Out_Time__mm_ss____': 'timeout_clock',
+		}
+	}
 }
 
 class StatsServer:
@@ -144,25 +249,14 @@ class StatsServer:
 			)
 			client_thread.start()
 
-class BasketballDataFetcher:
-	def __init__(self, url):
+class SportDataFetcher:
+	def __init__(self, url, sport):
 		self.url = url
-		self.fields_mapping = {
-			'Main_Clock_Time__mm_ss_ss_t__': 'clock',
-			'Home_Team_Score': 'home_score',
-			'Guest_Team_Score': 'guest_score',
-			'Home_Time_Outs_Left___Total': 'home_timeouts',
-			'Guest_Time_Outs_Left___Total': 'guest_timeouts',
-			'Period_Text___1st_____OT______OT_2__': 'period',
-			'Period_Description___End_of_1st____': 'period_desc',
-			'Home_Possession_Indicator______or_____': 'home_possession',
-			'Guest_Possession_Indicator______or_____': 'guest_possession',
-			'Home_Team_Fouls': 'home_fouls',
-			'Guest_Team_Fouls': 'guest_fouls',
-			'Shot_Clock_Time__mm_ss____': 'shot_clock',
-			'Time_Out_Time__mm_ss____': 'timeout_clock',
-			'Shot_Clock__0______or__z__': 'shot_clock_status',
-		}
+		self.sport = sport.lower()
+		if self.sport not in SPORT_CONFIGS:
+			raise ValueError(f"Unsupported sport: {sport}. Supported sports: {list(SPORT_CONFIGS.keys())}")
+
+		self.fields_mapping = SPORT_CONFIGS[self.sport]['fields_mapping']
 
 	def extract_field_value(self, data, field_name):
 		try:
@@ -203,19 +297,53 @@ def get_data():
 
 @app.route('/')
 def serve_html():
-	return send_file('basketball-frontend.html')
+	# Serve sport-specific HTML file if it exists
+	sport_html = f'{current_sport}-frontend.html'
+	if os.path.exists(sport_html):
+		return send_file(sport_html)
+	else:
+		return send_file('basketball-frontend.html')  # Basketball fallback
 
 # Add route for serving static files
 @app.route('/<path:filename>')
 def serve_static(filename):
 	return send_from_directory('.', filename)
 
+def initialize_sport_data(sport):
+	"""Initialize the current_game_data with sport-specific template"""
+	global current_game_data, current_sport
+	current_sport = sport.lower()
+	if current_sport not in SPORT_CONFIGS:
+		raise ValueError(f"Unsupported sport: {sport}. Supported sports: {list(SPORT_CONFIGS.keys())}")
+
+	current_game_data = SPORT_CONFIGS[current_sport]['data_template'].copy()
+	print(f"Initialized for {current_sport} with data template")
+
 def main():
-	# URL of the basketball data
-	url = "http://192.168.10.166//player/dataset/tables/RTD%2FAS5-Basketball.json"
+	# Sport Options: 'basketball', 'volleyball', 'football'
+	SPORT = 'basketball'
+
+	# Initialize sport-specific data
+	initialize_sport_data(SPORT)
+
+	# Sport-specific URLs
+	SPORT_URLS = {
+		'basketball': "http://192.168.10.166//player/dataset/tables/RTD%2FAS5-Basketball.json",
+		'volleyball': "",
+		'football': ""
+	}
+
+	url = SPORT_URLS.get(SPORT)
+	if not url:
+		raise ValueError(f"No URL configured for sport: {SPORT}")
+
+	print(f"Starting {SPORT} data server...")
+	print(f"Data URL: {url}")
+	print(f"Server will run on http://0.0.0.0:5000")
+	print(f"Stats server listening on port 5001")
 
 	# Create and start the data fetcher thread
-	fetcher = BasketballDataFetcher(url)
+	fetcher = SportDataFetcher(url, SPORT)
 	fetch_thread = threading.Thread(target=update_data_loop, args=(fetcher,), daemon=True)
 	fetch_thread.start()
 
