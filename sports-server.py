@@ -64,6 +64,14 @@ SPORT_CONFIGS = {
 			'Shot_Clock__0______or__z__': 'shot_clock_status',
 		}
 	},
+	""" Scoreboard data looks like it has the following:
+	clock (used as an actual clock, don't want this)
+	score (home/away)
+	'period/set'
+	serve (home/away)
+	fouls (possibly used as sets won?)
+	time outs
+	"""
 	'volleyball': {
 		'data_template': {
 			'sport': 'volleyball',
