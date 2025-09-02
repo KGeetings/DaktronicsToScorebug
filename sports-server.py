@@ -22,6 +22,15 @@ current_game_data = {}
 current_sport = 'basketball'  # Default sport
 
 # Sport-specific configurations
+
+""" Volleyball Scoreboard data looks like it has the following:
+	clock (used as an actual clock, don't want this)
+	score (home/away)
+	'period/set'
+	serve (home/away)
+	fouls (possibly used as sets won?)
+	time outs
+	"""
 SPORT_CONFIGS = {
 	'basketball': {
 		'data_template': {
@@ -64,14 +73,6 @@ SPORT_CONFIGS = {
 			'Shot_Clock__0______or__z__': 'shot_clock_status',
 		}
 	},
-	""" Scoreboard data looks like it has the following:
-	clock (used as an actual clock, don't want this)
-	score (home/away)
-	'period/set'
-	serve (home/away)
-	fouls (possibly used as sets won?)
-	time outs
-	"""
 	'volleyball': {
 		'data_template': {
 			'sport': 'volleyball',
@@ -329,7 +330,7 @@ def initialize_sport_data(sport):
 
 def main():
 	# Sport Options: 'basketball', 'volleyball', 'football'
-	SPORT = 'basketball'
+	SPORT = 'volleyball'
 
 	# Initialize sport-specific data
 	initialize_sport_data(SPORT)
@@ -337,7 +338,7 @@ def main():
 	# Sport-specific URLs
 	SPORT_URLS = {
 		'basketball': "http://192.168.10.166//player/dataset/tables/RTD%2FAS5-Basketball.json",
-		'volleyball': "",
+		'volleyball': "http://192.168.10.166//player/dataset/tables/RTD%2FAS5-Volleyball.json",
 		'football': ""
 	}
 

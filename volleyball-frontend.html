@@ -1,0 +1,752 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<title>Volleyball Scorebug 5200x1080</title>
+	<link rel="preconnect" href="https://fonts.googleapis.com">
+	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+	<link href="https://fonts.googleapis.com/css2?family=Rubik:ital,wght@0,300..900;1,300..900&display=swap" rel="stylesheet">
+
+	<style>
+		/* ----- Main ----- */
+		body {
+			margin: 0;
+			padding: 0;
+			background: transparent;
+			font-family: "Rubik", serif;
+			font-style: italic;
+			font-weight: 600;
+			color: white;
+		}
+
+		#scoreboard {
+			position: relative;
+			top: 300px;
+			left: 1600px;
+			width: 1920px;
+			height: calc(1920px * (3014 / 7743));
+			background-image: url('PC Volleyball Scoreboard v1 Example.png');
+			background-size: contain;
+			background-repeat: no-repeat;
+			z-index: 2;
+		}
+
+		/* ----- Stats ----- */
+		.stats-animation {
+			position: absolute;
+			top: 380px;
+			width: 1575px;
+			height: 661px;
+			background: rgba(179, 85, 85, 0.8);
+			/* background: rgba(179, 85, 85, 1); */
+			transform-origin: bottom;
+			transform: skew(-12.5deg) translateX(100%);
+			display: none;
+			z-index: 1;
+		}
+
+		#home-stats-animation {
+			/* left: 1800px; */
+			left: 1825px;
+		}
+
+		#guest-stats-animation {
+			/* left: -1548px; */
+			left: -1573px;
+		}
+
+		.stats-text {
+			position: absolute;
+			width: 100%;
+			text-align: center;
+			top: 2%;
+			transform: skew(12.5deg);
+			font-size: 89px;
+			color: white;
+		}
+
+		/* ----- Score ----- */
+		.number-ticker {
+			overflow: hidden;
+			height: 1.042em;
+			background: transparent;
+			position: absolute;
+			font-size: 230px;
+			font-weight: 700;
+			top: 14.3%;
+			font-family: "Rubik", serif;
+			font-style: italic;
+		}
+
+		.digit {
+			float: left;
+			line-height: 1;
+			transition: margin-top 3s ease;
+			font-variant-numeric: tabular-nums;
+		}
+
+		#home-score {
+			left: 57.5%;
+		}
+
+		#guest-score {
+			right: 54%;
+		}
+
+		/* ----- Possession ----- */
+		.possession {
+			position: absolute;
+			font-size: 190px;
+			font-weight: 700;
+			top: 10%;
+		}
+
+		#home-possession {
+			left: 55%;
+		}
+
+		#guest-possession {
+			left: 47%;
+		}
+
+		/* ----- Timeouts ----- */
+		.timeouts {
+			position: absolute;
+			font-size: 114px;
+			font-weight: 600;
+			top: 51%;
+		}
+
+		#home-timeouts {
+			left: 59.5%;
+		}
+
+		#guest-timeouts {
+			left: 12.5%;
+		}
+
+		.timeouts span {
+			transition: opacity 0.3s ease-in-out;
+		}
+
+		.timeouts span.blink {
+			animation: blinkTimeout 0.5s ease-in-out 6;
+		}
+
+		@keyframes blinkTimeout {
+			0%, 100% { opacity: 1; }
+			50% { opacity: 0; }
+		}
+
+		#timeout-animation {
+			position: absolute;
+			top: 100px;
+			left: 1778.7px;
+			width: 1773px;
+			height: 140px;
+			background: rgba(255, 165, 0, 0.7);
+			transform-origin: bottom;
+			transform: skew(-12.5deg) translateY(100%);
+			display: none;
+			z-index: 1;
+		}
+
+		#timeout-text {
+			position: absolute;
+			width: 100%;
+			text-align: center;
+			top: 50%;
+			transform: translateY(-50%) skew(12.5deg);
+			/* Counter-skew the text */
+			font-size: 122px;
+			color: white;
+		}
+
+		/* ----- Fouls ----- */
+		.fouls {
+			position: absolute;
+			top: 52.5%;
+			font-size: 91px;
+			font-weight: 600;
+		}
+
+		#home-fouls {
+			left: 88.5%;
+		}
+
+		#guest-fouls {
+			left: 42%;
+		}
+
+		@keyframes blink {
+			0%,
+			100% {
+				opacity: 1;
+			}
+
+			50% {
+				opacity: 0;
+			}
+		}
+
+		.blink {
+			animation: blink 0.5s ease-in-out 6;
+		}
+
+		/* ----- Clocks ----- */
+		.clock {
+			position: absolute;
+		}
+
+		#main-clock {
+			top: 73%;
+			right: 28%;
+			font-size: 141px;
+			font-weight: 600;
+		}
+
+		#period {
+			top: 77%;
+			left: 3.5%;
+			font-size: 93px;
+			font-weight: 500;
+		}
+
+		#shot-clock {
+			top: 75.5%;
+			right: 11.5%;
+			font-size: 125px;
+			font-weight: 600;
+			z-index: 4;
+		}
+
+		#shot-clock-countdown {
+			position: absolute;
+			top: 71.7%;
+			right: 7.9%;
+			width: 291.9px;
+			height: 193px;
+			transform: skew(-12.5deg);
+			background: rgba(255, 0, 0, 0.5);
+			transform-origin: bottom;
+			display: none;
+			z-index: 3;
+		}
+
+		@keyframes flashRed {
+			0% {
+				background: rgba(255, 0, 0, 1);
+			}
+			100% {
+				background: rgba(255, 0, 0, 0.3);
+			}
+		}
+	</style>
+</head>
+
+<body>
+	<!----- HTML  ----->
+	<div id="timeout-animation">
+		<div id="timeout-text">Timeout</div>
+	</div>
+	<div class="stats-animation" id="home-stats-animation">
+		<div class="stats-text" id="home-stats-text">Home Team Stats</div>
+	</div>
+	<div class="stats-animation" id="guest-stats-animation">
+		<div class="stats-text" id="guest-stats-text">Guest Team Stats</div>
+	</div>
+	<div id="scoreboard" class="scoreboard">
+		<div class="clock" id="main-clock">20:02</div>
+		<div class="clock" id="period">1st Quarter</div>
+		<div class="clock" id="shot-clock">12</div>
+
+		<div class="possession" id="home-possession"></div>
+		<div class="score number-ticker" id="home-score" data-value="0"></div>
+		<div class="timeouts" id="home-timeouts"></div>
+		<div class="fouls" id="home-fouls">0</div>
+
+		<div class="possession" id="guest-possession"></div>
+		<div class="score number-ticker" id="guest-score" data-value="0"></div>
+		<div class="timeouts" id="guest-timeouts"></div>
+		<div class="fouls" id="guest-fouls">0</div>
+
+		<div id="shot-clock-countdown"></div>
+	</div>
+
+	<!----- JavaScript  ----->
+	<script>
+		const shotClockCountdown = document.getElementById('shot-clock-countdown');
+		const timeoutAnimation = document.getElementById('timeout-animation');
+		const timeoutText = document.getElementById('timeout-text');
+		const homeStatsAnimation = document.getElementById('home-stats-animation');
+		const guestStatsAnimation = document.getElementById('guest-stats-animation');
+
+		let currentTimeoutAnimation = null;
+		let timeoutAnimationState = 'hidden'; // Can be 'hidden', 'showing', or 'hiding'
+
+		// Add new variables for shot clock tracking
+		let lastShotClockTime = null;
+		let lastShotClockScale = 1;
+
+		// Initialize tickers
+		const homeTicker = createNumberTicker(document.getElementById('home-score'));
+		const guestTicker = createNumberTicker(document.getElementById('guest-score'));
+		const homeTimeoutDisplay = createTimeoutDisplay('home-timeouts');
+		const guestTimeoutDisplay = createTimeoutDisplay('guest-timeouts');
+
+		let lastHomeScore = 0;
+		let lastGuestScore = 0;
+		let lastHomeTimeouts = 0;
+		let lastGuestTimeouts = 0;
+		let lastHomeFouls = 0;
+		let lastGuestFouls = 0;
+
+		// Stats animation state and tracking
+		let currentHomeStatsAnimation = null;
+		let currentGuestStatsAnimation = null;
+		/* let homeStatsAnimationState = 'hidden';
+		let guestStatsAnimationState = 'hidden'; */
+		let lastHomeStats = null;
+		let lastGuestStats = null;
+		let homeStatsTimeout = null;
+		let guestStatsTimeout = null;
+
+		function updateStatsAnimation(statsElement, statsText, duration, isHome) {
+			// If no stats or stats haven't changed, do nothing
+			const currentStats = statsText.trim();
+			const lastStats = isHome ? lastHomeStats : lastGuestStats;
+
+			console.log("currentStats: " + currentStats, " lastStats: " + lastStats, " duration: " + duration);
+			if (currentStats === lastStats) return;
+
+			// Clear any existing timeouts
+			if (isHome && homeStatsTimeout) {
+				clearTimeout(homeStatsTimeout);
+				homeStatsTimeout = null;
+			} else if (!isHome && guestStatsTimeout) {
+				clearTimeout(guestStatsTimeout);
+				guestStatsTimeout = null;
+			}
+
+			// Update the tracked last stats
+			if (isHome) {
+				lastHomeStats = currentStats;
+			} else {
+				lastGuestStats = currentStats;
+			}
+
+			// If stats are empty, hide the element
+			if (!currentStats) {
+				const slideOutAnimation = statsElement.animate([
+					{ clipPath: isHome ? 'inset(0% 0% 0% 0%)' : 'inset(0% 0% 0% 0%)' },
+					{ clipPath: isHome ? 'inset(0% 100% 0% 0%)' : 'inset(0% 0% 0% 100%)' }
+				], {
+					duration: 1000,
+					easing: 'ease-in',
+					fill: 'forwards'
+				});
+				slideOutAnimation.onfinish = () => {
+					statsElement.style.display = 'none';
+				};
+				return;
+			}
+
+			// Cancel any existing animation for this stats element
+			if (isHome && currentHomeStatsAnimation) {
+				currentHomeStatsAnimation.cancel();
+			}
+			if (!isHome && currentGuestStatsAnimation) {
+				currentGuestStatsAnimation.cancel();
+			}
+
+			// Show the stats animation
+			statsElement.style.display = 'block';
+
+			// Animate sliding in
+			const slideInAnimation = statsElement.animate([
+				{ clipPath: isHome ? 'inset(0% 100% 0% 0%)' : 'inset(0% 0% 0% 100%)' },
+				{ clipPath: isHome ? 'inset(0% 0% 0% 0%)' : 'inset(0% 0% 0% 0%)' }
+			], {
+				duration: 1000,
+				easing: 'ease-out',
+				fill: 'forwards'
+			});
+
+			// Store the current animation
+			if (isHome) {
+				currentHomeStatsAnimation = slideInAnimation;
+			} else {
+				currentGuestStatsAnimation = slideInAnimation;
+			}
+
+			// If duration is set (not infinite), schedule the hide animation
+			if (duration > 0) {
+				const hideTimeout = setTimeout(() => {
+					const slideOutAnimation = statsElement.animate([
+						{ clipPath: isHome ? 'inset(0% 0% 0% 0%)' : 'inset(0% 0% 0% 0%)' },
+						{ clipPath: isHome ? 'inset(0% 100% 0% 0%)' : 'inset(0% 0% 0% 100%)' }
+					], {
+						duration: 1000,
+						easing: 'ease-in',
+						fill: 'forwards'
+					});
+
+					slideOutAnimation.onfinish = () => {
+						statsElement.style.display = 'none';
+					};
+
+					// Store the current animation
+					if (isHome) {
+						currentHomeStatsAnimation = slideOutAnimation;
+					} else {
+						currentGuestStatsAnimation = slideOutAnimation;
+					}
+				}, duration * 1000);
+
+				// Store the timeout
+				if (isHome) {
+					homeStatsTimeout = hideTimeout;
+				} else {
+					guestStatsTimeout = hideTimeout;
+				}
+			}
+		}
+
+		function updateShotClock(shotClockTime) {
+			if (!shotClockTime || shotClockTime === '--' || shotClockTime === "") {
+				shotClockCountdown.style.display = 'none';
+				lastShotClockTime = null;
+				lastShotClockScale = 1;
+				return;
+			}
+
+			const currentTime = parseInt(shotClockTime, 10) || 0;
+
+			// No change from previous update
+			if (currentTime === lastShotClockTime) return;
+
+			// Initial state setup
+			if (lastShotClockTime === null) {
+				if (currentTime <= 10) {
+					shotClockCountdown.style.display = 'block';
+					const targetScale = currentTime / 10;
+					shotClockCountdown.style.transform = `skew(-12.5deg) scaleY(${targetScale})`;
+					lastShotClockScale = targetScale;
+				} else {
+					shotClockCountdown.style.display = 'none';
+					lastShotClockScale = 1;
+				}
+				lastShotClockTime = currentTime;
+				return;
+			}
+
+			// Determine if the change is a consecutive decrement
+			const buffer = 1;
+			const animate = currentTime >= lastShotClockTime - buffer && currentTime < lastShotClockTime;
+
+			// When shot clock is 1 or below, flash at full scale
+			if (currentTime <= 10) {
+				shotClockCountdown.style.display = 'block';
+				const targetScale = currentTime / 10;
+
+				if (animate) {
+					// Animate the scaleY transition
+					shotClockCountdown.animate([
+						{ transform: `skew(-12.5deg) scaleY(${lastShotClockScale})` },
+						{ transform: `skew(-12.5deg) scaleY(${targetScale})` }
+					], {
+						duration: 1000,
+						easing: 'linear',
+						fill: 'forwards'
+					});
+				} else {
+					// Update immediately without animation
+					shotClockCountdown.style.transform = `skew(-12.5deg) scaleY(${targetScale})`;
+				}
+				lastShotClockScale = targetScale;
+			} else {
+				// Hide and reset when shot clock is above 10
+				shotClockCountdown.style.display = 'none';
+				lastShotClockScale = 1;
+			}
+
+			lastShotClockTime = currentTime;
+		}
+
+		function updateTimeoutAnimation(timeoutClock) {
+			const [minutes, seconds] = timeoutClock.split(':').map(parseFloat);
+			const time = minutes * 60 + seconds;
+
+			if (!time || time <= 0) {
+				if (timeoutAnimationState === 'showing') {
+					timeoutAnimation.style.display = 'block';
+					if (currentTimeoutAnimation) {
+						currentTimeoutAnimation.cancel();
+					}
+
+					currentTimeoutAnimation = timeoutAnimation.animate([
+						{ clipPath: 'inset(0% 0% 0% 0%)' },
+						{ clipPath: 'inset(100% 0% 0% 0%)' }
+					], {
+						duration: 2000,
+						easing: 'ease-out',
+						fill: 'forwards'
+					});
+
+					timeoutAnimationState = 'hiding';
+					currentTimeoutAnimation.onfinish = () => {
+						timeoutAnimation.style.display = 'none';
+						timeoutAnimationState = 'hidden';
+					};
+				}
+				return;
+			}
+
+			timeoutText.textContent = `Timeout: ${minutes}:${seconds < 10 ? '0' : ''}${seconds}`;
+
+			if (timeoutAnimationState !== 'showing') {
+				timeoutAnimation.style.display = 'block';
+				if (currentTimeoutAnimation) {
+					currentTimeoutAnimation.cancel();
+				}
+
+				currentTimeoutAnimation = timeoutAnimation.animate([
+					{ clipPath: 'inset(100% 0% 0% 0%)' },
+					{ clipPath: 'inset(0% 0% 0% 0%)' }
+				], {
+					duration: 2000,
+					easing: 'ease-out',
+					fill: 'forwards'
+				});
+
+				timeoutAnimationState = 'showing';
+			}
+		}
+
+		function createTimeoutDisplay(elementId) {
+			const element = document.getElementById(elementId);
+			element.innerHTML = ''; // Clears any existing content, otherwise we just append a LOT more...oops
+			let currentTimeouts = [];
+			let isAnimating = false;
+
+			function updateTimeouts(newCount) {
+				newCount = parseInt(newCount) || 0;
+				const previousCount = currentTimeouts.length;
+
+				if (newCount === previousCount) return;
+
+				// Clear existing timeouts first
+				element.innerHTML = '';
+				currentTimeouts = [];
+
+				// Create all new timeout indicators
+				for (let i = 0; i < newCount; i++) {
+					const timeoutSpan = document.createElement('span');
+					timeoutSpan.textContent = 'I ';
+					element.appendChild(timeoutSpan);
+					currentTimeouts.push(timeoutSpan);
+				}
+
+				// If we're removing timeouts and not currently animating
+				if (newCount < previousCount && !isAnimating) {
+					for (let i = newCount; i < previousCount; i++) {
+						const timeoutSpan = document.createElement('span');
+						timeoutSpan.textContent = 'I ';
+						timeoutSpan.classList.add('blink');
+						element.appendChild(timeoutSpan);
+
+						isAnimating = true;
+						setTimeout(() => {
+							timeoutSpan.remove();
+							isAnimating = false;
+						}, 3000);
+					}
+				}
+			}
+
+			return { updateTimeouts };
+		}
+
+		const textTransformations = {
+			"home-possession": {
+				">": ".",
+				"<": ".",
+				"None": "",
+				"": ""
+			},
+			"guest-possession": {
+				">": ".",
+				"<": ".",
+				"None": "",
+				"": ""
+			}
+		};
+
+		function transformText(key, value) {
+			if (textTransformations[key] && textTransformations[key][value] !== undefined) {
+				return textTransformations[key][value];
+			}
+			return value;
+		}
+
+		const defaultDigitNode = document.createElement('div');
+		defaultDigitNode.classList.add('digit');
+		for (let i = 0; i < 10; i++) {
+			defaultDigitNode.innerHTML += i + '<br>';
+		}
+
+		function createNumberTicker(element) {
+			let currentValue = 0;
+			let digits = [];
+
+			function generateDigits(amount) {
+				for (let i = 0; i < amount; i++) {
+					const digitNode = defaultDigitNode.cloneNode(true);
+					digitNode.isNew = true; // Mark as new
+					element.appendChild(digitNode);
+					digits.unshift(digitNode); // Add to start of array
+				}
+			}
+
+			function removeExtraDigits(targetLength) {
+				while (digits.length > targetLength) {
+					const digitToRemove = digits.shift(); // Remove from start of array
+					element.removeChild(digitToRemove);
+				}
+			}
+
+			function setValue(newValue) {
+				const newNumber = parseInt(newValue, 10);
+				if (newNumber === currentValue) return;
+
+				const reversedNumberString = String(newNumber).split('').reverse().join('');
+
+				// Handle adding or removing digits
+				if (reversedNumberString.length > digits.length) {
+					generateDigits(reversedNumberString.length - digits.length);
+				} else if (reversedNumberString.length < digits.length) {
+					removeExtraDigits(reversedNumberString.length);
+				}
+
+				digits.forEach((digit, index) => {
+					const num = reversedNumberString[index] || '0';
+					if (digit.isNew) {
+						// Start new digit at 0 and animate to target
+						digit.style.marginTop = '0em';
+						void digit.offsetHeight; // Trigger reflow
+						digit.style.marginTop = `-${num}em`;
+						digit.isNew = false; // Mark as initialized
+					} else {
+						digit.style.marginTop = `-${num}em`;
+					}
+				});
+
+				currentValue = newNumber;
+			}
+
+			// Initialize with current value
+			const initialValue = parseInt(element.getAttribute('data-value'), 10) || 0;
+			setValue(initialValue);
+
+			return { setValue };
+		}
+
+		function updateScoreboard(data) {
+			// Update scores with animation
+			const homeScore = parseInt(data.home_score, 10);
+			const guestScore = parseInt(data.guest_score, 10);
+
+			if (homeScore !== lastHomeScore) {
+				homeTicker.setValue(homeScore);
+				lastHomeScore = homeScore;
+			}
+
+			if (guestScore !== lastGuestScore) {
+				guestTicker.setValue(guestScore);
+				lastGuestScore = guestScore;
+			}
+
+			// Update clock
+			document.getElementById('main-clock').textContent = data.clock;
+
+			// Update period, make sure UPPERCASE is used for period_desc
+			document.getElementById('period').textContent = data.period_desc.toUpperCase() || data.period;
+
+			// Update timeouts with animation
+			const homeTimeouts = parseInt(data.home_timeouts, 10) || 0;
+			const guestTimeouts = parseInt(data.guest_timeouts, 10) || 0;
+
+			homeTimeoutDisplay.updateTimeouts(homeTimeouts);
+			guestTimeoutDisplay.updateTimeouts(guestTimeouts);
+
+			lastHomeTimeouts = homeTimeouts;
+			lastGuestTimeouts = guestTimeouts;
+
+			// Update fouls with animation
+			const homeFouls = parseInt(data.home_fouls, 10) || 0;
+			const guestFouls = parseInt(data.guest_fouls, 10) || 0;
+
+			// console.log("homeFouls: " + homeFouls, " LastHomeFouls: " + lastHomeFouls, " homeTimeouts: " + homeTimeouts, " LastHomeTimeouts: " + lastHomeTimeouts);
+
+			// Home fouls animation
+			if (homeFouls !== lastHomeFouls) {
+				const element = document.getElementById('home-fouls');
+				element.classList.add('blink');
+				setTimeout(() => element.classList.remove('blink'), 6000);
+			}
+			// Guest fouls animation
+			if (guestFouls !== lastGuestFouls) {
+				const element = document.getElementById('guest-fouls');
+				element.classList.add('blink');
+				setTimeout(() => element.classList.remove('blink'), 6000);
+			}
+			document.getElementById('home-fouls').textContent = homeFouls;
+			document.getElementById('guest-fouls').textContent = guestFouls;
+			lastHomeFouls = homeFouls;
+			lastGuestFouls = guestFouls;
+
+			// Update possession indicators
+			document.getElementById('home-possession').textContent = transformText("home-possession", data.home_possession ? '>' : '');
+			document.getElementById('guest-possession').textContent = transformText("guest-possession", data.guest_possession ? '>' : '');
+
+			// Update shot clock and status
+			document.getElementById('shot-clock').textContent = data.shot_clock || '--';
+			updateShotClock(data.shot_clock);
+
+			// Update timeout animation
+			updateTimeoutAnimation(data.timeout_clock);
+
+			 // Update home and guest team stats with durations
+			const homeStats = data.home_stats;
+			const guestStats = data.guest_stats;
+			const homeStatsDuration = data.home_stats_duration;
+			const guestStatsDuration = data.guest_stats_duration;
+			const homeNewAnimation = data.home_new_animation;
+			const guestNewAnimation = data.guest_new_animation;
+
+			document.getElementById('home-stats-text').innerHTML = homeStats;  // Using innerHTML to support HTML formatting
+			document.getElementById('guest-stats-text').innerHTML = guestStats;
+
+			if (homeNewAnimation) {
+				updateStatsAnimation(homeStatsAnimation, homeStats, homeStatsDuration, true)
+			}
+			if (guestNewAnimation) {
+				updateStatsAnimation(guestStatsAnimation, guestStats, guestStatsDuration, false)
+			}
+		}
+
+		function fetchData() {
+			fetch('http://localhost:5000/data')
+				.then(response => response.json())
+				.then(data => {
+					updateScoreboard(data);
+				})
+				.catch(error => console.error('Error fetching data:', error));
+		}
+
+		// Update every 50ms
+		setInterval(fetchData, 50);
+	</script>
+</body>
+
+</html>
