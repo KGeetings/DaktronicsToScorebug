@@ -170,11 +170,11 @@
 			font-weight: 600;
 		}
 
-		#home-fouls {
+		#home-set-score {
 			left: 88.5%;
 		}
 
-		#guest-fouls {
+		#guest-set-score {
 			left: 42%;
 		}
 
@@ -198,48 +198,11 @@
 			position: absolute;
 		}
 
-		#main-clock {
-			top: 73%;
-			right: 28%;
-			font-size: 141px;
-			font-weight: 600;
-		}
-
 		#period {
-			top: 77%;
-			left: 3.5%;
+			top: 8%;
+			left: 40.5%;
 			font-size: 93px;
 			font-weight: 500;
-		}
-
-		#shot-clock {
-			top: 75.5%;
-			right: 11.5%;
-			font-size: 125px;
-			font-weight: 600;
-			z-index: 4;
-		}
-
-		#shot-clock-countdown {
-			position: absolute;
-			top: 71.7%;
-			right: 7.9%;
-			width: 291.9px;
-			height: 193px;
-			transform: skew(-12.5deg);
-			background: rgba(255, 0, 0, 0.5);
-			transform-origin: bottom;
-			display: none;
-			z-index: 3;
-		}
-
-		@keyframes flashRed {
-			0% {
-				background: rgba(255, 0, 0, 1);
-			}
-			100% {
-				background: rgba(255, 0, 0, 0.3);
-			}
 		}
 	</style>
 </head>
@@ -256,19 +219,18 @@
 		<div class="stats-text" id="guest-stats-text">Guest Team Stats</div>
 	</div>
 	<div id="scoreboard" class="scoreboard">
-		<div class="clock" id="main-clock">20:02</div>
 		<div class="clock" id="period">1st Quarter</div>
-		<div class="clock" id="shot-clock">12</div>
 
+		<!-- <i class="fa-solid fa-volleyball"></i> -->
 		<div class="possession" id="home-possession"></div>
 		<div class="score number-ticker" id="home-score" data-value="0"></div>
 		<div class="timeouts" id="home-timeouts"></div>
-		<div class="fouls" id="home-fouls">0</div>
+		<div class="set-score" id="home-set-score">0</div>
 
 		<div class="possession" id="guest-possession"></div>
 		<div class="score number-ticker" id="guest-score" data-value="0"></div>
 		<div class="timeouts" id="guest-timeouts"></div>
-		<div class="fouls" id="guest-fouls">0</div>
+		<div class="set-score" id="guest-set-score">0</div>
 
 		<div id="shot-clock-countdown"></div>
 	</div>
