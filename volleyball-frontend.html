@@ -25,7 +25,7 @@
 			left: 1600px;
 			width: 1920px;
 			height: calc(1920px * (3014 / 7743));
-			background-image: url('PC Volleyball Scoreboard v2 Example.png');
+			background-image: url('PC Volleyball Scoreboard v2.png');
 			background-size: contain;
 			background-repeat: no-repeat;
 			z-index: 2;
@@ -40,7 +40,7 @@
 			background: rgba(179, 85, 85, 0.8);
 			/* background: rgba(179, 85, 85, 1); */
 			transform-origin: bottom;
-			transform: skew(-12.5deg) translateX(100%);
+			transform: skew(-10deg) translateX(100%);
 			display: none;
 			z-index: 1;
 		}
@@ -60,7 +60,7 @@
 			width: 100%;
 			text-align: center;
 			top: 2%;
-			transform: skew(12.5deg);
+			transform: skew(10deg);
 			font-size: 89px;
 			color: white;
 		}
@@ -96,17 +96,43 @@
 		/* ----- Timeouts ----- */
 		.timeouts {
 			position: absolute;
-			font-size: 114px;
-			font-weight: 600;
-			top: 51%;
+			transform: skew(-10deg) translateX(100%);
+			height: 35px;
+			width: 221px;
 		}
 
-		#home-timeouts {
-			left: 59.5%;
+		.timeout-available {
+			background-color: white;
+			border: 15px solid white;
 		}
 
-		#guest-timeouts {
-			left: 12.5%;
+		.timeout-used {
+			background-color: transparent;
+			border: 15px solid #C1C6C8;
+		}
+
+		.timeout-1-top {
+			top: 18.5%;
+		}
+
+		.timeout-2-bottom {
+			top: 28%;
+		}
+
+		#home-timeout1 {
+			left: 71.15%;
+		}
+
+		#guest-timeout1 {
+			left: -9.85%;
+		}
+
+		#home-timeout2 {
+			left: 70.5%;
+		}
+
+		#guest-timeout2 {
+			left: -10.5%;
 		}
 
 		.timeouts span {
@@ -124,13 +150,13 @@
 
 		#timeout-animation {
 			position: absolute;
-			top: 100px;
-			left: 1778.7px;
-			width: 1773px;
+			top: 109px;
+			left: 1667.7px;
+			width: 1881px;
 			height: 140px;
 			background: rgba(255, 165, 0, 0.7);
 			transform-origin: bottom;
-			transform: skew(-12.5deg) translateY(100%);
+			transform: skew(-10deg) translateY(100%);
 			display: none;
 			z-index: 1;
 		}
@@ -140,7 +166,7 @@
 			width: 100%;
 			text-align: center;
 			top: 50%;
-			transform: translateY(-50%) skew(12.5deg);
+			transform: translateY(-50%) skew(10deg);
 			/* Counter-skew the text */
 			font-size: 122px;
 			color: white;
@@ -194,7 +220,7 @@
 <body>
 	<!----- HTML  ----->
 	<div id="timeout-animation">
-		<div id="timeout-text">Timeout</div>
+		<div id="timeout-text"></div>
 	</div>
 	<div class="stats-animation" id="home-stats-animation">
 		<div class="stats-text" id="home-stats-text">Home Team Stats</div>
@@ -206,11 +232,13 @@
 		<div class="clock" id="period">1st SET</div>
 
 		<div class="score number-ticker" id="home-score" data-value="0"></div>
-		<div class="timeouts" id="home-timeouts"></div>
+		<div class="timeouts timeout-1-top timeout-used" id="home-timeout1"></div>
+		<div class="timeouts timeout-2-bottom timeout-available" id="home-timeout2"></div>
 		<div class="sets-won" id="home-sets-won">0</div>
 
 		<div class="score number-ticker" id="guest-score" data-value="0"></div>
-		<div class="timeouts" id="guest-timeouts"></div>
+		<div class="timeouts timeout-1-top timeout-used" id="guest-timeout1"></div>
+		<div class="timeouts timeout-2-bottom timeout-available" id="guest-timeout2"></div>
 		<div class="sets-won" id="guest-sets-won">0</div>
 	</div>
 
@@ -375,7 +403,7 @@
 				return;
 			}
 
-			timeoutText.textContent = `Timeout: ${minutes}:${seconds < 10 ? '0' : ''}${seconds}`;
+			timeoutText.textContent = `${minutes}:${seconds < 10 ? '0' : ''}${seconds}`;
 
 			if (timeoutAnimationState !== 'showing') {
 				timeoutAnimation.style.display = 'block';
