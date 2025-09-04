@@ -23,14 +23,6 @@ current_sport = 'basketball'  # Default sport
 
 # Sport-specific configurations
 
-""" Volleyball Scoreboard data looks like it has the following:
-	clock (used as an actual clock, don't want this)
-	score (home/away)
-	'period/set'
-	serve (home/away)
-	fouls (possibly used as sets won?)
-	time outs
-	"""
 SPORT_CONFIGS = {
 	'basketball': {
 		'data_template': {
@@ -81,10 +73,8 @@ SPORT_CONFIGS = {
 			'guest_score': '5',
 			'home_timeouts': 'II',
 			'guest_timeouts': 'II',
-			'set_number': '1',
+			'period': '1',
 			'period_desc': '1st Set',
-			'home_possession': '.',
-			'guest_possession': '.',
 			'serving_team': '',
 			'home_sets_won': '2',
 			'guest_sets_won': '1',
@@ -104,8 +94,6 @@ SPORT_CONFIGS = {
 			'Guest_Time_Outs_Left___Total': 'guest_timeouts',
 			'Set_Number': 'set_number',
 			'Period_Description___End_of_1st____': 'period_desc',
-			'Home_Possession_Indicator______or_____': 'home_possession',
-			'Guest_Possession_Indicator______or_____': 'guest_possession',
 			'Serving_Team': 'serving_team',
 			'Home_Sets_Won': 'home_sets_won',
 			'Guest_Sets_Won': 'guest_sets_won',

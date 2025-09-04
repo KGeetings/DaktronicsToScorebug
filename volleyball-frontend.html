@@ -25,7 +25,7 @@
 			left: 1600px;
 			width: 1920px;
 			height: calc(1920px * (3014 / 7743));
-			background-image: url('PC Volleyball Scoreboard v1 Example.png');
+			background-image: url('PC Volleyball Scoreboard v2 Example.png');
 			background-size: contain;
 			background-repeat: no-repeat;
 			z-index: 2;
@@ -71,9 +71,9 @@
 			height: 1.042em;
 			background: transparent;
 			position: absolute;
-			font-size: 230px;
+			font-size: 145px;
 			font-weight: 700;
-			top: 14.3%;
+			top: 18.3%;
 			font-family: "Rubik", serif;
 			font-style: italic;
 		}
@@ -86,27 +86,11 @@
 		}
 
 		#home-score {
-			left: 57.5%;
+			left: 53.5%;
 		}
 
 		#guest-score {
 			right: 54%;
-		}
-
-		/* ----- Possession ----- */
-		.possession {
-			position: absolute;
-			font-size: 190px;
-			font-weight: 700;
-			top: 10%;
-		}
-
-		#home-possession {
-			left: 55%;
-		}
-
-		#guest-possession {
-			left: 47%;
 		}
 
 		/* ----- Timeouts ----- */
@@ -163,19 +147,19 @@
 		}
 
 		/* ----- Fouls ----- */
-		.fouls {
+		.sets-won {
 			position: absolute;
-			top: 52.5%;
-			font-size: 91px;
-			font-weight: 600;
+			top: 44%;
+			font-size: 130px;
+			font-weight: 700;
 		}
 
-		#home-set-score {
-			left: 88.5%;
+		#home-sets-won {
+			left: 70%;
 		}
 
-		#guest-set-score {
-			left: 42%;
+		#guest-sets-won {
+			left: 24%;
 		}
 
 		@keyframes blink {
@@ -199,10 +183,10 @@
 		}
 
 		#period {
-			top: 8%;
-			left: 40.5%;
-			font-size: 93px;
-			font-weight: 500;
+			top: 44%;
+			left: 36%;
+			font-size: 130px;
+			font-weight: 700;
 		}
 	</style>
 </head>
@@ -219,18 +203,15 @@
 		<div class="stats-text" id="guest-stats-text">Guest Team Stats</div>
 	</div>
 	<div id="scoreboard" class="scoreboard">
-		<div class="clock" id="period">1st Quarter</div>
+		<div class="clock" id="period">1st SET</div>
 
-		<!-- <i class="fa-solid fa-volleyball"></i> -->
-		<div class="possession" id="home-possession"></div>
 		<div class="score number-ticker" id="home-score" data-value="0"></div>
 		<div class="timeouts" id="home-timeouts"></div>
-		<div class="set-score" id="home-set-score">0</div>
+		<div class="sets-won" id="home-sets-won">0</div>
 
-		<div class="possession" id="guest-possession"></div>
 		<div class="score number-ticker" id="guest-score" data-value="0"></div>
 		<div class="timeouts" id="guest-timeouts"></div>
-		<div class="set-score" id="guest-set-score">0</div>
+		<div class="sets-won" id="guest-sets-won">0</div>
 
 		<div id="shot-clock-countdown"></div>
 	</div>
@@ -260,8 +241,6 @@
 		let lastGuestScore = 0;
 		let lastHomeTimeouts = 0;
 		let lastGuestTimeouts = 0;
-		let lastHomeFouls = 0;
-		let lastGuestFouls = 0;
 
 		// Stats animation state and tracking
 		let currentHomeStatsAnimation = null;
@@ -529,21 +508,6 @@
 			return { updateTimeouts };
 		}
 
-		const textTransformations = {
-			"home-possession": {
-				">": ".",
-				"<": ".",
-				"None": "",
-				"": ""
-			},
-			"guest-possession": {
-				">": ".",
-				"<": ".",
-				"None": "",
-				"": ""
-			}
-		};
-
 		function transformText(key, value) {
 			if (textTransformations[key] && textTransformations[key][value] !== undefined) {
 				return textTransformations[key][value];
@@ -629,7 +593,7 @@
 			}
 
 			// Update clock
-			document.getElementById('main-clock').textContent = data.clock;
+			//document.getElementById('main-clock').textContent = data.clock;
 
 			// Update period, make sure UPPERCASE is used for period_desc
 			document.getElementById('period').textContent = data.period_desc.toUpperCase() || data.period;
@@ -643,33 +607,6 @@
 
 			lastHomeTimeouts = homeTimeouts;
 			lastGuestTimeouts = guestTimeouts;
-
-			// Update fouls with animation
-			const homeFouls = parseInt(data.home_fouls, 10) || 0;
-			const guestFouls = parseInt(data.guest_fouls, 10) || 0;
-
-			// console.log("homeFouls: " + homeFouls, " LastHomeFouls: " + lastHomeFouls, " homeTimeouts: " + homeTimeouts, " LastHomeTimeouts: " + lastHomeTimeouts);
-
-			// Home fouls animation
-			if (homeFouls !== lastHomeFouls) {
-				const element = document.getElementById('home-fouls');
-				element.classList.add('blink');
-				setTimeout(() => element.classList.remove('blink'), 6000);
-			}
-			// Guest fouls animation
-			if (guestFouls !== lastGuestFouls) {
-				const element = document.getElementById('guest-fouls');
-				element.classList.add('blink');
-				setTimeout(() => element.classList.remove('blink'), 6000);
-			}
-			document.getElementById('home-fouls').textContent = homeFouls;
-			document.getElementById('guest-fouls').textContent = guestFouls;
-			lastHomeFouls = homeFouls;
-			lastGuestFouls = guestFouls;
-
-			// Update possession indicators
-			document.getElementById('home-possession').textContent = transformText("home-possession", data.home_possession ? '>' : '');
-			document.getElementById('guest-possession').textContent = transformText("guest-possession", data.guest_possession ? '>' : '');
 
 			// Update shot clock and status
 			document.getElementById('shot-clock').textContent = data.shot_clock || '--';
