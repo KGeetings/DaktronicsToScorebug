@@ -212,13 +212,10 @@
 		<div class="score number-ticker" id="guest-score" data-value="0"></div>
 		<div class="timeouts" id="guest-timeouts"></div>
 		<div class="sets-won" id="guest-sets-won">0</div>
-
-		<div id="shot-clock-countdown"></div>
 	</div>
 
 	<!----- JavaScript  ----->
 	<script>
-		const shotClockCountdown = document.getElementById('shot-clock-countdown');
 		const timeoutAnimation = document.getElementById('timeout-animation');
 		const timeoutText = document.getElementById('timeout-text');
 		const homeStatsAnimation = document.getElementById('home-stats-animation');
@@ -226,10 +223,6 @@
 
 		let currentTimeoutAnimation = null;
 		let timeoutAnimationState = 'hidden'; // Can be 'hidden', 'showing', or 'hiding'
-
-		// Add new variables for shot clock tracking
-		let lastShotClockTime = null;
-		let lastShotClockScale = 1;
 
 		// Initialize tickers
 		const homeTicker = createNumberTicker(document.getElementById('home-score'));
@@ -353,67 +346,6 @@
 			}
 		}
 
-		function updateShotClock(shotClockTime) {
-			if (!shotClockTime || shotClockTime === '--' || shotClockTime === "") {
-				shotClockCountdown.style.display = 'none';
-				lastShotClockTime = null;
-				lastShotClockScale = 1;
-				return;
-			}
-
-			const currentTime = parseInt(shotClockTime, 10) || 0;
-
-			// No change from previous update
-			if (currentTime === lastShotClockTime) return;
-
-			// Initial state setup
-			if (lastShotClockTime === null) {
-				if (currentTime <= 10) {
-					shotClockCountdown.style.display = 'block';
-					const targetScale = currentTime / 10;
-					shotClockCountdown.style.transform = `skew(-12.5deg) scaleY(${targetScale})`;
-					lastShotClockScale = targetScale;
-				} else {
-					shotClockCountdown.style.display = 'none';
-					lastShotClockScale = 1;
-				}
-				lastShotClockTime = currentTime;
-				return;
-			}
-
-			// Determine if the change is a consecutive decrement
-			const buffer = 1;
-			const animate = currentTime >= lastShotClockTime - buffer && currentTime < lastShotClockTime;
-
-			// When shot clock is 1 or below, flash at full scale
-			if (currentTime <= 10) {
-				shotClockCountdown.style.display = 'block';
-				const targetScale = currentTime / 10;
-
-				if (animate) {
-					// Animate the scaleY transition
-					shotClockCountdown.animate([
-						{ transform: `skew(-12.5deg) scaleY(${lastShotClockScale})` },
-						{ transform: `skew(-12.5deg) scaleY(${targetScale})` }
-					], {
-						duration: 1000,
-						easing: 'linear',
-						fill: 'forwards'
-					});
-				} else {
-					// Update immediately without animation
-					shotClockCountdown.style.transform = `skew(-12.5deg) scaleY(${targetScale})`;
-				}
-				lastShotClockScale = targetScale;
-			} else {
-				// Hide and reset when shot clock is above 10
-				shotClockCountdown.style.display = 'none';
-				lastShotClockScale = 1;
-			}
-
-			lastShotClockTime = currentTime;
-		}
-
 		function updateTimeoutAnimation(timeoutClock) {
 			const [minutes, seconds] = timeoutClock.split(':').map(parseFloat);
 			const time = minutes * 60 + seconds;
@@ -508,13 +440,6 @@
 			return { updateTimeouts };
 		}
 
-		function transformText(key, value) {
-			if (textTransformations[key] && textTransformations[key][value] !== undefined) {
-				return textTransformations[key][value];
-			}
-			return value;
-		}
-
 		const defaultDigitNode = document.createElement('div');
 		defaultDigitNode.classList.add('digit');
 		for (let i = 0; i < 10; i++) {
@@ -592,9 +517,6 @@
 				lastGuestScore = guestScore;
 			}
 
-			// Update clock
-			//document.getElementById('main-clock').textContent = data.clock;
-
 			// Update period, make sure UPPERCASE is used for period_desc
 			document.getElementById('period').textContent = data.period_desc.toUpperCase() || data.period;
 
@@ -607,10 +529,6 @@
 
 			lastHomeTimeouts = homeTimeouts;
 			lastGuestTimeouts = guestTimeouts;
-
-			// Update shot clock and status
-			document.getElementById('shot-clock').textContent = data.shot_clock || '--';
-			updateShotClock(data.shot_clock);
 
 			// Update timeout animation
 			updateTimeoutAnimation(data.timeout_clock);
