@@ -22,7 +22,6 @@ current_game_data = {}
 current_sport = 'basketball'  # Default sport
 
 # Sport-specific configurations
-
 SPORT_CONFIGS = {
 	'basketball': {
 		'data_template': {
@@ -71,8 +70,8 @@ SPORT_CONFIGS = {
 			'clock': '00:00',
 			'home_score': '10',
 			'guest_score': '5',
-			'home_timeouts': 'II',
-			'guest_timeouts': 'II',
+			'home_timeouts': '0',
+			'guest_timeouts': '0',
 			'period': '1',
 			'period_desc': '1st Set',
 			'serving_team': '',

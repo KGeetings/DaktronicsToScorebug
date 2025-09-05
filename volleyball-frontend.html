@@ -237,7 +237,7 @@
 		<div class="sets-won" id="home-sets-won">0</div>
 
 		<div class="score number-ticker" id="guest-score" data-value="0"></div>
-		<div class="timeouts timeout-1-top timeout-used" id="guest-timeout1"></div>
+		<div class="timeouts timeout-1-top timeout-available" id="guest-timeout1"></div>
 		<div class="timeouts timeout-2-bottom timeout-available" id="guest-timeout2"></div>
 		<div class="sets-won" id="guest-sets-won">0</div>
 	</div>
@@ -255,9 +255,6 @@
 		// Initialize tickers
 		const homeTicker = createNumberTicker(document.getElementById('home-score'));
 		const guestTicker = createNumberTicker(document.getElementById('guest-score'));
-		// TODO: Update this function
-		//const homeTimeoutDisplay = createTimeoutDisplay('home-timeouts');
-		//const guestTimeoutDisplay = createTimeoutDisplay('guest-timeouts');
 
 		let lastHomeScore = 0;
 		let lastGuestScore = 0;
@@ -274,12 +271,65 @@
 		let homeStatsTimeout = null;
 		let guestStatsTimeout = null;
 
+		function updateTeamTimeouts(team, newCount) {
+			const lastCount = team === 'home' ? lastHomeTimeouts : lastGuestTimeouts;
+			const timeout1 = document.getElementById(`${team}-timeout1`);
+			const timeout2 = document.getElementById(`${team}-timeout2`);
+
+			// Set the correct state for both timeouts
+			if (newCount === 2) {
+				timeout1.classList.add('timeout-available');
+				timeout2.classList.add('timeout-available');
+
+				timeout1.classList.remove('timeout-used');
+				timeout2.classList.remove('timeout-used');
+			} else if (newCount === 1) {
+				timeout1.classList.add('timeout-used');
+				timeout2.classList.add('timeout-available');
+
+				timeout1.classList.remove('timeout-available');
+				timeout2.classList.remove('timeout-used');
+			} else {
+				timeout1.classList.add('timeout-used');
+				timeout2.classList.add('timeout-used');
+
+				timeout1.classList.remove('timeout-available');
+				timeout2.classList.remove('timeout-available');
+			}
+
+			// Timeout taken animation (only animate if decrement)
+			if (newCount < lastCount) {
+				if (lastCount === 2 && newCount === 1) {
+					// First timeout: top first
+					blinkAndUse(timeout1);
+				} else if (lastCount === 1 && newCount === 0) {
+					// Second timeout: bottom
+					blinkAndUse(timeout2);
+				}
+			}
+
+			if (team === 'home') {
+				lastHomeTimeouts = newCount;
+			} else {
+				lastGuestTimeouts = newCount;
+			}
+		}
+
+		function blinkAndUse(element) {
+			element.classList.add('blink');
+			setTimeout(() => {
+				element.classList.remove('blink');
+				element.classList.remove('timeout-available');
+				element.classList.add('timeout-used');
+			}, 3000); // after blink finishes
+		}
+
 		function updateStatsAnimation(statsElement, statsText, duration, isHome) {
 			// If no stats or stats haven't changed, do nothing
 			const currentStats = statsText.trim();
 			const lastStats = isHome ? lastHomeStats : lastGuestStats;
 
-			console.log("currentStats: " + currentStats, " lastStats: " + lastStats, " duration: " + duration);
+			//console.log("currentStats: " + currentStats, " lastStats: " + lastStats, " duration: " + duration);
 			if (currentStats === lastStats) return;
 
 			// Clear any existing timeouts
@@ -553,8 +603,8 @@
 			const homeTimeouts = parseInt(data.home_timeouts, 10) || 0;
 			const guestTimeouts = parseInt(data.guest_timeouts, 10) || 0;
 
-			homeTimeoutDisplay.updateTimeouts(homeTimeouts);
-			guestTimeoutDisplay.updateTimeouts(guestTimeouts);
+			updateTeamTimeouts('home', homeTimeouts);
+			updateTeamTimeouts('guest', guestTimeouts);
 
 			lastHomeTimeouts = homeTimeouts;
 			lastGuestTimeouts = guestTimeouts;
