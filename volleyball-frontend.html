@@ -210,11 +210,11 @@
 
 		#period {
 			top: 44%;
-			left: 36%;
+			left: 35%;
 			font-size: 130px;
 			font-weight: 700;
 			text-align: center;
-			width: 510px;
+			width: 550px;
 		}
 	</style>
 </head>
@@ -609,8 +609,7 @@
 				}
 			};
 
-			const period = data.period || 1;
-			document.getElementById('period').textContent = `${period}${getOrdinalSuffix(period)} SET`;
+			document.getElementById('period').textContent = data.period_desc;
 
 			// Update timeouts with animation
 			const homeTimeouts = parseInt(data.home_timeouts, 10) || 0;
