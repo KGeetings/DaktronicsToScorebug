@@ -599,39 +599,19 @@
 			}
 
 			// Update period, make sure UPPERCASE is used for period_desc
-			switch (data.period) {
-				case 1:
-					document.getElementById('period').textContent = "1ST SET";
-					break;
-				case 2:
-					document.getElementById('period').textContent = "2ND SET";
-					break;
-				case 3:
-					document.getElementById('period').textContent = "3RD SET";
-					break;
-				case 4:
-					document.getElementById('period').textContent = "4TH SET";
-					break;
-				case 5:
-					document.getElementById('period').textContent = "5TH SET";
-					break;
-				case 6:
-					document.getElementById('period').textContent = "6TH SET";
-					break;
-				case 7:
-					document.getElementById('period').textContent = "7TH SET";
-					break;
-				case 8:
-					document.getElementById('period').textContent = "8TH SET";
-					break;
-				case 9:
-					document.getElementById('period').textContent = "9TH SET";
-					break;
-				default:
-					document.getElementById('period').textContent = "1ST SET";
-					break;
-			}
-			
+			const getOrdinalSuffix = (num) => {
+				if (num >= 11 && num <= 13) return 'TH';
+				switch (num % 10) {
+					case 1: return 'ST';
+					case 2: return 'ND';
+					case 3: return 'RD';
+					default: return 'TH';
+				}
+			};
+
+			const period = data.period || 1;
+			document.getElementById('period').textContent = `${period}${getOrdinalSuffix(period)} SET`;
+
 			// Update timeouts with animation
 			const homeTimeouts = parseInt(data.home_timeouts, 10) || 0;
 			const guestTimeouts = parseInt(data.guest_timeouts, 10) || 0;
