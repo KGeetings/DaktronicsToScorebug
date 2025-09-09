@@ -609,7 +609,10 @@
 				}
 			};
 
-			document.getElementById('period').textContent = data.period_desc;
+			document.getElementById('period').textContent = data.period_desc.toUpperCase();
+			if (data.period_desc === "Intermission" || data.period_desc === "Pregame"){
+				document.getElementById('period').textContent = data.clock;
+			}
 
 			// Update timeouts with animation
 			const homeTimeouts = parseInt(data.home_timeouts, 10) || 0;
