@@ -213,6 +213,8 @@
 			left: 36%;
 			font-size: 130px;
 			font-weight: 700;
+			text-align: center;
+			width: 510px;
 		}
 	</style>
 </head>
@@ -597,8 +599,39 @@
 			}
 
 			// Update period, make sure UPPERCASE is used for period_desc
-			document.getElementById('period').textContent = data.period_desc.toUpperCase() || data.period;
-
+			switch (data.period) {
+				case 1:
+					document.getElementById('period').textContent = "1ST SET";
+					break;
+				case 2:
+					document.getElementById('period').textContent = "2ND SET";
+					break;
+				case 3:
+					document.getElementById('period').textContent = "3RD SET";
+					break;
+				case 4:
+					document.getElementById('period').textContent = "4TH SET";
+					break;
+				case 5:
+					document.getElementById('period').textContent = "5TH SET";
+					break;
+				case 6:
+					document.getElementById('period').textContent = "6TH SET";
+					break;
+				case 7:
+					document.getElementById('period').textContent = "7TH SET";
+					break;
+				case 8:
+					document.getElementById('period').textContent = "8TH SET";
+					break;
+				case 9:
+					document.getElementById('period').textContent = "9TH SET";
+					break;
+				default:
+					document.getElementById('period').textContent = "1ST SET";
+					break;
+			}
+			
 			// Update timeouts with animation
 			const homeTimeouts = parseInt(data.home_timeouts, 10) || 0;
 			const guestTimeouts = parseInt(data.guest_timeouts, 10) || 0;
