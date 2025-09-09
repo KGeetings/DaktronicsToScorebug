@@ -631,6 +631,8 @@
 			const guestStatsDuration = data.guest_stats_duration;
 			const homeNewAnimation = data.home_new_animation;
 			const guestNewAnimation = data.guest_new_animation;
+			document.getElementById('home-sets-won').textContent = data.home_sets_won;
+			document.getElementById('guest-sets-won').textContent = data.guest_sets_won;
 
 			document.getElementById('home-stats-text').innerHTML = homeStats;  // Using innerHTML to support HTML formatting
 			document.getElementById('guest-stats-text').innerHTML = guestStats;

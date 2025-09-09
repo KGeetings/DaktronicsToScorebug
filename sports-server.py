@@ -94,8 +94,8 @@ SPORT_CONFIGS = {
 			'Game': 'set_number',
 			'Game_Description___End_of_1st____': 'period_desc',
 			'Serving_Team': 'serving_team',
-			'Home_Sets_Won': 'home_sets_won',
-			'Guest_Sets_Won': 'guest_sets_won',
+			'Home_Games_Won': 'home_sets_won',
+			'Guest_Games_Won': 'guest_sets_won',
 			'Time_Out_Time__mm_ss____': 'timeout_clock',
 		}
 	},
