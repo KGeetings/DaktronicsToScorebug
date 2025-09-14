@@ -297,6 +297,12 @@
 		let currentTimeoutAnimation = null;
 		let timeoutAnimationState = 'hidden'; // Can be 'hidden', 'showing', or 'hiding'
 
+		const defaultDigitNode = document.createElement('div');
+		defaultDigitNode.classList.add('digit');
+		for (let i = 0; i < 10; i++) {
+			defaultDigitNode.innerHTML += i + '<br>';
+		}
+
 		// Add new variables for shot clock tracking
 		let lastShotClockTime = null;
 		let lastShotClockScale = 1;
@@ -602,12 +608,6 @@
 			return value;
 		}
 
-		const defaultDigitNode = document.createElement('div');
-		defaultDigitNode.classList.add('digit');
-		for (let i = 0; i < 10; i++) {
-			defaultDigitNode.innerHTML += i + '<br>';
-		}
-
 		function createNumberTicker(element) {
 			let currentValue = 0;
 			let digits = [];
@@ -630,9 +630,11 @@
 
 			function setValue(newValue) {
 				const newNumber = parseInt(newValue, 10);
-				if (newNumber === currentValue) return;
 
-				const reversedNumberString = String(newNumber).split('').reverse().join('');
+				if (newNumber === currentValue && newNumber !== 0) return;
+
+				// Always show at least one digit (for zero)
+				const reversedNumberString = String(newNumber).padStart(1, '0').split('').reverse().join('');
 
 				// Handle adding or removing digits
 				if (reversedNumberString.length > digits.length) {

@@ -210,9 +210,11 @@
 
 		#period {
 			top: 44%;
-			left: 36%;
+			left: 35%;
 			font-size: 130px;
 			font-weight: 700;
+			text-align: center;
+			width: 550px;
 		}
 	</style>
 </head>
@@ -251,6 +253,12 @@
 
 		let currentTimeoutAnimation = null;
 		let timeoutAnimationState = 'hidden'; // Can be 'hidden', 'showing', or 'hiding'
+
+		const defaultDigitNode = document.createElement('div');
+		defaultDigitNode.classList.add('digit');
+		for (let i = 0; i < 10; i++) {
+			defaultDigitNode.innerHTML += i + '<br>';
+		}
 
 		// Initialize tickers
 		const homeTicker = createNumberTicker(document.getElementById('home-score'));
@@ -519,12 +527,6 @@
 			return { updateTimeouts };
 		}
 
-		const defaultDigitNode = document.createElement('div');
-		defaultDigitNode.classList.add('digit');
-		for (let i = 0; i < 10; i++) {
-			defaultDigitNode.innerHTML += i + '<br>';
-		}
-
 		function createNumberTicker(element) {
 			let currentValue = 0;
 			let digits = [];
@@ -547,9 +549,11 @@
 
 			function setValue(newValue) {
 				const newNumber = parseInt(newValue, 10);
-				if (newNumber === currentValue) return;
 
-				const reversedNumberString = String(newNumber).split('').reverse().join('');
+				if (newNumber === currentValue && newNumber !== 0) return;
+
+				// Always show at least one digit (for zero)
+				const reversedNumberString = String(newNumber).padStart(1, '0').split('').reverse().join('');
 
 				// Handle adding or removing digits
 				if (reversedNumberString.length > digits.length) {
@@ -597,7 +601,20 @@
 			}
 
 			// Update period, make sure UPPERCASE is used for period_desc
-			document.getElementById('period').textContent = data.period_desc.toUpperCase() || data.period;
+			const getOrdinalSuffix = (num) => {
+				if (num >= 11 && num <= 13) return 'TH';
+				switch (num % 10) {
+					case 1: return 'ST';
+					case 2: return 'ND';
+					case 3: return 'RD';
+					default: return 'TH';
+				}
+			};
+
+			document.getElementById('period').textContent = data.period_desc.toUpperCase();
+			if (data.period_desc === "Intermission" || data.period_desc === "Pregame"){
+				document.getElementById('period').textContent = data.clock;
+			}
 
 			// Update timeouts with animation
 			const homeTimeouts = parseInt(data.home_timeouts, 10) || 0;
@@ -619,6 +636,8 @@
 			const guestStatsDuration = data.guest_stats_duration;
 			const homeNewAnimation = data.home_new_animation;
 			const guestNewAnimation = data.guest_new_animation;
+			document.getElementById('home-sets-won').textContent = data.home_sets_won;
+			document.getElementById('guest-sets-won').textContent = data.guest_sets_won;
 
 			document.getElementById('home-stats-text').innerHTML = homeStats;  // Using innerHTML to support HTML formatting
 			document.getElementById('guest-stats-text').innerHTML = guestStats;
