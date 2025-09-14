@@ -32,12 +32,25 @@
 		}
 
 		/* ----- Stats ----- */
-		.stats-animation {
+		.stats-animation-away {
 			position: absolute;
 			top: 380px;
-			width: 1575px;
+			width: 787px;
 			height: 661px;
-			background: rgba(179, 85, 85, 0.8);
+			background: rgb(150, 17, 54, 0.8);
+			/* background: rgba(179, 85, 85, 1); */
+			transform-origin: bottom;
+			transform: skew(-12.5deg) translateX(100%);
+			display: none;
+			z-index: 1;
+		}
+
+		.stats-animation-home {
+			position: absolute;
+			top: 380px;
+			width: 787px;
+			height: 661px;
+			background: rgb(150, 17, 54, 0.8);
 			/* background: rgba(179, 85, 85, 1); */
 			transform-origin: bottom;
 			transform: skew(-12.5deg) translateX(100%);
@@ -47,12 +60,12 @@
 
 		#home-stats-animation {
 			/* left: 1800px; */
-			left: 1825px;
+			left: 2612px;
 		}
 
 		#guest-stats-animation {
 			/* left: -1548px; */
-			left: -1573px;
+			left: 0px;
 		}
 
 		.stats-text {
@@ -249,10 +262,10 @@
 	<div id="timeout-animation">
 		<div id="timeout-text">Timeout</div>
 	</div>
-	<div class="stats-animation" id="home-stats-animation">
+	<div class="stats-animation-home" id="home-stats-animation">
 		<div class="stats-text" id="home-stats-text">Home Team Stats</div>
 	</div>
-	<div class="stats-animation" id="guest-stats-animation">
+	<div class="stats-animation-away" id="guest-stats-animation">
 		<div class="stats-text" id="guest-stats-text">Guest Team Stats</div>
 	</div>
 	<div id="scoreboard" class="scoreboard">
