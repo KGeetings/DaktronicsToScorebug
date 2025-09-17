@@ -743,10 +743,10 @@
 			document.getElementById('guest-stats-text').innerHTML = guestStats;
 
 			if (homeNewAnimation) {
-				updateStatsAnimation(homeStatsAnimation, homeStats, homeStatsDuration, true)
+				updateStatsAnimation(homeStatsAnimation, homeStats, homeStatsDuration, true);
 			}
 			if (guestNewAnimation) {
-				updateStatsAnimation(guestStatsAnimation, guestStats, guestStatsDuration, false)
+				updateStatsAnimation(guestStatsAnimation, guestStats, guestStatsDuration, false);
 			}
 		}
 
@@ -760,7 +760,7 @@
 		}
 
 		// Update every 50ms
-		setInterval(fetchData, 50);
+		setInterval(fetchData, 250);
 	</script>
 </body>
 

@@ -27,10 +27,10 @@ SPORT_CONFIGS = {
 		'data_template': {
 			'sport': 'basketball',
 			'clock': '55:55',
-			'home_score': '1',
-			'guest_score': '1',
-			'home_timeouts': 'III',
-			'guest_timeouts': 'III',
+			'home_score': '123',
+			'guest_score': '123',
+			'home_timeouts': '3',
+			'guest_timeouts': '2',
 			'period': '5TH',
 			'period_desc': '5TH Quarter',
 			'home_possession': '.',
@@ -285,7 +285,7 @@ class SportDataFetcher:
 def update_data_loop(fetcher):
 	while True:
 		fetcher.fetch_data()
-		time.sleep(0.1)  # Poll every 100ms
+		time.sleep(0.5)  # Poll every 100ms
 
 @app.route('/data')
 def get_data():
