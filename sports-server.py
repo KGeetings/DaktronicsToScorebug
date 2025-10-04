@@ -40,8 +40,8 @@ SPORT_CONFIGS = {
 			'shot_clock': '5',
 			'timeout_clock': '00:00',
 			'shot_clock_status': '1',
-			'home_stats': '',
-			'guest_stats': '',
+			'home_stats': 'Test Home Data',
+			'guest_stats': 'Test Guest Data',
 			'home_stats_duration': 0,
 			'guest_stats_duration': 0,
 			'home_new_animation': True,
@@ -75,7 +75,7 @@ SPORT_CONFIGS = {
 			'period': '1',
 			'period_desc': '1st Set',
 			'serving_team': '',
-			'home_sets_won': '2',
+			'home_sets_won': '3',
 			'guest_sets_won': '1',
 			'timeout_clock': '05:00',
 			'home_stats': '',
@@ -317,6 +317,7 @@ def initialize_sport_data(sport):
 
 def main():
 	# Sport Options: 'basketball', 'volleyball', 'football'
+	#SPORT = 'basketball'
 	SPORT = 'volleyball'
 
 	# Initialize sport-specific data

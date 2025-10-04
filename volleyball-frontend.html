@@ -25,7 +25,7 @@
 			left: 1600px;
 			width: 1920px;
 			height: calc(1920px * (3014 / 7743));
-			background-image: url('PC Volleyball Scoreboard v2.png');
+			background-image: url('PC Volleyball Scoreboard v3.png');
 			background-size: contain;
 			background-repeat: no-repeat;
 			z-index: 2;
@@ -154,7 +154,7 @@
 			left: 1667.7px;
 			width: 1881px;
 			height: 140px;
-			background: rgba(255, 165, 0, 0.7);
+			background: rgba(239, 172, 29);
 			transform-origin: bottom;
 			transform: skew(-10deg) translateY(100%);
 			display: none;
@@ -175,7 +175,7 @@
 		/* ----- Fouls ----- */
 		.sets-won {
 			position: absolute;
-			top: 44%;
+			top: 46%;
 			font-size: 130px;
 			font-weight: 700;
 		}
@@ -236,12 +236,12 @@
 		<div class="score number-ticker" id="home-score" data-value="0"></div>
 		<div class="timeouts timeout-1-top timeout-used" id="home-timeout1"></div>
 		<div class="timeouts timeout-2-bottom timeout-available" id="home-timeout2"></div>
-		<div class="sets-won" id="home-sets-won">0</div>
+		<div class="sets-won number-ticker" id="home-sets-won" data-value="0"></div>
 
 		<div class="score number-ticker" id="guest-score" data-value="0"></div>
 		<div class="timeouts timeout-1-top timeout-available" id="guest-timeout1"></div>
 		<div class="timeouts timeout-2-bottom timeout-available" id="guest-timeout2"></div>
-		<div class="sets-won" id="guest-sets-won">0</div>
+		<div class="sets-won number-ticker" id="guest-sets-won" data-value="0"></div>
 	</div>
 
 	<!----- JavaScript  ----->
@@ -261,13 +261,17 @@
 		}
 
 		// Initialize tickers
-		const homeTicker = createNumberTicker(document.getElementById('home-score'));
-		const guestTicker = createNumberTicker(document.getElementById('guest-score'));
+		const homeScoreTicker = createNumberTicker(document.getElementById('home-score'));
+		const guestScoreTicker = createNumberTicker(document.getElementById('guest-score'));
+		const homeSetTicker = createNumberTicker(document.getElementById('home-sets-won'));
+		const guestSetTicker = createNumberTicker(document.getElementById('guest-sets-won'));
 
 		let lastHomeScore = 0;
 		let lastGuestScore = 0;
 		let lastHomeTimeouts = 0;
 		let lastGuestTimeouts = 0;
+		let lastHomeSets = 0;
+		let lastGuestSets = 0;
 
 		// Stats animation state and tracking
 		let currentHomeStatsAnimation = null;
@@ -591,14 +595,29 @@
 			const guestScore = parseInt(data.guest_score, 10);
 
 			if (homeScore !== lastHomeScore) {
-				homeTicker.setValue(homeScore);
+				homeScoreTicker.setValue(homeScore);
 				lastHomeScore = homeScore;
 			}
 
 			if (guestScore !== lastGuestScore) {
-				guestTicker.setValue(guestScore);
+				guestScoreTicker.setValue(guestScore);
 				lastGuestScore = guestScore;
 			}
+
+			// Update sets won with animation
+			const homeSets = parseInt(data.home_sets_won, 10) || 0;
+			const guestSets = parseInt(data.guest_sets_won, 10) || 0;
+			if (homeSets !== lastHomeSets) {
+				homeSetTicker.setValue(homeSets);
+				lastHomeSets = homeSets;
+			}
+			if (guestSets !== lastGuestSets) {
+				guestSetTicker.setValue(guestSets);
+				lastGuestSets = guestSets;
+			}
+
+			/* document.getElementById('home-sets-won').textContent = data.home_sets_won;
+			document.getElementById('guest-sets-won').textContent = data.guest_sets_won; */
 
 			// Update period, make sure UPPERCASE is used for period_desc
 			const getOrdinalSuffix = (num) => {
@@ -636,8 +655,6 @@
 			const guestStatsDuration = data.guest_stats_duration;
 			const homeNewAnimation = data.home_new_animation;
 			const guestNewAnimation = data.guest_new_animation;
-			document.getElementById('home-sets-won').textContent = data.home_sets_won;
-			document.getElementById('guest-sets-won').textContent = data.guest_sets_won;
 
 			document.getElementById('home-stats-text').innerHTML = homeStats;  // Using innerHTML to support HTML formatting
 			document.getElementById('guest-stats-text').innerHTML = guestStats;
