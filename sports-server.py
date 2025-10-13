@@ -77,7 +77,7 @@ SPORT_CONFIGS = {
 			'serving_team': '',
 			'home_sets_won': '3',
 			'guest_sets_won': '1',
-			'timeout_clock': '05:00',
+			'timeout_clock': '',
 			'home_stats': '',
 			'guest_stats': '',
 			'home_stats_duration': 0,
