@@ -285,7 +285,7 @@ class SportDataFetcher:
 def update_data_loop(fetcher):
 	while True:
 		fetcher.fetch_data()
-		time.sleep(0.5)  # Poll every 100ms
+		time.sleep(0.5)  # Poll every 500ms
 
 @app.route('/data')
 def get_data():
