@@ -138,9 +138,9 @@ def create_heatmap(shot_positions, shot_made, team_name, team_num, percentages, 
     # Add small dots for shot locations, green if made, red if missed
     for (x, y), made in zip(scaled_shot_positions, shot_made):
         if made:
-            ax.scatter(x, y, c='green', marker='o', s=200, edgecolors='black', linewidths=4, alpha=0.6)
+            ax.scatter(x, y, c='green', marker='o', s=200, edgecolors='black', linewidths=2, alpha=0.6)
         else:
-            ax.scatter(x, y, c='red', marker='x', s=200, linewidths=4, alpha=0.6)
+            ax.scatter(x, y, c='red', marker='x', s=200, linewidths=3, alpha=0.6)
 
     # Set plot limits to match the court image
     ax.set_xlim(0, court_width_x)
@@ -197,4 +197,4 @@ create_heatmap(combined_shot_positions, combined_shot_made, f'{team1_name} and {
 
 # Example usage for individual players
 create_individual_heatmap(1, ["35"]) # Team 1 (Eagles), players 2 and 4
-#create_individual_heatmap(2, ["23"]) # Team 2, players 1 and 3
+#create_individual_heatmap(2, ["21"]) # Team 2, players 1 and 3
