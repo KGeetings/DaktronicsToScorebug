@@ -317,8 +317,8 @@ def initialize_sport_data(sport):
 
 def main():
 	# Sport Options: 'basketball', 'volleyball', 'football'
-	#SPORT = 'basketball'
-	SPORT = 'volleyball'
+	SPORT = 'basketball'
+	#SPORT = 'volleyball'
 
 	# Initialize sport-specific data
 	initialize_sport_data(SPORT)
