@@ -32,23 +32,10 @@
 		}
 
 		/* ----- Stats ----- */
-		.stats-animation-away {
+		.stats-animation {
 			position: absolute;
 			top: 380px;
-			width: 787px;
-			height: 661px;
-			background: rgb(150, 17, 54, 0.8);
-			/* background: rgba(179, 85, 85, 1); */
-			transform-origin: bottom;
-			transform: skew(-12.5deg) translateX(100%);
-			display: none;
-			z-index: 1;
-		}
-
-		.stats-animation-home {
-			position: absolute;
-			top: 380px;
-			width: 787px;
+			width: 1000px;
 			height: 661px;
 			background: rgb(150, 17, 54, 0.8);
 			/* background: rgba(179, 85, 85, 1); */
@@ -60,12 +47,12 @@
 
 		#home-stats-animation {
 			/* left: 1800px; */
-			left: 2612px;
+			left: 2390px;
 		}
 
 		#guest-stats-animation {
 			/* left: -1548px; */
-			left: 0px;
+			left: -414px;
 		}
 
 		.stats-text {
@@ -109,9 +96,9 @@
 		/* ----- Possession ----- */
 		.possession {
 			position: absolute;
-			font-size: 190px;
+			font-size: 100px;
 			font-weight: 700;
-			top: 10%;
+			top: 22%;
 		}
 
 		#home-possession {
@@ -119,7 +106,7 @@
 		}
 
 		#guest-possession {
-			left: 47%;
+			left: 46.5%;
 		}
 
 		/* ----- Timeouts ----- */
@@ -227,7 +214,7 @@
 
 		#shot-clock {
 			top: 75.5%;
-			right: 11.5%;
+			right: 10.5%;
 			font-size: 125px;
 			font-weight: 600;
 			z-index: 4;
@@ -262,10 +249,10 @@
 	<div id="timeout-animation">
 		<div id="timeout-text">Timeout</div>
 	</div>
-	<div class="stats-animation-home" id="home-stats-animation">
+	<div class="stats-animation" id="home-stats-animation">
 		<div class="stats-text" id="home-stats-text">Home Team Stats</div>
 	</div>
-	<div class="stats-animation-away" id="guest-stats-animation">
+	<div class="stats-animation" id="guest-stats-animation">
 		<div class="stats-text" id="guest-stats-text">Guest Team Stats</div>
 	</div>
 	<div id="scoreboard" class="scoreboard">
@@ -588,14 +575,14 @@
 
 		const textTransformations = {
 			"home-possession": {
-				">": ".",
-				"<": ".",
+				">": ">",
+				"<": ">",
 				"None": "",
 				"": ""
 			},
 			"guest-possession": {
-				">": ".",
-				"<": ".",
+				">": "<",
+				"<": "<",
 				"None": "",
 				"": ""
 			}
