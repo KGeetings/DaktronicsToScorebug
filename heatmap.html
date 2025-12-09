@@ -132,15 +132,15 @@
 
 		#stats {
 			position: absolute;
-			top: 30px;
+			bottom: 30px;
 			right: 30px;
-			/* transform: translateX(-50%); */
+			width: 500px;
 			background: rgba(0, 0, 0, 0.8);
 			padding: 20px 40px;
 			border-radius: 12px;
 			color: white;
-			font-size: 24px;
-			text-align: center;
+			font-size: 42px;
+			text-align: left;
 			backdrop-filter: blur(10px);
 			z-index: 20;
 		}
@@ -192,7 +192,7 @@
 		<div id="title">Team Shot Chart</div>
 		<div id="counter">Shot 0/0</div>
 		<div id="stats">
-			<div>3PT: 0/0 (0.0%) | 2PT: 0/0 (0.0%) | FT: 0/0 (0.0%)</div>
+			<div>3PT: 0/0 (0.0%)<br>2PT: 0/0 (0.0%)<br>FT: 0/0 (0.0%)</div>
 		</div>
 		<canvas id="kdeCanvas"></canvas>
 	</div>
@@ -348,7 +348,7 @@
 
 			document.getElementById('counter').textContent = `Shot ${currentIndex + 1}/${shots.length}`;
 			document.getElementById('stats').innerHTML = `
-                <div>3PT: ${stats.made3}/${stats.att3} (${pct3}%) | 2PT: ${stats.made2}/${stats.att2} (${pct2}%) | FT: ${stats.made1}/${stats.att1} (${pct1}%)</div>
+                <div>3PT: ${stats.made3}/${stats.att3} (${pct3}%)<br>2PT: ${stats.made2}/${stats.att2} (${pct2}%)<br>FT: ${stats.made1}/${stats.att1} (${pct1}%)</div>
             `;
 		}
 
@@ -379,7 +379,7 @@
 			if (shots.length === 0) {
 				document.getElementById('counter').textContent = 'No shots available';
 				document.getElementById('stats').innerHTML =
-					'<div>3PT: 0/0 (0.0%) | 2PT: 0/0 (0.0%) | FT: 0/0 (0.0%)</div>';
+					'<div>3PT: 0/0 (0.0%)<br>2PT: 0/0 (0.0%)<br>>FT: 0/0 (0.0%)</div>';
 				return;
 			}
 
