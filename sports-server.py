@@ -336,7 +336,7 @@ def main():
 
 	print(f"Starting {SPORT} data server...")
 	print(f"Data URL: {url}")
-	print(f"Server will run on http://0.0.0.0:5000")
+	print(f"Server will run on http://localhost:5000")
 	print(f"Stats server listening on port 5001")
 
 	# Create and start the data fetcher thread
