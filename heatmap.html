@@ -265,25 +265,28 @@
 				player.Shots.forEach(shot => {
 					const [x, y] = shot.ShotPosition.split(',').map(Number);
 
-					if (
+					const inBounds =
+						x >= 0 && x <= SHOT_WIDTH &&
+						y >= 0 && y <= SHOT_HEIGHT;
+
+					const shouldRender =
 						x !== 0 &&
 						y !== 0 &&
-						x >= 0 && x <= SHOT_WIDTH &&
-						y >= 0 && y <= SHOT_HEIGHT
-					) {
-						const scaledX = x * (COURT_WIDTH / SHOT_WIDTH);
-						const scaledY = y * (COURT_HEIGHT / SHOT_HEIGHT);
+						inBounds;
 
-						shots.push({
-							x: scaledX,
-							y: scaledY,
-							made: shot.Made,
-							pointValue: shot.PointValue,
-							time: shot.RealTime,
-							player: player.PlayerName,
-							playerNumber: player.PlayerNumber
-						});
-					}
+					const scaledX = x * (COURT_WIDTH / SHOT_WIDTH);
+					const scaledY = y * (COURT_HEIGHT / SHOT_HEIGHT);
+
+					shots.push({
+						x: scaledX,
+						y: scaledY,
+						made: shot.Made,
+						pointValue: shot.PointValue,
+						time: shot.RealTime,
+						player: player.PlayerName,
+						playerNumber: player.PlayerNumber,
+						showOnCourt: shouldRender
+					});
 				});
 			});
 
@@ -314,6 +317,7 @@
 
 		// Create shot element with ripple effect
 		function createShot(shot, index) {
+			if (!shot.showOnCourt) return;
 			const shotEl = document.createElement('div');
 			shotEl.className = `shot ${shot.made ? 'made' : 'missed'} appearing`;
 			shotEl.style.left = shot.x + 'px';
@@ -333,7 +337,7 @@
 			setTimeout(() => ripple.remove(), 800);
 
 			// KDE update
-			if (shot.made) {
+			if (shot.made && shot.showOnCourt) {
 				drawKDESplat(shot.x, shot.y);
 				colorizeKDE();
 			}
