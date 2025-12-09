@@ -44,8 +44,8 @@
 		}
 
 		.shot.made {
-			width: 30px;
-			height: 30px;
+			width: 40px;
+			height: 40px;
 			background: #00ff00;
 			border: 3px solid #000;
 			border-radius: 50%;
@@ -53,8 +53,8 @@
 		}
 
 		.shot.missed {
-			width: 30px;
-			height: 30px;
+			width: 40px;
+			height: 40px;
 		}
 
 		.shot.missed::before,
@@ -63,7 +63,7 @@
 			position: absolute;
 			top: 50%;
 			left: 50%;
-			width: 30px;
+			width: 40px;
 			height: 4px;
 			background: #ff0000;
 			box-shadow: 0 0 15px rgba(255, 0, 0, 0.6);
@@ -80,7 +80,7 @@
 		.shot-ripple {
 			position: absolute;
 			border-radius: 50%;
-			border: 3px solid;
+			border: 20px solid;
 			animation: ripple 0.8s ease-out forwards;
 			pointer-events: none;
 			z-index: 11;
@@ -103,8 +103,8 @@
 			}
 
 			100% {
-				width: 100px;
-				height: 100px;
+				width: 150px;
+				height: 150px;
 				opacity: 0;
 				transform: translate(-50%, -50%);
 			}
@@ -201,12 +201,13 @@
 		const COURT_WIDTH = 1920;
 		const COURT_HEIGHT = 1610;
 		const SHOT_INTERVAL = 500; // ms between shots
-		const HOLD_AT_END = 3000; // ms to hold final frame
+		const HOLD_AT_END = 5000; // ms to hold final frame
 		const COURT_IMAGE_URL = 'court-one-side-eagle.png';
 
 		let allShots = [];
 		let selectedPlayers = new Set();
 		let animationTimeout = null;
+		let gameData = null;
 
 		// Load court image
 		function loadCourtImage() {
@@ -361,12 +362,26 @@
 					animationTimeout = setTimeout(showNextShot, SHOT_INTERVAL);
 				} else {
 					animationTimeout = setTimeout(() => {
-						// optional loop
+						restartAnimation();
 					}, HOLD_AT_END);
 				}
 			}
 
 			showNextShot();
+		}
+
+		// Restart animation
+		function restartAnimation() {
+			if (animationTimeout) {
+				clearTimeout(animationTimeout);
+			}
+
+			clearShots();
+
+			// Restart with real cached game data
+			if (gameData) {
+				animateShots(gameData);
+			}
 		}
 
 		// Initialize and load data
@@ -376,14 +391,14 @@
 			let data;
 			try {
 				const response = await fetch(DATA_SOURCE);
-				data = await response.json();
+				gameData = await response.json();
 			} catch (error) {
 				console.error('Error loading data:', error);
 				document.getElementById('title').textContent = 'Error loading game data';
 				return;
 			}
 
-			animateShots(data);
+			animateShots(gameData);
 		}
 
 		// Start animation when page loads
