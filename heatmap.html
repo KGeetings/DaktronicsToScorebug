@@ -440,13 +440,32 @@
 
 			for (let i = 0; i < data.length; i += 4) {
 				const alpha = data[i + 3];
+				const a = alpha;
 
-				if (alpha === 0) continue;
+				let r = 0, g = 0, b = 0;
 
-				// Heat ramp: blue → yellow → red
-				data[i] = Math.min(255, alpha * 2);          // R
-				data[i + 1] = Math.min(255, alpha * 1.2);    // G
-				data[i + 2] = Math.max(0, 255 - alpha * 2);  // B
+				// Deep blue → cyan → yellow → red → more red
+				if (a < 64) {
+					r = 0;
+					g = Math.min(255, a * 4);
+					b = 255;
+				} else if (a < 128) {
+					r = Math.min(255, (a - 64) * 4);
+					g = 255;
+					b = Math.max(0, 255 - (a - 64) * 4);
+				} else if (a < 192) {
+					r = 255;
+					g = Math.max(0, 255 - (a - 128) * 2);
+					b = 0;
+				} else {
+					r = 255;
+					g = 100;
+					b = 100;
+				}
+
+				data[i] = r;
+				data[i + 1] = g;
+				data[i + 2] = b;
 			}
 
 			kdeCtx.putImageData(img, 0, 0);
