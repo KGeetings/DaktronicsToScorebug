@@ -17,6 +17,10 @@ log.setLevel(logging.ERROR)
 app = Flask(__name__, static_url_path='', static_folder='.')
 CORS(app)  # Enable CORS for all routes
 
+# Second Flask app for heatmap hosting
+heatmap_app = Flask("heatmap_app", static_url_path="", static_folder=".")
+CORS(heatmap_app)
+
 # Global variables to store the game data
 current_game_data = {}
 current_sport = 'basketball'  # Default sport
@@ -293,17 +297,29 @@ def get_data():
 
 @app.route('/')
 def serve_html():
-	# Serve sport-specific HTML file if it exists
-	sport_html = f'{current_sport}-frontend.html'
-	if os.path.exists(sport_html):
-		return send_file(sport_html)
-	else:
-		return send_file('basketball-frontend.html')  # Basketball fallback
+    # Serve sport-specific HTML file if it exists
+    sport_html = f"{current_sport}-frontend.html"
+    if os.path.exists(sport_html):
+        return send_file(sport_html)
+    else:
+        return send_file("basketball-frontend.html")  # Basketball fallback
 
 # Add route for serving static files
 @app.route('/<path:filename>')
 def serve_static(filename):
-	return send_from_directory('.', filename)
+    return send_from_directory('.', filename)
+
+@heatmap_app.route("/")
+def serve_heatmap():
+    return send_file("heatmap.html")
+
+@heatmap_app.route("/<path:filename>")
+def serve_heatmap_static(filename):
+    return send_from_directory(".", filename)
+
+def run_heatmap_server():
+    print("Heatmap server running on http://localhost:5002")
+    heatmap_app.run(host="0.0.0.0", port=5002)
 
 def initialize_sport_data(sport):
 	"""Initialize the current_game_data with sport-specific template"""
@@ -348,6 +364,10 @@ def main():
 	stats_server = StatsServer()
 	stats_thread = threading.Thread(target=stats_server.start, daemon=True)
 	stats_thread.start()
+
+	# Start heatmap server in separate thread
+	heatmap_thread = threading.Thread(target=run_heatmap_server, daemon=True)
+	heatmap_thread.start()
 
 	# Run the Flask app
 	app.run(host='0.0.0.0', port=5000)
