@@ -183,6 +183,55 @@
 			pointer-events: none;
 			z-index: 5;
 		}
+
+		/* Free throw popup */
+		#ft-popup {
+			position: absolute;
+			top: 50%;
+			left: 50%;
+			transform: translate(-50%, -50%) scale(0.5);
+			padding: 40px 80px;
+			border-radius: 20px;
+			font-size: 36px;
+			font-weight: 900;
+			color: white;
+			background: rgba(0, 0, 0, 0.85);
+			z-index: 50;
+			opacity: 0;
+			pointer-events: none;
+		}
+
+		#ft-popup.made {
+			box-shadow: 0 0 40px rgba(0, 255, 0, 0.8);
+		}
+
+		#ft-popup.missed {
+			box-shadow: 0 0 40px rgba(255, 0, 0, 0.8);
+		}
+
+		@keyframes ftPop {
+			0% {
+				opacity: 0;
+				transform: translate(-50%, -50%) scale(0.3);
+			}
+			20% {
+				opacity: 1;
+				transform: translate(-50%, -50%) scale(1.1);
+			}
+			60% {
+				opacity: 1;
+				transform: translate(-50%, -50%) scale(1);
+			}
+			100% {
+				opacity: 0;
+				transform: translate(-50%, -50%) scale(0.8);
+			}
+		}
+
+		#ft-popup.show {
+			animation: ftPop 1.2s ease-out forwards;
+		}
+
 	</style>
 </head>
 
@@ -317,7 +366,14 @@
 
 		// Create shot element with ripple effect
 		function createShot(shot, index) {
+			if (shot.pointValue === 1) {
+				showFreeThrowPopup(shot);
+				// Do not render a court marker for FT
+				return;
+			}
+
 			if (!shot.showOnCourt) return;
+
 			const shotEl = document.createElement('div');
 			shotEl.className = `shot ${shot.made ? 'made' : 'missed'} appearing`;
 			shotEl.style.left = shot.x + 'px';
@@ -469,6 +525,29 @@
 			}
 
 			kdeCtx.putImageData(img, 0, 0);
+		}
+
+		function showFreeThrowPopup(shot) {
+			// Ensure only one popup exists
+			let popup = document.getElementById('ft-popup');
+
+			if (!popup) {
+				popup = document.createElement('div');
+				popup.id = 'ft-popup';
+				document.getElementById('container').appendChild(popup);
+			}
+
+			// Reset classes to restart animation
+			popup.className = '';
+			popup.classList.add(shot.made ? 'made' : 'missed', 'show');
+
+			// Text
+			popup.textContent = shot.made ? 'FREE THROW MADE' : 'FREE THROW MISSED';
+
+			// Auto cleanup classes after animation
+			setTimeout(() => {
+				popup.className = '';
+			}, 1200);
 		}
 
 		// Initialize and load data
