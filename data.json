@@ -1,154 +1,83 @@
 {
-  "Team1Name": "Team 1",
-  "Team2Name": "Team 2",
-  "Team1Score": 24,
-  "Team2Score": 0,
-  "Team1Record": null,
-  "Team2Record": null,
+  "Team1Name": "PC Eagles",
+  "Team2Name": "ACA Eagles",
+  "Team1Score": 70,
+  "Team2Score": 52,
+  "Team1Record": "",
+  "Team2Record": "",
   "Team1Rank": null,
   "Team2Rank": null,
-  "t1_StatBox_PointsBodyTXT": "#2 - Jane Smith | 24 pts.\n#1 - John Doe | 0 pts.\n#3 - Bobby Johnson | 0 pts.\n#4 - Jimmy James | 0 pts.\n#5 - Johhny Appleseed | 0 pts.\n",
-  "t1_StatBox_FoulsBodyTXT": "#1 - John Doe | 0 fouls\n#2 - Jane Smith | 0 fouls\n#3 - Bobby Johnson | 0 fouls\n#4 - Jimmy James | 0 fouls\n#5 - Johhny Appleseed | 0 fouls\n",
-  "t1_StatBox_ThreesBodyTXT": "#1 - John Doe | 0 threes\n#2 - Jane Smith | 0 threes\n#3 - Bobby Johnson | 0 threes\n#4 - Jimmy James | 0 threes\n#5 - Johhny Appleseed | 0 threes\n",
-  "t1_StatBox_FreeThrowBodyTXT": "#1 - John Doe | 0 free throws\n#2 - Jane Smith | 0 free throws\n#3 - Bobby Johnson | 0 free throws\n#4 - Jimmy James | 0 free throws\n#5 - Johhny Appleseed | 0 free throws\n",
-  "t2_StatBox_PointsBodyTXT": "#1 - Kenyon Geetings | 0 pts.\n#2 - London France | 0 pts.\n#3 - Paris London | 0 pts.\n#4 - France Paris | 0 pts.\n#5 - Geetings Kenyon | 0 pts.\n",
-  "t2_StatBox_FoulsBodyTXT": "#1 - Kenyon Geetings | 0 fouls\n#2 - London France | 0 fouls\n#3 - Paris London | 0 fouls\n#4 - France Paris | 0 fouls\n#5 - Geetings Kenyon | 0 fouls\n",
-  "t2_StatBox_ThreesBodyTXT": "#1 - Kenyon Geetings | 0 threes\n#2 - London France | 0 threes\n#3 - Paris London | 0 threes\n#4 - France Paris | 0 threes\n#5 - Geetings Kenyon | 0 threes\n",
-  "t2_StatBox_FreeThrowBodyTXT": "#1 - Kenyon Geetings | 0 free throws\n#2 - London France | 0 free throws\n#3 - Paris London | 0 free throws\n#4 - France Paris | 0 free throws\n#5 - Geetings Kenyon | 0 free throws\n",
+  "t1_StatBox_PointsBodyTXT": "#4 - Gilbert Flagel | 26 pts.\n#3 - Trey Steinkamp | 19 pts.\n#13 - Garrett Wielard | 8 pts.\n#22 - Devan Runner | 8 pts.\n#15 - Ben Van Wyngarden | 7 pts.\n",
+  "t1_StatBox_FoulsBodyTXT": "#3 - Trey Steinkamp | 2 fouls\n#11 - Caleb Volk | 2 fouls\n#13 - Garrett Wielard | 2 fouls\n#4 - Gilbert Flagel | 1 fouls\n#30 - Gavin Ulferts | 1 fouls\n",
+  "t1_StatBox_ThreesBodyTXT": "#3 - Trey Steinkamp | 4 threes\n#22 - Devan Runner | 2 threes\n#13 - Garrett Wielard | 1 threes\n#15 - Ben Van Wyngarden | 1 threes\n#2 - Griffin Stoltz | 0 threes\n",
+  "t1_StatBox_FreeThrowBodyTXT": "#4 - Gilbert Flagel | 12 free throws\n#3 - Trey Steinkamp | 1 free throws\n#13 - Garrett Wielard | 1 free throws\n#2 - Griffin Stoltz | 0 free throws\n#5 - Kade Geetings | 0 free throws\n",
+  "t2_StatBox_PointsBodyTXT": "#3 - Hudson Davis | 11 pts.\n#4 - Kade Clarkson | 11 pts.\n#0 - Jed Rood | 8 pts.\n#24 - Marcus Pedersen | 8 pts.\n#13 - Isaac Venema | 7 pts.\n",
+  "t2_StatBox_FoulsBodyTXT": "#4 - Kade Clarkson | 4 fouls\n#5 - Tyson Fincham | 4 fouls\n#12 - Andrew Mora | 3 fouls\n#13 - Isaac Venema | 2 fouls\n#24 - Marcus Pedersen | 2 fouls\n",
+  "t2_StatBox_ThreesBodyTXT": "#3 - Hudson Davis | 3 threes\n#4 - Kade Clarkson | 3 threes\n#24 - Marcus Pedersen | 2 threes\n#0 - Jed Rood | 1 threes\n#12 - Andrew Mora | 1 threes\n",
+  "t2_StatBox_FreeThrowBodyTXT": "#24 - Marcus Pedersen | 2 free throws\n#0 - Jed Rood | 1 free throws\n#2 - Lucas Erickson | 0 free throws\n#3 - Hudson Davis | 0 free throws\n#4 - Kade Clarkson | 0 free throws\n",
   "t1_FullStats": "Select a Player",
-  "t2_FullStats": "Select a Player",
+  "t2_FullStats": "Points: 0\nFouls: 0\nThrees: 0\nFrees: 0",
   "Team1Players": [
     {
-      "PlayerName": "John Doe",
-      "PlayerNumber": "1",
+      "PlayerName": "Griffin Stoltz",
+      "PlayerNumber": "2",
       "PlayerGrade": null,
       "PlayerHeight": null,
       "PlayerPosition": null,
-      "GUID": "a0c0233b-2a9e-4aff-9870-fd36fbf69535",
+      "GUID": "bb01ef3e-36e3-407a-b0fa-008d55f2b475",
       "Team": 1,
-      "Shots": [],
+      "Shots": [
+        {
+          "PointValue": 3,
+          "GUID": "b3969961-4b51-4270-ab85-3134be9c21f5",
+          "PointCredit": 3,
+          "ShotPosition": "174.089552238806,386.9402985074627",
+          "RealTime": "2025-12-08T19:45:40.2017629-06:00",
+          "FriendlyTime": "7:45 PM (0 min 0 sec ago)",
+          "FriendlyShotValue": "Three Points",
+          "GameTime": null,
+          "Made": false,
+          "ModifiedDate": "0001-01-01T00:00:00"
+        },
+        {
+          "PointValue": 3,
+          "GUID": "a3d3f193-724d-4ef4-8847-46fc24887188",
+          "PointCredit": 3,
+          "ShotPosition": "765.8507462686567,121.86567164179107",
+          "RealTime": "2025-12-08T20:14:05.2153314-06:00",
+          "FriendlyTime": "8:14 PM (0 min 0 sec ago)",
+          "FriendlyShotValue": "Three Points",
+          "GameTime": null,
+          "Made": false,
+          "ModifiedDate": "0001-01-01T00:00:00"
+        }
+      ],
       "PlayerFouls": 0,
       "PlayerPoints": 0,
       "PlayerThrees": 0,
       "PlayerFrees": 0,
       "AttemptedFrees": 0,
-      "AttemptedThrees": 0,
+      "AttemptedThrees": 2,
       "Stats": "Ps: 0, Fs: 0, 3s:  0, 1s: 0",
-      "ShortenedName": "J. Doe",
-      "FullStats": null
+      "ShortenedName": "G. Stoltz",
+      "FullStats": "Points: 0\nFouls: 0\nThrees: 0\nFrees: 0"
     },
     {
-      "PlayerName": "Jane Smith",
-      "PlayerNumber": "2",
+      "PlayerName": "Trey Steinkamp",
+      "PlayerNumber": "3",
       "PlayerGrade": null,
       "PlayerHeight": null,
       "PlayerPosition": null,
-      "GUID": "ee24aa0d-d527-4d43-a9ca-6811dfbfc538",
+      "GUID": "23cfe960-d568-42d4-a932-3e681855891f",
       "Team": 1,
       "Shots": [
         {
           "PointValue": 2,
-          "GUID": "3d30115f-ac05-4486-b9a7-3045c74ffb2c",
-          "PointCredit": 2,
-          "ShotPosition": "358,101",
-          "RealTime": "2025-02-09T13:14:26.8570195-06:00",
-          "FriendlyTime": "1:14 PM (0 min 0 sec ago)",
-          "FriendlyShotValue": "Two Points",
-          "GameTime": null,
-          "Made": true,
-          "ModifiedDate": "0001-01-01T00:00:00"
-        },
-        {
-          "PointValue": 2,
-          "GUID": "afbf8a09-13ac-4149-bb85-3e89a6a34203",
-          "PointCredit": 2,
-          "ShotPosition": "454,107",
-          "RealTime": "2025-02-09T13:14:31.4624654-06:00",
-          "FriendlyTime": "1:14 PM (0 min 0 sec ago)",
-          "FriendlyShotValue": "Two Points",
-          "GameTime": null,
-          "Made": true,
-          "ModifiedDate": "0001-01-01T00:00:00"
-        },
-        {
-          "PointValue": 2,
-          "GUID": "020b5191-c191-4d31-abe6-a09c1897e128",
-          "PointCredit": 2,
-          "ShotPosition": "604,368",
-          "RealTime": "2025-02-09T13:14:34.7286614-06:00",
-          "FriendlyTime": "1:14 PM (0 min 0 sec ago)",
-          "FriendlyShotValue": "Two Points",
-          "GameTime": null,
-          "Made": true,
-          "ModifiedDate": "0001-01-01T00:00:00"
-        },
-        {
-          "PointValue": 2,
-          "GUID": "9586be29-1ae2-48df-bff9-92384a2d07af",
-          "PointCredit": 2,
-          "ShotPosition": "537,174",
-          "RealTime": "2025-02-09T13:14:39.1060875-06:00",
-          "FriendlyTime": "1:14 PM (0 min 0 sec ago)",
-          "FriendlyShotValue": "Two Points",
-          "GameTime": null,
-          "Made": true,
-          "ModifiedDate": "0001-01-01T00:00:00"
-        },
-        {
-          "PointValue": 2,
-          "GUID": "56fc329d-96fb-4002-b988-f1be0f205c6c",
-          "PointCredit": 2,
-          "ShotPosition": "321,223",
-          "RealTime": "2025-02-09T13:14:44.0952768-06:00",
-          "FriendlyTime": "1:14 PM (0 min 0 sec ago)",
-          "FriendlyShotValue": "Two Points",
-          "GameTime": null,
-          "Made": true,
-          "ModifiedDate": "0001-01-01T00:00:00"
-        },
-        {
-          "PointValue": 2,
-          "GUID": "07bbfcc2-6e32-446d-8b58-49c0a708d5f9",
-          "PointCredit": 2,
-          "ShotPosition": "174,319",
-          "RealTime": "2025-02-09T13:14:47.161703-06:00",
-          "FriendlyTime": "1:14 PM (0 min 0 sec ago)",
-          "FriendlyShotValue": "Two Points",
-          "GameTime": null,
-          "Made": true,
-          "ModifiedDate": "0001-01-01T00:00:00"
-        },
-        {
-          "PointValue": 2,
-          "GUID": "ed6af5d1-ad55-4cd2-988c-b2d08b362cb4",
-          "PointCredit": 2,
-          "ShotPosition": "73,41",
-          "RealTime": "2025-02-09T13:14:50.7762347-06:00",
-          "FriendlyTime": "1:14 PM (0 min 0 sec ago)",
-          "FriendlyShotValue": "Two Points",
-          "GameTime": null,
-          "Made": true,
-          "ModifiedDate": "0001-01-01T00:00:00"
-        },
-        {
-          "PointValue": 2,
-          "GUID": "ff847d16-0972-4af9-982e-3ccc69d9268d",
-          "PointCredit": 2,
-          "ShotPosition": "563,266",
-          "RealTime": "2025-02-09T13:14:55.5340015-06:00",
-          "FriendlyTime": "1:14 PM (0 min 0 sec ago)",
-          "FriendlyShotValue": "Two Points",
-          "GameTime": null,
-          "Made": true,
-          "ModifiedDate": "0001-01-01T00:00:00"
-        },
-        {
-          "PointValue": 2,
-          "GUID": "f6e7f09d-2579-4dfe-baa1-36961fcf6f11",
+          "GUID": "76756ae6-ae56-4c2e-bd10-9746ab5ba17f",
           "PointCredit": 0,
-          "ShotPosition": "630,99",
-          "RealTime": "2025-02-09T13:14:59.093624-06:00",
-          "FriendlyTime": "1:14 PM (0 min 0 sec ago)",
+          "ShotPosition": "353.91044776119406,126.16417910447763",
+          "RealTime": "2025-12-08T19:30:26.0418006-06:00",
+          "FriendlyTime": "7:30 PM (0 min 0 sec ago)",
           "FriendlyShotValue": "Two Points",
           "GameTime": null,
           "Made": false,
@@ -156,130 +85,595 @@
         },
         {
           "PointValue": 2,
-          "GUID": "b7ed728d-66b5-4417-9763-0fabe9a5347a",
+          "GUID": "2d2a213e-961e-4573-9c41-6ceb2eccb746",
           "PointCredit": 2,
-          "ShotPosition": "230,261",
-          "RealTime": "2025-02-09T13:15:01.5646914-06:00",
-          "FriendlyTime": "1:15 PM (0 min 0 sec ago)",
+          "ShotPosition": "320.23880597014926,189.20895522388062",
+          "RealTime": "2025-12-08T19:33:16.5211155-06:00",
+          "FriendlyTime": "7:33 PM (0 min 0 sec ago)",
           "FriendlyShotValue": "Two Points",
           "GameTime": null,
           "Made": true,
           "ModifiedDate": "0001-01-01T00:00:00"
         },
         {
-          "PointValue": 2,
-          "GUID": "6b4f82d9-7c7e-4d68-8283-382d3bc3f20d",
-          "PointCredit": 2,
-          "ShotPosition": "161,334",
-          "RealTime": "2025-02-09T13:15:03.8698178-06:00",
-          "FriendlyTime": "1:15 PM (0 min 0 sec ago)",
-          "FriendlyShotValue": "Two Points",
+          "PointValue": 3,
+          "GUID": "d094160a-781e-4d9e-9654-bd1381ee96d6",
+          "PointCredit": 3,
+          "ShotPosition": "568.8358208955225,414.8805970149254",
+          "RealTime": "2025-12-08T19:34:54.508684-06:00",
+          "FriendlyTime": "7:34 PM (0 min 0 sec ago)",
+          "FriendlyShotValue": "Three Points",
           "GameTime": null,
           "Made": true,
           "ModifiedDate": "0001-01-01T00:00:00"
         },
         {
           "PointValue": 2,
-          "GUID": "35a09adf-bf94-4bc6-9895-3a6d91ab42ba",
+          "GUID": "326481df-5e6e-4f5b-9676-26a5bae14eae",
+          "PointCredit": 0,
+          "ShotPosition": "462.089552238806,120.43283582089555",
+          "RealTime": "2025-12-08T19:39:00.7470506-06:00",
+          "FriendlyTime": "7:39 PM (0 min 0 sec ago)",
+          "FriendlyShotValue": "Two Points",
+          "GameTime": null,
+          "Made": false,
+          "ModifiedDate": "0001-01-01T00:00:00"
+        },
+        {
+          "PointValue": 3,
+          "GUID": "2b780cf0-7956-4557-8316-6b0f56f27878",
+          "PointCredit": 3,
+          "ShotPosition": "758.6865671641792,88.19402985074628",
+          "RealTime": "2025-12-08T19:42:44.9771353-06:00",
+          "FriendlyTime": "7:42 PM (0 min 0 sec ago)",
+          "FriendlyShotValue": "Three Points",
+          "GameTime": null,
+          "Made": false,
+          "ModifiedDate": "0001-01-01T00:00:00"
+        },
+        {
+          "PointValue": 2,
+          "GUID": "e2bee1d3-d746-4979-8851-01dcfc4860ed",
           "PointCredit": 2,
-          "ShotPosition": "685,147",
-          "RealTime": "2025-02-09T13:15:08.2066956-06:00",
-          "FriendlyTime": "1:15 PM (0 min 0 sec ago)",
+          "ShotPosition": "460.6567164179105,109.68656716417911",
+          "RealTime": "2025-12-08T19:44:22.6317022-06:00",
+          "FriendlyTime": "7:44 PM (0 min 0 sec ago)",
           "FriendlyShotValue": "Two Points",
           "GameTime": null,
           "Made": true,
           "ModifiedDate": "0001-01-01T00:00:00"
         },
         {
+          "PointValue": 3,
+          "GUID": "778a12a1-98c3-4683-a64a-5c2796beb921",
+          "PointCredit": 3,
+          "ShotPosition": "720.0000000000001,317.4477611940299",
+          "RealTime": "2025-12-08T19:44:57.0843508-06:00",
+          "FriendlyTime": "7:44 PM (0 min 0 sec ago)",
+          "FriendlyShotValue": "Three Points",
+          "GameTime": null,
+          "Made": true,
+          "ModifiedDate": "0001-01-01T00:00:00"
+        },
+        {
           "PointValue": 2,
-          "GUID": "461246e8-6c6b-41f7-9f37-eec518ca418f",
+          "GUID": "218099bd-5c6a-47a2-a7b4-fd1bca5c6099",
+          "PointCredit": 0,
+          "ShotPosition": "355.3432835820896,146.9402985074627",
+          "RealTime": "2025-12-08T19:48:43.6701752-06:00",
+          "FriendlyTime": "7:48 PM (0 min 0 sec ago)",
+          "FriendlyShotValue": "Two Points",
+          "GameTime": null,
+          "Made": false,
+          "ModifiedDate": "0001-01-01T00:00:00"
+        },
+        {
+          "PointValue": 3,
+          "GUID": "0d623690-7b7b-4596-91d2-318cc27d1a89",
+          "PointCredit": 3,
+          "ShotPosition": "701.3731343283583,449.268656716418",
+          "RealTime": "2025-12-08T19:49:52.1238919-06:00",
+          "FriendlyTime": "7:49 PM (0 min 0 sec ago)",
+          "FriendlyShotValue": "Three Points",
+          "GameTime": null,
+          "Made": false,
+          "ModifiedDate": "0001-01-01T00:00:00"
+        },
+        {
+          "PointValue": 2,
+          "GUID": "6f4f36b5-73a0-4934-bfec-0fdd74548459",
+          "PointCredit": 0,
+          "ShotPosition": "353.91044776119406,167.00000000000003",
+          "RealTime": "2025-12-08T20:07:14.9074588-06:00",
+          "FriendlyTime": "8:07 PM (0 min 0 sec ago)",
+          "FriendlyShotValue": "Two Points",
+          "GameTime": null,
+          "Made": false,
+          "ModifiedDate": "0001-01-01T00:00:00"
+        },
+        {
+          "PointValue": 3,
+          "GUID": "1b3589a0-224b-45ff-8182-d889baa048ee",
+          "PointCredit": 3,
+          "ShotPosition": "520.1194029850747,434.22388059701495",
+          "RealTime": "2025-12-08T20:07:47.5260756-06:00",
+          "FriendlyTime": "8:07 PM (0 min 0 sec ago)",
+          "FriendlyShotValue": "Three Points",
+          "GameTime": null,
+          "Made": true,
+          "ModifiedDate": "0001-01-01T00:00:00"
+        },
+        {
+          "PointValue": 2,
+          "GUID": "11f10692-a904-4618-87e1-88576e2d036b",
           "PointCredit": 2,
-          "ShotPosition": "199,658",
-          "RealTime": "2025-02-09T13:18:56.6157177-06:00",
-          "FriendlyTime": "1:18 PM (0 min 0 sec ago)",
+          "ShotPosition": "353.1940298507463,144.7910447761194",
+          "RealTime": "2025-12-08T20:10:45.565812-06:00",
+          "FriendlyTime": "8:10 PM (0 min 0 sec ago)",
           "FriendlyShotValue": "Two Points",
           "GameTime": null,
           "Made": true,
+          "ModifiedDate": "0001-01-01T00:00:00"
+        },
+        {
+          "PointValue": 3,
+          "GUID": "6a455b9b-11b6-4838-8156-27161387f38e",
+          "PointCredit": 3,
+          "ShotPosition": "76.65671641791046,337.5074626865672",
+          "RealTime": "2025-12-08T20:14:48.4857244-06:00",
+          "FriendlyTime": "8:14 PM (0 min 0 sec ago)",
+          "FriendlyShotValue": "Three Points",
+          "GameTime": null,
+          "Made": true,
+          "ModifiedDate": "0001-01-01T00:00:00"
+        },
+        {
+          "PointValue": 1,
+          "GUID": "8756b21c-9c59-4e2c-a19c-3ff5e8df0b0b",
+          "PointCredit": 1,
+          "ShotPosition": "0,0",
+          "RealTime": "2025-12-08T20:15:48.7191898-06:00",
+          "FriendlyTime": null,
+          "FriendlyShotValue": null,
+          "GameTime": null,
+          "Made": false,
+          "ModifiedDate": "0001-01-01T00:00:00"
+        },
+        {
+          "PointValue": 1,
+          "GUID": "f8005b8b-4e14-4e0e-ba6e-a4610cfe8ac3",
+          "PointCredit": 1,
+          "ShotPosition": "0,0",
+          "RealTime": "2025-12-08T20:16:17.0471919-06:00",
+          "FriendlyTime": null,
+          "FriendlyShotValue": null,
+          "GameTime": null,
+          "Made": true,
+          "ModifiedDate": "0001-01-01T00:00:00"
+        },
+        {
+          "PointValue": 2,
+          "GUID": "454c206b-9876-4e86-a3c2-a34d3d92416b",
+          "PointCredit": 0,
+          "ShotPosition": "246.44776119402988,164.85074626865674",
+          "RealTime": "2025-12-08T20:28:47.9898648-06:00",
+          "FriendlyTime": "8:28 PM (0 min 0 sec ago)",
+          "FriendlyShotValue": "Two Points",
+          "GameTime": null,
+          "Made": false,
           "ModifiedDate": "0001-01-01T00:00:00"
         }
       ],
-      "PlayerFouls": 0,
-      "PlayerPoints": 24,
-      "PlayerThrees": 0,
-      "PlayerFrees": 0,
-      "AttemptedFrees": 0,
-      "AttemptedThrees": 0,
-      "Stats": "Ps: 24, Fs: 0, 3s:  0, 1s: 0",
-      "ShortenedName": "J. Smith",
-      "FullStats": "Points: 22\nFouls: 0\nThrees: 0\nFrees: 0"
+      "PlayerFouls": 2,
+      "PlayerPoints": 19,
+      "PlayerThrees": 4,
+      "PlayerFrees": 1,
+      "AttemptedFrees": 2,
+      "AttemptedThrees": 6,
+      "Stats": "Ps: 19, Fs: 2, 3s:  4, 1s: 1",
+      "ShortenedName": "T. Steink...",
+      "FullStats": "Points: 19\nFouls: 2\nThrees: 4\nFrees: 1"
     },
     {
-      "PlayerName": "Bobby Johnson",
-      "PlayerNumber": "3",
-      "PlayerGrade": null,
-      "PlayerHeight": null,
-      "PlayerPosition": null,
-      "GUID": "1fd64423-3858-450b-98b7-e18cb6bafbc7",
-      "Team": 1,
-      "Shots": [],
-      "PlayerFouls": 0,
-      "PlayerPoints": 0,
-      "PlayerThrees": 0,
-      "PlayerFrees": 0,
-      "AttemptedFrees": 0,
-      "AttemptedThrees": 0,
-      "Stats": "Ps: 0, Fs: 0, 3s:  0, 1s: 0",
-      "ShortenedName": "B. Johnson",
-      "FullStats": null
-    },
-    {
-      "PlayerName": "Jimmy James",
+      "PlayerName": "Gilbert Flagel",
       "PlayerNumber": "4",
       "PlayerGrade": null,
       "PlayerHeight": null,
       "PlayerPosition": null,
-      "GUID": "2ffc6962-021f-4a47-bb29-79029a047368",
+      "GUID": "f57dd5fe-730f-4156-8de4-edf366ad041c",
       "Team": 1,
-      "Shots": [],
-      "PlayerFouls": 0,
-      "PlayerPoints": 0,
+      "Shots": [
+        {
+          "PointValue": 2,
+          "GUID": "1874692b-d090-48fd-a121-be8fe3b4cf52",
+          "PointCredit": 2,
+          "ShotPosition": "444.89552238805976,112.55223880597015",
+          "RealTime": "2025-12-08T19:27:26.0749074-06:00",
+          "FriendlyTime": "7:27 PM (0 min 0 sec ago)",
+          "FriendlyShotValue": "Two Points",
+          "GameTime": null,
+          "Made": true,
+          "ModifiedDate": "0001-01-01T00:00:00"
+        },
+        {
+          "PointValue": 1,
+          "GUID": "49457548-d665-48c4-947f-5e9ca9922c51",
+          "PointCredit": 1,
+          "ShotPosition": "0,0",
+          "RealTime": "2025-12-08T19:27:41.8127386-06:00",
+          "FriendlyTime": null,
+          "FriendlyShotValue": null,
+          "GameTime": null,
+          "Made": true,
+          "ModifiedDate": "0001-01-01T00:00:00"
+        },
+        {
+          "PointValue": 2,
+          "GUID": "9d0a64f2-e192-42c6-8110-507082fb8350",
+          "PointCredit": 0,
+          "ShotPosition": "358.92537313432837,121.1492537313433",
+          "RealTime": "2025-12-08T19:28:34.6767933-06:00",
+          "FriendlyTime": "7:28 PM (0 min 0 sec ago)",
+          "FriendlyShotValue": "Two Points",
+          "GameTime": null,
+          "Made": false,
+          "ModifiedDate": "0001-01-01T00:00:00"
+        },
+        {
+          "PointValue": 2,
+          "GUID": "fcfde0d1-c980-4297-b4ee-6d9db2a5db87",
+          "PointCredit": 2,
+          "ShotPosition": "439.1641791044777,108.97014925373136",
+          "RealTime": "2025-12-08T19:30:32.2661024-06:00",
+          "FriendlyTime": "7:30 PM (0 min 0 sec ago)",
+          "FriendlyShotValue": "Two Points",
+          "GameTime": null,
+          "Made": true,
+          "ModifiedDate": "0001-01-01T00:00:00"
+        },
+        {
+          "PointValue": 2,
+          "GUID": "bb491cdf-fc23-412a-8b79-4c4f5827a2b1",
+          "PointCredit": 0,
+          "ShotPosition": "459.9402985074627,165.5671641791045",
+          "RealTime": "2025-12-08T19:32:08.6655175-06:00",
+          "FriendlyTime": "7:32 PM (0 min 0 sec ago)",
+          "FriendlyShotValue": "Two Points",
+          "GameTime": null,
+          "Made": false,
+          "ModifiedDate": "0001-01-01T00:00:00"
+        },
+        {
+          "PointValue": 1,
+          "GUID": "f8d8703c-f81a-4abf-b672-92f093846a54",
+          "PointCredit": 1,
+          "ShotPosition": "0,0",
+          "RealTime": "2025-12-08T19:32:26.301599-06:00",
+          "FriendlyTime": null,
+          "FriendlyShotValue": null,
+          "GameTime": null,
+          "Made": true,
+          "ModifiedDate": "0001-01-01T00:00:00"
+        },
+        {
+          "PointValue": 1,
+          "GUID": "ba69fbfe-fe28-4ffd-860c-b818cd416a38",
+          "PointCredit": 1,
+          "ShotPosition": "0,0",
+          "RealTime": "2025-12-08T19:32:51.3235491-06:00",
+          "FriendlyTime": null,
+          "FriendlyShotValue": null,
+          "GameTime": null,
+          "Made": true,
+          "ModifiedDate": "0001-01-01T00:00:00"
+        },
+        {
+          "PointValue": 2,
+          "GUID": "f80ea08f-8629-4f19-97b2-2ac6bb21a84b",
+          "PointCredit": 2,
+          "ShotPosition": "431.2835820895523,127.59701492537314",
+          "RealTime": "2025-12-08T19:35:40.6244063-06:00",
+          "FriendlyTime": "7:35 PM (0 min 0 sec ago)",
+          "FriendlyShotValue": "Two Points",
+          "GameTime": null,
+          "Made": true,
+          "ModifiedDate": "0001-01-01T00:00:00"
+        },
+        {
+          "PointValue": 2,
+          "GUID": "5f7db190-7066-483b-ae3c-375ae74aa6d4",
+          "PointCredit": 2,
+          "ShotPosition": "455.64179104477614,117.56716417910448",
+          "RealTime": "2025-12-08T19:36:21.8633515-06:00",
+          "FriendlyTime": "7:36 PM (0 min 0 sec ago)",
+          "FriendlyShotValue": "Two Points",
+          "GameTime": null,
+          "Made": true,
+          "ModifiedDate": "0001-01-01T00:00:00"
+        },
+        {
+          "PointValue": 2,
+          "GUID": "f58ecf7d-a1e1-4e1c-b49c-5deb7ace9d6e",
+          "PointCredit": 2,
+          "ShotPosition": "484.2985074626866,176.31343283582092",
+          "RealTime": "2025-12-08T19:37:15.3799504-06:00",
+          "FriendlyTime": "7:37 PM (0 min 0 sec ago)",
+          "FriendlyShotValue": "Two Points",
+          "GameTime": null,
+          "Made": true,
+          "ModifiedDate": "0001-01-01T00:00:00"
+        },
+        {
+          "PointValue": 2,
+          "GUID": "0f180180-717b-40e6-bb76-11e935ad8a73",
+          "PointCredit": 0,
+          "ShotPosition": "362.5074626865672,153.38805970149255",
+          "RealTime": "2025-12-08T19:47:44.8462031-06:00",
+          "FriendlyTime": "7:47 PM (0 min 0 sec ago)",
+          "FriendlyShotValue": "Two Points",
+          "GameTime": null,
+          "Made": false,
+          "ModifiedDate": "0001-01-01T00:00:00"
+        },
+        {
+          "PointValue": 1,
+          "GUID": "8accc7de-c7a9-435d-9fb3-47882d559e42",
+          "PointCredit": 1,
+          "ShotPosition": "0,0",
+          "RealTime": "2025-12-08T19:49:20.9372042-06:00",
+          "FriendlyTime": null,
+          "FriendlyShotValue": null,
+          "GameTime": null,
+          "Made": true,
+          "ModifiedDate": "0001-01-01T00:00:00"
+        },
+        {
+          "PointValue": 1,
+          "GUID": "f6e3049e-bfaf-49b6-9867-80ff9093ea4f",
+          "PointCredit": 1,
+          "ShotPosition": "0,0",
+          "RealTime": "2025-12-08T19:49:40.7250591-06:00",
+          "FriendlyTime": null,
+          "FriendlyShotValue": null,
+          "GameTime": null,
+          "Made": false,
+          "ModifiedDate": "0001-01-01T00:00:00"
+        },
+        {
+          "PointValue": 2,
+          "GUID": "34b3ee17-89cb-47c7-9f72-46520291b449",
+          "PointCredit": 0,
+          "ShotPosition": "469.2537313432836,129.74626865671644",
+          "RealTime": "2025-12-08T19:53:56.1964983-06:00",
+          "FriendlyTime": "7:53 PM (0 min 0 sec ago)",
+          "FriendlyShotValue": "Two Points",
+          "GameTime": null,
+          "Made": false,
+          "ModifiedDate": "0001-01-01T00:00:00"
+        },
+        {
+          "PointValue": 2,
+          "GUID": "e322d715-649e-4302-97f6-a35761bceea2",
+          "PointCredit": 0,
+          "ShotPosition": "449.1940298507463,113.9850746268657",
+          "RealTime": "2025-12-08T20:05:52.3255724-06:00",
+          "FriendlyTime": "8:05 PM (0 min 0 sec ago)",
+          "FriendlyShotValue": "Two Points",
+          "GameTime": null,
+          "Made": false,
+          "ModifiedDate": "0001-01-01T00:00:00"
+        },
+        {
+          "PointValue": 1,
+          "GUID": "e1723cf1-44e3-4dab-84a7-1f63ede5d1cc",
+          "PointCredit": 1,
+          "ShotPosition": "0,0",
+          "RealTime": "2025-12-08T20:06:04.9247855-06:00",
+          "FriendlyTime": null,
+          "FriendlyShotValue": null,
+          "GameTime": null,
+          "Made": true,
+          "ModifiedDate": "0001-01-01T00:00:00"
+        },
+        {
+          "PointValue": 1,
+          "GUID": "e4ef039b-b0d4-4858-aa43-658bdee0f53d",
+          "PointCredit": 1,
+          "ShotPosition": "0,0",
+          "RealTime": "2025-12-08T20:06:34.3160904-06:00",
+          "FriendlyTime": null,
+          "FriendlyShotValue": null,
+          "GameTime": null,
+          "Made": false,
+          "ModifiedDate": "0001-01-01T00:00:00"
+        },
+        {
+          "PointValue": 2,
+          "GUID": "cec84162-ebbb-46ab-b905-1ef762065ae0",
+          "PointCredit": 2,
+          "ShotPosition": "467.8208955223881,136.91044776119404",
+          "RealTime": "2025-12-08T20:19:17.110484-06:00",
+          "FriendlyTime": "8:19 PM (0 min 0 sec ago)",
+          "FriendlyShotValue": "Two Points",
+          "GameTime": null,
+          "Made": true,
+          "ModifiedDate": "0001-01-01T00:00:00"
+        },
+        {
+          "PointValue": 2,
+          "GUID": "b134c86b-e7a2-4192-ae8c-c6eae4e5c2b9",
+          "PointCredit": 0,
+          "ShotPosition": "394.0298507462687,184.1940298507463",
+          "RealTime": "2025-12-08T20:22:41.4687719-06:00",
+          "FriendlyTime": "8:22 PM (0 min 0 sec ago)",
+          "FriendlyShotValue": "Two Points",
+          "GameTime": null,
+          "Made": false,
+          "ModifiedDate": "0001-01-01T00:00:00"
+        },
+        {
+          "PointValue": 1,
+          "GUID": "30928fee-141d-4de7-b2c5-6153ed957f14",
+          "PointCredit": 1,
+          "ShotPosition": "0,0",
+          "RealTime": "2025-12-08T20:23:01.508078-06:00",
+          "FriendlyTime": null,
+          "FriendlyShotValue": null,
+          "GameTime": null,
+          "Made": true,
+          "ModifiedDate": "0001-01-01T00:00:00"
+        },
+        {
+          "PointValue": 1,
+          "GUID": "6aeecc5c-6d1f-495d-8fc0-f5e7a08b21d4",
+          "PointCredit": 1,
+          "ShotPosition": "0,0",
+          "RealTime": "2025-12-08T20:23:16.9650656-06:00",
+          "FriendlyTime": null,
+          "FriendlyShotValue": null,
+          "GameTime": null,
+          "Made": true,
+          "ModifiedDate": "0001-01-01T00:00:00"
+        },
+        {
+          "PointValue": 2,
+          "GUID": "6bcc73c1-ac6f-4888-9922-5f1469562763",
+          "PointCredit": 0,
+          "ShotPosition": "352.4776119402985,113.9850746268657",
+          "RealTime": "2025-12-08T20:23:47.3788004-06:00",
+          "FriendlyTime": "8:23 PM (0 min 0 sec ago)",
+          "FriendlyShotValue": "Two Points",
+          "GameTime": null,
+          "Made": false,
+          "ModifiedDate": "0001-01-01T00:00:00"
+        },
+        {
+          "PointValue": 2,
+          "GUID": "00000000-0000-0000-0000-000000000000",
+          "PointCredit": 2,
+          "ShotPosition": "442.0298507462687,115.41791044776122",
+          "RealTime": "2025-12-08T20:26:36.4956392-06:00",
+          "FriendlyTime": "8:26 PM (0 min 0 sec ago)",
+          "FriendlyShotValue": "Two Points",
+          "GameTime": null,
+          "Made": true,
+          "ModifiedDate": "0001-01-01T00:00:00"
+        },
+        {
+          "PointValue": 2,
+          "GUID": "90733f5e-91dd-43ea-bac1-997fe269fde8",
+          "PointCredit": 0,
+          "ShotPosition": "360.3582089552239,133.32835820895525",
+          "RealTime": "2025-12-08T20:31:06.9040385-06:00",
+          "FriendlyTime": "8:31 PM (0 min 0 sec ago)",
+          "FriendlyShotValue": "Two Points",
+          "GameTime": null,
+          "Made": false,
+          "ModifiedDate": "0001-01-01T00:00:00"
+        },
+        {
+          "PointValue": 2,
+          "GUID": "ef3bb8c1-474c-49bf-bcd7-178f80ecd880",
+          "PointCredit": 0,
+          "ShotPosition": "359.64179104477614,111.8358208955224",
+          "RealTime": "2025-12-08T20:32:58.1917079-06:00",
+          "FriendlyTime": "8:32 PM (0 min 0 sec ago)",
+          "FriendlyShotValue": "Two Points",
+          "GameTime": null,
+          "Made": false,
+          "ModifiedDate": "0001-01-01T00:00:00"
+        },
+        {
+          "PointValue": 1,
+          "GUID": "451af052-0710-4779-a42c-fc9478b1708f",
+          "PointCredit": 1,
+          "ShotPosition": "0,0",
+          "RealTime": "2025-12-08T20:33:06.3401436-06:00",
+          "FriendlyTime": null,
+          "FriendlyShotValue": null,
+          "GameTime": null,
+          "Made": true,
+          "ModifiedDate": "0001-01-01T00:00:00"
+        },
+        {
+          "PointValue": 1,
+          "GUID": "f23d897b-1326-4ce0-a30f-551f32da0d97",
+          "PointCredit": 1,
+          "ShotPosition": "0,0",
+          "RealTime": "2025-12-08T20:33:23.2425305-06:00",
+          "FriendlyTime": null,
+          "FriendlyShotValue": null,
+          "GameTime": null,
+          "Made": true,
+          "ModifiedDate": "0001-01-01T00:00:00"
+        },
+        {
+          "PointValue": 1,
+          "GUID": "007bed9b-2974-49f6-bbd8-316131993f3f",
+          "PointCredit": 1,
+          "ShotPosition": "0,0",
+          "RealTime": "2025-12-08T20:34:31.5558832-06:00",
+          "FriendlyTime": null,
+          "FriendlyShotValue": null,
+          "GameTime": null,
+          "Made": true,
+          "ModifiedDate": "0001-01-01T00:00:00"
+        },
+        {
+          "PointValue": 1,
+          "GUID": "5531b500-2174-42b2-acca-27d6f2dff52c",
+          "PointCredit": 1,
+          "ShotPosition": "0,0",
+          "RealTime": "2025-12-08T20:34:52.7306792-06:00",
+          "FriendlyTime": null,
+          "FriendlyShotValue": null,
+          "GameTime": null,
+          "Made": true,
+          "ModifiedDate": "0001-01-01T00:00:00"
+        },
+        {
+          "PointValue": 1,
+          "GUID": "3502e871-6a39-4260-9f8f-c3f84c34b1d2",
+          "PointCredit": 1,
+          "ShotPosition": "0,0",
+          "RealTime": "2025-12-08T20:35:46.4468628-06:00",
+          "FriendlyTime": null,
+          "FriendlyShotValue": null,
+          "GameTime": null,
+          "Made": true,
+          "ModifiedDate": "0001-01-01T00:00:00"
+        },
+        {
+          "PointValue": 1,
+          "GUID": "5cc3e221-02e0-4e4b-a530-5fd66df25507",
+          "PointCredit": 1,
+          "ShotPosition": "0,0",
+          "RealTime": "2025-12-08T20:35:59.9784189-06:00",
+          "FriendlyTime": null,
+          "FriendlyShotValue": null,
+          "GameTime": null,
+          "Made": false,
+          "ModifiedDate": "0001-01-01T00:00:00"
+        }
+      ],
+      "PlayerFouls": 1,
+      "PlayerPoints": 26,
       "PlayerThrees": 0,
-      "PlayerFrees": 0,
-      "AttemptedFrees": 0,
+      "PlayerFrees": 12,
+      "AttemptedFrees": 15,
       "AttemptedThrees": 0,
-      "Stats": "Ps: 0, Fs: 0, 3s:  0, 1s: 0",
-      "ShortenedName": "J. James",
-      "FullStats": null
+      "Stats": "Ps: 26, Fs: 1, 3s:  0, 1s: 12",
+      "ShortenedName": "G. Flagel",
+      "FullStats": "Points: 26\nFouls: 1\nThrees: 0\nFrees: 12"
     },
     {
-      "PlayerName": "Johhny Appleseed",
+      "PlayerName": "Kade Geetings",
       "PlayerNumber": "5",
       "PlayerGrade": null,
       "PlayerHeight": null,
       "PlayerPosition": null,
-      "GUID": "84c6258f-5367-4803-b34d-b227aeb6d071",
+      "GUID": "68a54a03-7733-48c3-8d08-fcc8105dd64a",
       "Team": 1,
-      "Shots": [],
-      "PlayerFouls": 0,
-      "PlayerPoints": 0,
-      "PlayerThrees": 0,
-      "PlayerFrees": 0,
-      "AttemptedFrees": 0,
-      "AttemptedThrees": 0,
-      "Stats": "Ps: 0, Fs: 0, 3s:  0, 1s: 0",
-      "ShortenedName": "J. Apples...",
-      "FullStats": null
-    }
-  ],
-  "Team2Players": [
-    {
-      "PlayerName": "Kenyon Geetings",
-      "PlayerNumber": "1",
-      "PlayerGrade": null,
-      "PlayerHeight": null,
-      "PlayerPosition": null,
-      "GUID": "a38b83af-090e-42dc-8201-ab3cc78cc2e4",
-      "Team": 2,
       "Shots": [],
       "PlayerFouls": 0,
       "PlayerPoints": 0,
@@ -292,12 +686,708 @@
       "FullStats": null
     },
     {
-      "PlayerName": "London France",
+      "PlayerName": "Caleb Volk",
+      "PlayerNumber": "11",
+      "PlayerGrade": null,
+      "PlayerHeight": null,
+      "PlayerPosition": null,
+      "GUID": "15a1881f-ec06-44a6-b924-1b4e5f1ccdf5",
+      "Team": 1,
+      "Shots": [
+        {
+          "PointValue": 3,
+          "GUID": "ccffacc4-f29f-48fa-ad9f-ee5715ac2c21",
+          "PointCredit": 3,
+          "ShotPosition": "71.64179104477613,106.10447761194033",
+          "RealTime": "2025-12-08T19:49:01.9194514-06:00",
+          "FriendlyTime": "7:49 PM (0 min 0 sec ago)",
+          "FriendlyShotValue": "Three Points",
+          "GameTime": null,
+          "Made": false,
+          "ModifiedDate": "0001-01-01T00:00:00"
+        },
+        {
+          "PointValue": 2,
+          "GUID": "f93de86f-02d6-4b61-841a-0b0c0edf4eff",
+          "PointCredit": 2,
+          "ShotPosition": "362.5074626865672,104.67164179104478",
+          "RealTime": "2025-12-08T20:12:48.7277526-06:00",
+          "FriendlyTime": "8:12 PM (0 min 0 sec ago)",
+          "FriendlyShotValue": "Two Points",
+          "GameTime": null,
+          "Made": true,
+          "ModifiedDate": "0001-01-01T00:00:00"
+        }
+      ],
+      "PlayerFouls": 2,
+      "PlayerPoints": 2,
+      "PlayerThrees": 0,
+      "PlayerFrees": 0,
+      "AttemptedFrees": 0,
+      "AttemptedThrees": 1,
+      "Stats": "Ps: 2, Fs: 2, 3s:  0, 1s: 0",
+      "ShortenedName": "C. Volk",
+      "FullStats": "Points: 0\nFouls: 2\nThrees: 0\nFrees: 0"
+    },
+    {
+      "PlayerName": "Garrett Wielard",
+      "PlayerNumber": "13",
+      "PlayerGrade": null,
+      "PlayerHeight": null,
+      "PlayerPosition": null,
+      "GUID": "1952a2f3-4788-4cec-af47-f9dbdf5f7b1a",
+      "Team": 1,
+      "Shots": [
+        {
+          "PointValue": 2,
+          "GUID": "8a811618-1d1f-4e6e-8ca8-e5281474b17b",
+          "PointCredit": 0,
+          "ShotPosition": "462.089552238806,170.5820895522388",
+          "RealTime": "2025-12-08T19:31:48.2046353-06:00",
+          "FriendlyTime": "7:31 PM (0 min 0 sec ago)",
+          "FriendlyShotValue": "Two Points",
+          "GameTime": null,
+          "Made": false,
+          "ModifiedDate": "0001-01-01T00:00:00"
+        },
+        {
+          "PointValue": 2,
+          "GUID": "07b6fe45-13d7-4661-b797-2ee925f78523",
+          "PointCredit": 0,
+          "ShotPosition": "351.044776119403,127.59701492537314",
+          "RealTime": "2025-12-08T19:42:15.1783557-06:00",
+          "FriendlyTime": "7:42 PM (0 min 0 sec ago)",
+          "FriendlyShotValue": "Two Points",
+          "GameTime": null,
+          "Made": false,
+          "ModifiedDate": "0001-01-01T00:00:00"
+        },
+        {
+          "PointValue": 2,
+          "GUID": "14d4f611-7133-4dbb-ac9d-af1f8e0d39fc",
+          "PointCredit": 2,
+          "ShotPosition": "353.1940298507463,111.11940298507463",
+          "RealTime": "2025-12-08T19:42:59.8713672-06:00",
+          "FriendlyTime": "7:42 PM (0 min 0 sec ago)",
+          "FriendlyShotValue": "Two Points",
+          "GameTime": null,
+          "Made": true,
+          "ModifiedDate": "0001-01-01T00:00:00"
+        },
+        {
+          "PointValue": 2,
+          "GUID": "1e7c6108-ef77-442d-8eee-e71736c6ee43",
+          "PointCredit": 0,
+          "ShotPosition": "344.5970149253732,120.43283582089555",
+          "RealTime": "2025-12-08T19:43:29.598002-06:00",
+          "FriendlyTime": "7:43 PM (0 min 0 sec ago)",
+          "FriendlyShotValue": "Two Points",
+          "GameTime": null,
+          "Made": false,
+          "ModifiedDate": "0001-01-01T00:00:00"
+        },
+        {
+          "PointValue": 2,
+          "GUID": "b1d22e8b-fdd8-4efd-ae44-dd66a88af3cd",
+          "PointCredit": 0,
+          "ShotPosition": "436.2985074626866,129.02985074626866",
+          "RealTime": "2025-12-08T19:44:39.932911-06:00",
+          "FriendlyTime": "7:44 PM (0 min 0 sec ago)",
+          "FriendlyShotValue": "Two Points",
+          "GameTime": null,
+          "Made": false,
+          "ModifiedDate": "0001-01-01T00:00:00"
+        },
+        {
+          "PointValue": 3,
+          "GUID": "baf0c091-d799-4280-8293-8da28fe83d3c",
+          "PointCredit": 3,
+          "ShotPosition": "751.5223880597016,129.74626865671644",
+          "RealTime": "2025-12-08T19:48:10.6553526-06:00",
+          "FriendlyTime": "7:48 PM (0 min 0 sec ago)",
+          "FriendlyShotValue": "Three Points",
+          "GameTime": null,
+          "Made": true,
+          "ModifiedDate": "0001-01-01T00:00:00"
+        },
+        {
+          "PointValue": 2,
+          "GUID": "60fec4c2-ffc7-45cb-9f38-5b7a0850c199",
+          "PointCredit": 2,
+          "ShotPosition": "353.1940298507463,96.07462686567165",
+          "RealTime": "2025-12-08T19:50:09.1777894-06:00",
+          "FriendlyTime": "7:50 PM (0 min 0 sec ago)",
+          "FriendlyShotValue": "Two Points",
+          "GameTime": null,
+          "Made": true,
+          "ModifiedDate": "0001-01-01T00:00:00"
+        },
+        {
+          "PointValue": 2,
+          "GUID": "2df4b62c-21f3-463d-9eb1-2f5fff7692e0",
+          "PointCredit": 0,
+          "ShotPosition": "471.4029850746269,115.41791044776122",
+          "RealTime": "2025-12-08T20:09:26.6586315-06:00",
+          "FriendlyTime": "8:09 PM (0 min 0 sec ago)",
+          "FriendlyShotValue": "Two Points",
+          "GameTime": null,
+          "Made": false,
+          "ModifiedDate": "0001-01-01T00:00:00"
+        },
+        {
+          "PointValue": 1,
+          "GUID": "441f5fc9-a3a0-47a3-b20b-3c3565160197",
+          "PointCredit": 1,
+          "ShotPosition": "0,0",
+          "RealTime": "2025-12-08T20:09:46.9452266-06:00",
+          "FriendlyTime": null,
+          "FriendlyShotValue": null,
+          "GameTime": null,
+          "Made": false,
+          "ModifiedDate": "0001-01-01T00:00:00"
+        },
+        {
+          "PointValue": 1,
+          "GUID": "569a8ed2-b063-46e7-8894-1952892a1e1f",
+          "PointCredit": 1,
+          "ShotPosition": "0,0",
+          "RealTime": "2025-12-08T20:10:11.0513221-06:00",
+          "FriendlyTime": null,
+          "FriendlyShotValue": null,
+          "GameTime": null,
+          "Made": true,
+          "ModifiedDate": "0001-01-01T00:00:00"
+        }
+      ],
+      "PlayerFouls": 2,
+      "PlayerPoints": 8,
+      "PlayerThrees": 1,
+      "PlayerFrees": 1,
+      "AttemptedFrees": 2,
+      "AttemptedThrees": 1,
+      "Stats": "Ps: 8, Fs: 2, 3s:  1, 1s: 1",
+      "ShortenedName": "G. Wielard",
+      "FullStats": "Points: 8\nFouls: 1\nThrees: 1\nFrees: 1"
+    },
+    {
+      "PlayerName": "Ben Van Wyngarden",
+      "PlayerNumber": "15",
+      "PlayerGrade": null,
+      "PlayerHeight": null,
+      "PlayerPosition": null,
+      "GUID": "2b4b1e25-272d-4310-aa1e-95f98d4003c0",
+      "Team": 1,
+      "Shots": [
+        {
+          "PointValue": 2,
+          "GUID": "7f2dde81-e600-4179-91ad-c0ed28ca1907",
+          "PointCredit": 0,
+          "ShotPosition": "369.6716417910448,122.58208955223881",
+          "RealTime": "2025-12-08T19:38:57.6326586-06:00",
+          "FriendlyTime": "7:38 PM (0 min 0 sec ago)",
+          "FriendlyShotValue": "Two Points",
+          "GameTime": null,
+          "Made": false,
+          "ModifiedDate": "0001-01-01T00:00:00"
+        },
+        {
+          "PointValue": 3,
+          "GUID": "0ef3eb49-0843-4059-9c82-e995b4e15977",
+          "PointCredit": 3,
+          "ShotPosition": "423.4029850746269,417.0298507462687",
+          "RealTime": "2025-12-08T19:45:51.6945791-06:00",
+          "FriendlyTime": "7:45 PM (0 min 0 sec ago)",
+          "FriendlyShotValue": "Three Points",
+          "GameTime": null,
+          "Made": false,
+          "ModifiedDate": "0001-01-01T00:00:00"
+        },
+        {
+          "PointValue": 3,
+          "GUID": "e0e07268-80b1-41e7-b4fc-e965ab861d1b",
+          "PointCredit": 3,
+          "ShotPosition": "468.53731343283584,429.20895522388065",
+          "RealTime": "2025-12-08T19:52:10.0568706-06:00",
+          "FriendlyTime": "7:52 PM (0 min 0 sec ago)",
+          "FriendlyShotValue": "Three Points",
+          "GameTime": null,
+          "Made": false,
+          "ModifiedDate": "0001-01-01T00:00:00"
+        },
+        {
+          "PointValue": 3,
+          "GUID": "bfd5ad31-1972-4ea1-877f-471c0964352d",
+          "PointCredit": 3,
+          "ShotPosition": "649.7910447761195,326.7611940298508",
+          "RealTime": "2025-12-08T19:54:25.8320958-06:00",
+          "FriendlyTime": "7:54 PM (0 min 0 sec ago)",
+          "FriendlyShotValue": "Three Points",
+          "GameTime": null,
+          "Made": false,
+          "ModifiedDate": "0001-01-01T00:00:00"
+        },
+        {
+          "PointValue": 2,
+          "GUID": "e918147c-260b-4418-bdd6-567f16ad6421",
+          "PointCredit": 2,
+          "ShotPosition": "372.53731343283584,117.56716417910448",
+          "RealTime": "2025-12-08T20:09:01.7354157-06:00",
+          "FriendlyTime": "8:09 PM (0 min 0 sec ago)",
+          "FriendlyShotValue": "Two Points",
+          "GameTime": null,
+          "Made": true,
+          "ModifiedDate": "0001-01-01T00:00:00"
+        },
+        {
+          "PointValue": 2,
+          "GUID": "de5e8700-bd0f-414e-b55b-3be542ac24e3",
+          "PointCredit": 2,
+          "ShotPosition": "435.58208955223887,85.32835820895524",
+          "RealTime": "2025-12-08T20:19:30.4430117-06:00",
+          "FriendlyTime": "8:19 PM (0 min 0 sec ago)",
+          "FriendlyShotValue": "Two Points",
+          "GameTime": null,
+          "Made": true,
+          "ModifiedDate": "0001-01-01T00:00:00"
+        },
+        {
+          "PointValue": 3,
+          "GUID": "8e6f45b3-4306-4fd7-bc71-3ea169343a53",
+          "PointCredit": 3,
+          "ShotPosition": "421.2537313432836,434.9402985074627",
+          "RealTime": "2025-12-08T20:26:31.5907104-06:00",
+          "FriendlyTime": "8:26 PM (0 min 0 sec ago)",
+          "FriendlyShotValue": "Three Points",
+          "GameTime": null,
+          "Made": false,
+          "ModifiedDate": "0001-01-01T00:00:00"
+        },
+        {
+          "PointValue": 3,
+          "GUID": "203c44ea-f87f-4095-88ed-b38090386a72",
+          "PointCredit": 3,
+          "ShotPosition": "558.8059701492538,518.0447761194031",
+          "RealTime": "2025-12-08T20:31:12.275292-06:00",
+          "FriendlyTime": "8:31 PM (0 min 0 sec ago)",
+          "FriendlyShotValue": "Three Points",
+          "GameTime": null,
+          "Made": true,
+          "ModifiedDate": "0001-01-01T00:00:00"
+        }
+      ],
+      "PlayerFouls": 0,
+      "PlayerPoints": 7,
+      "PlayerThrees": 1,
+      "PlayerFrees": 0,
+      "AttemptedFrees": 0,
+      "AttemptedThrees": 5,
+      "Stats": "Ps: 7, Fs: 0, 3s:  1, 1s: 0",
+      "ShortenedName": "B. Van Wy...",
+      "FullStats": "Points: 4\nFouls: 0\nThrees: 0\nFrees: 0"
+    },
+    {
+      "PlayerName": "Devan Runner",
+      "PlayerNumber": "22",
+      "PlayerGrade": null,
+      "PlayerHeight": null,
+      "PlayerPosition": null,
+      "GUID": "e8e50d52-9336-40c6-a127-0e7ff31c0ce5",
+      "Team": 1,
+      "Shots": [
+        {
+          "PointValue": 2,
+          "GUID": "b05b0613-af2d-43bc-ab36-78e2fac02911",
+          "PointCredit": 0,
+          "ShotPosition": "434.1492537313433,131.8955223880597",
+          "RealTime": "2025-12-08T19:28:40.7079082-06:00",
+          "FriendlyTime": "7:28 PM (0 min 0 sec ago)",
+          "FriendlyShotValue": "Two Points",
+          "GameTime": null,
+          "Made": false,
+          "ModifiedDate": "0001-01-01T00:00:00"
+        },
+        {
+          "PointValue": 3,
+          "GUID": "d2ff3bcb-0aa2-404a-9ee2-ba59d7820052",
+          "PointCredit": 3,
+          "ShotPosition": "315.22388059701495,412.73134328358213",
+          "RealTime": "2025-12-08T19:29:52.3393257-06:00",
+          "FriendlyTime": "7:29 PM (0 min 0 sec ago)",
+          "FriendlyShotValue": "Three Points",
+          "GameTime": null,
+          "Made": false,
+          "ModifiedDate": "0001-01-01T00:00:00"
+        },
+        {
+          "PointValue": 3,
+          "GUID": "ffd9be6d-30f9-4d74-b3d8-34320d5bd1d4",
+          "PointCredit": 3,
+          "ShotPosition": "738.6268656716419,137.6268656716418",
+          "RealTime": "2025-12-08T19:38:27.5782743-06:00",
+          "FriendlyTime": "7:38 PM (0 min 0 sec ago)",
+          "FriendlyShotValue": "Three Points",
+          "GameTime": null,
+          "Made": true,
+          "ModifiedDate": "0001-01-01T00:00:00"
+        },
+        {
+          "PointValue": 2,
+          "GUID": "00000000-0000-0000-0000-000000000000",
+          "PointCredit": 0,
+          "ShotPosition": "433.43283582089555,104.67164179104478",
+          "RealTime": "2025-12-08T19:39:10.8066962-06:00",
+          "FriendlyTime": "7:39 PM (0 min 0 sec ago)",
+          "FriendlyShotValue": "Two Points",
+          "GameTime": null,
+          "Made": false,
+          "ModifiedDate": "0001-01-01T00:00:00"
+        },
+        {
+          "PointValue": 1,
+          "GUID": "ea5dd4fe-f4c6-43d2-a501-0455317074c5",
+          "PointCredit": 1,
+          "ShotPosition": "0,0",
+          "RealTime": "2025-12-08T19:39:44.0102459-06:00",
+          "FriendlyTime": null,
+          "FriendlyShotValue": null,
+          "GameTime": null,
+          "Made": false,
+          "ModifiedDate": "0001-01-01T00:00:00"
+        },
+        {
+          "PointValue": 2,
+          "GUID": "8af658e7-8c62-4187-9d01-14c9deb3dfe6",
+          "PointCredit": 2,
+          "ShotPosition": "349.6119402985075,140.49253731343285",
+          "RealTime": "2025-12-08T19:49:59.0758159-06:00",
+          "FriendlyTime": "7:49 PM (0 min 0 sec ago)",
+          "FriendlyShotValue": "Two Points",
+          "GameTime": null,
+          "Made": true,
+          "ModifiedDate": "0001-01-01T00:00:00"
+        },
+        {
+          "PointValue": 3,
+          "GUID": "b72f8575-5dba-40f0-8a1f-02204bfaa5ef",
+          "PointCredit": 3,
+          "ShotPosition": "276.53731343283584,432.0746268656717",
+          "RealTime": "2025-12-08T20:24:23.6771791-06:00",
+          "FriendlyTime": "8:24 PM (0 min 0 sec ago)",
+          "FriendlyShotValue": "Three Points",
+          "GameTime": null,
+          "Made": true,
+          "ModifiedDate": "0001-01-01T00:00:00"
+        }
+      ],
+      "PlayerFouls": 0,
+      "PlayerPoints": 8,
+      "PlayerThrees": 2,
+      "PlayerFrees": 0,
+      "AttemptedFrees": 1,
+      "AttemptedThrees": 3,
+      "Stats": "Ps: 8, Fs: 0, 3s:  2, 1s: 0",
+      "ShortenedName": "D. Runner",
+      "FullStats": "Points: 5\nFouls: 0\nThrees: 1\nFrees: 0"
+    },
+    {
+      "PlayerName": "Levi Fransman",
+      "PlayerNumber": "25",
+      "PlayerGrade": null,
+      "PlayerHeight": null,
+      "PlayerPosition": null,
+      "GUID": "d83dde6b-b86e-4218-b7c0-7321ed1ef9c5",
+      "Team": 1,
+      "Shots": [],
+      "PlayerFouls": 0,
+      "PlayerPoints": 0,
+      "PlayerThrees": 0,
+      "PlayerFrees": 0,
+      "AttemptedFrees": 0,
+      "AttemptedThrees": 0,
+      "Stats": "Ps: 0, Fs: 0, 3s:  0, 1s: 0",
+      "ShortenedName": "L. Fransman",
+      "FullStats": null
+    },
+    {
+      "PlayerName": "Gavin Ulferts",
+      "PlayerNumber": "30",
+      "PlayerGrade": null,
+      "PlayerHeight": null,
+      "PlayerPosition": null,
+      "GUID": "7c26e377-28b0-42fc-9a3e-148f50d46cf8",
+      "Team": 1,
+      "Shots": [],
+      "PlayerFouls": 1,
+      "PlayerPoints": 0,
+      "PlayerThrees": 0,
+      "PlayerFrees": 0,
+      "AttemptedFrees": 0,
+      "AttemptedThrees": 0,
+      "Stats": "Ps: 0, Fs: 1, 3s:  0, 1s: 0",
+      "ShortenedName": "G. Ulferts",
+      "FullStats": "Points: 0\nFouls: 0\nThrees: 0\nFrees: 0"
+    },
+    {
+      "PlayerName": "Tyson Vander Linden",
+      "PlayerNumber": "31",
+      "PlayerGrade": null,
+      "PlayerHeight": null,
+      "PlayerPosition": null,
+      "GUID": "77fc58a1-47aa-48d0-9289-27b4f3333fd3",
+      "Team": 1,
+      "Shots": [],
+      "PlayerFouls": 0,
+      "PlayerPoints": 0,
+      "PlayerThrees": 0,
+      "PlayerFrees": 0,
+      "AttemptedFrees": 0,
+      "AttemptedThrees": 0,
+      "Stats": "Ps: 0, Fs: 0, 3s:  0, 1s: 0",
+      "ShortenedName": "T. Vander...",
+      "FullStats": null
+    },
+    {
+      "PlayerName": "Kendon Kruid",
+      "PlayerNumber": "32",
+      "PlayerGrade": null,
+      "PlayerHeight": null,
+      "PlayerPosition": null,
+      "GUID": "1f8496ff-3adb-4695-ad64-37c474737262",
+      "Team": 1,
+      "Shots": [],
+      "PlayerFouls": 0,
+      "PlayerPoints": 0,
+      "PlayerThrees": 0,
+      "PlayerFrees": 0,
+      "AttemptedFrees": 0,
+      "AttemptedThrees": 0,
+      "Stats": "Ps: 0, Fs: 0, 3s:  0, 1s: 0",
+      "ShortenedName": "K. Kruid",
+      "FullStats": null
+    },
+    {
+      "PlayerName": "Joshua Rens",
+      "PlayerNumber": "34",
+      "PlayerGrade": null,
+      "PlayerHeight": null,
+      "PlayerPosition": null,
+      "GUID": "ce56ce53-75a2-402a-9d7d-310492272792",
+      "Team": 1,
+      "Shots": [],
+      "PlayerFouls": 0,
+      "PlayerPoints": 0,
+      "PlayerThrees": 0,
+      "PlayerFrees": 0,
+      "AttemptedFrees": 0,
+      "AttemptedThrees": 0,
+      "Stats": "Ps: 0, Fs: 0, 3s:  0, 1s: 0",
+      "ShortenedName": "J. Rens",
+      "FullStats": null
+    },
+    {
+      "PlayerName": "Conner Knipper",
+      "PlayerNumber": "35",
+      "PlayerGrade": null,
+      "PlayerHeight": null,
+      "PlayerPosition": null,
+      "GUID": "97bb5c25-c134-45ae-bce0-7557451d5901",
+      "Team": 1,
+      "Shots": [],
+      "PlayerFouls": 0,
+      "PlayerPoints": 0,
+      "PlayerThrees": 0,
+      "PlayerFrees": 0,
+      "AttemptedFrees": 0,
+      "AttemptedThrees": 0,
+      "Stats": "Ps: 0, Fs: 0, 3s:  0, 1s: 0",
+      "ShortenedName": "C. Knipper",
+      "FullStats": null
+    }
+  ],
+  "Team2Players": [
+    {
+      "PlayerName": "Jed Rood",
+      "PlayerNumber": "0",
+      "PlayerGrade": null,
+      "PlayerHeight": null,
+      "PlayerPosition": null,
+      "GUID": "deb8f8f9-7731-4bd1-aa52-d640a9cd5313",
+      "Team": 2,
+      "Shots": [
+        {
+          "PointValue": 2,
+          "GUID": "cc529bbd-be0a-44a8-a9c8-6be35337bfaa",
+          "PointCredit": 0,
+          "ShotPosition": "257.1940298507463,195.65671641791047",
+          "RealTime": "2025-12-08T19:28:23.7520674-06:00",
+          "FriendlyTime": "7:28 PM (0 min 0 sec ago)",
+          "FriendlyShotValue": "Two Points",
+          "GameTime": null,
+          "Made": false,
+          "ModifiedDate": "0001-01-01T00:00:00"
+        },
+        {
+          "PointValue": 2,
+          "GUID": "7081255d-55e3-4696-96c2-d6ca67304723",
+          "PointCredit": 0,
+          "ShotPosition": "438.4477611940299,90.34328358208957",
+          "RealTime": "2025-12-08T19:36:53.0136029-06:00",
+          "FriendlyTime": "7:36 PM (0 min 0 sec ago)",
+          "FriendlyShotValue": "Two Points",
+          "GameTime": null,
+          "Made": false,
+          "ModifiedDate": "0001-01-01T00:00:00"
+        },
+        {
+          "PointValue": 2,
+          "GUID": "a96f4747-dff7-4bb2-a290-d15fe72c04c8",
+          "PointCredit": 0,
+          "ShotPosition": "343.1641791044776,109.68656716417911",
+          "RealTime": "2025-12-08T19:38:08.4642778-06:00",
+          "FriendlyTime": "7:38 PM (0 min 0 sec ago)",
+          "FriendlyShotValue": "Two Points",
+          "GameTime": null,
+          "Made": false,
+          "ModifiedDate": "0001-01-01T00:00:00"
+        },
+        {
+          "PointValue": 2,
+          "GUID": "3169c12b-98d6-40fe-9753-eb708ae4654f",
+          "PointCredit": 0,
+          "ShotPosition": "452.7761194029851,107.53731343283584",
+          "RealTime": "2025-12-08T20:11:03.0919023-06:00",
+          "FriendlyTime": "8:11 PM (0 min 0 sec ago)",
+          "FriendlyShotValue": "Two Points",
+          "GameTime": null,
+          "Made": false,
+          "ModifiedDate": "0001-01-01T00:00:00"
+        },
+        {
+          "PointValue": 1,
+          "GUID": "04f55b66-266d-485f-a037-74a14ec1df4c",
+          "PointCredit": 1,
+          "ShotPosition": "0,0",
+          "RealTime": "2025-12-08T20:12:23.7196335-06:00",
+          "FriendlyTime": null,
+          "FriendlyShotValue": null,
+          "GameTime": null,
+          "Made": false,
+          "ModifiedDate": "0001-01-01T00:00:00"
+        },
+        {
+          "PointValue": 1,
+          "GUID": "4f7ec21a-b65d-47cb-b1c6-c11658881110",
+          "PointCredit": 1,
+          "ShotPosition": "0,0",
+          "RealTime": "2025-12-08T20:12:35.9343734-06:00",
+          "FriendlyTime": null,
+          "FriendlyShotValue": null,
+          "GameTime": null,
+          "Made": true,
+          "ModifiedDate": "0001-01-01T00:00:00"
+        },
+        {
+          "PointValue": 2,
+          "GUID": "7145824b-66ef-4c7b-b9dc-8f3d07a340c8",
+          "PointCredit": 0,
+          "ShotPosition": "440.5970149253732,99.65671641791046",
+          "RealTime": "2025-12-08T20:13:06.1409676-06:00",
+          "FriendlyTime": "8:13 PM (0 min 0 sec ago)",
+          "FriendlyShotValue": "Two Points",
+          "GameTime": null,
+          "Made": false,
+          "ModifiedDate": "0001-01-01T00:00:00"
+        },
+        {
+          "PointValue": 3,
+          "GUID": "44d1ce53-354a-4688-b517-d34d5383b668",
+          "PointCredit": 3,
+          "ShotPosition": "102.44776119402987,307.41791044776124",
+          "RealTime": "2025-12-08T20:14:14.9790888-06:00",
+          "FriendlyTime": "8:14 PM (0 min 0 sec ago)",
+          "FriendlyShotValue": "Three Points",
+          "GameTime": null,
+          "Made": true,
+          "ModifiedDate": "0001-01-01T00:00:00"
+        },
+        {
+          "PointValue": 2,
+          "GUID": "a2285979-9900-4f51-9a73-dbb56807671a",
+          "PointCredit": 0,
+          "ShotPosition": "243.58208955223884,194.9402985074627",
+          "RealTime": "2025-12-08T20:18:06.4292975-06:00",
+          "FriendlyTime": "8:18 PM (0 min 0 sec ago)",
+          "FriendlyShotValue": "Two Points",
+          "GameTime": null,
+          "Made": false,
+          "ModifiedDate": "0001-01-01T00:00:00"
+        },
+        {
+          "PointValue": 2,
+          "GUID": "ffb70421-bb68-4db8-af10-f4cbf5bd58bf",
+          "PointCredit": 2,
+          "ShotPosition": "493.61194029850753,236.49253731343288",
+          "RealTime": "2025-12-08T20:18:43.4375447-06:00",
+          "FriendlyTime": "8:18 PM (0 min 0 sec ago)",
+          "FriendlyShotValue": "Two Points",
+          "GameTime": null,
+          "Made": true,
+          "ModifiedDate": "0001-01-01T00:00:00"
+        },
+        {
+          "PointValue": 2,
+          "GUID": "b7a5d9d6-7a26-47ee-b067-6b0f79d32133",
+          "PointCredit": 0,
+          "ShotPosition": "259.34328358208955,176.31343283582092",
+          "RealTime": "2025-12-08T20:19:09.5197482-06:00",
+          "FriendlyTime": "8:19 PM (0 min 0 sec ago)",
+          "FriendlyShotValue": "Two Points",
+          "GameTime": null,
+          "Made": false,
+          "ModifiedDate": "0001-01-01T00:00:00"
+        },
+        {
+          "PointValue": 3,
+          "GUID": "7a167d8a-49e4-42ad-ae26-849e05aff41c",
+          "PointCredit": 3,
+          "ShotPosition": "356.05970149253733,434.22388059701495",
+          "RealTime": "2025-12-08T20:35:14.5707446-06:00",
+          "FriendlyTime": "8:35 PM (0 min 0 sec ago)",
+          "FriendlyShotValue": "Three Points",
+          "GameTime": null,
+          "Made": false,
+          "ModifiedDate": "0001-01-01T00:00:00"
+        },
+        {
+          "PointValue": 2,
+          "GUID": "aa271a89-c4f7-4658-93e0-21b0b51320b2",
+          "PointCredit": 2,
+          "ShotPosition": "361.0746268656717,114.70149253731344",
+          "RealTime": "2025-12-08T20:36:34.4609665-06:00",
+          "FriendlyTime": "8:36 PM (0 min 0 sec ago)",
+          "FriendlyShotValue": "Two Points",
+          "GameTime": null,
+          "Made": true,
+          "ModifiedDate": "0001-01-01T00:00:00"
+        }
+      ],
+      "PlayerFouls": 1,
+      "PlayerPoints": 8,
+      "PlayerThrees": 1,
+      "PlayerFrees": 1,
+      "AttemptedFrees": 2,
+      "AttemptedThrees": 2,
+      "Stats": "Ps: 8, Fs: 1, 3s:  1, 1s: 1",
+      "ShortenedName": "J. Rood",
+      "FullStats": "Points: 6\nFouls: 1\nThrees: 1\nFrees: 1"
+    },
+    {
+      "PlayerName": "Lucas Erickson",
       "PlayerNumber": "2",
       "PlayerGrade": null,
       "PlayerHeight": null,
       "PlayerPosition": null,
-      "GUID": "39422b06-5109-452a-a6e2-3ec51106db34",
+      "GUID": "e874283a-3b52-4e46-80e9-063062c88f90",
       "Team": 2,
       "Shots": [],
       "PlayerFouls": 0,
@@ -307,54 +1397,292 @@
       "AttemptedFrees": 0,
       "AttemptedThrees": 0,
       "Stats": "Ps: 0, Fs: 0, 3s:  0, 1s: 0",
-      "ShortenedName": "L. France",
+      "ShortenedName": "L. Erickson",
       "FullStats": null
     },
     {
-      "PlayerName": "Paris London",
+      "PlayerName": "Hudson Davis",
       "PlayerNumber": "3",
       "PlayerGrade": null,
       "PlayerHeight": null,
       "PlayerPosition": null,
-      "GUID": "a36ebd31-5544-4b1e-a70c-f8d14ddc1a63",
+      "GUID": "5b1f90cb-7cf3-473b-9964-edbc69e169d5",
       "Team": 2,
-      "Shots": [],
+      "Shots": [
+        {
+          "PointValue": 2,
+          "GUID": "7337c2cd-3b89-4104-83c6-85a4c7a241c4",
+          "PointCredit": 2,
+          "ShotPosition": "439.8805970149254,124.7313432835821",
+          "RealTime": "2025-12-08T19:36:08.1580508-06:00",
+          "FriendlyTime": "7:36 PM (0 min 0 sec ago)",
+          "FriendlyShotValue": "Two Points",
+          "GameTime": null,
+          "Made": true,
+          "ModifiedDate": "0001-01-01T00:00:00"
+        },
+        {
+          "PointValue": 3,
+          "GUID": "c1f38ce8-322e-4c7f-9cc8-9af59edbce46",
+          "PointCredit": 3,
+          "ShotPosition": "662.6865671641792,414.1641791044777",
+          "RealTime": "2025-12-08T19:42:24.0127804-06:00",
+          "FriendlyTime": "7:42 PM (0 min 0 sec ago)",
+          "FriendlyShotValue": "Three Points",
+          "GameTime": null,
+          "Made": true,
+          "ModifiedDate": "0001-01-01T00:00:00"
+        },
+        {
+          "PointValue": 3,
+          "GUID": "27064058-461d-4461-a937-febd1f5ff1e0",
+          "PointCredit": 3,
+          "ShotPosition": "627.5820895522388,374.7611940298508",
+          "RealTime": "2025-12-08T19:48:18.4035117-06:00",
+          "FriendlyTime": "7:48 PM (0 min 0 sec ago)",
+          "FriendlyShotValue": "Three Points",
+          "GameTime": null,
+          "Made": false,
+          "ModifiedDate": "0001-01-01T00:00:00"
+        },
+        {
+          "PointValue": 3,
+          "GUID": "684a5925-bf63-4fc5-99b8-1519ca58a54d",
+          "PointCredit": 3,
+          "ShotPosition": "267.9402985074627,439.2388059701493",
+          "RealTime": "2025-12-08T20:14:59.4952499-06:00",
+          "FriendlyTime": "8:14 PM (0 min 0 sec ago)",
+          "FriendlyShotValue": "Three Points",
+          "GameTime": null,
+          "Made": true,
+          "ModifiedDate": "0001-01-01T00:00:00"
+        },
+        {
+          "PointValue": 3,
+          "GUID": "cdd4d0ab-ba55-4f1f-84e1-26b4aad6bf8e",
+          "PointCredit": 3,
+          "ShotPosition": "394.74626865671644,439.95522388059703",
+          "RealTime": "2025-12-08T20:23:57.2997151-06:00",
+          "FriendlyTime": "8:23 PM (0 min 0 sec ago)",
+          "FriendlyShotValue": "Three Points",
+          "GameTime": null,
+          "Made": true,
+          "ModifiedDate": "0001-01-01T00:00:00"
+        },
+        {
+          "PointValue": 3,
+          "GUID": "67cad55e-c171-40bb-8e35-ee8a13282c10",
+          "PointCredit": 3,
+          "ShotPosition": "497.91044776119406,456.43283582089555",
+          "RealTime": "2025-12-08T20:24:36.6122788-06:00",
+          "FriendlyTime": "8:24 PM (0 min 0 sec ago)",
+          "FriendlyShotValue": "Three Points",
+          "GameTime": null,
+          "Made": false,
+          "ModifiedDate": "0001-01-01T00:00:00"
+        }
+      ],
       "PlayerFouls": 0,
-      "PlayerPoints": 0,
-      "PlayerThrees": 0,
+      "PlayerPoints": 11,
+      "PlayerThrees": 3,
       "PlayerFrees": 0,
       "AttemptedFrees": 0,
-      "AttemptedThrees": 0,
-      "Stats": "Ps: 0, Fs: 0, 3s:  0, 1s: 0",
-      "ShortenedName": "P. London",
-      "FullStats": null
+      "AttemptedThrees": 5,
+      "Stats": "Ps: 11, Fs: 0, 3s:  3, 1s: 0",
+      "ShortenedName": "H. Davis",
+      "FullStats": "Points: 11\nFouls: 0\nThrees: 3\nFrees: 0"
     },
     {
-      "PlayerName": "France Paris",
+      "PlayerName": "Kade Clarkson",
       "PlayerNumber": "4",
       "PlayerGrade": null,
       "PlayerHeight": null,
       "PlayerPosition": null,
-      "GUID": "405abfd5-ecb1-4973-9a7c-4f4cd9ce8a86",
+      "GUID": "135f0e8e-df66-4a0c-89c2-30cf2162b376",
       "Team": 2,
-      "Shots": [],
-      "PlayerFouls": 0,
-      "PlayerPoints": 0,
-      "PlayerThrees": 0,
+      "Shots": [
+        {
+          "PointValue": 2,
+          "GUID": "015c7218-9d74-4e39-89ba-331b7bbc373f",
+          "PointCredit": 2,
+          "ShotPosition": "358.20895522388065,105.38805970149255",
+          "RealTime": "2025-12-08T19:29:23.4850727-06:00",
+          "FriendlyTime": "7:29 PM (0 min 0 sec ago)",
+          "FriendlyShotValue": "Two Points",
+          "GameTime": null,
+          "Made": true,
+          "ModifiedDate": "0001-01-01T00:00:00"
+        },
+        {
+          "PointValue": 3,
+          "GUID": "bd24b260-991c-48c4-b9c8-4e42ff539fd5",
+          "PointCredit": 3,
+          "ShotPosition": "603.9402985074628,375.4776119402986",
+          "RealTime": "2025-12-08T19:30:19.2558879-06:00",
+          "FriendlyTime": "7:30 PM (0 min 0 sec ago)",
+          "FriendlyShotValue": "Three Points",
+          "GameTime": null,
+          "Made": false,
+          "ModifiedDate": "0001-01-01T00:00:00"
+        },
+        {
+          "PointValue": 2,
+          "GUID": "f5e87ced-ef23-4cfb-a490-e9f88c35a2c8",
+          "PointCredit": 0,
+          "ShotPosition": "457.0746268656717,366.1641791044776",
+          "RealTime": "2025-12-08T19:31:57.3393813-06:00",
+          "FriendlyTime": "7:31 PM (0 min 0 sec ago)",
+          "FriendlyShotValue": "Two Points",
+          "GameTime": null,
+          "Made": false,
+          "ModifiedDate": "0001-01-01T00:00:00"
+        },
+        {
+          "PointValue": 3,
+          "GUID": "639864e0-cfc8-4828-95bf-6e3016b03bd7",
+          "PointCredit": 3,
+          "ShotPosition": "587.4626865671643,486.52238805970154",
+          "RealTime": "2025-12-08T19:50:30.4723896-06:00",
+          "FriendlyTime": "7:50 PM (0 min 0 sec ago)",
+          "FriendlyShotValue": "Three Points",
+          "GameTime": null,
+          "Made": true,
+          "ModifiedDate": "0001-01-01T00:00:00"
+        },
+        {
+          "PointValue": 3,
+          "GUID": "37fd4374-dab1-4b86-83e7-dedbadf90133",
+          "PointCredit": 3,
+          "ShotPosition": "586.0298507462687,444.9701492537314",
+          "RealTime": "2025-12-08T20:25:26.2863159-06:00",
+          "FriendlyTime": "8:25 PM (0 min 0 sec ago)",
+          "FriendlyShotValue": "Three Points",
+          "GameTime": null,
+          "Made": true,
+          "ModifiedDate": "0001-01-01T00:00:00"
+        },
+        {
+          "PointValue": 3,
+          "GUID": "3aeffc6e-b21a-462b-83db-6c8d0a7d5016",
+          "PointCredit": 3,
+          "ShotPosition": "271.52238805970154,445.68656716417917",
+          "RealTime": "2025-12-08T20:29:02.8755586-06:00",
+          "FriendlyTime": "8:29 PM (0 min 0 sec ago)",
+          "FriendlyShotValue": "Three Points",
+          "GameTime": null,
+          "Made": true,
+          "ModifiedDate": "0001-01-01T00:00:00"
+        },
+        {
+          "PointValue": 2,
+          "GUID": "00000000-0000-0000-0000-000000000000",
+          "PointCredit": 0,
+          "ShotPosition": "466.3880597014926,112.55223880597015",
+          "RealTime": "2025-12-08T20:38:16.3964013-06:00",
+          "FriendlyTime": "8:38 PM (0 min 0 sec ago)",
+          "FriendlyShotValue": "Two Points",
+          "GameTime": null,
+          "Made": false,
+          "ModifiedDate": "0001-01-01T00:00:00"
+        }
+      ],
+      "PlayerFouls": 4,
+      "PlayerPoints": 11,
+      "PlayerThrees": 3,
       "PlayerFrees": 0,
       "AttemptedFrees": 0,
-      "AttemptedThrees": 0,
-      "Stats": "Ps: 0, Fs: 0, 3s:  0, 1s: 0",
-      "ShortenedName": "F. Paris",
-      "FullStats": null
+      "AttemptedThrees": 4,
+      "Stats": "Ps: 11, Fs: 4, 3s:  3, 1s: 0",
+      "ShortenedName": "K. Clarkson",
+      "FullStats": "Points: 11\nFouls: 4\nThrees: 3\nFrees: 0"
     },
     {
-      "PlayerName": "Geetings Kenyon",
+      "PlayerName": "Tyson Fincham",
       "PlayerNumber": "5",
       "PlayerGrade": null,
       "PlayerHeight": null,
       "PlayerPosition": null,
-      "GUID": "56c65bcf-54c8-4fc3-97f7-b6f686afee98",
+      "GUID": "45ddceac-0539-49d4-9e95-87513e3ca9e6",
+      "Team": 2,
+      "Shots": [
+        {
+          "PointValue": 2,
+          "GUID": "58dd784c-6bc0-4757-8a7c-ca0b07095727",
+          "PointCredit": 0,
+          "ShotPosition": "311.64179104477614,170.5820895522388",
+          "RealTime": "2025-12-08T19:28:07.5500507-06:00",
+          "FriendlyTime": "7:28 PM (0 min 0 sec ago)",
+          "FriendlyShotValue": "Two Points",
+          "GameTime": null,
+          "Made": false,
+          "ModifiedDate": "0001-01-01T00:00:00"
+        },
+        {
+          "PointValue": 2,
+          "GUID": "535f0acc-30c2-484a-854f-30442bfe51f6",
+          "PointCredit": 0,
+          "ShotPosition": "357.4925373134329,123.29850746268659",
+          "RealTime": "2025-12-08T19:31:25.9227031-06:00",
+          "FriendlyTime": "7:31 PM (0 min 0 sec ago)",
+          "FriendlyShotValue": "Two Points",
+          "GameTime": null,
+          "Made": false,
+          "ModifiedDate": "0001-01-01T00:00:00"
+        },
+        {
+          "PointValue": 3,
+          "GUID": "4b0491f9-61d9-402a-a2bb-8328ae6ff1df",
+          "PointCredit": 3,
+          "ShotPosition": "227.82089552238807,429.20895522388065",
+          "RealTime": "2025-12-08T19:50:24.1747252-06:00",
+          "FriendlyTime": "7:50 PM (0 min 0 sec ago)",
+          "FriendlyShotValue": "Three Points",
+          "GameTime": null,
+          "Made": false,
+          "ModifiedDate": "0001-01-01T00:00:00"
+        },
+        {
+          "PointValue": 2,
+          "GUID": "715f8372-9f50-46f5-a9ae-5f7a11a10a75",
+          "PointCredit": 2,
+          "ShotPosition": "412.6567164179105,184.91044776119406",
+          "RealTime": "2025-12-08T20:19:38.0207733-06:00",
+          "FriendlyTime": "8:19 PM (0 min 0 sec ago)",
+          "FriendlyShotValue": "Two Points",
+          "GameTime": null,
+          "Made": true,
+          "ModifiedDate": "0001-01-01T00:00:00"
+        },
+        {
+          "PointValue": 3,
+          "GUID": "5b9cb601-0aa8-4b6b-a1e0-6cd06f4f81d5",
+          "PointCredit": 3,
+          "ShotPosition": "707.1044776119404,406.2835820895523",
+          "RealTime": "2025-12-08T20:33:34.6948088-06:00",
+          "FriendlyTime": "8:33 PM (0 min 0 sec ago)",
+          "FriendlyShotValue": "Three Points",
+          "GameTime": null,
+          "Made": false,
+          "ModifiedDate": "0001-01-01T00:00:00"
+        }
+      ],
+      "PlayerFouls": 4,
+      "PlayerPoints": 2,
+      "PlayerThrees": 0,
+      "PlayerFrees": 0,
+      "AttemptedFrees": 0,
+      "AttemptedThrees": 2,
+      "Stats": "Ps: 2, Fs: 4, 3s:  0, 1s: 0",
+      "ShortenedName": "T. Fincham",
+      "FullStats": "Points: 2\nFouls: 4\nThrees: 0\nFrees: 0"
+    },
+    {
+      "PlayerName": "Talan Beck",
+      "PlayerNumber": "11",
+      "PlayerGrade": null,
+      "PlayerHeight": null,
+      "PlayerPosition": null,
+      "GUID": "25eb50f7-9d19-4ba0-81a2-f0399f401cc6",
       "Team": 2,
       "Shots": [],
       "PlayerFouls": 0,
@@ -364,1557 +1692,1157 @@
       "AttemptedFrees": 0,
       "AttemptedThrees": 0,
       "Stats": "Ps: 0, Fs: 0, 3s:  0, 1s: 0",
-      "ShortenedName": "G. Kenyon",
+      "ShortenedName": "T. Beck",
       "FullStats": null
+    },
+    {
+      "PlayerName": "Andrew Mora",
+      "PlayerNumber": "12",
+      "PlayerGrade": null,
+      "PlayerHeight": null,
+      "PlayerPosition": null,
+      "GUID": "d7d1a9d5-1a4d-4537-8e94-91db9739cc85",
+      "Team": 2,
+      "Shots": [
+        {
+          "PointValue": 2,
+          "GUID": "53d8e5fb-8ff4-4a79-93fa-d717bf4de181",
+          "PointCredit": 0,
+          "ShotPosition": "359.64179104477614,141.20895522388062",
+          "RealTime": "2025-12-08T19:35:05.6193372-06:00",
+          "FriendlyTime": "7:35 PM (0 min 0 sec ago)",
+          "FriendlyShotValue": "Two Points",
+          "GameTime": null,
+          "Made": false,
+          "ModifiedDate": "0001-01-01T00:00:00"
+        },
+        {
+          "PointValue": 3,
+          "GUID": "0371db21-dada-4732-a0e5-f1c006e9ea9d",
+          "PointCredit": 3,
+          "ShotPosition": "568.1194029850747,381.9253731343284",
+          "RealTime": "2025-12-08T19:42:02.228969-06:00",
+          "FriendlyTime": "7:42 PM (0 min 0 sec ago)",
+          "FriendlyShotValue": "Three Points",
+          "GameTime": null,
+          "Made": true,
+          "ModifiedDate": "0001-01-01T00:00:00"
+        },
+        {
+          "PointValue": 3,
+          "GUID": "e11dcef6-1445-408d-8009-adbbc56627a4",
+          "PointCredit": 3,
+          "ShotPosition": "589.6119402985075,398.4029850746269",
+          "RealTime": "2025-12-08T20:08:00.5382981-06:00",
+          "FriendlyTime": "8:08 PM (0 min 0 sec ago)",
+          "FriendlyShotValue": "Three Points",
+          "GameTime": null,
+          "Made": false,
+          "ModifiedDate": "0001-01-01T00:00:00"
+        },
+        {
+          "PointValue": 2,
+          "GUID": "9b4d1748-d736-4912-9aba-18d92e439833",
+          "PointCredit": 2,
+          "ShotPosition": "367.52238805970154,182.76119402985077",
+          "RealTime": "2025-12-08T20:22:17.0561664-06:00",
+          "FriendlyTime": "8:22 PM (0 min 0 sec ago)",
+          "FriendlyShotValue": "Two Points",
+          "GameTime": null,
+          "Made": true,
+          "ModifiedDate": "0001-01-01T00:00:00"
+        },
+        {
+          "PointValue": 2,
+          "GUID": "48dbbc68-4cd3-44ba-b3bb-3eb4afc54216",
+          "PointCredit": 0,
+          "ShotPosition": "437.73134328358213,147.65671641791047",
+          "RealTime": "2025-12-08T20:28:56.4325854-06:00",
+          "FriendlyTime": "8:28 PM (0 min 0 sec ago)",
+          "FriendlyShotValue": "Two Points",
+          "GameTime": null,
+          "Made": false,
+          "ModifiedDate": "0001-01-01T00:00:00"
+        },
+        {
+          "PointValue": 2,
+          "GUID": "64191826-493e-436f-9afb-64e549c58710",
+          "PointCredit": 0,
+          "ShotPosition": "372.53731343283584,134.044776119403",
+          "RealTime": "2025-12-08T20:38:13.2953937-06:00",
+          "FriendlyTime": "8:38 PM (0 min 0 sec ago)",
+          "FriendlyShotValue": "Two Points",
+          "GameTime": null,
+          "Made": false,
+          "ModifiedDate": "0001-01-01T00:00:00"
+        },
+        {
+          "PointValue": 2,
+          "GUID": "85a9479d-1e94-4435-b77d-4c00e3a38e4f",
+          "PointCredit": 0,
+          "ShotPosition": "303.7611940298508,319.5970149253732",
+          "RealTime": "2025-12-08T20:40:16.001558-06:00",
+          "FriendlyTime": "8:40 PM (0 min 0 sec ago)",
+          "FriendlyShotValue": "Two Points",
+          "GameTime": null,
+          "Made": false,
+          "ModifiedDate": "0001-01-01T00:00:00"
+        }
+      ],
+      "PlayerFouls": 3,
+      "PlayerPoints": 7,
+      "PlayerThrees": 1,
+      "PlayerFrees": 0,
+      "AttemptedFrees": 0,
+      "AttemptedThrees": 2,
+      "Stats": "Ps: 5, Fs: 3, 3s:  1, 1s: 0",
+      "ShortenedName": "A. Mora",
+      "FullStats": "Points: 5\nFouls: 3\nThrees: 1\nFrees: 0"
+    },
+    {
+      "PlayerName": "Isaac Venema",
+      "PlayerNumber": "13",
+      "PlayerGrade": null,
+      "PlayerHeight": null,
+      "PlayerPosition": null,
+      "GUID": "d191c39e-4898-415f-923e-6af806f4ac6c",
+      "Team": 2,
+      "Shots": [
+        {
+          "PointValue": 2,
+          "GUID": "78b38dcb-85a9-4af7-b675-810daa5679dd",
+          "PointCredit": 2,
+          "ShotPosition": "451.3432835820896,103.23880597014926",
+          "RealTime": "2025-12-08T19:40:12.2347497-06:00",
+          "FriendlyTime": "7:40 PM (0 min 0 sec ago)",
+          "FriendlyShotValue": "Two Points",
+          "GameTime": null,
+          "Made": true,
+          "ModifiedDate": "0001-01-01T00:00:00"
+        },
+        {
+          "PointValue": 3,
+          "GUID": "849791ec-5d6f-4d3a-9fb9-e199af08b9d3",
+          "PointCredit": 3,
+          "ShotPosition": "57.313432835820905,161.9850746268657",
+          "RealTime": "2025-12-08T19:43:21.1232707-06:00",
+          "FriendlyTime": "7:43 PM (0 min 0 sec ago)",
+          "FriendlyShotValue": "Three Points",
+          "GameTime": null,
+          "Made": true,
+          "ModifiedDate": "0001-01-01T00:00:00"
+        },
+        {
+          "PointValue": 2,
+          "GUID": "e69e5e48-4da6-4004-a452-1cccba42a57e",
+          "PointCredit": 2,
+          "ShotPosition": "467.8208955223881,154.82089552238807",
+          "RealTime": "2025-12-08T20:08:17.9222566-06:00",
+          "FriendlyTime": "8:08 PM (0 min 0 sec ago)",
+          "FriendlyShotValue": "Two Points",
+          "GameTime": null,
+          "Made": true,
+          "ModifiedDate": "0001-01-01T00:00:00"
+        },
+        {
+          "PointValue": 2,
+          "GUID": "c9479fe3-145a-468b-b20d-c7f4b9b7979a",
+          "PointCredit": 0,
+          "ShotPosition": "480.00000000000006,192.07462686567166",
+          "RealTime": "2025-12-08T20:09:10.5232713-06:00",
+          "FriendlyTime": "8:09 PM (0 min 0 sec ago)",
+          "FriendlyShotValue": "Two Points",
+          "GameTime": null,
+          "Made": false,
+          "ModifiedDate": "0001-01-01T00:00:00"
+        },
+        {
+          "PointValue": 3,
+          "GUID": "9baa5c27-c392-44a9-be4b-f30d166b07e5",
+          "PointCredit": 3,
+          "ShotPosition": "389.73134328358213,457.1492537313433",
+          "RealTime": "2025-12-08T20:23:30.8864274-06:00",
+          "FriendlyTime": "8:23 PM (0 min 0 sec ago)",
+          "FriendlyShotValue": "Three Points",
+          "GameTime": null,
+          "Made": false,
+          "ModifiedDate": "0001-01-01T00:00:00"
+        },
+        {
+          "PointValue": 2,
+          "GUID": "e2299251-5646-4796-a1fd-a5ca03c76378",
+          "PointCredit": 0,
+          "ShotPosition": "362.5074626865672,127.59701492537314",
+          "RealTime": "2025-12-08T20:36:13.9827223-06:00",
+          "FriendlyTime": "8:36 PM (0 min 0 sec ago)",
+          "FriendlyShotValue": "Two Points",
+          "GameTime": null,
+          "Made": false,
+          "ModifiedDate": "0001-01-01T00:00:00"
+        },
+        {
+          "PointValue": 2,
+          "GUID": "ec628b0b-738c-451c-afe8-99630bf2f949",
+          "PointCredit": 0,
+          "ShotPosition": "441.31343283582095,102.5223880597015",
+          "RealTime": "2025-12-08T20:39:00.2029074-06:00",
+          "FriendlyTime": "8:39 PM (0 min 0 sec ago)",
+          "FriendlyShotValue": "Two Points",
+          "GameTime": null,
+          "Made": false,
+          "ModifiedDate": "0001-01-01T00:00:00"
+        },
+        {
+          "PointValue": 1,
+          "GUID": "0b6562b1-c3b5-4449-86e8-9e57c7eaa58b",
+          "PointCredit": 1,
+          "ShotPosition": "0,0",
+          "RealTime": "2025-12-08T20:39:21.8851611-06:00",
+          "FriendlyTime": null,
+          "FriendlyShotValue": null,
+          "GameTime": null,
+          "Made": false,
+          "ModifiedDate": "0001-01-01T00:00:00"
+        },
+        {
+          "PointValue": 1,
+          "GUID": "edbe71f6-eeb0-49bf-a557-5e435d1f61ea",
+          "PointCredit": 1,
+          "ShotPosition": "0,0",
+          "RealTime": "2025-12-08T20:39:38.8636013-06:00",
+          "FriendlyTime": null,
+          "FriendlyShotValue": null,
+          "GameTime": null,
+          "Made": false,
+          "ModifiedDate": "0001-01-01T00:00:00"
+        }
+      ],
+      "PlayerFouls": 2,
+      "PlayerPoints": 7,
+      "PlayerThrees": 1,
+      "PlayerFrees": 0,
+      "AttemptedFrees": 2,
+      "AttemptedThrees": 2,
+      "Stats": "Ps: 7, Fs: 2, 3s:  1, 1s: 0",
+      "ShortenedName": "I. Venema",
+      "FullStats": "Points: 7\nFouls: 2\nThrees: 1\nFrees: 0"
+    },
+    {
+      "PlayerName": "Zach Quick",
+      "PlayerNumber": "21",
+      "PlayerGrade": null,
+      "PlayerHeight": null,
+      "PlayerPosition": null,
+      "GUID": "9ba78c06-0763-440c-bb74-e166a2a84e6d",
+      "Team": 2,
+      "Shots": [],
+      "PlayerFouls": 0,
+      "PlayerPoints": 0,
+      "PlayerThrees": 0,
+      "PlayerFrees": 0,
+      "AttemptedFrees": 0,
+      "AttemptedThrees": 0,
+      "Stats": "Ps: 0, Fs: 0, 3s:  0, 1s: 0",
+      "ShortenedName": "Z. Quick",
+      "FullStats": null
+    },
+    {
+      "PlayerName": "Marcus Pedersen",
+      "PlayerNumber": "24",
+      "PlayerGrade": null,
+      "PlayerHeight": null,
+      "PlayerPosition": null,
+      "GUID": "0eef0423-8bc1-4328-ba0c-14a2dd608b3e",
+      "Team": 2,
+      "Shots": [
+        {
+          "PointValue": 2,
+          "GUID": "6d249760-d002-4ba6-8706-18de1b290f96",
+          "PointCredit": 0,
+          "ShotPosition": "461.3731343283583,116.85074626865674",
+          "RealTime": "2025-12-08T19:38:34.7033486-06:00",
+          "FriendlyTime": "7:38 PM (0 min 0 sec ago)",
+          "FriendlyShotValue": "Two Points",
+          "GameTime": null,
+          "Made": false,
+          "ModifiedDate": "0001-01-01T00:00:00"
+        },
+        {
+          "PointValue": 3,
+          "GUID": "115275f0-823a-4584-8b14-930356b516df",
+          "PointCredit": 3,
+          "ShotPosition": "765.8507462686567,247.95522388059703",
+          "RealTime": "2025-12-08T19:45:17.7705403-06:00",
+          "FriendlyTime": "7:45 PM (0 min 0 sec ago)",
+          "FriendlyShotValue": "Three Points",
+          "GameTime": null,
+          "Made": false,
+          "ModifiedDate": "0001-01-01T00:00:00"
+        },
+        {
+          "PointValue": 2,
+          "GUID": "00000000-0000-0000-0000-000000000000",
+          "PointCredit": 0,
+          "ShotPosition": "476.41791044776124,125.44776119402985",
+          "RealTime": "2025-12-08T19:51:13.5294586-06:00",
+          "FriendlyTime": "7:51 PM (0 min 0 sec ago)",
+          "FriendlyShotValue": "Two Points",
+          "GameTime": null,
+          "Made": false,
+          "ModifiedDate": "0001-01-01T00:00:00"
+        },
+        {
+          "PointValue": 1,
+          "GUID": "85b7bd2e-20cf-4084-a498-bd30fbfbfe87",
+          "PointCredit": 1,
+          "ShotPosition": "0,0",
+          "RealTime": "2025-12-08T19:51:27.8767611-06:00",
+          "FriendlyTime": null,
+          "FriendlyShotValue": null,
+          "GameTime": null,
+          "Made": true,
+          "ModifiedDate": "0001-01-01T00:00:00"
+        },
+        {
+          "PointValue": 1,
+          "GUID": "e053eda5-f2a3-46f9-bc42-f5348bc91476",
+          "PointCredit": 1,
+          "ShotPosition": "0,0",
+          "RealTime": "2025-12-08T19:51:42.6261635-06:00",
+          "FriendlyTime": null,
+          "FriendlyShotValue": null,
+          "GameTime": null,
+          "Made": true,
+          "ModifiedDate": "0001-01-01T00:00:00"
+        },
+        {
+          "PointValue": 2,
+          "GUID": "a7987cf2-9626-4afe-8673-85a5cfe01150",
+          "PointCredit": 0,
+          "ShotPosition": "495.044776119403,157.6865671641791",
+          "RealTime": "2025-12-08T20:06:51.3654125-06:00",
+          "FriendlyTime": "8:06 PM (0 min 0 sec ago)",
+          "FriendlyShotValue": "Two Points",
+          "GameTime": null,
+          "Made": false,
+          "ModifiedDate": "0001-01-01T00:00:00"
+        },
+        {
+          "PointValue": 3,
+          "GUID": "bfeadfe7-fd59-4ff0-bb12-3c22b8a602f9",
+          "PointCredit": 3,
+          "ShotPosition": "57.313432835820905,128.31343283582092",
+          "RealTime": "2025-12-08T20:10:32.75115-06:00",
+          "FriendlyTime": "8:10 PM (0 min 0 sec ago)",
+          "FriendlyShotValue": "Three Points",
+          "GameTime": null,
+          "Made": true,
+          "ModifiedDate": "0001-01-01T00:00:00"
+        },
+        {
+          "PointValue": 3,
+          "GUID": "7d7e2e3f-1f7a-4fd0-801e-482e0c05553d",
+          "PointCredit": 3,
+          "ShotPosition": "668.4179104477613,305.2686567164179",
+          "RealTime": "2025-12-08T20:28:24.6230175-06:00",
+          "FriendlyTime": "8:28 PM (0 min 0 sec ago)",
+          "FriendlyShotValue": "Three Points",
+          "GameTime": null,
+          "Made": true,
+          "ModifiedDate": "0001-01-01T00:00:00"
+        }
+      ],
+      "PlayerFouls": 2,
+      "PlayerPoints": 8,
+      "PlayerThrees": 2,
+      "PlayerFrees": 2,
+      "AttemptedFrees": 2,
+      "AttemptedThrees": 3,
+      "Stats": "Ps: 8, Fs: 2, 3s:  2, 1s: 2",
+      "ShortenedName": "M. Pedersen",
+      "FullStats": "Points: 5\nFouls: 2\nThrees: 1\nFrees: 2"
     }
   ],
   "PreviousShots": [
     {
-      "Player": {
-        "PlayerName": "Jane Smith",
-        "PlayerNumber": "2",
-        "PlayerGrade": null,
-        "PlayerHeight": null,
-        "PlayerPosition": null,
-        "GUID": "ee24aa0d-d527-4d43-a9ca-6811dfbfc538",
-        "Team": 1,
-        "Shots": [
-          {
-            "PointValue": 2,
-            "GUID": "3d30115f-ac05-4486-b9a7-3045c74ffb2c",
-            "PointCredit": 2,
-            "ShotPosition": "358,101",
-            "RealTime": "2025-02-09T13:14:26.8570195-06:00",
-            "FriendlyTime": "1:14 PM (0 min 0 sec ago)",
-            "FriendlyShotValue": "Two Points",
-            "GameTime": null,
-            "Made": true,
-            "ModifiedDate": "0001-01-01T00:00:00"
-          }
-        ],
-        "PlayerFouls": 0,
-        "PlayerPoints": 2,
-        "PlayerThrees": 0,
-        "PlayerFrees": 0,
-        "AttemptedFrees": 0,
-        "AttemptedThrees": 0,
-        "Stats": "Ps: 0, Fs: 0, 3s:  0, 1s: 0",
-        "ShortenedName": "J. Smith",
-        "FullStats": "Points: 0\nFouls: 0\nThrees: 0\nFrees: 0"
-      },
-      "Shot": {
-        "PointValue": 2,
-        "GUID": "3d30115f-ac05-4486-b9a7-3045c74ffb2c",
-        "PointCredit": 2,
-        "ShotPosition": "358,101",
-        "RealTime": "2025-02-09T13:14:26.8570195-06:00",
-        "FriendlyTime": "1:14 PM (0 min 0 sec ago)",
-        "FriendlyShotValue": "Two Points",
-        "GameTime": null,
-        "Made": true,
-        "ModifiedDate": "0001-01-01T00:00:00"
-      },
+      "Player": "f57dd5fe-730f-4156-8de4-edf366ad041c",
+      "Shot": "1874692b-d090-48fd-a121-be8fe3b4cf52",
       "Team": 1
     },
     {
-      "Player": {
-        "PlayerName": "Jane Smith",
-        "PlayerNumber": "2",
-        "PlayerGrade": null,
-        "PlayerHeight": null,
-        "PlayerPosition": null,
-        "GUID": "ee24aa0d-d527-4d43-a9ca-6811dfbfc538",
-        "Team": 1,
-        "Shots": [
-          {
-            "PointValue": 2,
-            "GUID": "3d30115f-ac05-4486-b9a7-3045c74ffb2c",
-            "PointCredit": 2,
-            "ShotPosition": "358,101",
-            "RealTime": "2025-02-09T13:14:26.8570195-06:00",
-            "FriendlyTime": "1:14 PM (0 min 0 sec ago)",
-            "FriendlyShotValue": "Two Points",
-            "GameTime": null,
-            "Made": true,
-            "ModifiedDate": "0001-01-01T00:00:00"
-          },
-          {
-            "PointValue": 2,
-            "GUID": "afbf8a09-13ac-4149-bb85-3e89a6a34203",
-            "PointCredit": 2,
-            "ShotPosition": "454,107",
-            "RealTime": "2025-02-09T13:14:31.4624654-06:00",
-            "FriendlyTime": "1:14 PM (0 min 0 sec ago)",
-            "FriendlyShotValue": "Two Points",
-            "GameTime": null,
-            "Made": true,
-            "ModifiedDate": "0001-01-01T00:00:00"
-          }
-        ],
-        "PlayerFouls": 0,
-        "PlayerPoints": 4,
-        "PlayerThrees": 0,
-        "PlayerFrees": 0,
-        "AttemptedFrees": 0,
-        "AttemptedThrees": 0,
-        "Stats": "Ps: 2, Fs: 0, 3s:  0, 1s: 0",
-        "ShortenedName": "J. Smith",
-        "FullStats": "Points: 2\nFouls: 0\nThrees: 0\nFrees: 0"
-      },
-      "Shot": {
-        "PointValue": 2,
-        "GUID": "afbf8a09-13ac-4149-bb85-3e89a6a34203",
-        "PointCredit": 2,
-        "ShotPosition": "454,107",
-        "RealTime": "2025-02-09T13:14:31.4624654-06:00",
-        "FriendlyTime": "1:14 PM (0 min 0 sec ago)",
-        "FriendlyShotValue": "Two Points",
-        "GameTime": null,
-        "Made": true,
-        "ModifiedDate": "0001-01-01T00:00:00"
-      },
+      "Player": "45ddceac-0539-49d4-9e95-87513e3ca9e6",
+      "Shot": "00000000-0000-0000-0000-000000000000",
+      "Team": 2
+    },
+    {
+      "Player": "f57dd5fe-730f-4156-8de4-edf366ad041c",
+      "Shot": "49457548-d665-48c4-947f-5e9ca9922c51",
       "Team": 1
     },
     {
-      "Player": {
-        "PlayerName": "Jane Smith",
-        "PlayerNumber": "2",
-        "PlayerGrade": null,
-        "PlayerHeight": null,
-        "PlayerPosition": null,
-        "GUID": "ee24aa0d-d527-4d43-a9ca-6811dfbfc538",
-        "Team": 1,
-        "Shots": [
-          {
-            "PointValue": 2,
-            "GUID": "3d30115f-ac05-4486-b9a7-3045c74ffb2c",
-            "PointCredit": 2,
-            "ShotPosition": "358,101",
-            "RealTime": "2025-02-09T13:14:26.8570195-06:00",
-            "FriendlyTime": "1:14 PM (0 min 0 sec ago)",
-            "FriendlyShotValue": "Two Points",
-            "GameTime": null,
-            "Made": true,
-            "ModifiedDate": "0001-01-01T00:00:00"
-          },
-          {
-            "PointValue": 2,
-            "GUID": "afbf8a09-13ac-4149-bb85-3e89a6a34203",
-            "PointCredit": 2,
-            "ShotPosition": "454,107",
-            "RealTime": "2025-02-09T13:14:31.4624654-06:00",
-            "FriendlyTime": "1:14 PM (0 min 0 sec ago)",
-            "FriendlyShotValue": "Two Points",
-            "GameTime": null,
-            "Made": true,
-            "ModifiedDate": "0001-01-01T00:00:00"
-          },
-          {
-            "PointValue": 2,
-            "GUID": "020b5191-c191-4d31-abe6-a09c1897e128",
-            "PointCredit": 2,
-            "ShotPosition": "604,368",
-            "RealTime": "2025-02-09T13:14:34.7286614-06:00",
-            "FriendlyTime": "1:14 PM (0 min 0 sec ago)",
-            "FriendlyShotValue": "Two Points",
-            "GameTime": null,
-            "Made": true,
-            "ModifiedDate": "0001-01-01T00:00:00"
-          }
-        ],
-        "PlayerFouls": 0,
-        "PlayerPoints": 6,
-        "PlayerThrees": 0,
-        "PlayerFrees": 0,
-        "AttemptedFrees": 0,
-        "AttemptedThrees": 0,
-        "Stats": "Ps: 4, Fs: 0, 3s:  0, 1s: 0",
-        "ShortenedName": "J. Smith",
-        "FullStats": "Points: 4\nFouls: 0\nThrees: 0\nFrees: 0"
-      },
-      "Shot": {
-        "PointValue": 2,
-        "GUID": "020b5191-c191-4d31-abe6-a09c1897e128",
-        "PointCredit": 2,
-        "ShotPosition": "604,368",
-        "RealTime": "2025-02-09T13:14:34.7286614-06:00",
-        "FriendlyTime": "1:14 PM (0 min 0 sec ago)",
-        "FriendlyShotValue": "Two Points",
-        "GameTime": null,
-        "Made": true,
-        "ModifiedDate": "0001-01-01T00:00:00"
-      },
+      "Player": "45ddceac-0539-49d4-9e95-87513e3ca9e6",
+      "Shot": "58dd784c-6bc0-4757-8a7c-ca0b07095727",
+      "Team": 2
+    },
+    {
+      "Player": "deb8f8f9-7731-4bd1-aa52-d640a9cd5313",
+      "Shot": "cc529bbd-be0a-44a8-a9c8-6be35337bfaa",
+      "Team": 2
+    },
+    {
+      "Player": "f57dd5fe-730f-4156-8de4-edf366ad041c",
+      "Shot": "9d0a64f2-e192-42c6-8110-507082fb8350",
       "Team": 1
     },
     {
-      "Player": {
-        "PlayerName": "Jane Smith",
-        "PlayerNumber": "2",
-        "PlayerGrade": null,
-        "PlayerHeight": null,
-        "PlayerPosition": null,
-        "GUID": "ee24aa0d-d527-4d43-a9ca-6811dfbfc538",
-        "Team": 1,
-        "Shots": [
-          {
-            "PointValue": 2,
-            "GUID": "3d30115f-ac05-4486-b9a7-3045c74ffb2c",
-            "PointCredit": 2,
-            "ShotPosition": "358,101",
-            "RealTime": "2025-02-09T13:14:26.8570195-06:00",
-            "FriendlyTime": "1:14 PM (0 min 0 sec ago)",
-            "FriendlyShotValue": "Two Points",
-            "GameTime": null,
-            "Made": true,
-            "ModifiedDate": "0001-01-01T00:00:00"
-          },
-          {
-            "PointValue": 2,
-            "GUID": "afbf8a09-13ac-4149-bb85-3e89a6a34203",
-            "PointCredit": 2,
-            "ShotPosition": "454,107",
-            "RealTime": "2025-02-09T13:14:31.4624654-06:00",
-            "FriendlyTime": "1:14 PM (0 min 0 sec ago)",
-            "FriendlyShotValue": "Two Points",
-            "GameTime": null,
-            "Made": true,
-            "ModifiedDate": "0001-01-01T00:00:00"
-          },
-          {
-            "PointValue": 2,
-            "GUID": "020b5191-c191-4d31-abe6-a09c1897e128",
-            "PointCredit": 2,
-            "ShotPosition": "604,368",
-            "RealTime": "2025-02-09T13:14:34.7286614-06:00",
-            "FriendlyTime": "1:14 PM (0 min 0 sec ago)",
-            "FriendlyShotValue": "Two Points",
-            "GameTime": null,
-            "Made": true,
-            "ModifiedDate": "0001-01-01T00:00:00"
-          },
-          {
-            "PointValue": 2,
-            "GUID": "9586be29-1ae2-48df-bff9-92384a2d07af",
-            "PointCredit": 2,
-            "ShotPosition": "537,174",
-            "RealTime": "2025-02-09T13:14:39.1060875-06:00",
-            "FriendlyTime": "1:14 PM (0 min 0 sec ago)",
-            "FriendlyShotValue": "Two Points",
-            "GameTime": null,
-            "Made": true,
-            "ModifiedDate": "0001-01-01T00:00:00"
-          }
-        ],
-        "PlayerFouls": 0,
-        "PlayerPoints": 8,
-        "PlayerThrees": 0,
-        "PlayerFrees": 0,
-        "AttemptedFrees": 0,
-        "AttemptedThrees": 0,
-        "Stats": "Ps: 6, Fs: 0, 3s:  0, 1s: 0",
-        "ShortenedName": "J. Smith",
-        "FullStats": "Points: 6\nFouls: 0\nThrees: 0\nFrees: 0"
-      },
-      "Shot": {
-        "PointValue": 2,
-        "GUID": "9586be29-1ae2-48df-bff9-92384a2d07af",
-        "PointCredit": 2,
-        "ShotPosition": "537,174",
-        "RealTime": "2025-02-09T13:14:39.1060875-06:00",
-        "FriendlyTime": "1:14 PM (0 min 0 sec ago)",
-        "FriendlyShotValue": "Two Points",
-        "GameTime": null,
-        "Made": true,
-        "ModifiedDate": "0001-01-01T00:00:00"
-      },
+      "Player": "e8e50d52-9336-40c6-a127-0e7ff31c0ce5",
+      "Shot": "b05b0613-af2d-43bc-ab36-78e2fac02911",
       "Team": 1
     },
     {
-      "Player": {
-        "PlayerName": "Jane Smith",
-        "PlayerNumber": "2",
-        "PlayerGrade": null,
-        "PlayerHeight": null,
-        "PlayerPosition": null,
-        "GUID": "ee24aa0d-d527-4d43-a9ca-6811dfbfc538",
-        "Team": 1,
-        "Shots": [
-          {
-            "PointValue": 2,
-            "GUID": "3d30115f-ac05-4486-b9a7-3045c74ffb2c",
-            "PointCredit": 2,
-            "ShotPosition": "358,101",
-            "RealTime": "2025-02-09T13:14:26.8570195-06:00",
-            "FriendlyTime": "1:14 PM (0 min 0 sec ago)",
-            "FriendlyShotValue": "Two Points",
-            "GameTime": null,
-            "Made": true,
-            "ModifiedDate": "0001-01-01T00:00:00"
-          },
-          {
-            "PointValue": 2,
-            "GUID": "afbf8a09-13ac-4149-bb85-3e89a6a34203",
-            "PointCredit": 2,
-            "ShotPosition": "454,107",
-            "RealTime": "2025-02-09T13:14:31.4624654-06:00",
-            "FriendlyTime": "1:14 PM (0 min 0 sec ago)",
-            "FriendlyShotValue": "Two Points",
-            "GameTime": null,
-            "Made": true,
-            "ModifiedDate": "0001-01-01T00:00:00"
-          },
-          {
-            "PointValue": 2,
-            "GUID": "020b5191-c191-4d31-abe6-a09c1897e128",
-            "PointCredit": 2,
-            "ShotPosition": "604,368",
-            "RealTime": "2025-02-09T13:14:34.7286614-06:00",
-            "FriendlyTime": "1:14 PM (0 min 0 sec ago)",
-            "FriendlyShotValue": "Two Points",
-            "GameTime": null,
-            "Made": true,
-            "ModifiedDate": "0001-01-01T00:00:00"
-          },
-          {
-            "PointValue": 2,
-            "GUID": "9586be29-1ae2-48df-bff9-92384a2d07af",
-            "PointCredit": 2,
-            "ShotPosition": "537,174",
-            "RealTime": "2025-02-09T13:14:39.1060875-06:00",
-            "FriendlyTime": "1:14 PM (0 min 0 sec ago)",
-            "FriendlyShotValue": "Two Points",
-            "GameTime": null,
-            "Made": true,
-            "ModifiedDate": "0001-01-01T00:00:00"
-          },
-          {
-            "PointValue": 2,
-            "GUID": "56fc329d-96fb-4002-b988-f1be0f205c6c",
-            "PointCredit": 2,
-            "ShotPosition": "321,223",
-            "RealTime": "2025-02-09T13:14:44.0952768-06:00",
-            "FriendlyTime": "1:14 PM (0 min 0 sec ago)",
-            "FriendlyShotValue": "Two Points",
-            "GameTime": null,
-            "Made": true,
-            "ModifiedDate": "0001-01-01T00:00:00"
-          }
-        ],
-        "PlayerFouls": 0,
-        "PlayerPoints": 10,
-        "PlayerThrees": 0,
-        "PlayerFrees": 0,
-        "AttemptedFrees": 0,
-        "AttemptedThrees": 0,
-        "Stats": "Ps: 8, Fs: 0, 3s:  0, 1s: 0",
-        "ShortenedName": "J. Smith",
-        "FullStats": "Points: 8\nFouls: 0\nThrees: 0\nFrees: 0"
-      },
-      "Shot": {
-        "PointValue": 2,
-        "GUID": "56fc329d-96fb-4002-b988-f1be0f205c6c",
-        "PointCredit": 2,
-        "ShotPosition": "321,223",
-        "RealTime": "2025-02-09T13:14:44.0952768-06:00",
-        "FriendlyTime": "1:14 PM (0 min 0 sec ago)",
-        "FriendlyShotValue": "Two Points",
-        "GameTime": null,
-        "Made": true,
-        "ModifiedDate": "0001-01-01T00:00:00"
-      },
+      "Player": "135f0e8e-df66-4a0c-89c2-30cf2162b376",
+      "Shot": "015c7218-9d74-4e39-89ba-331b7bbc373f",
+      "Team": 2
+    },
+    {
+      "Player": "e8e50d52-9336-40c6-a127-0e7ff31c0ce5",
+      "Shot": "d2ff3bcb-0aa2-404a-9ee2-ba59d7820052",
       "Team": 1
     },
     {
-      "Player": {
-        "PlayerName": "Jane Smith",
-        "PlayerNumber": "2",
-        "PlayerGrade": null,
-        "PlayerHeight": null,
-        "PlayerPosition": null,
-        "GUID": "ee24aa0d-d527-4d43-a9ca-6811dfbfc538",
-        "Team": 1,
-        "Shots": [
-          {
-            "PointValue": 2,
-            "GUID": "3d30115f-ac05-4486-b9a7-3045c74ffb2c",
-            "PointCredit": 2,
-            "ShotPosition": "358,101",
-            "RealTime": "2025-02-09T13:14:26.8570195-06:00",
-            "FriendlyTime": "1:14 PM (0 min 0 sec ago)",
-            "FriendlyShotValue": "Two Points",
-            "GameTime": null,
-            "Made": true,
-            "ModifiedDate": "0001-01-01T00:00:00"
-          },
-          {
-            "PointValue": 2,
-            "GUID": "afbf8a09-13ac-4149-bb85-3e89a6a34203",
-            "PointCredit": 2,
-            "ShotPosition": "454,107",
-            "RealTime": "2025-02-09T13:14:31.4624654-06:00",
-            "FriendlyTime": "1:14 PM (0 min 0 sec ago)",
-            "FriendlyShotValue": "Two Points",
-            "GameTime": null,
-            "Made": true,
-            "ModifiedDate": "0001-01-01T00:00:00"
-          },
-          {
-            "PointValue": 2,
-            "GUID": "020b5191-c191-4d31-abe6-a09c1897e128",
-            "PointCredit": 2,
-            "ShotPosition": "604,368",
-            "RealTime": "2025-02-09T13:14:34.7286614-06:00",
-            "FriendlyTime": "1:14 PM (0 min 0 sec ago)",
-            "FriendlyShotValue": "Two Points",
-            "GameTime": null,
-            "Made": true,
-            "ModifiedDate": "0001-01-01T00:00:00"
-          },
-          {
-            "PointValue": 2,
-            "GUID": "9586be29-1ae2-48df-bff9-92384a2d07af",
-            "PointCredit": 2,
-            "ShotPosition": "537,174",
-            "RealTime": "2025-02-09T13:14:39.1060875-06:00",
-            "FriendlyTime": "1:14 PM (0 min 0 sec ago)",
-            "FriendlyShotValue": "Two Points",
-            "GameTime": null,
-            "Made": true,
-            "ModifiedDate": "0001-01-01T00:00:00"
-          },
-          {
-            "PointValue": 2,
-            "GUID": "56fc329d-96fb-4002-b988-f1be0f205c6c",
-            "PointCredit": 2,
-            "ShotPosition": "321,223",
-            "RealTime": "2025-02-09T13:14:44.0952768-06:00",
-            "FriendlyTime": "1:14 PM (0 min 0 sec ago)",
-            "FriendlyShotValue": "Two Points",
-            "GameTime": null,
-            "Made": true,
-            "ModifiedDate": "0001-01-01T00:00:00"
-          },
-          {
-            "PointValue": 2,
-            "GUID": "07bbfcc2-6e32-446d-8b58-49c0a708d5f9",
-            "PointCredit": 2,
-            "ShotPosition": "174,319",
-            "RealTime": "2025-02-09T13:14:47.161703-06:00",
-            "FriendlyTime": "1:14 PM (0 min 0 sec ago)",
-            "FriendlyShotValue": "Two Points",
-            "GameTime": null,
-            "Made": true,
-            "ModifiedDate": "0001-01-01T00:00:00"
-          }
-        ],
-        "PlayerFouls": 0,
-        "PlayerPoints": 12,
-        "PlayerThrees": 0,
-        "PlayerFrees": 0,
-        "AttemptedFrees": 0,
-        "AttemptedThrees": 0,
-        "Stats": "Ps: 10, Fs: 0, 3s:  0, 1s: 0",
-        "ShortenedName": "J. Smith",
-        "FullStats": "Points: 10\nFouls: 0\nThrees: 0\nFrees: 0"
-      },
-      "Shot": {
-        "PointValue": 2,
-        "GUID": "07bbfcc2-6e32-446d-8b58-49c0a708d5f9",
-        "PointCredit": 2,
-        "ShotPosition": "174,319",
-        "RealTime": "2025-02-09T13:14:47.161703-06:00",
-        "FriendlyTime": "1:14 PM (0 min 0 sec ago)",
-        "FriendlyShotValue": "Two Points",
-        "GameTime": null,
-        "Made": true,
-        "ModifiedDate": "0001-01-01T00:00:00"
-      },
+      "Player": "135f0e8e-df66-4a0c-89c2-30cf2162b376",
+      "Shot": "bd24b260-991c-48c4-b9c8-4e42ff539fd5",
+      "Team": 2
+    },
+    {
+      "Player": "23cfe960-d568-42d4-a932-3e681855891f",
+      "Shot": "76756ae6-ae56-4c2e-bd10-9746ab5ba17f",
       "Team": 1
     },
     {
-      "Player": {
-        "PlayerName": "Jane Smith",
-        "PlayerNumber": "2",
-        "PlayerGrade": null,
-        "PlayerHeight": null,
-        "PlayerPosition": null,
-        "GUID": "ee24aa0d-d527-4d43-a9ca-6811dfbfc538",
-        "Team": 1,
-        "Shots": [
-          {
-            "PointValue": 2,
-            "GUID": "3d30115f-ac05-4486-b9a7-3045c74ffb2c",
-            "PointCredit": 2,
-            "ShotPosition": "358,101",
-            "RealTime": "2025-02-09T13:14:26.8570195-06:00",
-            "FriendlyTime": "1:14 PM (0 min 0 sec ago)",
-            "FriendlyShotValue": "Two Points",
-            "GameTime": null,
-            "Made": true,
-            "ModifiedDate": "0001-01-01T00:00:00"
-          },
-          {
-            "PointValue": 2,
-            "GUID": "afbf8a09-13ac-4149-bb85-3e89a6a34203",
-            "PointCredit": 2,
-            "ShotPosition": "454,107",
-            "RealTime": "2025-02-09T13:14:31.4624654-06:00",
-            "FriendlyTime": "1:14 PM (0 min 0 sec ago)",
-            "FriendlyShotValue": "Two Points",
-            "GameTime": null,
-            "Made": true,
-            "ModifiedDate": "0001-01-01T00:00:00"
-          },
-          {
-            "PointValue": 2,
-            "GUID": "020b5191-c191-4d31-abe6-a09c1897e128",
-            "PointCredit": 2,
-            "ShotPosition": "604,368",
-            "RealTime": "2025-02-09T13:14:34.7286614-06:00",
-            "FriendlyTime": "1:14 PM (0 min 0 sec ago)",
-            "FriendlyShotValue": "Two Points",
-            "GameTime": null,
-            "Made": true,
-            "ModifiedDate": "0001-01-01T00:00:00"
-          },
-          {
-            "PointValue": 2,
-            "GUID": "9586be29-1ae2-48df-bff9-92384a2d07af",
-            "PointCredit": 2,
-            "ShotPosition": "537,174",
-            "RealTime": "2025-02-09T13:14:39.1060875-06:00",
-            "FriendlyTime": "1:14 PM (0 min 0 sec ago)",
-            "FriendlyShotValue": "Two Points",
-            "GameTime": null,
-            "Made": true,
-            "ModifiedDate": "0001-01-01T00:00:00"
-          },
-          {
-            "PointValue": 2,
-            "GUID": "56fc329d-96fb-4002-b988-f1be0f205c6c",
-            "PointCredit": 2,
-            "ShotPosition": "321,223",
-            "RealTime": "2025-02-09T13:14:44.0952768-06:00",
-            "FriendlyTime": "1:14 PM (0 min 0 sec ago)",
-            "FriendlyShotValue": "Two Points",
-            "GameTime": null,
-            "Made": true,
-            "ModifiedDate": "0001-01-01T00:00:00"
-          },
-          {
-            "PointValue": 2,
-            "GUID": "07bbfcc2-6e32-446d-8b58-49c0a708d5f9",
-            "PointCredit": 2,
-            "ShotPosition": "174,319",
-            "RealTime": "2025-02-09T13:14:47.161703-06:00",
-            "FriendlyTime": "1:14 PM (0 min 0 sec ago)",
-            "FriendlyShotValue": "Two Points",
-            "GameTime": null,
-            "Made": true,
-            "ModifiedDate": "0001-01-01T00:00:00"
-          },
-          {
-            "PointValue": 2,
-            "GUID": "ed6af5d1-ad55-4cd2-988c-b2d08b362cb4",
-            "PointCredit": 2,
-            "ShotPosition": "73,41",
-            "RealTime": "2025-02-09T13:14:50.7762347-06:00",
-            "FriendlyTime": "1:14 PM (0 min 0 sec ago)",
-            "FriendlyShotValue": "Two Points",
-            "GameTime": null,
-            "Made": true,
-            "ModifiedDate": "0001-01-01T00:00:00"
-          }
-        ],
-        "PlayerFouls": 0,
-        "PlayerPoints": 14,
-        "PlayerThrees": 0,
-        "PlayerFrees": 0,
-        "AttemptedFrees": 0,
-        "AttemptedThrees": 0,
-        "Stats": "Ps: 12, Fs: 0, 3s:  0, 1s: 0",
-        "ShortenedName": "J. Smith",
-        "FullStats": "Points: 12\nFouls: 0\nThrees: 0\nFrees: 0"
-      },
-      "Shot": {
-        "PointValue": 2,
-        "GUID": "ed6af5d1-ad55-4cd2-988c-b2d08b362cb4",
-        "PointCredit": 2,
-        "ShotPosition": "73,41",
-        "RealTime": "2025-02-09T13:14:50.7762347-06:00",
-        "FriendlyTime": "1:14 PM (0 min 0 sec ago)",
-        "FriendlyShotValue": "Two Points",
-        "GameTime": null,
-        "Made": true,
-        "ModifiedDate": "0001-01-01T00:00:00"
-      },
+      "Player": "f57dd5fe-730f-4156-8de4-edf366ad041c",
+      "Shot": "fcfde0d1-c980-4297-b4ee-6d9db2a5db87",
       "Team": 1
     },
     {
-      "Player": {
-        "PlayerName": "Jane Smith",
-        "PlayerNumber": "2",
-        "PlayerGrade": null,
-        "PlayerHeight": null,
-        "PlayerPosition": null,
-        "GUID": "ee24aa0d-d527-4d43-a9ca-6811dfbfc538",
-        "Team": 1,
-        "Shots": [
-          {
-            "PointValue": 2,
-            "GUID": "3d30115f-ac05-4486-b9a7-3045c74ffb2c",
-            "PointCredit": 2,
-            "ShotPosition": "358,101",
-            "RealTime": "2025-02-09T13:14:26.8570195-06:00",
-            "FriendlyTime": "1:14 PM (0 min 0 sec ago)",
-            "FriendlyShotValue": "Two Points",
-            "GameTime": null,
-            "Made": true,
-            "ModifiedDate": "0001-01-01T00:00:00"
-          },
-          {
-            "PointValue": 2,
-            "GUID": "afbf8a09-13ac-4149-bb85-3e89a6a34203",
-            "PointCredit": 2,
-            "ShotPosition": "454,107",
-            "RealTime": "2025-02-09T13:14:31.4624654-06:00",
-            "FriendlyTime": "1:14 PM (0 min 0 sec ago)",
-            "FriendlyShotValue": "Two Points",
-            "GameTime": null,
-            "Made": true,
-            "ModifiedDate": "0001-01-01T00:00:00"
-          },
-          {
-            "PointValue": 2,
-            "GUID": "020b5191-c191-4d31-abe6-a09c1897e128",
-            "PointCredit": 2,
-            "ShotPosition": "604,368",
-            "RealTime": "2025-02-09T13:14:34.7286614-06:00",
-            "FriendlyTime": "1:14 PM (0 min 0 sec ago)",
-            "FriendlyShotValue": "Two Points",
-            "GameTime": null,
-            "Made": true,
-            "ModifiedDate": "0001-01-01T00:00:00"
-          },
-          {
-            "PointValue": 2,
-            "GUID": "9586be29-1ae2-48df-bff9-92384a2d07af",
-            "PointCredit": 2,
-            "ShotPosition": "537,174",
-            "RealTime": "2025-02-09T13:14:39.1060875-06:00",
-            "FriendlyTime": "1:14 PM (0 min 0 sec ago)",
-            "FriendlyShotValue": "Two Points",
-            "GameTime": null,
-            "Made": true,
-            "ModifiedDate": "0001-01-01T00:00:00"
-          },
-          {
-            "PointValue": 2,
-            "GUID": "56fc329d-96fb-4002-b988-f1be0f205c6c",
-            "PointCredit": 2,
-            "ShotPosition": "321,223",
-            "RealTime": "2025-02-09T13:14:44.0952768-06:00",
-            "FriendlyTime": "1:14 PM (0 min 0 sec ago)",
-            "FriendlyShotValue": "Two Points",
-            "GameTime": null,
-            "Made": true,
-            "ModifiedDate": "0001-01-01T00:00:00"
-          },
-          {
-            "PointValue": 2,
-            "GUID": "07bbfcc2-6e32-446d-8b58-49c0a708d5f9",
-            "PointCredit": 2,
-            "ShotPosition": "174,319",
-            "RealTime": "2025-02-09T13:14:47.161703-06:00",
-            "FriendlyTime": "1:14 PM (0 min 0 sec ago)",
-            "FriendlyShotValue": "Two Points",
-            "GameTime": null,
-            "Made": true,
-            "ModifiedDate": "0001-01-01T00:00:00"
-          },
-          {
-            "PointValue": 2,
-            "GUID": "ed6af5d1-ad55-4cd2-988c-b2d08b362cb4",
-            "PointCredit": 2,
-            "ShotPosition": "73,41",
-            "RealTime": "2025-02-09T13:14:50.7762347-06:00",
-            "FriendlyTime": "1:14 PM (0 min 0 sec ago)",
-            "FriendlyShotValue": "Two Points",
-            "GameTime": null,
-            "Made": true,
-            "ModifiedDate": "0001-01-01T00:00:00"
-          },
-          {
-            "PointValue": 2,
-            "GUID": "ff847d16-0972-4af9-982e-3ccc69d9268d",
-            "PointCredit": 2,
-            "ShotPosition": "563,266",
-            "RealTime": "2025-02-09T13:14:55.5340015-06:00",
-            "FriendlyTime": "1:14 PM (0 min 0 sec ago)",
-            "FriendlyShotValue": "Two Points",
-            "GameTime": null,
-            "Made": true,
-            "ModifiedDate": "0001-01-01T00:00:00"
-          }
-        ],
-        "PlayerFouls": 0,
-        "PlayerPoints": 16,
-        "PlayerThrees": 0,
-        "PlayerFrees": 0,
-        "AttemptedFrees": 0,
-        "AttemptedThrees": 0,
-        "Stats": "Ps: 14, Fs: 0, 3s:  0, 1s: 0",
-        "ShortenedName": "J. Smith",
-        "FullStats": "Points: 14\nFouls: 0\nThrees: 0\nFrees: 0"
-      },
-      "Shot": {
-        "PointValue": 2,
-        "GUID": "ff847d16-0972-4af9-982e-3ccc69d9268d",
-        "PointCredit": 2,
-        "ShotPosition": "563,266",
-        "RealTime": "2025-02-09T13:14:55.5340015-06:00",
-        "FriendlyTime": "1:14 PM (0 min 0 sec ago)",
-        "FriendlyShotValue": "Two Points",
-        "GameTime": null,
-        "Made": true,
-        "ModifiedDate": "0001-01-01T00:00:00"
-      },
+      "Player": "45ddceac-0539-49d4-9e95-87513e3ca9e6",
+      "Shot": "535f0acc-30c2-484a-854f-30442bfe51f6",
+      "Team": 2
+    },
+    {
+      "Player": "1952a2f3-4788-4cec-af47-f9dbdf5f7b1a",
+      "Shot": "8a811618-1d1f-4e6e-8ca8-e5281474b17b",
       "Team": 1
     },
     {
-      "Player": {
-        "PlayerName": "Jane Smith",
-        "PlayerNumber": "2",
-        "PlayerGrade": null,
-        "PlayerHeight": null,
-        "PlayerPosition": null,
-        "GUID": "ee24aa0d-d527-4d43-a9ca-6811dfbfc538",
-        "Team": 1,
-        "Shots": [
-          {
-            "PointValue": 2,
-            "GUID": "3d30115f-ac05-4486-b9a7-3045c74ffb2c",
-            "PointCredit": 2,
-            "ShotPosition": "358,101",
-            "RealTime": "2025-02-09T13:14:26.8570195-06:00",
-            "FriendlyTime": "1:14 PM (0 min 0 sec ago)",
-            "FriendlyShotValue": "Two Points",
-            "GameTime": null,
-            "Made": true,
-            "ModifiedDate": "0001-01-01T00:00:00"
-          },
-          {
-            "PointValue": 2,
-            "GUID": "afbf8a09-13ac-4149-bb85-3e89a6a34203",
-            "PointCredit": 2,
-            "ShotPosition": "454,107",
-            "RealTime": "2025-02-09T13:14:31.4624654-06:00",
-            "FriendlyTime": "1:14 PM (0 min 0 sec ago)",
-            "FriendlyShotValue": "Two Points",
-            "GameTime": null,
-            "Made": true,
-            "ModifiedDate": "0001-01-01T00:00:00"
-          },
-          {
-            "PointValue": 2,
-            "GUID": "020b5191-c191-4d31-abe6-a09c1897e128",
-            "PointCredit": 2,
-            "ShotPosition": "604,368",
-            "RealTime": "2025-02-09T13:14:34.7286614-06:00",
-            "FriendlyTime": "1:14 PM (0 min 0 sec ago)",
-            "FriendlyShotValue": "Two Points",
-            "GameTime": null,
-            "Made": true,
-            "ModifiedDate": "0001-01-01T00:00:00"
-          },
-          {
-            "PointValue": 2,
-            "GUID": "9586be29-1ae2-48df-bff9-92384a2d07af",
-            "PointCredit": 2,
-            "ShotPosition": "537,174",
-            "RealTime": "2025-02-09T13:14:39.1060875-06:00",
-            "FriendlyTime": "1:14 PM (0 min 0 sec ago)",
-            "FriendlyShotValue": "Two Points",
-            "GameTime": null,
-            "Made": true,
-            "ModifiedDate": "0001-01-01T00:00:00"
-          },
-          {
-            "PointValue": 2,
-            "GUID": "56fc329d-96fb-4002-b988-f1be0f205c6c",
-            "PointCredit": 2,
-            "ShotPosition": "321,223",
-            "RealTime": "2025-02-09T13:14:44.0952768-06:00",
-            "FriendlyTime": "1:14 PM (0 min 0 sec ago)",
-            "FriendlyShotValue": "Two Points",
-            "GameTime": null,
-            "Made": true,
-            "ModifiedDate": "0001-01-01T00:00:00"
-          },
-          {
-            "PointValue": 2,
-            "GUID": "07bbfcc2-6e32-446d-8b58-49c0a708d5f9",
-            "PointCredit": 2,
-            "ShotPosition": "174,319",
-            "RealTime": "2025-02-09T13:14:47.161703-06:00",
-            "FriendlyTime": "1:14 PM (0 min 0 sec ago)",
-            "FriendlyShotValue": "Two Points",
-            "GameTime": null,
-            "Made": true,
-            "ModifiedDate": "0001-01-01T00:00:00"
-          },
-          {
-            "PointValue": 2,
-            "GUID": "ed6af5d1-ad55-4cd2-988c-b2d08b362cb4",
-            "PointCredit": 2,
-            "ShotPosition": "73,41",
-            "RealTime": "2025-02-09T13:14:50.7762347-06:00",
-            "FriendlyTime": "1:14 PM (0 min 0 sec ago)",
-            "FriendlyShotValue": "Two Points",
-            "GameTime": null,
-            "Made": true,
-            "ModifiedDate": "0001-01-01T00:00:00"
-          },
-          {
-            "PointValue": 2,
-            "GUID": "ff847d16-0972-4af9-982e-3ccc69d9268d",
-            "PointCredit": 2,
-            "ShotPosition": "563,266",
-            "RealTime": "2025-02-09T13:14:55.5340015-06:00",
-            "FriendlyTime": "1:14 PM (0 min 0 sec ago)",
-            "FriendlyShotValue": "Two Points",
-            "GameTime": null,
-            "Made": true,
-            "ModifiedDate": "0001-01-01T00:00:00"
-          },
-          {
-            "PointValue": 2,
-            "GUID": "f6e7f09d-2579-4dfe-baa1-36961fcf6f11",
-            "PointCredit": 0,
-            "ShotPosition": "630,99",
-            "RealTime": "2025-02-09T13:14:59.093624-06:00",
-            "FriendlyTime": "1:14 PM (0 min 0 sec ago)",
-            "FriendlyShotValue": "Two Points",
-            "GameTime": null,
-            "Made": false,
-            "ModifiedDate": "0001-01-01T00:00:00"
-          }
-        ],
-        "PlayerFouls": 0,
-        "PlayerPoints": 18,
-        "PlayerThrees": 0,
-        "PlayerFrees": 0,
-        "AttemptedFrees": 0,
-        "AttemptedThrees": 0,
-        "Stats": "Ps: 16, Fs: 0, 3s:  0, 1s: 0",
-        "ShortenedName": "J. Smith",
-        "FullStats": "Points: 16\nFouls: 0\nThrees: 0\nFrees: 0"
-      },
-      "Shot": {
-        "PointValue": 2,
-        "GUID": "f6e7f09d-2579-4dfe-baa1-36961fcf6f11",
-        "PointCredit": 0,
-        "ShotPosition": "630,99",
-        "RealTime": "2025-02-09T13:14:59.093624-06:00",
-        "FriendlyTime": "1:14 PM (0 min 0 sec ago)",
-        "FriendlyShotValue": "Two Points",
-        "GameTime": null,
-        "Made": false,
-        "ModifiedDate": "0001-01-01T00:00:00"
-      },
+      "Player": "135f0e8e-df66-4a0c-89c2-30cf2162b376",
+      "Shot": "f5e87ced-ef23-4cfb-a490-e9f88c35a2c8",
+      "Team": 2
+    },
+    {
+      "Player": "f57dd5fe-730f-4156-8de4-edf366ad041c",
+      "Shot": "bb491cdf-fc23-412a-8b79-4c4f5827a2b1",
       "Team": 1
     },
     {
-      "Player": {
-        "PlayerName": "Jane Smith",
-        "PlayerNumber": "2",
-        "PlayerGrade": null,
-        "PlayerHeight": null,
-        "PlayerPosition": null,
-        "GUID": "ee24aa0d-d527-4d43-a9ca-6811dfbfc538",
-        "Team": 1,
-        "Shots": [
-          {
-            "PointValue": 2,
-            "GUID": "3d30115f-ac05-4486-b9a7-3045c74ffb2c",
-            "PointCredit": 2,
-            "ShotPosition": "358,101",
-            "RealTime": "2025-02-09T13:14:26.8570195-06:00",
-            "FriendlyTime": "1:14 PM (0 min 0 sec ago)",
-            "FriendlyShotValue": "Two Points",
-            "GameTime": null,
-            "Made": true,
-            "ModifiedDate": "0001-01-01T00:00:00"
-          },
-          {
-            "PointValue": 2,
-            "GUID": "afbf8a09-13ac-4149-bb85-3e89a6a34203",
-            "PointCredit": 2,
-            "ShotPosition": "454,107",
-            "RealTime": "2025-02-09T13:14:31.4624654-06:00",
-            "FriendlyTime": "1:14 PM (0 min 0 sec ago)",
-            "FriendlyShotValue": "Two Points",
-            "GameTime": null,
-            "Made": true,
-            "ModifiedDate": "0001-01-01T00:00:00"
-          },
-          {
-            "PointValue": 2,
-            "GUID": "020b5191-c191-4d31-abe6-a09c1897e128",
-            "PointCredit": 2,
-            "ShotPosition": "604,368",
-            "RealTime": "2025-02-09T13:14:34.7286614-06:00",
-            "FriendlyTime": "1:14 PM (0 min 0 sec ago)",
-            "FriendlyShotValue": "Two Points",
-            "GameTime": null,
-            "Made": true,
-            "ModifiedDate": "0001-01-01T00:00:00"
-          },
-          {
-            "PointValue": 2,
-            "GUID": "9586be29-1ae2-48df-bff9-92384a2d07af",
-            "PointCredit": 2,
-            "ShotPosition": "537,174",
-            "RealTime": "2025-02-09T13:14:39.1060875-06:00",
-            "FriendlyTime": "1:14 PM (0 min 0 sec ago)",
-            "FriendlyShotValue": "Two Points",
-            "GameTime": null,
-            "Made": true,
-            "ModifiedDate": "0001-01-01T00:00:00"
-          },
-          {
-            "PointValue": 2,
-            "GUID": "56fc329d-96fb-4002-b988-f1be0f205c6c",
-            "PointCredit": 2,
-            "ShotPosition": "321,223",
-            "RealTime": "2025-02-09T13:14:44.0952768-06:00",
-            "FriendlyTime": "1:14 PM (0 min 0 sec ago)",
-            "FriendlyShotValue": "Two Points",
-            "GameTime": null,
-            "Made": true,
-            "ModifiedDate": "0001-01-01T00:00:00"
-          },
-          {
-            "PointValue": 2,
-            "GUID": "07bbfcc2-6e32-446d-8b58-49c0a708d5f9",
-            "PointCredit": 2,
-            "ShotPosition": "174,319",
-            "RealTime": "2025-02-09T13:14:47.161703-06:00",
-            "FriendlyTime": "1:14 PM (0 min 0 sec ago)",
-            "FriendlyShotValue": "Two Points",
-            "GameTime": null,
-            "Made": true,
-            "ModifiedDate": "0001-01-01T00:00:00"
-          },
-          {
-            "PointValue": 2,
-            "GUID": "ed6af5d1-ad55-4cd2-988c-b2d08b362cb4",
-            "PointCredit": 2,
-            "ShotPosition": "73,41",
-            "RealTime": "2025-02-09T13:14:50.7762347-06:00",
-            "FriendlyTime": "1:14 PM (0 min 0 sec ago)",
-            "FriendlyShotValue": "Two Points",
-            "GameTime": null,
-            "Made": true,
-            "ModifiedDate": "0001-01-01T00:00:00"
-          },
-          {
-            "PointValue": 2,
-            "GUID": "ff847d16-0972-4af9-982e-3ccc69d9268d",
-            "PointCredit": 2,
-            "ShotPosition": "563,266",
-            "RealTime": "2025-02-09T13:14:55.5340015-06:00",
-            "FriendlyTime": "1:14 PM (0 min 0 sec ago)",
-            "FriendlyShotValue": "Two Points",
-            "GameTime": null,
-            "Made": true,
-            "ModifiedDate": "0001-01-01T00:00:00"
-          },
-          {
-            "PointValue": 2,
-            "GUID": "f6e7f09d-2579-4dfe-baa1-36961fcf6f11",
-            "PointCredit": 0,
-            "ShotPosition": "630,99",
-            "RealTime": "2025-02-09T13:14:59.093624-06:00",
-            "FriendlyTime": "1:14 PM (0 min 0 sec ago)",
-            "FriendlyShotValue": "Two Points",
-            "GameTime": null,
-            "Made": false,
-            "ModifiedDate": "0001-01-01T00:00:00"
-          },
-          {
-            "PointValue": 2,
-            "GUID": "b7ed728d-66b5-4417-9763-0fabe9a5347a",
-            "PointCredit": 2,
-            "ShotPosition": "230,261",
-            "RealTime": "2025-02-09T13:15:01.5646914-06:00",
-            "FriendlyTime": "1:15 PM (0 min 0 sec ago)",
-            "FriendlyShotValue": "Two Points",
-            "GameTime": null,
-            "Made": true,
-            "ModifiedDate": "0001-01-01T00:00:00"
-          }
-        ],
-        "PlayerFouls": 0,
-        "PlayerPoints": 18,
-        "PlayerThrees": 0,
-        "PlayerFrees": 0,
-        "AttemptedFrees": 0,
-        "AttemptedThrees": 0,
-        "Stats": "Ps: 18, Fs: 0, 3s:  0, 1s: 0",
-        "ShortenedName": "J. Smith",
-        "FullStats": "Points: 16\nFouls: 0\nThrees: 0\nFrees: 0"
-      },
-      "Shot": {
-        "PointValue": 2,
-        "GUID": "b7ed728d-66b5-4417-9763-0fabe9a5347a",
-        "PointCredit": 2,
-        "ShotPosition": "230,261",
-        "RealTime": "2025-02-09T13:15:01.5646914-06:00",
-        "FriendlyTime": "1:15 PM (0 min 0 sec ago)",
-        "FriendlyShotValue": "Two Points",
-        "GameTime": null,
-        "Made": true,
-        "ModifiedDate": "0001-01-01T00:00:00"
-      },
+      "Player": "45ddceac-0539-49d4-9e95-87513e3ca9e6",
+      "Shot": "00000000-0000-0000-0000-000000000000",
+      "Team": 2
+    },
+    {
+      "Player": "f57dd5fe-730f-4156-8de4-edf366ad041c",
+      "Shot": "f8d8703c-f81a-4abf-b672-92f093846a54",
       "Team": 1
     },
     {
-      "Player": {
-        "PlayerName": "Jane Smith",
-        "PlayerNumber": "2",
-        "PlayerGrade": null,
-        "PlayerHeight": null,
-        "PlayerPosition": null,
-        "GUID": "ee24aa0d-d527-4d43-a9ca-6811dfbfc538",
-        "Team": 1,
-        "Shots": [
-          {
-            "PointValue": 2,
-            "GUID": "3d30115f-ac05-4486-b9a7-3045c74ffb2c",
-            "PointCredit": 2,
-            "ShotPosition": "358,101",
-            "RealTime": "2025-02-09T13:14:26.8570195-06:00",
-            "FriendlyTime": "1:14 PM (0 min 0 sec ago)",
-            "FriendlyShotValue": "Two Points",
-            "GameTime": null,
-            "Made": true,
-            "ModifiedDate": "0001-01-01T00:00:00"
-          },
-          {
-            "PointValue": 2,
-            "GUID": "afbf8a09-13ac-4149-bb85-3e89a6a34203",
-            "PointCredit": 2,
-            "ShotPosition": "454,107",
-            "RealTime": "2025-02-09T13:14:31.4624654-06:00",
-            "FriendlyTime": "1:14 PM (0 min 0 sec ago)",
-            "FriendlyShotValue": "Two Points",
-            "GameTime": null,
-            "Made": true,
-            "ModifiedDate": "0001-01-01T00:00:00"
-          },
-          {
-            "PointValue": 2,
-            "GUID": "020b5191-c191-4d31-abe6-a09c1897e128",
-            "PointCredit": 2,
-            "ShotPosition": "604,368",
-            "RealTime": "2025-02-09T13:14:34.7286614-06:00",
-            "FriendlyTime": "1:14 PM (0 min 0 sec ago)",
-            "FriendlyShotValue": "Two Points",
-            "GameTime": null,
-            "Made": true,
-            "ModifiedDate": "0001-01-01T00:00:00"
-          },
-          {
-            "PointValue": 2,
-            "GUID": "9586be29-1ae2-48df-bff9-92384a2d07af",
-            "PointCredit": 2,
-            "ShotPosition": "537,174",
-            "RealTime": "2025-02-09T13:14:39.1060875-06:00",
-            "FriendlyTime": "1:14 PM (0 min 0 sec ago)",
-            "FriendlyShotValue": "Two Points",
-            "GameTime": null,
-            "Made": true,
-            "ModifiedDate": "0001-01-01T00:00:00"
-          },
-          {
-            "PointValue": 2,
-            "GUID": "56fc329d-96fb-4002-b988-f1be0f205c6c",
-            "PointCredit": 2,
-            "ShotPosition": "321,223",
-            "RealTime": "2025-02-09T13:14:44.0952768-06:00",
-            "FriendlyTime": "1:14 PM (0 min 0 sec ago)",
-            "FriendlyShotValue": "Two Points",
-            "GameTime": null,
-            "Made": true,
-            "ModifiedDate": "0001-01-01T00:00:00"
-          },
-          {
-            "PointValue": 2,
-            "GUID": "07bbfcc2-6e32-446d-8b58-49c0a708d5f9",
-            "PointCredit": 2,
-            "ShotPosition": "174,319",
-            "RealTime": "2025-02-09T13:14:47.161703-06:00",
-            "FriendlyTime": "1:14 PM (0 min 0 sec ago)",
-            "FriendlyShotValue": "Two Points",
-            "GameTime": null,
-            "Made": true,
-            "ModifiedDate": "0001-01-01T00:00:00"
-          },
-          {
-            "PointValue": 2,
-            "GUID": "ed6af5d1-ad55-4cd2-988c-b2d08b362cb4",
-            "PointCredit": 2,
-            "ShotPosition": "73,41",
-            "RealTime": "2025-02-09T13:14:50.7762347-06:00",
-            "FriendlyTime": "1:14 PM (0 min 0 sec ago)",
-            "FriendlyShotValue": "Two Points",
-            "GameTime": null,
-            "Made": true,
-            "ModifiedDate": "0001-01-01T00:00:00"
-          },
-          {
-            "PointValue": 2,
-            "GUID": "ff847d16-0972-4af9-982e-3ccc69d9268d",
-            "PointCredit": 2,
-            "ShotPosition": "563,266",
-            "RealTime": "2025-02-09T13:14:55.5340015-06:00",
-            "FriendlyTime": "1:14 PM (0 min 0 sec ago)",
-            "FriendlyShotValue": "Two Points",
-            "GameTime": null,
-            "Made": true,
-            "ModifiedDate": "0001-01-01T00:00:00"
-          },
-          {
-            "PointValue": 2,
-            "GUID": "f6e7f09d-2579-4dfe-baa1-36961fcf6f11",
-            "PointCredit": 0,
-            "ShotPosition": "630,99",
-            "RealTime": "2025-02-09T13:14:59.093624-06:00",
-            "FriendlyTime": "1:14 PM (0 min 0 sec ago)",
-            "FriendlyShotValue": "Two Points",
-            "GameTime": null,
-            "Made": false,
-            "ModifiedDate": "0001-01-01T00:00:00"
-          },
-          {
-            "PointValue": 2,
-            "GUID": "b7ed728d-66b5-4417-9763-0fabe9a5347a",
-            "PointCredit": 2,
-            "ShotPosition": "230,261",
-            "RealTime": "2025-02-09T13:15:01.5646914-06:00",
-            "FriendlyTime": "1:15 PM (0 min 0 sec ago)",
-            "FriendlyShotValue": "Two Points",
-            "GameTime": null,
-            "Made": true,
-            "ModifiedDate": "0001-01-01T00:00:00"
-          },
-          {
-            "PointValue": 2,
-            "GUID": "6b4f82d9-7c7e-4d68-8283-382d3bc3f20d",
-            "PointCredit": 2,
-            "ShotPosition": "161,334",
-            "RealTime": "2025-02-09T13:15:03.8698178-06:00",
-            "FriendlyTime": "1:15 PM (0 min 0 sec ago)",
-            "FriendlyShotValue": "Two Points",
-            "GameTime": null,
-            "Made": true,
-            "ModifiedDate": "0001-01-01T00:00:00"
-          }
-        ],
-        "PlayerFouls": 0,
-        "PlayerPoints": 20,
-        "PlayerThrees": 0,
-        "PlayerFrees": 0,
-        "AttemptedFrees": 0,
-        "AttemptedThrees": 0,
-        "Stats": "Ps: 18, Fs: 0, 3s:  0, 1s: 0",
-        "ShortenedName": "J. Smith",
-        "FullStats": "Points: 18\nFouls: 0\nThrees: 0\nFrees: 0"
-      },
-      "Shot": {
-        "PointValue": 2,
-        "GUID": "6b4f82d9-7c7e-4d68-8283-382d3bc3f20d",
-        "PointCredit": 2,
-        "ShotPosition": "161,334",
-        "RealTime": "2025-02-09T13:15:03.8698178-06:00",
-        "FriendlyTime": "1:15 PM (0 min 0 sec ago)",
-        "FriendlyShotValue": "Two Points",
-        "GameTime": null,
-        "Made": true,
-        "ModifiedDate": "0001-01-01T00:00:00"
-      },
+      "Player": "f57dd5fe-730f-4156-8de4-edf366ad041c",
+      "Shot": "ba69fbfe-fe28-4ffd-860c-b818cd416a38",
       "Team": 1
     },
     {
-      "Player": {
-        "PlayerName": "Jane Smith",
-        "PlayerNumber": "2",
-        "PlayerGrade": null,
-        "PlayerHeight": null,
-        "PlayerPosition": null,
-        "GUID": "ee24aa0d-d527-4d43-a9ca-6811dfbfc538",
-        "Team": 1,
-        "Shots": [
-          {
-            "PointValue": 2,
-            "GUID": "3d30115f-ac05-4486-b9a7-3045c74ffb2c",
-            "PointCredit": 2,
-            "ShotPosition": "358,101",
-            "RealTime": "2025-02-09T13:14:26.8570195-06:00",
-            "FriendlyTime": "1:14 PM (0 min 0 sec ago)",
-            "FriendlyShotValue": "Two Points",
-            "GameTime": null,
-            "Made": true,
-            "ModifiedDate": "0001-01-01T00:00:00"
-          },
-          {
-            "PointValue": 2,
-            "GUID": "afbf8a09-13ac-4149-bb85-3e89a6a34203",
-            "PointCredit": 2,
-            "ShotPosition": "454,107",
-            "RealTime": "2025-02-09T13:14:31.4624654-06:00",
-            "FriendlyTime": "1:14 PM (0 min 0 sec ago)",
-            "FriendlyShotValue": "Two Points",
-            "GameTime": null,
-            "Made": true,
-            "ModifiedDate": "0001-01-01T00:00:00"
-          },
-          {
-            "PointValue": 2,
-            "GUID": "020b5191-c191-4d31-abe6-a09c1897e128",
-            "PointCredit": 2,
-            "ShotPosition": "604,368",
-            "RealTime": "2025-02-09T13:14:34.7286614-06:00",
-            "FriendlyTime": "1:14 PM (0 min 0 sec ago)",
-            "FriendlyShotValue": "Two Points",
-            "GameTime": null,
-            "Made": true,
-            "ModifiedDate": "0001-01-01T00:00:00"
-          },
-          {
-            "PointValue": 2,
-            "GUID": "9586be29-1ae2-48df-bff9-92384a2d07af",
-            "PointCredit": 2,
-            "ShotPosition": "537,174",
-            "RealTime": "2025-02-09T13:14:39.1060875-06:00",
-            "FriendlyTime": "1:14 PM (0 min 0 sec ago)",
-            "FriendlyShotValue": "Two Points",
-            "GameTime": null,
-            "Made": true,
-            "ModifiedDate": "0001-01-01T00:00:00"
-          },
-          {
-            "PointValue": 2,
-            "GUID": "56fc329d-96fb-4002-b988-f1be0f205c6c",
-            "PointCredit": 2,
-            "ShotPosition": "321,223",
-            "RealTime": "2025-02-09T13:14:44.0952768-06:00",
-            "FriendlyTime": "1:14 PM (0 min 0 sec ago)",
-            "FriendlyShotValue": "Two Points",
-            "GameTime": null,
-            "Made": true,
-            "ModifiedDate": "0001-01-01T00:00:00"
-          },
-          {
-            "PointValue": 2,
-            "GUID": "07bbfcc2-6e32-446d-8b58-49c0a708d5f9",
-            "PointCredit": 2,
-            "ShotPosition": "174,319",
-            "RealTime": "2025-02-09T13:14:47.161703-06:00",
-            "FriendlyTime": "1:14 PM (0 min 0 sec ago)",
-            "FriendlyShotValue": "Two Points",
-            "GameTime": null,
-            "Made": true,
-            "ModifiedDate": "0001-01-01T00:00:00"
-          },
-          {
-            "PointValue": 2,
-            "GUID": "ed6af5d1-ad55-4cd2-988c-b2d08b362cb4",
-            "PointCredit": 2,
-            "ShotPosition": "73,41",
-            "RealTime": "2025-02-09T13:14:50.7762347-06:00",
-            "FriendlyTime": "1:14 PM (0 min 0 sec ago)",
-            "FriendlyShotValue": "Two Points",
-            "GameTime": null,
-            "Made": true,
-            "ModifiedDate": "0001-01-01T00:00:00"
-          },
-          {
-            "PointValue": 2,
-            "GUID": "ff847d16-0972-4af9-982e-3ccc69d9268d",
-            "PointCredit": 2,
-            "ShotPosition": "563,266",
-            "RealTime": "2025-02-09T13:14:55.5340015-06:00",
-            "FriendlyTime": "1:14 PM (0 min 0 sec ago)",
-            "FriendlyShotValue": "Two Points",
-            "GameTime": null,
-            "Made": true,
-            "ModifiedDate": "0001-01-01T00:00:00"
-          },
-          {
-            "PointValue": 2,
-            "GUID": "f6e7f09d-2579-4dfe-baa1-36961fcf6f11",
-            "PointCredit": 0,
-            "ShotPosition": "630,99",
-            "RealTime": "2025-02-09T13:14:59.093624-06:00",
-            "FriendlyTime": "1:14 PM (0 min 0 sec ago)",
-            "FriendlyShotValue": "Two Points",
-            "GameTime": null,
-            "Made": false,
-            "ModifiedDate": "0001-01-01T00:00:00"
-          },
-          {
-            "PointValue": 2,
-            "GUID": "b7ed728d-66b5-4417-9763-0fabe9a5347a",
-            "PointCredit": 2,
-            "ShotPosition": "230,261",
-            "RealTime": "2025-02-09T13:15:01.5646914-06:00",
-            "FriendlyTime": "1:15 PM (0 min 0 sec ago)",
-            "FriendlyShotValue": "Two Points",
-            "GameTime": null,
-            "Made": true,
-            "ModifiedDate": "0001-01-01T00:00:00"
-          },
-          {
-            "PointValue": 2,
-            "GUID": "6b4f82d9-7c7e-4d68-8283-382d3bc3f20d",
-            "PointCredit": 2,
-            "ShotPosition": "161,334",
-            "RealTime": "2025-02-09T13:15:03.8698178-06:00",
-            "FriendlyTime": "1:15 PM (0 min 0 sec ago)",
-            "FriendlyShotValue": "Two Points",
-            "GameTime": null,
-            "Made": true,
-            "ModifiedDate": "0001-01-01T00:00:00"
-          },
-          {
-            "PointValue": 2,
-            "GUID": "35a09adf-bf94-4bc6-9895-3a6d91ab42ba",
-            "PointCredit": 2,
-            "ShotPosition": "685,147",
-            "RealTime": "2025-02-09T13:15:08.2066956-06:00",
-            "FriendlyTime": "1:15 PM (0 min 0 sec ago)",
-            "FriendlyShotValue": "Two Points",
-            "GameTime": null,
-            "Made": true,
-            "ModifiedDate": "0001-01-01T00:00:00"
-          }
-        ],
-        "PlayerFouls": 0,
-        "PlayerPoints": 22,
-        "PlayerThrees": 0,
-        "PlayerFrees": 0,
-        "AttemptedFrees": 0,
-        "AttemptedThrees": 0,
-        "Stats": "Ps: 20, Fs: 0, 3s:  0, 1s: 0",
-        "ShortenedName": "J. Smith",
-        "FullStats": "Points: 20\nFouls: 0\nThrees: 0\nFrees: 0"
-      },
-      "Shot": {
-        "PointValue": 2,
-        "GUID": "35a09adf-bf94-4bc6-9895-3a6d91ab42ba",
-        "PointCredit": 2,
-        "ShotPosition": "685,147",
-        "RealTime": "2025-02-09T13:15:08.2066956-06:00",
-        "FriendlyTime": "1:15 PM (0 min 0 sec ago)",
-        "FriendlyShotValue": "Two Points",
-        "GameTime": null,
-        "Made": true,
-        "ModifiedDate": "0001-01-01T00:00:00"
-      },
+      "Player": "23cfe960-d568-42d4-a932-3e681855891f",
+      "Shot": "2d2a213e-961e-4573-9c41-6ceb2eccb746",
       "Team": 1
     },
     {
-      "Player": {
-        "PlayerName": "Jane Smith",
-        "PlayerNumber": "2",
-        "PlayerGrade": null,
-        "PlayerHeight": null,
-        "PlayerPosition": null,
-        "GUID": "ee24aa0d-d527-4d43-a9ca-6811dfbfc538",
-        "Team": 1,
-        "Shots": [
-          {
-            "PointValue": 2,
-            "GUID": "3d30115f-ac05-4486-b9a7-3045c74ffb2c",
-            "PointCredit": 2,
-            "ShotPosition": "358,101",
-            "RealTime": "2025-02-09T13:14:26.8570195-06:00",
-            "FriendlyTime": "1:14 PM (0 min 0 sec ago)",
-            "FriendlyShotValue": "Two Points",
-            "GameTime": null,
-            "Made": true,
-            "ModifiedDate": "0001-01-01T00:00:00"
-          },
-          {
-            "PointValue": 2,
-            "GUID": "afbf8a09-13ac-4149-bb85-3e89a6a34203",
-            "PointCredit": 2,
-            "ShotPosition": "454,107",
-            "RealTime": "2025-02-09T13:14:31.4624654-06:00",
-            "FriendlyTime": "1:14 PM (0 min 0 sec ago)",
-            "FriendlyShotValue": "Two Points",
-            "GameTime": null,
-            "Made": true,
-            "ModifiedDate": "0001-01-01T00:00:00"
-          },
-          {
-            "PointValue": 2,
-            "GUID": "020b5191-c191-4d31-abe6-a09c1897e128",
-            "PointCredit": 2,
-            "ShotPosition": "604,368",
-            "RealTime": "2025-02-09T13:14:34.7286614-06:00",
-            "FriendlyTime": "1:14 PM (0 min 0 sec ago)",
-            "FriendlyShotValue": "Two Points",
-            "GameTime": null,
-            "Made": true,
-            "ModifiedDate": "0001-01-01T00:00:00"
-          },
-          {
-            "PointValue": 2,
-            "GUID": "9586be29-1ae2-48df-bff9-92384a2d07af",
-            "PointCredit": 2,
-            "ShotPosition": "537,174",
-            "RealTime": "2025-02-09T13:14:39.1060875-06:00",
-            "FriendlyTime": "1:14 PM (0 min 0 sec ago)",
-            "FriendlyShotValue": "Two Points",
-            "GameTime": null,
-            "Made": true,
-            "ModifiedDate": "0001-01-01T00:00:00"
-          },
-          {
-            "PointValue": 2,
-            "GUID": "56fc329d-96fb-4002-b988-f1be0f205c6c",
-            "PointCredit": 2,
-            "ShotPosition": "321,223",
-            "RealTime": "2025-02-09T13:14:44.0952768-06:00",
-            "FriendlyTime": "1:14 PM (0 min 0 sec ago)",
-            "FriendlyShotValue": "Two Points",
-            "GameTime": null,
-            "Made": true,
-            "ModifiedDate": "0001-01-01T00:00:00"
-          },
-          {
-            "PointValue": 2,
-            "GUID": "07bbfcc2-6e32-446d-8b58-49c0a708d5f9",
-            "PointCredit": 2,
-            "ShotPosition": "174,319",
-            "RealTime": "2025-02-09T13:14:47.161703-06:00",
-            "FriendlyTime": "1:14 PM (0 min 0 sec ago)",
-            "FriendlyShotValue": "Two Points",
-            "GameTime": null,
-            "Made": true,
-            "ModifiedDate": "0001-01-01T00:00:00"
-          },
-          {
-            "PointValue": 2,
-            "GUID": "ed6af5d1-ad55-4cd2-988c-b2d08b362cb4",
-            "PointCredit": 2,
-            "ShotPosition": "73,41",
-            "RealTime": "2025-02-09T13:14:50.7762347-06:00",
-            "FriendlyTime": "1:14 PM (0 min 0 sec ago)",
-            "FriendlyShotValue": "Two Points",
-            "GameTime": null,
-            "Made": true,
-            "ModifiedDate": "0001-01-01T00:00:00"
-          },
-          {
-            "PointValue": 2,
-            "GUID": "ff847d16-0972-4af9-982e-3ccc69d9268d",
-            "PointCredit": 2,
-            "ShotPosition": "563,266",
-            "RealTime": "2025-02-09T13:14:55.5340015-06:00",
-            "FriendlyTime": "1:14 PM (0 min 0 sec ago)",
-            "FriendlyShotValue": "Two Points",
-            "GameTime": null,
-            "Made": true,
-            "ModifiedDate": "0001-01-01T00:00:00"
-          },
-          {
-            "PointValue": 2,
-            "GUID": "f6e7f09d-2579-4dfe-baa1-36961fcf6f11",
-            "PointCredit": 0,
-            "ShotPosition": "630,99",
-            "RealTime": "2025-02-09T13:14:59.093624-06:00",
-            "FriendlyTime": "1:14 PM (0 min 0 sec ago)",
-            "FriendlyShotValue": "Two Points",
-            "GameTime": null,
-            "Made": false,
-            "ModifiedDate": "0001-01-01T00:00:00"
-          },
-          {
-            "PointValue": 2,
-            "GUID": "b7ed728d-66b5-4417-9763-0fabe9a5347a",
-            "PointCredit": 2,
-            "ShotPosition": "230,261",
-            "RealTime": "2025-02-09T13:15:01.5646914-06:00",
-            "FriendlyTime": "1:15 PM (0 min 0 sec ago)",
-            "FriendlyShotValue": "Two Points",
-            "GameTime": null,
-            "Made": true,
-            "ModifiedDate": "0001-01-01T00:00:00"
-          },
-          {
-            "PointValue": 2,
-            "GUID": "6b4f82d9-7c7e-4d68-8283-382d3bc3f20d",
-            "PointCredit": 2,
-            "ShotPosition": "161,334",
-            "RealTime": "2025-02-09T13:15:03.8698178-06:00",
-            "FriendlyTime": "1:15 PM (0 min 0 sec ago)",
-            "FriendlyShotValue": "Two Points",
-            "GameTime": null,
-            "Made": true,
-            "ModifiedDate": "0001-01-01T00:00:00"
-          },
-          {
-            "PointValue": 2,
-            "GUID": "35a09adf-bf94-4bc6-9895-3a6d91ab42ba",
-            "PointCredit": 2,
-            "ShotPosition": "685,147",
-            "RealTime": "2025-02-09T13:15:08.2066956-06:00",
-            "FriendlyTime": "1:15 PM (0 min 0 sec ago)",
-            "FriendlyShotValue": "Two Points",
-            "GameTime": null,
-            "Made": true,
-            "ModifiedDate": "0001-01-01T00:00:00"
-          },
-          {
-            "PointValue": 2,
-            "GUID": "461246e8-6c6b-41f7-9f37-eec518ca418f",
-            "PointCredit": 2,
-            "ShotPosition": "199,658",
-            "RealTime": "2025-02-09T13:18:56.6157177-06:00",
-            "FriendlyTime": "1:18 PM (0 min 0 sec ago)",
-            "FriendlyShotValue": "Two Points",
-            "GameTime": null,
-            "Made": true,
-            "ModifiedDate": "0001-01-01T00:00:00"
-          }
-        ],
-        "PlayerFouls": 0,
-        "PlayerPoints": 24,
-        "PlayerThrees": 0,
-        "PlayerFrees": 0,
-        "AttemptedFrees": 0,
-        "AttemptedThrees": 0,
-        "Stats": "Ps: 22, Fs: 0, 3s:  0, 1s: 0",
-        "ShortenedName": "J. Smith",
-        "FullStats": "Points: 22\nFouls: 0\nThrees: 0\nFrees: 0"
-      },
-      "Shot": {
-        "PointValue": 2,
-        "GUID": "461246e8-6c6b-41f7-9f37-eec518ca418f",
-        "PointCredit": 2,
-        "ShotPosition": "199,658",
-        "RealTime": "2025-02-09T13:18:56.6157177-06:00",
-        "FriendlyTime": "1:18 PM (0 min 0 sec ago)",
-        "FriendlyShotValue": "Two Points",
-        "GameTime": null,
-        "Made": true,
-        "ModifiedDate": "0001-01-01T00:00:00"
-      },
+      "Player": "23cfe960-d568-42d4-a932-3e681855891f",
+      "Shot": "d094160a-781e-4d9e-9654-bd1381ee96d6",
       "Team": 1
+    },
+    {
+      "Player": "d7d1a9d5-1a4d-4537-8e94-91db9739cc85",
+      "Shot": "53d8e5fb-8ff4-4a79-93fa-d717bf4de181",
+      "Team": 2
+    },
+    {
+      "Player": "d191c39e-4898-415f-923e-6af806f4ac6c",
+      "Shot": "f6c7a9fe-2aaf-4f7a-ad39-768dcf3fbe12",
+      "Team": 2
+    },
+    {
+      "Player": "f57dd5fe-730f-4156-8de4-edf366ad041c",
+      "Shot": "f80ea08f-8629-4f19-97b2-2ac6bb21a84b",
+      "Team": 1
+    },
+    {
+      "Player": "23cfe960-d568-42d4-a932-3e681855891f",
+      "Shot": "00000000-0000-0000-0000-000000000000",
+      "Team": 1
+    },
+    {
+      "Player": "5b1f90cb-7cf3-473b-9964-edbc69e169d5",
+      "Shot": "7337c2cd-3b89-4104-83c6-85a4c7a241c4",
+      "Team": 2
+    },
+    {
+      "Player": "f57dd5fe-730f-4156-8de4-edf366ad041c",
+      "Shot": "5f7db190-7066-483b-ae3c-375ae74aa6d4",
+      "Team": 1
+    },
+    {
+      "Player": "deb8f8f9-7731-4bd1-aa52-d640a9cd5313",
+      "Shot": "7081255d-55e3-4696-96c2-d6ca67304723",
+      "Team": 2
+    },
+    {
+      "Player": "f57dd5fe-730f-4156-8de4-edf366ad041c",
+      "Shot": "f58ecf7d-a1e1-4e1c-b49c-5deb7ace9d6e",
+      "Team": 1
+    },
+    {
+      "Player": "15a1881f-ec06-44a6-b924-1b4e5f1ccdf5",
+      "Shot": "00000000-0000-0000-0000-000000000000",
+      "Team": 1
+    },
+    {
+      "Player": "deb8f8f9-7731-4bd1-aa52-d640a9cd5313",
+      "Shot": "a96f4747-dff7-4bb2-a290-d15fe72c04c8",
+      "Team": 2
+    },
+    {
+      "Player": "e8e50d52-9336-40c6-a127-0e7ff31c0ce5",
+      "Shot": "ffd9be6d-30f9-4d74-b3d8-34320d5bd1d4",
+      "Team": 1
+    },
+    {
+      "Player": "0eef0423-8bc1-4328-ba0c-14a2dd608b3e",
+      "Shot": "6d249760-d002-4ba6-8706-18de1b290f96",
+      "Team": 2
+    },
+    {
+      "Player": "15a1881f-ec06-44a6-b924-1b4e5f1ccdf5",
+      "Shot": "00000000-0000-0000-0000-000000000000",
+      "Team": 1
+    },
+    {
+      "Player": "2b4b1e25-272d-4310-aa1e-95f98d4003c0",
+      "Shot": "7f2dde81-e600-4179-91ad-c0ed28ca1907",
+      "Team": 1
+    },
+    {
+      "Player": "23cfe960-d568-42d4-a932-3e681855891f",
+      "Shot": "326481df-5e6e-4f5b-9676-26a5bae14eae",
+      "Team": 1
+    },
+    {
+      "Player": "e8e50d52-9336-40c6-a127-0e7ff31c0ce5",
+      "Shot": "00000000-0000-0000-0000-000000000000",
+      "Team": 1
+    },
+    {
+      "Player": "d191c39e-4898-415f-923e-6af806f4ac6c",
+      "Shot": "00000000-0000-0000-0000-000000000000",
+      "Team": 2
+    },
+    {
+      "Player": "e8e50d52-9336-40c6-a127-0e7ff31c0ce5",
+      "Shot": "ea5dd4fe-f4c6-43d2-a501-0455317074c5",
+      "Team": 1
+    },
+    {
+      "Player": "d191c39e-4898-415f-923e-6af806f4ac6c",
+      "Shot": "78b38dcb-85a9-4af7-b675-810daa5679dd",
+      "Team": 2
+    },
+    {
+      "Player": "d7d1a9d5-1a4d-4537-8e94-91db9739cc85",
+      "Shot": "0371db21-dada-4732-a0e5-f1c006e9ea9d",
+      "Team": 2
+    },
+    {
+      "Player": "1952a2f3-4788-4cec-af47-f9dbdf5f7b1a",
+      "Shot": "07b6fe45-13d7-4661-b797-2ee925f78523",
+      "Team": 1
+    },
+    {
+      "Player": "5b1f90cb-7cf3-473b-9964-edbc69e169d5",
+      "Shot": "c1f38ce8-322e-4c7f-9cc8-9af59edbce46",
+      "Team": 2
+    },
+    {
+      "Player": "23cfe960-d568-42d4-a932-3e681855891f",
+      "Shot": "2b780cf0-7956-4557-8316-6b0f56f27878",
+      "Team": 1
+    },
+    {
+      "Player": "1952a2f3-4788-4cec-af47-f9dbdf5f7b1a",
+      "Shot": "14d4f611-7133-4dbb-ac9d-af1f8e0d39fc",
+      "Team": 1
+    },
+    {
+      "Player": "d191c39e-4898-415f-923e-6af806f4ac6c",
+      "Shot": "849791ec-5d6f-4d3a-9fb9-e199af08b9d3",
+      "Team": 2
+    },
+    {
+      "Player": "1952a2f3-4788-4cec-af47-f9dbdf5f7b1a",
+      "Shot": "1e7c6108-ef77-442d-8eee-e71736c6ee43",
+      "Team": 1
+    },
+    {
+      "Player": "135f0e8e-df66-4a0c-89c2-30cf2162b376",
+      "Shot": "00000000-0000-0000-0000-000000000000",
+      "Team": 2
+    },
+    {
+      "Player": "23cfe960-d568-42d4-a932-3e681855891f",
+      "Shot": "e2bee1d3-d746-4979-8851-01dcfc4860ed",
+      "Team": 1
+    },
+    {
+      "Player": "1952a2f3-4788-4cec-af47-f9dbdf5f7b1a",
+      "Shot": "b1d22e8b-fdd8-4efd-ae44-dd66a88af3cd",
+      "Team": 1
+    },
+    {
+      "Player": "23cfe960-d568-42d4-a932-3e681855891f",
+      "Shot": "778a12a1-98c3-4683-a64a-5c2796beb921",
+      "Team": 1
+    },
+    {
+      "Player": "0eef0423-8bc1-4328-ba0c-14a2dd608b3e",
+      "Shot": "115275f0-823a-4584-8b14-930356b516df",
+      "Team": 2
+    },
+    {
+      "Player": "bb01ef3e-36e3-407a-b0fa-008d55f2b475",
+      "Shot": "b3969961-4b51-4270-ab85-3134be9c21f5",
+      "Team": 1
+    },
+    {
+      "Player": "2b4b1e25-272d-4310-aa1e-95f98d4003c0",
+      "Shot": "0ef3eb49-0843-4059-9c82-e995b4e15977",
+      "Team": 1
+    },
+    {
+      "Player": "f57dd5fe-730f-4156-8de4-edf366ad041c",
+      "Shot": "0f180180-717b-40e6-bb76-11e935ad8a73",
+      "Team": 1
+    },
+    {
+      "Player": "1952a2f3-4788-4cec-af47-f9dbdf5f7b1a",
+      "Shot": "baf0c091-d799-4280-8293-8da28fe83d3c",
+      "Team": 1
+    },
+    {
+      "Player": "5b1f90cb-7cf3-473b-9964-edbc69e169d5",
+      "Shot": "27064058-461d-4461-a937-febd1f5ff1e0",
+      "Team": 2
+    },
+    {
+      "Player": "23cfe960-d568-42d4-a932-3e681855891f",
+      "Shot": "218099bd-5c6a-47a2-a7b4-fd1bca5c6099",
+      "Team": 1
+    },
+    {
+      "Player": "15a1881f-ec06-44a6-b924-1b4e5f1ccdf5",
+      "Shot": "ccffacc4-f29f-48fa-ad9f-ee5715ac2c21",
+      "Team": 1
+    },
+    {
+      "Player": "d7d1a9d5-1a4d-4537-8e94-91db9739cc85",
+      "Shot": "00000000-0000-0000-0000-000000000000",
+      "Team": 2
+    },
+    {
+      "Player": "f57dd5fe-730f-4156-8de4-edf366ad041c",
+      "Shot": "8accc7de-c7a9-435d-9fb3-47882d559e42",
+      "Team": 1
+    },
+    {
+      "Player": "f57dd5fe-730f-4156-8de4-edf366ad041c",
+      "Shot": "f6e3049e-bfaf-49b6-9867-80ff9093ea4f",
+      "Team": 1
+    },
+    {
+      "Player": "23cfe960-d568-42d4-a932-3e681855891f",
+      "Shot": "0d623690-7b7b-4596-91d2-318cc27d1a89",
+      "Team": 1
+    },
+    {
+      "Player": "e8e50d52-9336-40c6-a127-0e7ff31c0ce5",
+      "Shot": "8af658e7-8c62-4187-9d01-14c9deb3dfe6",
+      "Team": 1
+    },
+    {
+      "Player": "1952a2f3-4788-4cec-af47-f9dbdf5f7b1a",
+      "Shot": "60fec4c2-ffc7-45cb-9f38-5b7a0850c199",
+      "Team": 1
+    },
+    {
+      "Player": "45ddceac-0539-49d4-9e95-87513e3ca9e6",
+      "Shot": "4b0491f9-61d9-402a-a2bb-8328ae6ff1df",
+      "Team": 2
+    },
+    {
+      "Player": "135f0e8e-df66-4a0c-89c2-30cf2162b376",
+      "Shot": "639864e0-cfc8-4828-95bf-6e3016b03bd7",
+      "Team": 2
+    },
+    {
+      "Player": "0eef0423-8bc1-4328-ba0c-14a2dd608b3e",
+      "Shot": "00000000-0000-0000-0000-000000000000",
+      "Team": 2
+    },
+    {
+      "Player": "23cfe960-d568-42d4-a932-3e681855891f",
+      "Shot": "00000000-0000-0000-0000-000000000000",
+      "Team": 1
+    },
+    {
+      "Player": "0eef0423-8bc1-4328-ba0c-14a2dd608b3e",
+      "Shot": "85b7bd2e-20cf-4084-a498-bd30fbfbfe87",
+      "Team": 2
+    },
+    {
+      "Player": "0eef0423-8bc1-4328-ba0c-14a2dd608b3e",
+      "Shot": "e053eda5-f2a3-46f9-bc42-f5348bc91476",
+      "Team": 2
+    },
+    {
+      "Player": "2b4b1e25-272d-4310-aa1e-95f98d4003c0",
+      "Shot": "e0e07268-80b1-41e7-b4fc-e965ab861d1b",
+      "Team": 1
+    },
+    {
+      "Player": "45ddceac-0539-49d4-9e95-87513e3ca9e6",
+      "Shot": "00000000-0000-0000-0000-000000000000",
+      "Team": 2
+    },
+    {
+      "Player": "f57dd5fe-730f-4156-8de4-edf366ad041c",
+      "Shot": "34b3ee17-89cb-47c7-9f72-46520291b449",
+      "Team": 1
+    },
+    {
+      "Player": "2b4b1e25-272d-4310-aa1e-95f98d4003c0",
+      "Shot": "bfd5ad31-1972-4ea1-877f-471c0964352d",
+      "Team": 1
+    },
+    {
+      "Player": "f57dd5fe-730f-4156-8de4-edf366ad041c",
+      "Shot": "e322d715-649e-4302-97f6-a35761bceea2",
+      "Team": 1
+    },
+    {
+      "Player": "0eef0423-8bc1-4328-ba0c-14a2dd608b3e",
+      "Shot": "00000000-0000-0000-0000-000000000000",
+      "Team": 2
+    },
+    {
+      "Player": "f57dd5fe-730f-4156-8de4-edf366ad041c",
+      "Shot": "e1723cf1-44e3-4dab-84a7-1f63ede5d1cc",
+      "Team": 1
+    },
+    {
+      "Player": "f57dd5fe-730f-4156-8de4-edf366ad041c",
+      "Shot": "e4ef039b-b0d4-4858-aa43-658bdee0f53d",
+      "Team": 1
+    },
+    {
+      "Player": "0eef0423-8bc1-4328-ba0c-14a2dd608b3e",
+      "Shot": "a7987cf2-9626-4afe-8673-85a5cfe01150",
+      "Team": 2
+    },
+    {
+      "Player": "23cfe960-d568-42d4-a932-3e681855891f",
+      "Shot": "6f4f36b5-73a0-4934-bfec-0fdd74548459",
+      "Team": 1
+    },
+    {
+      "Player": "23cfe960-d568-42d4-a932-3e681855891f",
+      "Shot": "1b3589a0-224b-45ff-8182-d889baa048ee",
+      "Team": 1
+    },
+    {
+      "Player": "d7d1a9d5-1a4d-4537-8e94-91db9739cc85",
+      "Shot": "e11dcef6-1445-408d-8009-adbbc56627a4",
+      "Team": 2
+    },
+    {
+      "Player": "d191c39e-4898-415f-923e-6af806f4ac6c",
+      "Shot": "e69e5e48-4da6-4004-a452-1cccba42a57e",
+      "Team": 2
+    },
+    {
+      "Player": "135f0e8e-df66-4a0c-89c2-30cf2162b376",
+      "Shot": "00000000-0000-0000-0000-000000000000",
+      "Team": 2
+    },
+    {
+      "Player": "2b4b1e25-272d-4310-aa1e-95f98d4003c0",
+      "Shot": "e918147c-260b-4418-bdd6-567f16ad6421",
+      "Team": 1
+    },
+    {
+      "Player": "d191c39e-4898-415f-923e-6af806f4ac6c",
+      "Shot": "c9479fe3-145a-468b-b20d-c7f4b9b7979a",
+      "Team": 2
+    },
+    {
+      "Player": "1952a2f3-4788-4cec-af47-f9dbdf5f7b1a",
+      "Shot": "2df4b62c-21f3-463d-9eb1-2f5fff7692e0",
+      "Team": 1
+    },
+    {
+      "Player": "d7d1a9d5-1a4d-4537-8e94-91db9739cc85",
+      "Shot": "00000000-0000-0000-0000-000000000000",
+      "Team": 2
+    },
+    {
+      "Player": "1952a2f3-4788-4cec-af47-f9dbdf5f7b1a",
+      "Shot": "441f5fc9-a3a0-47a3-b20b-3c3565160197",
+      "Team": 1
+    },
+    {
+      "Player": "1952a2f3-4788-4cec-af47-f9dbdf5f7b1a",
+      "Shot": "569a8ed2-b063-46e7-8894-1952892a1e1f",
+      "Team": 1
+    },
+    {
+      "Player": "0eef0423-8bc1-4328-ba0c-14a2dd608b3e",
+      "Shot": "bfeadfe7-fd59-4ff0-bb12-3c22b8a602f9",
+      "Team": 2
+    },
+    {
+      "Player": "23cfe960-d568-42d4-a932-3e681855891f",
+      "Shot": "11f10692-a904-4618-87e1-88576e2d036b",
+      "Team": 1
+    },
+    {
+      "Player": "deb8f8f9-7731-4bd1-aa52-d640a9cd5313",
+      "Shot": "3169c12b-98d6-40fe-9753-eb708ae4654f",
+      "Team": 2
+    },
+    {
+      "Player": "1952a2f3-4788-4cec-af47-f9dbdf5f7b1a",
+      "Shot": "00000000-0000-0000-0000-000000000000",
+      "Team": 1
+    },
+    {
+      "Player": "deb8f8f9-7731-4bd1-aa52-d640a9cd5313",
+      "Shot": "04f55b66-266d-485f-a037-74a14ec1df4c",
+      "Team": 2
+    },
+    {
+      "Player": "deb8f8f9-7731-4bd1-aa52-d640a9cd5313",
+      "Shot": "4f7ec21a-b65d-47cb-b1c6-c11658881110",
+      "Team": 2
+    },
+    {
+      "Player": "15a1881f-ec06-44a6-b924-1b4e5f1ccdf5",
+      "Shot": "f93de86f-02d6-4b61-841a-0b0c0edf4eff",
+      "Team": 1
+    },
+    {
+      "Player": "deb8f8f9-7731-4bd1-aa52-d640a9cd5313",
+      "Shot": "7145824b-66ef-4c7b-b9dc-8f3d07a340c8",
+      "Team": 2
+    },
+    {
+      "Player": "bb01ef3e-36e3-407a-b0fa-008d55f2b475",
+      "Shot": "a3d3f193-724d-4ef4-8847-46fc24887188",
+      "Team": 1
+    },
+    {
+      "Player": "deb8f8f9-7731-4bd1-aa52-d640a9cd5313",
+      "Shot": "44d1ce53-354a-4688-b517-d34d5383b668",
+      "Team": 2
+    },
+    {
+      "Player": "23cfe960-d568-42d4-a932-3e681855891f",
+      "Shot": "6a455b9b-11b6-4838-8156-27161387f38e",
+      "Team": 1
+    },
+    {
+      "Player": "5b1f90cb-7cf3-473b-9964-edbc69e169d5",
+      "Shot": "684a5925-bf63-4fc5-99b8-1519ca58a54d",
+      "Team": 2
+    },
+    {
+      "Player": "0eef0423-8bc1-4328-ba0c-14a2dd608b3e",
+      "Shot": "00000000-0000-0000-0000-000000000000",
+      "Team": 2
+    },
+    {
+      "Player": "23cfe960-d568-42d4-a932-3e681855891f",
+      "Shot": "8756b21c-9c59-4e2c-a19c-3ff5e8df0b0b",
+      "Team": 1
+    },
+    {
+      "Player": "23cfe960-d568-42d4-a932-3e681855891f",
+      "Shot": "f8005b8b-4e14-4e0e-ba6e-a4610cfe8ac3",
+      "Team": 1
+    },
+    {
+      "Player": "deb8f8f9-7731-4bd1-aa52-d640a9cd5313",
+      "Shot": "a2285979-9900-4f51-9a73-dbb56807671a",
+      "Team": 2
+    },
+    {
+      "Player": "deb8f8f9-7731-4bd1-aa52-d640a9cd5313",
+      "Shot": "ffb70421-bb68-4db8-af10-f4cbf5bd58bf",
+      "Team": 2
+    },
+    {
+      "Player": "deb8f8f9-7731-4bd1-aa52-d640a9cd5313",
+      "Shot": "b7a5d9d6-7a26-47ee-b067-6b0f79d32133",
+      "Team": 2
+    },
+    {
+      "Player": "f57dd5fe-730f-4156-8de4-edf366ad041c",
+      "Shot": "cec84162-ebbb-46ab-b905-1ef762065ae0",
+      "Team": 1
+    },
+    {
+      "Player": "2b4b1e25-272d-4310-aa1e-95f98d4003c0",
+      "Shot": "de5e8700-bd0f-414e-b55b-3be542ac24e3",
+      "Team": 1
+    },
+    {
+      "Player": "45ddceac-0539-49d4-9e95-87513e3ca9e6",
+      "Shot": "715f8372-9f50-46f5-a9ae-5f7a11a10a75",
+      "Team": 2
+    },
+    {
+      "Player": "d7d1a9d5-1a4d-4537-8e94-91db9739cc85",
+      "Shot": "9b4d1748-d736-4912-9aba-18d92e439833",
+      "Team": 2
+    },
+    {
+      "Player": "f57dd5fe-730f-4156-8de4-edf366ad041c",
+      "Shot": "b134c86b-e7a2-4192-ae8c-c6eae4e5c2b9",
+      "Team": 1
+    },
+    {
+      "Player": "d191c39e-4898-415f-923e-6af806f4ac6c",
+      "Shot": "00000000-0000-0000-0000-000000000000",
+      "Team": 2
+    },
+    {
+      "Player": "f57dd5fe-730f-4156-8de4-edf366ad041c",
+      "Shot": "30928fee-141d-4de7-b2c5-6153ed957f14",
+      "Team": 1
+    },
+    {
+      "Player": "f57dd5fe-730f-4156-8de4-edf366ad041c",
+      "Shot": "6aeecc5c-6d1f-495d-8fc0-f5e7a08b21d4",
+      "Team": 1
+    },
+    {
+      "Player": "d191c39e-4898-415f-923e-6af806f4ac6c",
+      "Shot": "9baa5c27-c392-44a9-be4b-f30d166b07e5",
+      "Team": 2
+    },
+    {
+      "Player": "f57dd5fe-730f-4156-8de4-edf366ad041c",
+      "Shot": "6bcc73c1-ac6f-4888-9922-5f1469562763",
+      "Team": 1
+    },
+    {
+      "Player": "5b1f90cb-7cf3-473b-9964-edbc69e169d5",
+      "Shot": "cdd4d0ab-ba55-4f1f-84e1-26b4aad6bf8e",
+      "Team": 2
+    },
+    {
+      "Player": "e8e50d52-9336-40c6-a127-0e7ff31c0ce5",
+      "Shot": "b72f8575-5dba-40f0-8a1f-02204bfaa5ef",
+      "Team": 1
+    },
+    {
+      "Player": "5b1f90cb-7cf3-473b-9964-edbc69e169d5",
+      "Shot": "67cad55e-c171-40bb-8e35-ee8a13282c10",
+      "Team": 2
+    },
+    {
+      "Player": "135f0e8e-df66-4a0c-89c2-30cf2162b376",
+      "Shot": "37fd4374-dab1-4b86-83e7-dedbadf90133",
+      "Team": 2
+    },
+    {
+      "Player": "135f0e8e-df66-4a0c-89c2-30cf2162b376",
+      "Shot": "00000000-0000-0000-0000-000000000000",
+      "Team": 2
+    },
+    {
+      "Player": "2b4b1e25-272d-4310-aa1e-95f98d4003c0",
+      "Shot": "8e6f45b3-4306-4fd7-bc71-3ea169343a53",
+      "Team": 1
+    },
+    {
+      "Player": "f57dd5fe-730f-4156-8de4-edf366ad041c",
+      "Shot": "00000000-0000-0000-0000-000000000000",
+      "Team": 1
+    },
+    {
+      "Player": "1952a2f3-4788-4cec-af47-f9dbdf5f7b1a",
+      "Shot": "00000000-0000-0000-0000-000000000000",
+      "Team": 1
+    },
+    {
+      "Player": "0eef0423-8bc1-4328-ba0c-14a2dd608b3e",
+      "Shot": "7d7e2e3f-1f7a-4fd0-801e-482e0c05553d",
+      "Team": 2
+    },
+    {
+      "Player": "23cfe960-d568-42d4-a932-3e681855891f",
+      "Shot": "454c206b-9876-4e86-a3c2-a34d3d92416b",
+      "Team": 1
+    },
+    {
+      "Player": "d7d1a9d5-1a4d-4537-8e94-91db9739cc85",
+      "Shot": "48dbbc68-4cd3-44ba-b3bb-3eb4afc54216",
+      "Team": 2
+    },
+    {
+      "Player": "135f0e8e-df66-4a0c-89c2-30cf2162b376",
+      "Shot": "3aeffc6e-b21a-462b-83db-6c8d0a7d5016",
+      "Team": 2
+    },
+    {
+      "Player": "f57dd5fe-730f-4156-8de4-edf366ad041c",
+      "Shot": "90733f5e-91dd-43ea-bac1-997fe269fde8",
+      "Team": 1
+    },
+    {
+      "Player": "2b4b1e25-272d-4310-aa1e-95f98d4003c0",
+      "Shot": "203c44ea-f87f-4095-88ed-b38090386a72",
+      "Team": 1
+    },
+    {
+      "Player": "f57dd5fe-730f-4156-8de4-edf366ad041c",
+      "Shot": "00000000-0000-0000-0000-000000000000",
+      "Team": 1
+    },
+    {
+      "Player": "135f0e8e-df66-4a0c-89c2-30cf2162b376",
+      "Shot": "00000000-0000-0000-0000-000000000000",
+      "Team": 2
+    },
+    {
+      "Player": "45ddceac-0539-49d4-9e95-87513e3ca9e6",
+      "Shot": "00000000-0000-0000-0000-000000000000",
+      "Team": 2
+    },
+    {
+      "Player": "f57dd5fe-730f-4156-8de4-edf366ad041c",
+      "Shot": "ef3bb8c1-474c-49bf-bcd7-178f80ecd880",
+      "Team": 1
+    },
+    {
+      "Player": "f57dd5fe-730f-4156-8de4-edf366ad041c",
+      "Shot": "451af052-0710-4779-a42c-fc9478b1708f",
+      "Team": 1
+    },
+    {
+      "Player": "f57dd5fe-730f-4156-8de4-edf366ad041c",
+      "Shot": "f23d897b-1326-4ce0-a30f-551f32da0d97",
+      "Team": 1
+    },
+    {
+      "Player": "45ddceac-0539-49d4-9e95-87513e3ca9e6",
+      "Shot": "5b9cb601-0aa8-4b6b-a1e0-6cd06f4f81d5",
+      "Team": 2
+    },
+    {
+      "Player": "d7d1a9d5-1a4d-4537-8e94-91db9739cc85",
+      "Shot": "00000000-0000-0000-0000-000000000000",
+      "Team": 2
+    },
+    {
+      "Player": "f57dd5fe-730f-4156-8de4-edf366ad041c",
+      "Shot": "007bed9b-2974-49f6-bbd8-316131993f3f",
+      "Team": 1
+    },
+    {
+      "Player": "f57dd5fe-730f-4156-8de4-edf366ad041c",
+      "Shot": "5531b500-2174-42b2-acca-27d6f2dff52c",
+      "Team": 1
+    },
+    {
+      "Player": "deb8f8f9-7731-4bd1-aa52-d640a9cd5313",
+      "Shot": "7a167d8a-49e4-42ad-ae26-849e05aff41c",
+      "Team": 2
+    },
+    {
+      "Player": "deb8f8f9-7731-4bd1-aa52-d640a9cd5313",
+      "Shot": "00000000-0000-0000-0000-000000000000",
+      "Team": 2
+    },
+    {
+      "Player": "f57dd5fe-730f-4156-8de4-edf366ad041c",
+      "Shot": "3502e871-6a39-4260-9f8f-c3f84c34b1d2",
+      "Team": 1
+    },
+    {
+      "Player": "f57dd5fe-730f-4156-8de4-edf366ad041c",
+      "Shot": "5cc3e221-02e0-4e4b-a530-5fd66df25507",
+      "Team": 1
+    },
+    {
+      "Player": "d191c39e-4898-415f-923e-6af806f4ac6c",
+      "Shot": "e2299251-5646-4796-a1fd-a5ca03c76378",
+      "Team": 2
+    },
+    {
+      "Player": "deb8f8f9-7731-4bd1-aa52-d640a9cd5313",
+      "Shot": "aa271a89-c4f7-4658-93e0-21b0b51320b2",
+      "Team": 2
+    },
+    {
+      "Player": "d7d1a9d5-1a4d-4537-8e94-91db9739cc85",
+      "Shot": "64191826-493e-436f-9afb-64e549c58710",
+      "Team": 2
+    },
+    {
+      "Player": "135f0e8e-df66-4a0c-89c2-30cf2162b376",
+      "Shot": "00000000-0000-0000-0000-000000000000",
+      "Team": 2
+    },
+    {
+      "Player": "d191c39e-4898-415f-923e-6af806f4ac6c",
+      "Shot": "ec628b0b-738c-451c-afe8-99630bf2f949",
+      "Team": 2
+    },
+    {
+      "Player": "7c26e377-28b0-42fc-9a3e-148f50d46cf8",
+      "Shot": "00000000-0000-0000-0000-000000000000",
+      "Team": 1
+    },
+    {
+      "Player": "d191c39e-4898-415f-923e-6af806f4ac6c",
+      "Shot": "0b6562b1-c3b5-4449-86e8-9e57c7eaa58b",
+      "Team": 2
+    },
+    {
+      "Player": "d191c39e-4898-415f-923e-6af806f4ac6c",
+      "Shot": "edbe71f6-eeb0-49bf-a557-5e435d1f61ea",
+      "Team": 2
+    },
+    {
+      "Player": "d7d1a9d5-1a4d-4537-8e94-91db9739cc85",
+      "Shot": "85a9479d-1e94-4435-b77d-4c00e3a38e4f",
+      "Team": 2
     }
   ]
 }
