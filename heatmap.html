@@ -213,7 +213,7 @@
 		const COURT_WIDTH = 1920;
 		const COURT_HEIGHT = 1610;
 		const SHOT_INTERVAL = 500; // ms between shots
-		const HOLD_AT_END = 5000; // ms to hold final frame
+		const HOLD_AT_END = 10000; // ms to hold final frame
 		const COURT_IMAGE_URL = 'court-one-side-eagle.png';
 		const KDE_RADIUS = 300; // kernel size in pixels
 		const KDE_STRENGTH = 0.2; // alpha per shot
@@ -272,9 +272,8 @@
 						x >= 0 && x <= SHOT_WIDTH &&
 						y >= 0 && y <= SHOT_HEIGHT
 					) {
-						const flippedY = SHOT_HEIGHT - y;
 						const scaledX = x * (COURT_WIDTH / SHOT_WIDTH);
-						const scaledY = flippedY * (COURT_HEIGHT / SHOT_HEIGHT);
+						const scaledY = y * (COURT_HEIGHT / SHOT_HEIGHT);
 
 						shots.push({
 							x: scaledX,
