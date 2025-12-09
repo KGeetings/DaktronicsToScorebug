@@ -17,6 +17,13 @@ log.setLevel(logging.ERROR)
 app = Flask(__name__, static_url_path='', static_folder='.')
 CORS(app)  # Enable CORS for all routes
 
+# Load JSON data
+with open("X:\\data.json") as f:
+    statsData = json.load(f)
+
+""" with open("W:\\PC vs Montezuma Girls.json") as f:
+	statsData = json.load(f) """
+
 # Second Flask app for heatmap hosting
 heatmap_app = Flask("heatmap_app", static_url_path="", static_folder=".")
 CORS(heatmap_app)
