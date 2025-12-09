@@ -21,11 +21,48 @@ with open('X:\\data.json') as f:
 plt.rcParams['font.family'] = 'Rubik'
 plt.rcParams['font.sans-serif'] = 'Rubik'
 
+"""
+"Team1Players": [
+    {
+      "PlayerName": "Jessa De Vries",
+      "PlayerNumber": "1",
+      "PlayerGrade": null,
+      "PlayerHeight": null,
+      "PlayerPosition": null,
+      "GUID": "4c466e79-f873-4e4f-ac50-5fa90b065e93",
+      "Team": 1,
+      "Shots": [
+        {
+          "PointValue": 2,
+          "GUID": "783c465f-f68a-4c13-b572-63ab64627eff",
+          "PointCredit": 2,
+          "ShotPosition": "465.6716417910448,222.8805970149254",
+          "RealTime": "2025-12-08T18:21:28.5636579-06:00",
+          "FriendlyTime": "6:21 PM (0 min 0 sec ago)",
+          "FriendlyShotValue": "Two Points",
+          "GameTime": null,
+          "Made": true,
+          "ModifiedDate": "0001-01-01T00:00:00"
+        }
+      ],
+      "PlayerFouls": 0,
+      "PlayerPoints": 2,
+      "PlayerThrees": 0,
+      "PlayerFrees": 0,
+      "AttemptedFrees": 0,
+      "AttemptedThrees": 0,
+      "Stats": "Ps: 2, Fs: 0, 3s:  0, 1s: 0",
+      "ShortenedName": "J. De Vries",
+      "FullStats": "Points: 0\nFouls: 0\nThrees: 0\nFrees: 0"
+    },
+"""
+
 # Function to extract shot positions and made status for a given team
 def extract_shots(team_players):
     global shot_width_x, shot_height_y
     shot_positions = []
     shot_made = []
+    shot_time = []
     for player in team_players:
         for shot in player['Shots']:
             x, y = map(float, shot['ShotPosition'].split(','))
@@ -35,9 +72,10 @@ def extract_shots(team_players):
                     y = shot_height_y - y
                     shot_positions.append((x, y))
                     shot_made.append(shot['Made'])
+                    shot_time.append(shot['RealTime'])
                 else:
                     print(f"Invalid shot detected for player {player['PlayerName']} at position ({x}, {y})")
-    return shot_positions, shot_made
+    return shot_positions, shot_made, shot_time
 
 def extract_team_names(data):
     team1 = data['Team1Name']
@@ -80,8 +118,8 @@ def calculate_percentages(team_players):
 team1_name, team2_name = extract_team_names(data)
 
 # Extract shots for both teams
-team1_shot_positions, team1_shot_made = extract_shots(data['Team1Players'])
-team2_shot_positions, team2_shot_made = extract_shots(data['Team2Players'])
+team1_shot_positions, team1_shot_made, team1_shot_time = extract_shots(data['Team1Players'])
+team2_shot_positions, team2_shot_made, team2_shot_time = extract_shots(data["Team2Players"])
 
 # Calculate percentages for both teams
 team1_percentages = calculate_percentages(data['Team1Players'])
