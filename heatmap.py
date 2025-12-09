@@ -8,64 +8,28 @@ from datetime import datetime
 import io
 
 # Set width and height
-shot_width_x = 800 # Determined by StatsAppClient
-shot_height_y = 671 # Determined by StatsAppClient
-court_width_x = 1920 # Determined by Court.png
-court_height_y = 1610 # Determined by Court.png
+shot_width_x = 800  # Determined by StatsAppClient
+shot_height_y = 671  # Determined by StatsAppClient
+court_width_x = 1920  # Determined by Court.png
+court_height_y = 1610  # Determined by Court.png
 
 # Video configuration
-VIDEO_FPS = 30 # Frames per second for the video
-SHOT_DISPLAY_DURATION = 1.0 # How long each shot stays visible (in seconds)
+VIDEO_FPS = 10  # Frames per second for the video
+SHOT_DISPLAY_DURATION = 0.5  # How long each shot stays visible (in seconds, I think)
 SHOT_APPEARANCE_SPEED = (
-0.5  # Multiplier for how fast shots appear (0.5 = half speed, 2.0 = double speed)
+	1.0  # Multiplier for how fast shots appear (0.5 = half speed, 2.0 = double speed)
 )
 
 # Load JSON data
-""" with open("X:\\data.json") as f:
-	data = json.load(f) """
-
-with open('W:\\PC vs Montezuma Girls.json') as f:
+with open("X:\\data.json") as f:
 	data = json.load(f)
+
+""" with open("W:\\PC vs Montezuma Girls.json") as f:
+	data = json.load(f) """
 
 # Set font properties
 plt.rcParams["font.family"] = "Rubik"
 plt.rcParams["font.sans-serif"] = "Rubik"
-
-"""
-"Team1Players": [
-	{
-	  "PlayerName": "Jessa De Vries",
-	  "PlayerNumber": "1",
-	  "PlayerGrade": null,
-	  "PlayerHeight": null,
-	  "PlayerPosition": null,
-	  "GUID": "4c466e79-f873-4e4f-ac50-5fa90b065e93",
-	  "Team": 1,
-	  "Shots": [
-		{
-		  "PointValue": 2,
-		  "GUID": "783c465f-f68a-4c13-b572-63ab64627eff",
-		  "PointCredit": 2,
-		  "ShotPosition": "465.6716417910448,222.8805970149254",
-		  "RealTime": "2025-12-08T18:21:28.5636579-06:00",
-		  "FriendlyTime": "6:21 PM (0 min 0 sec ago)",
-		  "FriendlyShotValue": "Two Points",
-		  "GameTime": null,
-		  "Made": true,
-		  "ModifiedDate": "0001-01-01T00:00:00"
-		}
-	  ],
-	  "PlayerFouls": 0,
-	  "PlayerPoints": 2,
-	  "PlayerThrees": 0,
-	  "PlayerFrees": 0,
-	  "AttemptedFrees": 0,
-	  "AttemptedThrees": 0,
-	  "Stats": "Ps: 2, Fs: 0, 3s:  0, 1s: 0",
-	  "ShortenedName": "J. De Vries",
-	  "FullStats": "Points: 0\nFouls: 0\nThrees: 0\nFrees: 0"
-	},
-"""
 
 # Function to extract shot positions and made status for a given team
 def extract_shots(team_players):
@@ -155,21 +119,27 @@ def fig_to_array(fig):
 
 # Function to create video with shots appearing in chronological order
 def create_shot_timeline_video(
-		shot_positions,
-		shot_made,
-		shot_times,
-		shot_details,
-		team_name,
-		video_filename,
-		appearance_speed=1.0,
-	):
+	shot_positions,
+	shot_made,
+	shot_times,
+	shot_details,
+	team_name,
+	video_filename,
+	appearance_speed=1.0,
+):
 	if not shot_positions or not shot_times:
 		print(f"No shot data available for {team_name}. Skipping video creation.")
 		return
 
-	# Sort shots by time
+	# Sort shots by time (use provided time strings)
 	sorted_indices = sorted(range(len(shot_times)), key=lambda i: shot_times[i])
-	sorted_positions = [shot_positions[i] for i in sorted_indices]
+	# Scale shot positions to court pixel coords (origin = top-left for video frames)
+	scaled_shot_positions = [
+		(x * (court_width_x / shot_width_x), court_height_y - (y * (court_height_y / shot_height_y)))
+		for x, y in shot_positions
+	]
+	# Create sorted scaled positions and made flags
+	sorted_positions = [scaled_shot_positions[i] for i in sorted_indices]
 	sorted_made = [shot_made[i] for i in sorted_indices]
 	sorted_details = [shot_details[i] for i in sorted_indices]
 
@@ -178,12 +148,6 @@ def create_shot_timeline_video(
 	court_img = court_img.resize((court_width_x, court_height_y))
 	court_array = np.array(court_img)
 	court_array_bgr = cv2.cvtColor(court_array, cv2.COLOR_RGB2BGR)
-
-	# Scale shot positions
-	scaled_shot_positions = [
-		(x * (court_width_x / shot_width_x), y * (court_height_y / shot_height_y))
-		for x, y in shot_positions
-	]
 
 	# Create video writer
 	fourcc = cv2.VideoWriter_fourcc(*"mp4v")
@@ -198,24 +162,29 @@ def create_shot_timeline_video(
 	current_shots = []  # Accumulate shots on court
 
 	# Generate frames
-	total_frames = len(shot_positions) * frames_per_shot
+	total_frames = len(sorted_positions) * frames_per_shot
 	print(f"Creating video: {video_filename}")
 	print(f"Total frames: {total_frames}, FPS: {VIDEO_FPS}")
 
+	end_frame = court_array_bgr.copy()
+
 	for frame_num in range(total_frames):
-		global end_frame
 		frame = court_array_bgr.copy()
 
 		# Determine which shot should appear at this frame
 		shot_idx = min(frame_num // frames_per_shot, len(sorted_positions) - 1)
 
-		# Add the new shot to current shots if we just reached it
+		# Add the new shot(s) to current shots up to shot_idx
 		if shot_idx < len(sorted_positions):
 			current_shots = sorted_positions[: shot_idx + 1]
 			current_made = sorted_made[: shot_idx + 1]
+		else:
+			current_shots = sorted_positions
+			current_made = sorted_made
 
-		# Draw all current shots
+		# Draw all current shots (positions are already scaled to court pixels)
 		for (x, y), made in zip(current_shots, current_made):
+			# cv2 uses integer pixel coordinates with origin at top-left
 			if made:
 				cv2.circle(
 					frame, (int(x), int(y)), 15, (0, 255, 0), -1
@@ -238,7 +207,9 @@ def create_shot_timeline_video(
 				)
 
 		# Add shot counter
-		counter_text = f"Shot {shot_idx + 1}/{len(sorted_positions)}"
+		counter_text = (
+			f"Shot {min(shot_idx + 1, len(sorted_positions))}/{len(sorted_positions)}"
+		)
 		cv2.putText(
 			frame,
 			counter_text,
@@ -248,15 +219,18 @@ def create_shot_timeline_video(
 			(255, 255, 255),
 			2,
 		)
-		end_frame = frame
+
+		# store a copy of the last frame so we can write it later
+		end_frame = frame.copy()
 		out.write(frame)
 
+	# Hold the last frame for the configured buffer
 	shot_frame_end_buffer = 30
 	for i in range(shot_frame_end_buffer):
 		out.write(end_frame)
+
 	out.release()
 	print(f"Video saved: {video_filename}")
-
 
 # Extract team names
 team1_name, team2_name = extract_team_names(data)
@@ -273,7 +247,6 @@ team2_shot_positions, team2_shot_made, team2_shot_time, team2_shot_details = (
 team1_percentages = calculate_percentages(data["Team1Players"])
 team2_percentages = calculate_percentages(data["Team2Players"])
 
-
 # Function to create heatmap for a given team
 def create_heatmap(
 	shot_positions, shot_made, team_name, team_num, percentages, player_names=None
@@ -289,7 +262,7 @@ def create_heatmap(
 
 	# Scale shot positions from shot_width_x, shot_height_y to court_width_x, court_height_y
 	scaled_shot_positions = [
-		(x * (court_width_x / shot_width_x), y * (court_height_y / shot_height_y))
+		(x * (court_width / shot_width_x), y * (court_height / shot_height_y))
 		for x, y in shot_positions
 	]
 
@@ -306,8 +279,8 @@ def create_heatmap(
 	ax.set_facecolor("white")
 	fig.set_facecolor("white")
 
-	# Display court image
-	ax.imshow(court_img, extent=[0, court_width, 0, court_height])
+	# Display court image with origin at the top-left to match shot coordinates
+	ax.imshow(court_img, extent=[0, court_width, 0, court_height], origin="upper")
 
 	# Convert made shot positions to arrays for plotting
 	if made_shot_positions:
@@ -319,18 +292,18 @@ def create_heatmap(
 	sns.kdeplot(
 		x=x_coords,
 		y=y_coords,
-		cmap="inferno",  # Using inferno colormap
-		fill=True,  # Fills the area under the KDE curve
-		alpha=0.7,  # Set transparency level
-		levels=50,  # Increase number of contour levels for smoother gradient, 50 is a good value
-		thresh=0,  # Set threshold to 0 to include all data points
-		ax=ax,  # Plot on the same axis
-		bw_adjust=0.9,  # Adjust bandwidth
+		cmap="inferno",
+		fill=True,
+		alpha=0.7,
+		levels=50,
+		thresh=0,
+		ax=ax,
+		bw_adjust=0.9,
 		clip=(
-			(0, court_width_x),
-			(0, court_height_y),
-		),  # Clip KDE plot to court dimensions
-		gridsize=100,  # Increase grid size for smoother plot
+			(0, court_width),
+			(0, court_height),
+		),
+		gridsize=100,
 		cut=100,
 	)
 
@@ -351,8 +324,8 @@ def create_heatmap(
 			ax.scatter(x, y, c="red", marker="x", s=200, linewidths=3, alpha=0.6)
 
 	# Set plot limits to match the court image
-	ax.set_xlim(0, court_width_x)
-	ax.set_ylim(0, court_height_y)
+	ax.set_xlim(0, court_width)
+	ax.set_ylim(0, court_height)
 
 	# Remove axes
 	ax.set_axis_off()
@@ -394,7 +367,6 @@ def create_heatmap(
 
 	# Save plot to a file
 	plt.savefig(f"heatmap_{team_num}.png", bbox_inches="tight", dpi=200)
-	# plt.show()
 	plt.close()
 
 
@@ -452,8 +424,6 @@ create_heatmap(
 )
 
 # Create shot timeline videos
-# Adjust SHOT_APPEARANCE_SPEED to control how fast shots appear:
-# 0.5 = half speed (slower), 1.0 = normal, 2.0 = double speed (faster)
 create_shot_timeline_video(
 	team1_shot_positions,
 	team1_shot_made,
@@ -461,8 +431,8 @@ create_shot_timeline_video(
 	team1_shot_details,
 	team1_name,
 	f'shot_timeline_{team1_name.replace(" ", "_")}.mp4',
-	SHOT_APPEARANCE_SPEED,
 )
+
 """ create_shot_timeline_video(
 	team2_shot_positions,
 	team2_shot_made,
@@ -470,8 +440,8 @@ create_shot_timeline_video(
 	team2_shot_details,
 	team2_name,
 	f'shot_timeline_{team2_name.replace(" ", "_")}.mp4',
-	SHOT_APPEARANCE_SPEED,
 )
+
 create_shot_timeline_video(
 	combined_shot_positions,
 	combined_shot_made,
@@ -483,5 +453,5 @@ create_shot_timeline_video(
 ) """
 
 # Example usage for individual players
-create_individual_heatmap(1, ["1"])  # Team 1 (Eagles), players 2 and 4
+create_individual_heatmap(1, ["3", "4"])  # Team 1 (Eagles), players 2 and 4
 create_individual_heatmap(2, ["10"])  # Team 2, players 1 and 3
