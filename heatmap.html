@@ -36,6 +36,18 @@
 			background-repeat: no-repeat;
 		}
 
+		#court-transparent {
+			position: absolute;
+			top: 0;
+			left: 0;
+			width: 100%;
+			height: 100%;
+			background-size: cover;
+			background-position: center;
+			background-repeat: no-repeat;
+			z-index: 15;
+		}
+
 		.shot {
 			position: absolute;
 			transform: translate(-50%, -50%);
@@ -251,6 +263,7 @@
 
 <body>
 	<div id="container">
+		<div id="court-transparent"></div>
 		<div id="court"></div>
 		<div id="title">Team Shot Chart</div>
 		<div id="counter">Shot 0/0</div>
@@ -278,6 +291,7 @@
 		const SHOT_INTERVAL = 0.75; // seconds between shots
 		const HOLD_AT_END = 30; // seconds to hold final frame
 		const COURT_IMAGE_URL = 'court-one-side-eagle.png';
+		const COURT_IMAGE_URL_TRANSPARENT = 'court-one-side-eagle-transparent.png';
 		const KDE_RADIUS = 300; // kernel size in pixels
 		const KDE_STRENGTH = 0.2; // alpha per shot
 
@@ -292,6 +306,8 @@
 		function loadCourtImage() {
 			const court = document.getElementById('court');
 			court.style.backgroundImage = `url('${COURT_IMAGE_URL}')`;
+			const courtTransparent = document.getElementById('court-transparent');
+			courtTransparent.style.backgroundImage = `url('${COURT_IMAGE_URL_TRANSPARENT}')`;
 		}
 
 		function initKDE() {
@@ -567,7 +583,6 @@
 
 		// Initialize and load data
 		async function init() {
-			loadCourtImage();
 			loadCourtImage();
 			initKDE();
 
