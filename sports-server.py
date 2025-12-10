@@ -8,6 +8,7 @@ import os
 import logging
 import socket
 import struct
+import keyboard
 
 # Set the logging level to ERROR
 log = logging.getLogger('werkzeug')
@@ -19,7 +20,7 @@ CORS(app)  # Enable CORS for all routes
 
 #statsData = r"data.json"
 statsData = r"X:\\data.json"
-# statsData = r"W:\\PC vs Montezuma Girls.json"
+#statsData = r"W:\\PC vs Montezuma Girls.json"
 
 # Second Flask app for heatmap hosting
 heatmap_app = Flask("heatmap_app", static_url_path="", static_folder=".")
@@ -28,6 +29,12 @@ CORS(heatmap_app)
 # Global variables to store the game data
 current_game_data = {}
 current_sport = 'basketball'  # Default sport
+
+# Global pause
+paused = False
+paused_lock = threading.Lock()
+last_toggle_time = 0.0
+TOGGLE_DEBOUNCE_SECONDS = 0.2
 
 # Sport-specific configurations
 SPORT_CONFIGS = {
@@ -290,10 +297,40 @@ class SportDataFetcher:
 		except requests.RequestException as e:
 			print(f"Error fetching data: {e}")
 
+
 def update_data_loop(fetcher):
 	while True:
+		# If paused, skip fetching (sleep briefly to avoid tight loop)
+		if is_paused():
+			time.sleep(0.25)
+			continue
+
 		fetcher.fetch_data()
 		time.sleep(0.250)  # Poll every 250ms
+
+def is_paused():
+	with paused_lock:
+		return paused
+
+def set_paused(value: bool):
+	global paused
+	with paused_lock:
+		paused = bool(value)
+	status = "PAUSED" if paused else "RESUMED"
+	print(f"[Hotkey] Data updates {status}")
+
+def toggle_paused():
+	global last_toggle_time
+	now = time.time()
+	if now - last_toggle_time < TOGGLE_DEBOUNCE_SECONDS:
+		return
+	last_toggle_time = now
+	set_paused(not is_paused())
+
+def register_hotkeys():
+	# single hotkey that toggles pause/resume when pressing 'P'
+	keyboard.add_hotkey("p", toggle_paused)
+	print("'P' (toggle pause/resume)")
 
 @app.route('/data')
 def get_data():
@@ -376,6 +413,9 @@ def main():
 	fetcher = SportDataFetcher(url, SPORT)
 	fetch_thread = threading.Thread(target=update_data_loop, args=(fetcher,), daemon=True)
 	fetch_thread.start()
+
+	# Register hotkeys to pause/resume
+	register_hotkeys()
 
 	# Create and start the stats server thread
 	stats_server = StatsServer()
