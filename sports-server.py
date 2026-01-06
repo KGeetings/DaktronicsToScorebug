@@ -307,7 +307,6 @@ class SportDataFetcher:
         # Fallback to statsData if scores are missing
         home_score = current_game_data.get('home_score', '').strip()
         guest_score = current_game_data.get('guest_score', '').strip()
-        print(f"Home score: {home_score}, Guest score: {guest_score}")
 
         if not home_score or not guest_score:
             try:
@@ -316,10 +315,10 @@ class SportDataFetcher:
                         stats_data = json.load(f)
 
                         # Try to extract scores from statsData
-                        if not home_score and "Team1Score" in stats_data:
+                        if "Team1Score" in stats_data:
                             current_game_data["home_score"] = str(stats_data["Team1Score"])
 
-                        if not guest_score and "Team2Score" in stats_data:
+                        if "Team2Score" in stats_data:
                             current_game_data['guest_score'] = str(stats_data['Team2Score'])
 
             except (IOError, json.JSONDecodeError) as e:
