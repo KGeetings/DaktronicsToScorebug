@@ -18,9 +18,9 @@ log.setLevel(logging.ERROR)
 app = Flask(__name__, static_url_path='', static_folder='.')
 CORS(app)  # Enable CORS for all routes
 
-#statsData = r"data.json"
+# statsData = r"data.json"
 statsData = r"X:\\data.json"
-#statsData = r"W:\\PC vs Montezuma Girls.json"
+# statsData = r"W:\\PC vs Montezuma Girls.json"
 
 # Second Flask app for heatmap hosting
 heatmap_app = Flask("heatmap_app", static_url_path="", static_folder=".")
@@ -313,11 +313,11 @@ def is_paused():
 		return paused
 
 def set_paused(value: bool):
-	global paused
-	with paused_lock:
-		paused = bool(value)
-	status = "PAUSED" if paused else "RESUMED"
-	print(f"[Hotkey] Data updates {status}")
+    global paused
+    with paused_lock:
+        paused = bool(value)
+    status = "PAUSED" if paused else "RESUMED"
+    print(f"[Hotkey 'ctrl+alt+P'] Data updates {status}")
 
 def toggle_paused():
 	global last_toggle_time
@@ -328,9 +328,9 @@ def toggle_paused():
 	set_paused(not is_paused())
 
 def register_hotkeys():
-	# single hotkey that toggles pause/resume when pressing 'P'
-	keyboard.add_hotkey("p", toggle_paused)
-	print("'P' (toggle pause/resume)")
+    # single hotkey that toggles pause/resume when pressing 'P'
+    keyboard.add_hotkey("ctrl+alt+p", toggle_paused)
+    print("'ctrl+alt+P' (toggle pause/resume)")
 
 @app.route('/data')
 def get_data():
