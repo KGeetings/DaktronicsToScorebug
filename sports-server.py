@@ -316,12 +316,11 @@ class SportDataFetcher:
                         stats_data = json.load(f)
 
                         # Try to extract scores from statsData
-                        # Adjust these keys based on your actual statsData structure
-                        if not home_score and 'home_score' in stats_data:
-                            current_game_data['home_score'] = str(stats_data['home_score'])
+                        if not home_score and "Team1Score" in stats_data:
+                            current_game_data["home_score"] = str(stats_data["Team1Score"])
 
-                        if not guest_score and 'guest_score' in stats_data:
-                            current_game_data['guest_score'] = str(stats_data['guest_score'])
+                        if not guest_score and "Team2Score" in stats_data:
+                            current_game_data['guest_score'] = str(stats_data['Team2Score'])
 
             except (IOError, json.JSONDecodeError) as e:
                 print(f"Error reading statsData fallback: {e}")
