@@ -308,15 +308,22 @@ class SportDataFetcher:
         data_path = statsData
 
         if os.path.exists(data_path):
-            with open(data_path, "r") as f:
-                data = json.load(f)
-                print(data)
+            try:
+                with open(data_path, "r") as f:
+                    data_from_stats = json.load(f)
+            except (json.JSONDecodeError, IOError) as e:
+                print(f"Error loading fallback stats data: {e}")
+                data_from_stats = {}
 
-            # Fallback only if home_score or guest_score is false or null
-            if not current_game_data.get("home_score") or not current_game_data.get("guest_score"):
-                print("Running fallback data")
-                current_game_data["home_score"] = data.get("home_score", current_game_data["home_score"])
-                current_game_data["guest_score"] = data.get("guest_score", current_game_data["guest_score"])
+            home_score = current_game_data.get("home_score", "").strip()
+            if not home_score or home_score == "0":
+                fallback_home = data_from_stats.get("home_score", "")
+                if fallback_home:
+                    current_game_data["home_score"] = str(fallback_home)
+                    print(f"Applied fallback home_score: {fallback_home}")
+
+            #current_game_data["home_score"] = data_from_stats.get("home_score", current_game_data["home_score"])
+            #current_game_data["guest_score"] = data_from_stats.get("guest_score", current_game_data["guest_score"])
 
 
 def update_data_loop(fetcher):
