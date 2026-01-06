@@ -304,26 +304,27 @@ class SportDataFetcher:
         except requests.RequestException as e:
             print(f"Error fetching data: {e}")
 
-        # TODO:If values are null/false, fallback to the score data from statsData
-        data_path = statsData
+        # Fallback to statsData if scores are missing
+        home_score = current_game_data.get('home_score', '').strip()
+        guest_score = current_game_data.get('guest_score', '').strip()
+        print(f"Home score: {home_score}, Guest score: {guest_score}")
 
-        if os.path.exists(data_path):
+        if not home_score or not guest_score:
             try:
-                with open(data_path, "r") as f:
-                    data_from_stats = json.load(f)
-            except (json.JSONDecodeError, IOError) as e:
-                print(f"Error loading fallback stats data: {e}")
-                data_from_stats = {}
+                if os.path.exists(statsData):
+                    with open(statsData, 'r') as f:
+                        stats_data = json.load(f)
 
-            home_score = current_game_data.get("home_score", "").strip()
-            if not home_score or home_score == "0":
-                fallback_home = data_from_stats.get("home_score", "")
-                if fallback_home:
-                    current_game_data["home_score"] = str(fallback_home)
-                    print(f"Applied fallback home_score: {fallback_home}")
+                        # Try to extract scores from statsData
+                        # Adjust these keys based on your actual statsData structure
+                        if not home_score and 'home_score' in stats_data:
+                            current_game_data['home_score'] = str(stats_data['home_score'])
 
-            #current_game_data["home_score"] = data_from_stats.get("home_score", current_game_data["home_score"])
-            #current_game_data["guest_score"] = data_from_stats.get("guest_score", current_game_data["guest_score"])
+                        if not guest_score and 'guest_score' in stats_data:
+                            current_game_data['guest_score'] = str(stats_data['guest_score'])
+
+            except (IOError, json.JSONDecodeError) as e:
+                print(f"Error reading statsData fallback: {e}")
 
 
 def update_data_loop(fetcher):
