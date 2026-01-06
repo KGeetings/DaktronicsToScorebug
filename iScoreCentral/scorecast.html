@@ -1,0 +1,1104 @@
+<html>
+
+<head>
+	<!-- Google Tag Manager -->
+	<script>(function (w, d, s, l, i) {
+			w[l] = w[l] || []; w[l].push({
+				'gtm.start':
+					new Date().getTime(), event: 'gtm.js'
+			}); var f = d.getElementsByTagName(s)[0],
+				j = d.createElement(s), dl = l != 'dataLayer' ? '&l=' + l : ''; j.async = true; j.src =
+					'https://www.googletagmanager.com/gtm.js?id=' + i + dl; f.parentNode.insertBefore(j, f);
+		})(window, document, 'script', 'dataLayer', 'GTM-PQKBKFK');</script>
+	<!-- End Google Tag Manager -->
+
+	<meta name="apple-mobile-web-app-capable" content="yes" />
+	<!--meta name="viewport" content="height=1200"-->
+	<meta name="viewport" content="width=1280">
+
+	<script src='http://ajax.googleapis.com/ajax/libs/jquery/1.6.2/jquery.min.js' language='javascript'></script>
+	<script src='fb.js' language='javascript'></script>
+	<!--script src='player_control_base.js' language='javascript'></script-->
+
+	<script type="text/javascript" src="drawing/js/jquery.svg.js"></script>
+	<script type="text/javascript" src="drawing/js/jquery.drawinglibrary.js"></script>
+	<script type="text/javascript" src='jquery.spritely-0.6.js'></script>
+	<script type="text/javascript" src="jquery.StickyForms.js"></script>
+	<script type="text/javascript" src="js/jquery.lightbox-0.5.js"></script>
+	<script type="text/javascript" src="js/jquery.tools.min.js"></script>
+	<script type="text/javascript" src="scorecast.js"></script>
+	<link rel="stylesheet" type="text/css" href="css/jquery.lightbox-0.5.css" media="screen" />
+
+	<script>
+
+		function getInternetExplorerVersion() {
+			var rv = -1; // Return value assumes failure.
+			if (navigator.appName == 'Microsoft Internet Explorer') {
+				var ua = navigator.userAgent;
+				var re = new RegExp("MSIE ([0-9]{1,}[\.0-9]{0,})");
+				if (re.exec(ua) != null)
+					rv = parseFloat(RegExp.$1);
+			}
+			return rv;
+		}
+		var isIE = getInternetExplorerVersion() != -1;
+		var uiScaling = !isIE;
+		$(document).ready(function () {
+
+			var w = screen.width;
+			var h = screen.height;
+
+			var bw = $(window).width();
+			var bh = $(window).height();
+
+			var ratio1 = bw / 1284;
+			var ratio2 = bh / 730;
+			$('body').css('zoom', ratio1 < ratio2 ? ratio1 : ratio2);
+
+			$(window).resize(function () {
+				doResize();
+			});
+
+		})
+
+		function onScalingChanged() {
+			uiScaling = $('#scaling').attr('checked');
+			doResize();
+		}
+
+		function doResize() {
+			if (uiScaling) {
+				var bw = $(window).width();
+				var bh = $(window).height();
+				var ratio1 = bw / 1290;
+				var ratio2 = bh / 730;
+				$('body').css('zoom', ratio1 < ratio2 ? ratio1 : ratio2);
+			}
+			else
+				$('body').css('zoom', 1);
+
+		}
+
+		function getParameterByName(name) {
+			name = name.replace(/[\[]/, "\\\[").replace(/[\]]/, "\\\]");
+			var regexS = "[\\?&]" + name + "=([^&#]*)";
+			var regex = new RegExp(regexS);
+			var results = regex.exec(window.location.href);
+			if (results == null)
+				return "";
+
+			return decodeURIComponent(results[1].replace(/\+/g, " "));
+		}
+
+		var isReplay = false;
+		var isPaused = false;
+		var replayTimer = null;
+		function onReplay() {
+			_game.t_visitorPoints = new Array();
+			_game.t_homePoints = new Array();
+
+			isPaused = false;
+			isReplay = true;
+			$("#playStateText").text("REPLAY");
+			$("#pause").show();
+			$("#fastforward").fadeIn();
+			controller.showPlay(0);
+			if (replayTimer != null)
+				window.clearTimeout(replayTimer);
+			replayTimer = window.setTimeout("onNextPlay()", 5000);
+		}
+
+		function onPlay() {
+			isPaused = false;
+			if (replayTimer != null)
+				window.clearTimeout(replayTimer);
+			replayTimer = window.setTimeout("onNextPlay()", 500);
+			$("#pause").show();
+			$("#play").hide();
+
+		}
+
+		function onPause() {
+			isPaused = true;
+			isReplay = true;
+			if (replayTimer != null)
+				window.clearTimeout(replayTimer);
+			replayTimer = null;
+			$("#pause").hide();
+			$("#play").show();
+		}
+
+		function onLive() {
+			isReplay = false;
+			if (replayTimer != null)
+				window.clearTimeout(replayTimer);
+			replayTimer = null;
+			$("#playStateText").text("LIVE");
+			$("#pause").show();
+			$("#play").hide();
+			$("#fastforward").fadeIn();
+			refreshGame();
+
+		}
+
+		//show the play at index called by a clicked on row
+		var reviewing = false;
+		function showPlay(index) {
+			reviewing = true;
+			controller.viewPlay(index);
+			reviewing = false;
+		}
+
+		function onNextPlay() {
+			if (isPaused || !isReplay)
+				return;
+
+			if (controller.nextPlay()) {
+				if (replayTimer != null)
+					window.clearTimeout(replayTimer);
+				replayTimer = window.setTimeout("onNextPlay()", 5000);
+			}
+			else {
+				isReplay = false;
+				$("#playStateText").text("LIVE");
+				$("#pause").fadeIn();
+				$("#play").fadeOut();
+				$("#fastforward").fadeIn();
+				refreshGame();
+			}
+		}
+
+		function onFullscreen() {
+			//closeScorebar(1)
+			closeActionField(1);
+			closePopover1(1);
+			closePlayerStats(1);
+
+		}
+
+		var audioOn = false;
+		function onSoundClicked() {
+			if (audioOn) {
+				$('#sound').attr('src', 'images/soundoff.png');
+				audioOn = false;
+			}
+			else {
+				$('#sound').attr('src', 'images/soundon.png');
+				audioOn = true;
+			}
+
+		}
+		var gg;
+		var dg;
+		function selectGame(gameGuid, deviceGuid) {
+			gg = gameGuid;
+			dg = deviceGuid;
+
+			document.location.href = "./scorecast.html?g=" + gg + "&dg=" + dg;
+			return;
+		}
+
+		function gameLoaded(game) {
+			//alert("Game loaded");
+
+			if (reviewing) {
+				window.setTimeout("refreshGame()", 15000);
+				return;
+			}
+
+			if (isReplay)
+				return;
+
+			controller.setGame(game);
+
+
+
+			$("#scorebar").fadeIn();
+			if (_game.m_updates.length > 0) {
+				$("#popover1").fadeIn();
+				$("#playerStats").fadeIn();
+			}
+			else {
+				$("#popover1").fadeOut();
+				$("#playerStats").fadeOut();
+			}
+
+			controller.showNewest();
+
+			//
+			//  If user is looking for a replay, no need to continually refresh --- just go to first play
+			//
+			if (isReplay || hasQSReplay) {
+				hasQSReplay = false;
+				onReplay();
+				//showPlay(0);
+			}
+			else {
+				window.setTimeout("refreshGame()", 15000);
+			}
+
+			//	$('#plane').animate({left: '-800', easing:'linear'}, 40000, function() {});
+			//	animatePlane()
+		}
+
+
+		function refreshGame() {
+			if (reviewing) {
+				window.setTimeout("refreshGame()", 15000);
+				return;
+			}
+
+			if (isReplay)
+				return;
+
+			var game = new FBGame(gg, dg, dg, "", gameLoaded);
+
+		}
+
+
+		function loadGame(gameGuid, deviceGuid) {
+			gg = gameGuid;
+			dg = deviceGuid;
+
+			_game = new FBGame(gameGuid, deviceGuid, deviceGuid, "", gameLoaded);
+			$("#loginUI").hide();
+			//$("#descriptionDiv").html("RETRIEVING DATA...");
+		}
+
+		function redirectMobile() {
+			var userAgent = navigator.userAgent || navigator.vendor || window.opera;
+
+			if (getParameterByName("embed")) return false
+			//	if ((/iPad|iPhone|iPod/.test(userAgent) && !window.MSStream)) {
+			if ((/android/i.test(userAgent)) || (/iPad|iPhone|iPod/.test(userAgent) && !window.MSStream)) {
+				var q = location.search;
+				if (!q) {
+					q = "?sp=basketball";
+				}
+				else {
+					q += "&sp=basketball";
+				}
+				document.location.href = "../central/index.html" + q;
+				return true;
+			}
+			return false;
+		}
+
+		var controller;
+		var female_batter_righty;
+		var female_batter_righty_hit;
+		var hasQSReplay = false;
+		function body_onload() {
+			if (redirectMobile()) {
+				return;
+			}
+
+			hasQSReplay = (getParameterByName("replay") == "1")
+
+			controller = new Controller($("#playByPlayDiv"), $("#photosDiv"), $("#pitchPhotosDiv"), $("#boxscoreDiv"), $("#pitchLocation"));
+
+			$('#customerForm').StickyForm();
+
+			// If a game was passed in as a querystring, load the game now
+			var gg = getParameterByName("g");
+			if (gg != "") {
+				loadGame(gg, getParameterByName("dg"));
+				//$("#playByPlay").css('display', 'block');
+				return;
+			}
+
+			// If customer ID passed in, show list of games for this customer
+			var cid = getParameterByName("c");
+			if (cid != "") {
+				$("#cid").val(cid);
+				doLogin();
+				return;
+			}
+
+			// If no querystring parameters, show the login window
+			$("#loginUI").show();
+
+
+		}
+
+		var gamesPage = 0;
+
+		function gamesCallback(games) {
+			//alert("Refreshing games");
+			//dont update if nothing changed
+			//if(lastGameCount != gameList.m_games.length)
+			{
+				var vis = showGames(gamesPage, "bar_visible", 0);
+				$("#gamelist_bar").html(vis);
+
+				$("#gamelist_container").fadeIn();
+			}
+
+			lastGameCount = gameList.m_games.length;
+			window.setTimeout("doLogin()", 60000)
+
+		}
+		function gamesFailedCallback() {
+			$("#loginUI").show();
+
+		}
+
+		function scrollGamesLeft() {
+			var vis = showGames(gamesPage, "bar_visible", 0);
+			gamesPage--;
+			if (gamesPage < -1)
+				gamesPage = -1;
+			//	if(gamesPage>gameList.m_games.length/5) gamesPage=gameList.m_games.length/5;
+			//	showGames(gamesPage)
+
+			var hid = showGames(gamesPage, "bar_hidden", 1280);
+
+			$("#gamelist_bar").html(vis + hid);
+
+			$('#bar_visible').animate({ left: '-1280' }, 800, function () { });
+			$('#bar_hidden').animate({ left: '0' }, 800, function () { });
+		}
+
+		function scrollGamesRight() {
+			var vis = showGames(gamesPage, "bar_visible", 0);
+			gamesPage++;
+			//	if(gamesPage>(gameList.m_games.length/5)+1)
+			//	{
+			///		gamesPage=(gameList.m_games.length/5);
+			//		return;
+			//	}
+			//	showGames(gamesPage)
+
+			var hid = showGames(gamesPage, "bar_hidden", -1280);
+
+			$("#gamelist_bar").html(vis + hid);
+
+			$('#bar_visible').animate({ left: '1280' }, 800, function () { });
+			$('#bar_hidden').animate({ left: '0' }, 800, function () { });
+
+		}
+
+		var lastGameCount = 0;
+		function showGames(index, name, offset) {
+			if (index <= 0)
+				$("#right_arrow").fadeOut();
+			else
+				$("#right_arrow").fadeIn();
+
+			if (index == Math.floor(gameList.m_games.length / 5))
+				$("#left_arrow").fadeOut();
+			else
+				$("#left_arrow").fadeIn();
+
+			var sb = new StringBuilder("");
+			var count = 0;
+			//var start = gameList.m_games.length - (index * 5);
+			var start = (index * 5);
+
+			sb.append("<DIV id='" + name + "' style='position:absolute;left:" + offset + ";top:0;width:1280;height:100%;'>");
+			//	for (var i=start - 1; i>=start-5; i--)
+			for (var i = start; i < start + 5; i++) {
+				var g = gameList.m_games[i];
+				if (g == null)
+					break;
+
+				var x = 24 + (count * (243 + 4));
+				sb.append(" <DIV style='cursor:pointer;cursor:hand;position:absolute;right:" + x + ";top:6;width:243;height:92;background-image:url(images/gamelist_item.png)' onclick='selectGame(\"" + g.getGuid() + "\",\"" + g.getDeviceGuid() + "\")'>");
+				sb.append("	 <DIV class='game_date' style='position:absolute;left:10;top:10;width:225;height:20;overflow:hidden'>" + g.getName() + "</DIV>");
+				sb.append("	 <DIV class='game_teamname' style='position:absolute;left:10;top:33;width:175;height:25;overflow:hidden'>" + g.getVisitorTeam() + "</DIV>");
+				sb.append("	 <DIV class='game_teamname' style='position:absolute;left:10;top:62;width:175;height:25;overflow:hidden'>" + g.getHomeTeam() + "</DIV>");
+				sb.append("	 <DIV class='game_score' style='position:absolute;left:191;top:33;width:25;height:22;overflow:hidden'>" + g.getVisitorScore() + "</DIV>");
+				sb.append("	 <DIV class='game_score' style='position:absolute;left:191;top:62;width:25;height:22;overflow:hidden'>" + g.getHomeScore() + "</DIV>");
+				sb.append("	 <DIV class='game_inning' style='position:absolute;left:218;top:50;width:21;height:22;overflow:hidden'>" + g.getPeriod() + "</DIV>");
+				sb.append(" </DIV>");
+
+				count++;
+			}
+			sb.append("</DIV>");
+
+			return sb.toString();
+
+		}
+
+		var gameList;
+		function doLogin() {
+			gameList = new FBGameList($("#cid").val(), "", gamesCallback, gamesFailedCallback);
+		}
+
+		function doLoginButton() {
+			document.location.href = "./scorecast.html?c=" + $("#cid").val();
+		}
+
+
+		function showPlayPhotos(index) {
+			//alert("Clicked")
+			if (controller.showPlayPhotos(index)) return;
+
+			$('#playByPlayDiv').fadeTo(.5, .1);
+			$('#photosDiv').fadeOut();
+			$('#pitchPhotosDiv').fadeIn();
+			$('#playersDiv').fadeOut();
+
+		}
+
+		function showPitchByPitch() {
+			$('#playByPlayDiv').fadeTo(.5, 1);
+			$('#photosDiv').fadeOut();
+			$('#pitchDiv').fadeOut();
+			$('#playersDiv').fadeOut();
+
+		}
+
+		function showPlayers() {
+			$('#playByPlayDiv').fadeOut();
+			$('#photosDiv').fadeOut();
+			$('#pitchDiv').fadeOut();
+			$('#playersDiv').fadeIn();
+
+		}
+
+		function showPhotos() {
+			$('#playByPlayDiv').fadeOut();
+			$('#photosDiv').fadeIn();
+			$('#pitchPhotosDiv').fadeOut();
+			$('#playersDiv').fadeOut();
+
+		}
+
+		function closeScorebar(val) {
+			if (val == 1 || parseInt($("#scorebar").css('top')) >= 0) {
+				$('#scorebar').animate({ top: '-111' }, 400, function () { });
+
+				//$("#scorebar").css('top', '-99');
+				$("#scorebar_close").attr('src', 'images/close_down.png');
+			}
+			else if (val == 2 || parseInt($("#scorebar").css('top')) < 0) {
+				$('#scorebar').animate({ top: '0' }, 400, function () { });
+				//$("#scorebar").css('top', '0');
+				$("#scorebar_close").attr('src', 'images/close_up.png');
+			}
+		}
+
+		function closeActionField(val) {
+			if (val == 1 || parseInt($("#actionField").css('bottom')) >= -5) {
+				$('#actionField').animate({ bottom: '-405' }, 800, function () { });
+
+				$("#actionfield_close").attr('src', 'images/close2_up.png');
+			}
+			else if (val == 2 || parseInt($("#actionField").css('bottom')) < -5) {
+				$('#actionField').animate({ bottom: '-5' }, 800, function () { });
+				//$("#scorebar").css('top', '0');
+				$("#actionfield_close").attr('src', 'images/close2_down.png');
+			}
+		}
+
+		function closePopover1(val) {
+			if (val == 1 || parseInt($("#popover1").css('right')) >= -5) {
+				//$('#popover1').animate({top: '-308'}, 800, function() {});
+				$('#popover1').animate({ right: '-308' }, 800, function () { });
+
+				$("#popover1_close").attr('src', 'images/open_right.png');
+			}
+			else if (val == 2 || parseInt($("#popover1").css('right')) < -5) {
+				//$('#popover1').animate({top: '5'}, 800, function() {});
+				$('#popover1').animate({ right: '9' }, 800, function () { });
+				//$("#scorebar").css('top', '0');
+				$("#popover1_close").attr('src', 'images/close_right.png');
+			}
+		}
+
+		var statsUIState = 1;
+		function closePlayerStats(val) {
+			if (val == 1 || (val != 2 && parseInt($("#playerStats").css('left')) >= -5)) {
+				statsUIState = 2
+				$('#playerStats').animate({ left: '-303' }, 800, function () { });
+
+				$("#playerstats_close").attr('src', 'images/open_left.png');
+			}
+			else if (val == 2 || (val != 1 && parseInt($("#playerStats").css('left')) < -5)) {
+				statsUIState = 1;
+				$('#playerStats').animate({ left: '9' }, 800, function () { });
+				//$("#scorebar").css('top', '0');
+				$("#playerstats_close").attr('src', 'images/close_left.png');
+			}
+
+		}
+
+		function changeBackgroundImage() {
+			document.getElementById("bgImage").src = document.getElementById("bgImageUrl").value;
+		}
+
+		var currentPlayerStatsGuid = "";
+		function showIndividualStats(e, playerGuid) {
+			closePlayerStats(2);
+			/*
+				//if the selected player is the current batter then clear the global guid so that future updates will
+				//cause the batter stats to update
+				if(_game.getCurrentBatter().playerGameGuid==playerGuid)
+					currentPlayerStatsGuid="";
+				else
+					currentPlayerStatsGuid = playerGuid
+			*/
+			var player = _game.homePlayers[playerGuid];
+			if (player == null)
+				player = _game.visitorPlayers[playerGuid];
+			if (player != null)
+				controller.showIndividualStats(player);
+
+			var m = this;
+			try { window.event.cancelBubble = true } catch (e2) { }
+			try { this.event.stopPropagation() } catch (e2) { }
+			try { e.stopPropagation() } catch (e2) { }
+			try { this.event.cancelBubble = true; } catch (e2) { }
+
+		}
+
+	</script>
+
+	<style>
+		a:link {
+			COLOR: #fff2bb;
+		}
+
+		a:visited {
+			COLOR: #fff2bb;
+		}
+
+		a:hover {
+			COLOR: #fff2bb;
+		}
+
+		a:active {
+			COLOR: #fff2bb;
+		}
+
+		.pbp-container a:link {
+			color: #FFFFFF
+		}
+
+		.pbp-container a:visited {
+			color: #FFFFFF
+		}
+
+		.pbp-container a:hover {
+			color: #FFFFFF
+		}
+
+		.pbp-container a:active {
+			color: #FFFFFF
+		}
+
+		.login_inptx {
+			border: inset 1px black;
+			background-color: #b6cec1;
+			color: black;
+		}
+
+		.login_inpt_label {
+			font-family: arial;
+			font-weight: bold;
+			color: #DDDDDD;
+			font-size: 11pt;
+		}
+
+		.login_instructions {
+			font-family: arial;
+			font-weight: normal;
+			color: #DDDDDD;
+			font-size: 11pt;
+		}
+
+		.gameList {
+			color: #ffffff;
+			font-size: 12pt;
+			font-family: Arial;
+			font-weight: bold
+		}
+
+		.gameListItem {
+			cursor: pointer;
+			cursor: hand
+		}
+
+		.statusYellowText {
+			color: #f5c70e;
+			font-size: 16pt;
+			font-family: Arial;
+			font-weight: normal
+		}
+
+		.boxscore_header {
+			font-family: Arial;
+			font-size: 17pt;
+			font-weight: bold;
+			color: #AAAAAA;
+			border-bottom-style: solid;
+			border-bottom-width: 1px;
+			border-bottom-color: #888888;
+		}
+
+		.boxscore_row {
+			font-family: Arial;
+			font-size: 17pt;
+			font-weight: bold;
+			color: #DDDDDD
+		}
+
+		.boxscore_runs {
+			font-family: Arial;
+			font-size: 17pt;
+			font-weight: bold;
+			color: #f5c70e
+		}
+
+
+		.pbp-container {
+			background-color: #000000;
+			border: 2px solid #000000
+		}
+
+		.even {
+			background-color: #000000;
+			font-family: Arial;
+			font-size: 10pt;
+			color: #FFFFFF
+		}
+
+		.odd {
+			background-color: #222222;
+			font-family: Arial;
+			font-size: 10pt;
+			color: #FFFFFF
+		}
+
+		.pbp-section {
+			font-family: Arial;
+			font-size: 9pt;
+			font-weight: bold
+		}
+
+		.pbp-header {
+			font-size: 9pt;
+			font-family: Arial;
+			padding-bottom: 3;
+			padding-top: 7;
+			color: #AAAAAA;
+			background-color: #333333;
+			border-bottom-style: solid;
+			border-bottom-width: 1px;
+			border-bottom-color: #AAAAAA;
+			border-top-style: solid;
+			border-top-width: 1px;
+			border-top-color: #AAAAAA
+		}
+
+		.pbp-header a:link {
+			color: #AAAAAA
+		}
+
+		.pbp-header a:visited {
+			color: #AAAAAA
+		}
+
+		.pbp-header a:hover {
+			color: #AAAAAA
+		}
+
+		.pbp-header a:active {
+			color: #AAAAAA
+		}
+
+		.playerCell {
+			background-color: #462c16;
+			font-size: 10pt
+		}
+
+		.headerCell {
+			background-color: #10182F;
+			font-size: 10pt
+		}
+
+		.rowCell {
+			border-bottom-style: solid;
+			border-bottom-width: 1px;
+			border-bottom-color: #222222;
+			border-top-style: solid;
+			border-top-width: 1px;
+			border-top-color: #444444
+		}
+
+		.fielder {
+			width: 120;
+			text-align: center;
+			background-color: #446644;
+			overflow: hidden;
+			height: 18;
+			border-bottom-style: solid;
+			border-bottom-width: 1px;
+			border-bottom-color: #222222;
+			border-top-style: solid;
+			border-top-width: 1px;
+			border-top-color: #AAAAAA;
+		}
+
+		.runner {
+			width: 120;
+			text-align: center;
+			background-color: #aa7600;
+			overflow: hidden;
+			height: 18;
+			border-bottom-style: solid;
+			border-bottom-width: 1px;
+			border-bottom-color: #222222;
+			border-top-style: solid;
+			border-top-width: 1px;
+			border-top-color: #AAAAAA;
+		}
+
+		.playerinfo {
+			font-family: Arial;
+			font-size: 12pt;
+			color: #FFFFFF
+		}
+
+		.prevatbat {
+			font-family: Arial;
+			font-size: 8pt;
+			color: #FFFFFF
+		}
+
+		.roster {
+			font-family: Arial;
+			font-size: 10pt;
+			color: #FFFFFF
+		}
+
+		.roster_teamname {
+			font-family: Arial;
+			font-size: 10pt;
+			color: #f5c70e
+		}
+
+		.game_teamname {
+			text-align: left;
+			font-family: Arial;
+			font-size: 16pt;
+			color: #FFFFFF;
+			text-align: left
+		}
+
+		.game_score {
+			text-align: left;
+			font-family: Arial;
+			font-size: 16pt;
+			color: #f5c70e;
+			text-align: right
+		}
+
+		.game_date {
+			text-align: left;
+			font-family: Arial;
+			font-size: 12pt;
+			color: #FFFFFF;
+			text-align: left
+		}
+
+		.game_inning {
+			text-align: left;
+			font-family: Arial;
+			font-size: 10pt;
+			color: #FFFFFF;
+			text-align: center
+		}
+
+		.tooltip {
+			display: none;
+			background: transparent url(images/black_arrow.png);
+			font-size: 12px;
+			height: 35px;
+			width: 80px;
+			padding: 12px;
+			color: #fff;
+			font-family: Arial;
+		}
+	</style>
+
+	<style type="text/css">
+		/* jQuery lightBox plugin - Gallery style */
+		.gallery {
+			background-color: #000000;
+			text-align: center;
+		}
+
+		.gallery ul {
+			list-style: none;
+		}
+
+		.gallery ul li {
+			display: inline;
+		}
+
+		.gallery ul img {
+			border: 5px solid #3e3e3e;
+			border-width: 5px 5px 20px;
+		}
+
+		.gallery ul a:hover img {
+			border: 5px solid #fff;
+			border-width: 5px 5px 20px;
+			color: #fff;
+		}
+
+		.gallery ul a:hover {
+			color: #fff;
+		}
+
+		#female_batter_r {
+			background: transparent url(images/anim/blue_female_power_hitter/sheet.png) 0 0 no-repeat;
+			position: absolute;
+			left: 210px;
+			bottom: 0px;
+			width: 512px;
+			height: 512px;
+			cursor: pointer;
+			display: none;
+		}
+	</style>
+
+	<!-- Global site tag (gtag.js) - Google Analytics -->
+	<script async src="https://www.googletagmanager.com/gtag/js?id=UA-35980179-1"></script>
+	<script>
+		window.dataLayer = window.dataLayer || [];
+		function gtag() { dataLayer.push(arguments); }
+		gtag('js', new Date());
+
+		gtag('config', 'UA-35980179-1');
+	</script>
+
+
+</head>
+
+<body onload='body_onload()' bgcolor='#000000'>
+	<!-- Google Tag Manager (noscript) -->
+	<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-PQKBKFK" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+	<!-- End Google Tag Manager (noscript) -->
+
+	<TABLE style='position:absolute;left:0;top:0;width:100%;height:100%'>
+		<TR>
+			<TD align=center width='100%' height='100%'>
+				<DIV style='position:relative;width:1280;height:720;overflow:hidden'>
+
+					<DIV style='position:absolute;left:0;top:0;width:1280;height:720;overflow:hidden'>
+						<!--IMG id='bgImage' width='100%' src='http://www.thewallpapers.org/photo/2164/080-New-York.jpg' style='position:absolute;bottom:0;left:0'-->
+						<!--IMG id='bgImage' width='100%' src='http://3.bp.blogspot.com/-e4RZz_c_RBQ/TbdQGgwemOI/AAAAAAAAAPg/xXZ0cfFgGRM/s1600/10newyork.JPG' style='position:absolute;bottom:0;left:0;'-->
+						<!--IMG id='bgImage' width='100%' src='http://images1.fanpop.com/images/image_uploads/New-York-City-new-york-1020054_1024_768.jpg' style='position:absolute;bottom:0;left:0'-->
+						<!--IMG id='bgImage' width='100%' src='http://www.ezwebrus.com/wallpapers/city/new_york.jpg' style='position:absolute;bottom:0;left:0'-->
+					</DIV>
+
+					<IMG id='field' src='images/main_field.jpg' style='position:absolute;bottom:0;left:0'>
+					<DIV id='playerActionContainer' style='position:absolute;left:0;top:0;width:1280;height:720'>
+					</DIV>
+
+
+					<DIV id='playerStats' class='pbp-container' style='display:none;position:absolute;left:9;top:10;width:300;height:295;background-color:black'>
+						<IMG src='images/action_field_bg2.png' style='position:absolute;top:-8;left:-8;width:320;height:310'>
+						<IMG id='spot_headshot' height=72 src='http://data.iscorecentral.com/iscorecast/unknown_basketball.png' style='position:absolute;top:0;left:0;background-color:white'>
+						<DIV id='spot_color' style='position:absolute;top:0;left:83;height:3;width:210;overflow:hidden'></DIV>
+						<DIV id='spot_playerName' class='playerinfo' style='font-size:12pt;position:absolute;top:6;left:85;width:185;text-align:left'></DIV>
+						<IMG id='spot_team_logo' width=36 style='position:absolute;top:32;left:85;display:none;text-align:left;' src=''>
+						<DIV id='spot_team' class='playerinfo' style='font-size:9pt;position:absolute;top:34;left:135;text-align:left'></DIV>
+						<DIV id='spot_statsOffense' class='playerinfo' style='position:absolute;top:85;left:0;width:295;height:80'></DIV>
+						<DIV id='spot_statsDefense' class='playerinfo' style='position:absolute;top:160;left:0;width:295;height:80'></DIV>
+						<IMG id='playerstats_close' height=110 src='images/close_left.png' style='position:absolute;right:-22;top:94' onclick='closePlayerStats();'>
+					</DIV>
+
+
+					<DIV id='popover1' class='pbp-container' style='display:none;position:absolute;right:5;top:5;width:300;height:280'>
+						<IMG src='images/action_field_bg2.png' style='position:absolute;top:-8;left:-8;width:320;height:315'>
+						<DIV width='100%' cellspacing=0 cellpadding=0 style='position:absolute;left:0;top:0;width:100%'>
+							<TABLE width='100%' cellspacing=0>
+								<TR>
+									<TD width='33%' class='pbp-header' valign=top style='padding-bottom:8' align=center nowrap>
+										<A href='javascript:void(null);' onClick='showPitchByPitch()'>Play by Play</A>
+									</TD>
+									<TD width='33%' class='pbp-header' valign=top style='padding-bottom:8' align=center nowrap>
+										<A href='javascript:void(null);' onClick='showPhotos()'>Photos</A>
+									</TD>
+									<TD width='33%' class='pbp-header' valign=top style='padding-bottom:8' align=center nowrap>
+										<A href='javascript:void(null);' onClick='showPlayers()'>Players</A>
+									</TD>
+								</TR>
+							</TABLE>
+						</DIV>
+						<DIV style='position:absolute;left:0;top:35;width:100%'>
+							<DIV id='playByPlayDiv' style='position:absolute;overflow-y:auto;height:260;width:100%;left:0;top:0'></DIV>
+							<DIV id='photosDiv' class='gallery' style='display:none;position:absolute;overflow-y:auto;height:260;width:100%;left:0;top:0'></DIV>
+							<DIV id='pitchPhotosDiv' class='gallery' style='display:none;position:absolute;overflow-y:auto;height:260;width:100%;left:0;top:0'></DIV>
+							<DIV id='playersDiv' style='display:none;position:absolute;overflow-y:auto;height:260;width:100%;left:0;top:0'>
+								<DIV id='visitorRoster' style='position:absolute;width:100%;height:260;top:0;left:0;background-color:black'></DIV>
+							</DIV>
+						</DIV>
+						<IMG id='popover1_close' height=110 src='images/close_right.png' style='position:absolute;left:-22;top:98' onclick='closePopover1();'>
+						<!--IMG id='popover1_close' src='images/close2_down.png' style='position:relative;left:0;top:305' onclick='closePopover1();'-->
+					</DIV>
+
+
+					<!--DIV id='actionField' style='display:none;position:absolute;width:497;height:410;bottom:-5;right:0'>
+					<IMG  src='images/action_field_bg2.png' style='position:absolute;top:0;left:0'>
+					<DIV id='pitcherDiv' style='position:absolute;width:234;height:80;bottom:16;left:10;background-color:#000000;overflow:hidden'>
+						<IMG id='pitcher_headshot' height=72 width=64 src='http://data.iscorecentral.com/iscorecast/unknown.png' style='position:absolute;top:4;left:5;background-color:#FFFFFF' >
+						<DIV class='playerinfo' style='position:absolute;top:4;left:77'>Pitching</DIV>
+						<DIV id='pitcherColor' style='position:absolute;top:23;left:75;height:3;width:155;background-color:#FF0000;overflow:hidden'>Unknown Pitcher</DIV>
+						<DIV id='pitcherName' class='playerinfo' style='position:absolute;top:30;left:80'>Unknown Pitcher</DIV>
+						<DIV id='pitcherCount' class='playerinfo' style='font-size:11;position:absolute;top:50;left:90'>10 Balls 30 Strikes (40)</DIV>
+					</DIV>
+					<DIV id='batterDiv' style='position:absolute;width:234;height:80;bottom:16;right:15;background-color:#000000;overflow:hidden'>
+						<IMG id='batter_headshot' height=72 width=64 src='http://data.iscorecentral.com/iscorecast/unknown.png' style='position:absolute;top:4;left:5;background-color:#FFFFFF' >
+						<DIV class='playerinfo' style='position:absolute;top:4;left:77'>Batting</DIV>
+						<DIV id='batterColor' style='position:absolute;top:23;left:75;height:3;width:155;background-color:#0000FF;overflow:hidden'>Unknown Pitcher</DIV>
+						<DIV id='batterName' class='playerinfo' style='position:absolute;top:30;left:80'>Unknown Batter</DIV>
+						<DIV id='batterPrevAtBat' class='prevatbat' style='position:absolute;top:50;left:90;width:140;text-align:left'>At bat</DIV>
+					</DIV>
+					<DIV id='actionFieldUI' style='display:none;position:absolute;bottom:100;left:10' class='playerinfo'>
+						<IMG id='actionFieldImg' src='images/action_field.png' style='position:absolute;bottom:0;left:0'>
+						<DIV id='hitLocationOverlay' style='position:absolute;left:0;bottom:0;width:473;height:230'></DIV>
+						<DIV id='pitcher' class='fielder' style='position:absolute;left:176;bottom:85;'>Unknown Player</DIV>
+						<DIV id='catcher' class='fielder' style='position:absolute;left:176;bottom:16;'>Unknown Player</DIV>
+						<DIV id='firstBaseman' class='fielder' style='position:absolute;left:316;bottom:115;'>Unknown Player</DIV>
+						<DIV id='secondBaseman' class='fielder' style='position:absolute;left:250;bottom:137;'>Unknown Player</DIV>
+						<DIV id='thirdBaseman' class='fielder' style='position:absolute;left:36;bottom:115;'>Unknown Player</DIV>
+						<DIV id='shortStop' class='fielder' style='position:absolute;left:106;bottom:137;'>Unknown Player</DIV>
+						<DIV id='leftFielder' class='fielder' style='position:absolute;left:53;bottom:159;'>Unknown Player</DIV>
+						<DIV id='centerFielder' class='fielder' style='position:absolute;left:176;bottom:181;'>Unknown Player</DIV>
+						<DIV id='rightFielder' class='fielder' style='position:absolute;left:299;bottom:159;'>Unknown Player</DIV>
+						<DIV id='otherFielder' class='fielder' style='display:none;position:absolute;left:240;bottom:181;'>Unknown Player</DIV>
+
+						<DIV id='batter' class='runner' style='position:absolute;left:90;bottom:40;'>Unknown Player</DIV>
+						<DIV id='thirdBaseRunner' class='runner' style='position:absolute;left:42;bottom:75;'>Unknown Player</DIV>
+						<DIV id='secondBaseRunner' class='runner' style='position:absolute;left:176;bottom:110;'>Unknown Player</DIV>
+						<DIV id='firstBaseRunner' class='runner' style='position:absolute;left:310;bottom:75;'>Unknown Player</DIV>
+
+					</DIV>
+					<DIV id='dueUp' class='playerinfo' style='position:absolute;bottom:100;right:13;width:140;text-align:left;overflow:hidden;'>Due Up:</DIV>
+					<IMG id='actionfield_close' src='images/close2_down.png' style='position:relative;left:0;top:-20' onclick='closeActionField();'>
+				</DIV-->
+
+
+					<DIV id='scorebar' style='display:none;position:absolute;width:520;top:0;left:378'>
+						<IMG src='images/scorebar_full.png' style='width:103%;height:125;position:absolute;left:0;top:0'>
+						<TABLE width=100% style='position:absolute;left:10;top:5;padding-right:5;padding-bottom:10' border=0 cellspacing=0 cellpadding=0>
+							<TR>
+								<TD width=100% id='boxscoreDiv' valign=top style='padding-top:1;padding-left:2;'>
+								</TD>
+								<TD style='width:140' align=center>
+									<TABLE style='width:130;height:105;background-color:#2F2E2E'>
+										<TR>
+											<TD width='100%' align='center'>
+												<SPAN id='timeContainer' class='boxscore_row' style='text-align:center;white-space: nowrap'></SPAN>&nbsp;&nbsp;
+												<SPAN id='playStateText' class='boxscore_row' style='font-size:10pt;text-align:center;white-space: nowrap'>LIVE</SPAN>
+											</TD>
+										</TR>
+										<TR>
+											<TD align=center>
+												<IMG id='rewind' src='images/rewind.png' style='' onclick='onReplay()'>
+												<IMG id='play' src='images/play.png' style='display:none' onclick='onPlay()'>
+												<IMG id='pause' src='images/pause.png' style='' onclick='onPause()'>
+												<IMG id='fastforward' src='images/fastforward.png' style='' onclick='onLive()'>
+											</TD>
+										</TR>
+										<TR>
+											<TD align=center>
+												<IMG id='fullscreen' src='images/fullscreen.png' style='' onclick='onFullscreen()'>
+												<!--IMG id='sound' src='images/soundoff.png' style='' onclick='onSoundClicked()'-->
+											</TD>
+										</TR>
+									</TABLE>
+								</TD>
+							</TR>
+						</TABLE>
+						<IMG id='scorebar_close' src='images/close_up.png' style='position:absolute;left:200;top:110' onclick='closeScorebar();'>
+					</DIV>
+
+
+					<DIV id='gamelist_container' style='display:none;position:absolute;left:0;top:10;width:1280;height:106;background-image:url(images/gamelist_strip.png)'>
+						<DIV id='gamelist_bar' style='position:absolute;left:0;top:0;width:1280;height:100%'>
+
+						</DIV>
+						<DIV id='left_arrow' style='cursor:pointer;cursor:hand;position:absolute;left:0;top:0;width:50;height:100%' onclick='scrollGamesRight();'>
+							<IMG src='images/arrow_left.png' style='position:absolute;left:3;top:25;'>
+						</DIV>
+						<DIV id='right_arrow' style='cursor:pointer;cursor:hand;position:absolute;right:0;top:0;width:50;height:100%;display:none' onclick='scrollGamesLeft();'>
+							<IMG src='images/arrow_right.png' style='position:absolute;right:2;top:25;'>
+						</DIV>
+					</DIV>
+
+				</DIV>
+			</TD>
+		</TR>
+	</TABLE>
+	<!--INPUT id='bgImageUrl' type=text onchange='changeBackgroundImage();' style='position:absolute'-->
+
+
+	<TABLE id='loginUI' style='position:absolute;z-index:220;top:0;left:0;width:100%;height:100%;display:none' border=0 cellspacing=0 cellpadding=0>
+		<TR>
+			<TD style='padding-top:10;padding-left:10;font-family:Arial'>
+				<A href='http://data.iscorecentral.com/iscorecast/iScoreCastBasketball.html'>Classic Scorecast Viewer</A>
+			</TD>
+		</TR>
+		<TR>
+			<TD width=100% height=100% align=center valign=middle>
+				<TABLE height='100%' border=0 cellspacing=0 cellpadding=0 style="background-color:#FFFFFF;width:320;height:320;margin-right:4">
+					<TR>
+						<TD align=center valign=middle>
+							<TABLE class="roundedborder" cellspacing=10 style='border:solid 1px black'>
+								<TR>
+									<TD id='loginContainer' style='background-color:#6c2615;padding:10' valign='top' align=center>
+										<TABLE style='width:291px;height:224px'>
+											<TR>
+												<TD align=center><IMG width=266 src='images/web_icon_bb.png'></TD>
+											</TR>
+										</TABLE>
+
+
+										<TABLE style="width:100%">
+											<TR>
+												<TD style='width:100%;height:100%' valign='bottom'>
+													<FORM id='customerForm'>
+														<TABLE width='100%' cellspacing='6' class="login_inpt_label">
+															<TR>
+																<TD nowrap='true' align='right'>Customer ID</TD>
+																<TD width='100%'><INPUT class='login_inpt' id='cid' name='cid' style='width:100%'></TD>
+															</TR>
+															<TR>
+																<TD colspan='2' align='center'><INPUT type='button' value='Login' onclick='doLoginButton()'></TD>
+															</TR>
+														</TABLE>
+													</FORM>
+												</TD>
+											</TR>
+										</TABLE>
+
+
+										<TABLE class=login_instructions>
+											<TR>
+												<TD align=center>Enter the customer ID<BR>of the scorecasting device</TD>
+											</TR>
+										</TABLE>
+									</TD>
+								</TR>
+							</TABLE>
+						</TD>
+					</TR>
+				</TABLE>
+			</TD>
+		</TR>
+	</TABLE>
+
+	<!--audio preload="auto" autoplay="autoplay" loop="loop">
+<source src="http://data.iscorecentral.com/iscorecast/sounds/crowd_quiet01.ogg" type="audio/ogg" />
+<source src="http://data.iscorecentral.com/iscorecast/sounds/crowd_quiet01.mp3" type="audio/mp3" />
+</audio-->
+
+</body>
+
+</html>
