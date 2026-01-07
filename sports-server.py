@@ -18,8 +18,8 @@ log.setLevel(logging.ERROR)
 app = Flask(__name__, static_url_path='', static_folder='.')
 CORS(app)  # Enable CORS for all routes
 
-statsData = r"data.json"
-# statsData = r"X:\\data.json"
+#statsData = r"data.json"
+statsData = r"X:\\data.json"
 # statsData = r"W:\\PC vs Montezuma Girls.json"
 
 # Second Flask app for heatmap hosting
@@ -320,6 +320,8 @@ class SportDataFetcher:
 
                         if "Team2Score" in stats_data:
                             current_game_data['guest_score'] = str(stats_data['Team2Score'])
+
+                        current_game_data['period_desc'] = "POSTGAME"
 
             except (IOError, json.JSONDecodeError) as e:
                 print(f"Error reading statsData fallback: {e}")
