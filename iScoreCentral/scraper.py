@@ -415,8 +415,8 @@ class iScoreCentralScraper:
     def get_latest_game(self, customer_guid):
         game_list = self.get_game_list(customer_guid, "")
         latest_game = game_list[0]
-        game_guid = latest_game.get("game_guid", [None])[0]
-        device_guid = latest_game.get("device_guid", [None])[0]
+        game_guid = latest_game.get("game_guid", [None])
+        device_guid = latest_game.get("device_guid", [None])
         print(f"Latest game: {latest_game}")
         print(f"Game_guid: {game_guid} and Device_guid: {device_guid}")
 
@@ -424,37 +424,36 @@ class iScoreCentralScraper:
 
 
 if __name__ == "__main__":
-	scraper = iScoreCentralScraper()
+    scraper = iScoreCentralScraper()
 
-	# Game URL
-	game_url = "http://data.iscorecentral.com/iscorecast/basketball/scorecast.html?g=49a6f885-7797-420f-a8f2-999e4d4a2eb5&dg=1105445c-b6fd-4f07-a5e4-2725f9b124ce"
+    # Game URL
+    # game_url = "http://data.iscorecentral.com/iscorecast/basketball/scorecast.html?g=49a6f885-7797-420f-a8f2-999e4d4a2eb5&dg=1105445c-b6fd-4f07-a5e4-2725f9b124ce"
+    # game_guid, device_guid, customer_guid = scraper.break_out_url(game_url)
+    # print(f"Using game_guid: {game_guid}, device_guid: {device_guid}, and customer_guid: {customer_guid}")
 
-	print("iScoreCentral Stats Scraper\n")
-	home_url = "http://data.iscorecentral.com/iscorecast/basketball/scorecast.html?c="
-	girls_varsity_customer_guid = "11054454CE"
-	boys_varsity_customer_guid = ""
-	print(f"Home Girls URL: {home_url}{girls_varsity_customer_guid}")
-	print(f"Home Boys URL: {home_url}{boys_varsity_customer_guid}")
+    print("iScoreCentral Stats Scraper\n")
+    home_url = "http://data.iscorecentral.com/iscorecast/basketball/scorecast.html?c="
+    girls_varsity_customer_guid = "11054454CE"
+    boys_varsity_customer_guid = ""
+    print(f"Home Girls URL: {home_url}{girls_varsity_customer_guid}")
+    print(f"Home Boys URL: {home_url}{boys_varsity_customer_guid}")
 
-	scraper.get_latest_game(girls_varsity_customer_guid)
+    game_guid, device_guid = scraper.get_latest_game(girls_varsity_customer_guid)
+    game_data = scraper.parse_game_data(game_guid, device_guid=device_guid)
 
-	game_guid, device_guid, customer_guid = scraper.break_out_url(game_url)
-	print(f"Using game_guid: {game_guid}, device_guid: {device_guid}, and customer_guid: {customer_guid}")
-	game_data = scraper.parse_game_data(game_guid, device_guid=device_guid)
+    if "error" not in game_data and game_data.get("players"):
+        print(f"\nSuccessfully scraped game!")
+        print(f"Home Team: {game_data.get('home_team', 'Unknown')}")
+        print(f"Visitor Team: {game_data.get('visitor_team', 'Unknown')}")
+        print(f"Total Players: {len(game_data['players'])}")
 
-	if "error" not in game_data and game_data.get("players"):
-		print(f"\nSuccessfully scraped game!")
-		print(f"Home Team: {game_data.get('home_team', 'Unknown')}")
-		print(f"Visitor Team: {game_data.get('visitor_team', 'Unknown')}")
-		print(f"Total Players: {len(game_data['players'])}")
+        print("\nPlayers found:")
+        for player_guid, player in list(game_data["players"].items())[:5]:
+            print(
+                f"  - #{player.player_number} {player.player_name}: {player.stats_today.points} pts"
+            )
 
-		print("\nPlayers found:")
-		for player_guid, player in list(game_data["players"].items())[:5]:
-			print(
-				f"  - #{player.player_number} {player.player_name}: {player.stats_today.points} pts"
-			)
-
-		# Export to JSON
-		scraper.export_to_json(game_data, "basketball_stats.json")
-	else:
-		print(f"\nError occurred: {game_data.get('error', 'Unknown error')}")
+        # Export to JSON
+        scraper.export_to_json(game_data, "basketball_stats.json")
+    else:
+        print(f"\nError occurred: {game_data.get('error', 'Unknown error')}")
