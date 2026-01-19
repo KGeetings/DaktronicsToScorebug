@@ -249,10 +249,11 @@
 	<div id="timeout-animation">
 		<div id="timeout-text">Timeout</div>
 	</div>
-	<div class="stats-animation" id="home-stats-animation">
+	<div class="stats-animation" id="home-stats-animation"
+	style="display: none;">
 		<div class="stats-text" id="home-stats-text">Home Team Stats</div>
 	</div>
-	<div class="stats-animation" id="guest-stats-animation">
+	<div class="stats-animation" id="guest-stats-animation" style="display: none;">
 		<div class="stats-text" id="guest-stats-text">Guest Team Stats</div>
 	</div>
 	<div id="scoreboard" class="scoreboard">
@@ -324,7 +325,6 @@
 
 			console.log("currentStats: " + currentStats, " lastStats: " + lastStats, " duration: " + duration);
 			if (currentStats === lastStats) return;
-
 			// Clear any existing timeouts
 			if (isHome && homeStatsTimeout) {
 				clearTimeout(homeStatsTimeout);
@@ -364,7 +364,6 @@
 			if (!isHome && currentGuestStatsAnimation) {
 				currentGuestStatsAnimation.cancel();
 			}
-
 			// Show the stats animation
 			statsElement.style.display = 'block';
 
@@ -729,10 +728,10 @@
 			document.getElementById('home-stats-text').innerHTML = homeStats;  // Using innerHTML to support HTML formatting
 			document.getElementById('guest-stats-text').innerHTML = guestStats;
 
-			if (homeNewAnimation) {
+			if (homeNewAnimation || homeStatsAnimation.style.display === 'none') {
 				updateStatsAnimation(homeStatsAnimation, homeStats, homeStatsDuration, true);
 			}
-			if (guestNewAnimation) {
+			if (guestNewAnimation || guestStatsAnimation.style.display === 'none') {
 				updateStatsAnimation(guestStatsAnimation, guestStats, guestStatsDuration, false);
 			}
 		}
