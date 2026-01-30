@@ -9,70 +9,70 @@ import time
 """ Uses the logic from fb.js from the iScoreCentral website. """
 
 class PlayerStatsRecord:
-	def __init__(self):
-		self.games = 0
-		self.points = 0
-		self.fouls = 0
-		self.assists = 0
-		self.rebounds = 0
-		self.fga3 = 0  # 3-point attempts
-		self.fgm3 = 0  # 3-point makes
-		self.fga2 = 0  # 2-point attempts
-		self.fgm2 = 0  # 2-point makes
-		self.fta = 0  # free throw attempts
-		self.ftm = 0  # free throw makes
-		self.blocks = 0
-		self.steals = 0
-		self.turnovers = 0
-		self.off_rebounds = 0
-		self.def_rebounds = 0
-		self.deflections = 0
-		self.plus_minus = 0
+    def __init__(self):
+        self.games = 0
+        self.points = 0
+        self.fouls = 0
+        self.assists = 0
+        self.rebounds = 0
+        self.fga3 = 0  # 3-point attempts
+        self.fgm3 = 0  # 3-point makes
+        self.fga2 = 0  # 2-point attempts
+        self.fgm2 = 0  # 2-point makes
+        self.fta = 0  # free throw attempts
+        self.ftm = 0  # free throw makes
+        self.blocks = 0
+        self.steals = 0
+        self.turnovers = 0
+        self.off_rebounds = 0
+        self.def_rebounds = 0
+        self.deflections = 0
+        self.plus_minus = 0
 
-	def to_dict(self):
-		return {
-			"games": self.games,
-			"points": self.points,
-			"fouls": self.fouls,
-			"assists": self.assists,
-			"rebounds": self.rebounds,
-			"three_point_attempts": self.fga3,
-			"three_point_makes": self.fgm3,
-			"two_point_attempts": self.fga2,
-			"two_point_makes": self.fgm2,
-			"free_throw_attempts": self.fta,
-			"free_throw_makes": self.ftm,
-			"blocks": self.blocks,
-			"steals": self.steals,
-			"turnovers": self.turnovers,
-			"offensive_rebounds": self.off_rebounds,
-			"defensive_rebounds": self.def_rebounds,
-			"deflections": self.deflections,
-			"plus_minus": self.plus_minus,
-		}
+    def to_dict(self):
+        return {
+            "games": self.games,
+            "points": self.points,
+            "fouls": self.fouls,
+            "assists": self.assists,
+            "rebounds": self.rebounds,
+            "three_point_attempts": self.fga3,
+            "three_point_makes": self.fgm3,
+            "two_point_attempts": self.fga2,
+            "two_point_makes": self.fgm2,
+            "free_throw_attempts": self.fta,
+            "free_throw_makes": self.ftm,
+            "blocks": self.blocks,
+            "steals": self.steals,
+            "turnovers": self.turnovers,
+            "offensive_rebounds": self.off_rebounds,
+            "defensive_rebounds": self.def_rebounds,
+            "deflections": self.deflections,
+            "plus_minus": self.plus_minus,
+        }
 
 class PlayerRecord:
-	def __init__(self):
-		self.player_name = ""
-		self.player_guid = ""
-		self.player_game_guid = ""
-		self.player_number = 0
-		self.position = ""
-		self.is_starter = False
-		self.stats_today = PlayerStatsRecord()
-		self.stats_career = PlayerStatsRecord()
+    def __init__(self):
+        self.player_name = ""
+        self.player_guid = ""
+        self.player_game_guid = ""
+        self.player_number = 0
+        self.position = ""
+        self.is_starter = False
+        self.stats_today = PlayerStatsRecord()
+        self.stats_career = PlayerStatsRecord()
 
-	def to_dict(self):
-		return {
-			"name": self.player_name,
-			"guid": self.player_guid,
-			"game_guid": self.player_game_guid,
-			"number": self.player_number,
-			"position": self.position,
-			"is_starter": self.is_starter,
-			"stats_today": self.stats_today.to_dict(),
-			"stats_career": self.stats_career.to_dict(),
-		}
+    def to_dict(self):
+        return {
+            "name": self.player_name,
+            "guid": self.player_guid,
+            "game_guid": self.player_game_guid,
+            "number": self.player_number,
+            "position": self.position,
+            "is_starter": self.is_starter,
+            "stats_today": self.stats_today.to_dict(),
+            "stats_career": self.stats_career.to_dict(),
+        }
 
 class iScoreCentralScraper:
     BASE_URL = "http://dc.iscorecast.com/gamesync.jsp"
@@ -82,8 +82,8 @@ class iScoreCentralScraper:
     def __init__(self):
         self.session = requests.Session()
         self.session.headers.update(
-			{"User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36"}
-		)
+            {"User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36"}
+        )
 
     def get_game_list(self, customer_guid: str, password: str = "") -> List[Dict]:
         """Fetch list of games for a team."""
@@ -109,15 +109,15 @@ class iScoreCentralScraper:
 
             for game in root.findall("GAME"):
                 games.append(
-					{
-						"game_guid": game.get("gg"),
-						"device_guid": game.get("dg"),
-						"home_team": game.get("htn"),
-						"visitor_team": game.get("vtn"),
-						"home_score": game.get("home_score"),
-						"visitor_score": game.get("visitor_score"),
-					}
-				)
+                    {
+                        "game_guid": game.get("gg"),
+                        "device_guid": game.get("dg"),
+                        "home_team": game.get("htn"),
+                        "visitor_team": game.get("vtn"),
+                        "home_score": game.get("home_score"),
+                        "visitor_score": game.get("visitor_score"),
+                    }
+                )
 
             print(f"Found {len(games)} games")
             return games
@@ -153,10 +153,10 @@ class iScoreCentralScraper:
                 elif script.string and len(script.string) > 50:
                     # Check if this script contains game initialization
                     if (
-						"FBGame" in script.string
-						or "game_guid" in script.string
-						or "_game" in script.string
-					):
+                        "FBGame" in script.string
+                        or "game_guid" in script.string
+                        or "_game" in script.string
+                    ):
                         print(f"\n=== Found potential game initialization in script {i+1} ===")
                         # print(script.string[:1000])
 
@@ -165,9 +165,9 @@ class iScoreCentralScraper:
 
                         # Look for FBGame constructor call
                         fbgame_match = re.search(
-							r'new FBGame\s*\(\s*["\']([^"\']+)["\'](?:\s*,\s*["\']([^"\']*)["\'])?(?:\s*,\s*["\']([^"\']*)["\'])?',
-							script.string,
-						)
+                            r'new FBGame\s*\(\s*["\']([^"\']+)["\'](?:\s*,\s*["\']([^"\']*)["\'])?(?:\s*,\s*["\']([^"\']*)["\'])?',
+                            script.string,
+                        )
                         if fbgame_match:
                             print(f"\n✓ Found FBGame initialization:")
                             print(f"  Game GUID: {fbgame_match.group(1)}")
@@ -177,10 +177,10 @@ class iScoreCentralScraper:
                                 print(f"  Customer GUID: {fbgame_match.group(3)}")
 
                             return {
-								"game_guid": fbgame_match.group(1),
-								"device_guid": fbgame_match.group(2) or "",
-								"customer_guid": fbgame_match.group(3) or "",
-							}
+                                "game_guid": fbgame_match.group(1),
+                                "device_guid": fbgame_match.group(2) or "",
+                                "customer_guid": fbgame_match.group(3) or "",
+                            }
 
             return {"error": "Could not find game initialization"}
 
@@ -192,12 +192,12 @@ class iScoreCentralScraper:
             return {"error": str(e)}
 
     def parse_game_data(
-		self,
-		game_guid: str,
-		device_guid: str = "",
-		customer_guid: str = "",
-		password: str = "",
-	) -> Dict:
+        self,
+        game_guid: str,
+        device_guid: str = "",
+        customer_guid: str = "",
+        password: str = "",
+    ) -> Dict:
         parameters = {"g": game_guid, "dg": device_guid, "m": "1"}
 
         try:
@@ -237,13 +237,13 @@ class iScoreCentralScraper:
             return {}
 
         return {
-			"home_team": unquote(metadata.get("htn", "")),
-			"visitor_team": unquote(metadata.get("vtn", "")),
-			"game_name": unquote(metadata.get("gn", "")),
-			"sport": metadata.get("sport", ""),
-			"periods": metadata.get("per", "4"),
-			"period_length": metadata.get("plen", "12"),
-		}
+            "home_team": unquote(metadata.get("htn", "")),
+            "visitor_team": unquote(metadata.get("vtn", "")),
+            "game_name": unquote(metadata.get("gn", "")),
+            "sport": metadata.get("sport", ""),
+            "periods": metadata.get("per", "4"),
+            "period_length": metadata.get("plen", "12"),
+        }
 
     def _parse_players_from_events(self, root: ET.Element) -> Dict[str, PlayerRecord]:
         """Parse players from GS (Game Start) events"""
@@ -262,8 +262,8 @@ class iScoreCentralScraper:
         return players
 
     def _parse_player_string(
-		self, player_str: str, team: str
-	) -> Dict[str, PlayerRecord]:
+        self, player_str: str, team: str
+    ) -> Dict[str, PlayerRecord]:
         """Parse player information from comma-separated string"""
         players = {}
 
@@ -308,17 +308,17 @@ class iScoreCentralScraper:
                 param = event.get("param", "")
 
                 self._update_player_stats(
-					players, event_type, player_guid, param, player_possession
-				)
+                    players, event_type, player_guid, param, player_possession
+                )
 
     def _update_player_stats(
-		self,
-		players: Dict[str, PlayerRecord],
-		event_type: str,
-		player_guid: str,
-		param: str,
-		possession_player: str,
-	):
+        self,
+        players: Dict[str, PlayerRecord],
+        event_type: str,
+        player_guid: str,
+        param: str,
+        possession_player: str,
+    ):
         if event_type == "FG": # Field goal made
             if player_guid in players:
                 points = int(param)
@@ -387,13 +387,13 @@ class iScoreCentralScraper:
 
     def export_to_json(self, game_data: Dict, filename: str = "player_stats.json"):
         export_data = {
-			"game_info": {
-				"home_team": game_data.get("home_team", ""),
-				"visitor_team": game_data.get("visitor_team", ""),
-				"game_name": game_data.get("game_name", ""),
-			},
-			"players": [],
-		}
+            "game_info": {
+                "home_team": game_data.get("home_team", ""),
+                "visitor_team": game_data.get("visitor_team", ""),
+                "game_name": game_data.get("game_name", ""),
+            },
+            "players": [],
+        }
 
         for player_guid, player in game_data.get("players", {}).items():
             export_data["players"].append(player.to_dict())
