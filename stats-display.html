@@ -454,7 +454,7 @@
 
 <body>
 	<div id="container">
-		<!-- Header -->
+		<!-- Period/Time Header -->
 		<div id="header">
 			<div id="period-desc">Stats</div>
 			<div id="clock-label">00:00</div>
@@ -586,7 +586,7 @@
 						</div>
 					</div>
 				</div>
-			</div>
+				</div>
 
 			<!-- View 2: Shooting Percentages -->
 			<div class="view" id="view-percentages">
@@ -668,15 +668,21 @@
 
 	<script>
 		// Configuration
-		const DATA_SOURCE = 'basketball_stats.json';
-		//const DATA_SOURCE = 'http://localhost:5000/stats';
+		const SCORE_CENTRAL_DATA_SOURCE = 'basketball_stats.json';
+		const GAME_STATE_URL = 'http://localhost:5000/data'; // For clock, scores, period
+		const STATS_DATA_URL = 'http://localhost:5000/sportsData'; // For shooting stats
 		const VIEW_DURATION = 8000; // 8 seconds per view
 		const TOP_SCORERS_COUNT = 6;
+		const CLOCK_REFRESH_INTERVAL = 250; // Refresh clock every 250ms
 
 		let currentViewIndex = 0;
 		let views = [];
-		let gameData = null;
+		let scoreCentralData = null;
+		let statsData = null;
+		let gameStateData = null;
 		let viewTimer = null;
+		let clockTimer = null;
+		let statsTimer = null;
 
 		// Initialize
 		async function init() {
@@ -686,37 +692,172 @@
 				document.getElementById('view-players'),
 			];
 
+			// Start data fetching
+			await fetchGameState();
+			await fetchStatsData();
+			await fetchScoreCentralData();
+
+			// Update display
+			updateGameState();
+			processStatsData();
+
+			// Start timers
+			showView(0);
+			startViewCycle();
+			startClockRefresh();
+		}
+
+		// Fetch game state (clock, scores, period) from localhost:5000/data
+		async function fetchGameState() {
 			try {
-				const response = await fetch(DATA_SOURCE);
-				gameData = await response.json();
-				processData(gameData);
-				showView(0);
-				startViewCycle();
+				const response = await fetch(GAME_STATE_URL);
+				gameStateData = await response.json();
 			} catch (error) {
-				console.error('Error loading data:', error);
-				document.getElementById('period-desc').textContent = 'Error loading game data';
+				console.error('Error loading game state:', error);
 			}
 		}
 
-		// Process and display data
-		function processData(data) {
-			// Set team names and scores
-			const homeTeam = data.game_info.home_team.trim();
-			const awayTeam = data.game_info.visitor_team.trim();
+		// Fetch stats data from localhost:5000/sportsData
+		async function fetchStatsData() {
+			try {
+				const response = await fetch(STATS_DATA_URL);
+				statsData = await response.json();
+			} catch (error) {
+				console.error('Error loading stats data:', error);
+			}
+		}
 
+		// Fetch score central data from localhost:5000/basketball_stats.json
+		async function fetchScoreCentralData() {
+			try {
+				const response = await fetch(SCORE_CENTRAL_DATA_SOURCE);
+				scoreCentralData = await response.json();
+			} catch (error) {
+				console.error('Error loading score central data:', error);
+			}
+		}
+
+		// Update game state (clock, scores, period)
+		function updateGameState() {
+			if (!gameStateData) return;
+
+			// Update clock and period
+			document.getElementById('clock-label').textContent = gameStateData.clock || '00:00';
+			document.getElementById('period-desc').textContent = gameStateData.period_desc || '';
+
+			// Update scores
+			document.getElementById('home-score').textContent = gameStateData.home_score || '0';
+			document.getElementById('away-score').textContent = gameStateData.guest_score || '0';
+		}
+
+		// Process and display stats data
+		function processStatsData() {
+			if (!statsData || !scoreCentralData) return;
+
+			// Set team names
+			const homeTeam = statsData.Team1Name || 'PC';
+			const awayTeam = statsData.Team2Name || 'AWAY';
+
+			document.getElementById('home-team-name').textContent = homeTeam;
 			document.getElementById('away-team-name').textContent = awayTeam;
 
 			// Update all team name references
+			document.querySelectorAll('#home-name-fg, #home-name-3pt, #home-name-ft').forEach(el => {
+				el.textContent = homeTeam;
+			});
 			document.querySelectorAll('#away-name-fg, #away-name-3pt, #away-name-ft').forEach(el => {
 				el.textContent = awayTeam;
 			});
 
+			// Calculate stats from player data
+			const homeStats = calculateTeamStats(statsData.Team1Players || [], "home");
+			const awayStats = calculateTeamStats(statsData.Team2Players || [], "away");
+
+			// Populate View 1: Shooting Stats
+			const homeFGM = homeStats.twoPointMakes + homeStats.threePointMakes;
+			const homeFGA = homeStats.twoPointAttempts + homeStats.threePointAttempts;
+			const awayFGM = awayStats.twoPointMakes + awayStats.threePointMakes;
+			const awayFGA = awayStats.twoPointAttempts + awayStats.threePointAttempts;
+
+			updateStatBar('fg', homeFGM, homeFGA, awayFGM, awayFGA);
+			updateStatBar('3pt', homeStats.threePointMakes, homeStats.threePointAttempts,
+				awayStats.threePointMakes, awayStats.threePointAttempts);
+			updateStatBar('ft', homeStats.freeThrowMakes, homeStats.freeThrowAttempts,
+				awayStats.freeThrowMakes, awayStats.freeThrowAttempts);
+			updateStatBar('fouls', homeStats.fouls, 0, awayStats.fouls, 0);
+			updateStatBar('off-reb', homeStats.offensiveRebounds, 0, awayStats.offensiveRebounds, 0);
+			updateStatBar('def-reb', homeStats.defensiveRebounds, 0, awayStats.defensiveRebounds, 0);
+			updateStatBar('stl', homeStats.steals, 0, awayStats.steals, 0);
+			updateStatBar('to', homeStats.turnovers, 0, awayStats.turnovers, 0);
+
+			// Populate View 2: Percentages
+			updatePercentage('fg', homeFGM, homeFGA, awayFGM, awayFGA);
+			updatePercentage('3pt', homeStats.threePointMakes, homeStats.threePointAttempts,
+				awayStats.threePointMakes, awayStats.threePointAttempts);
+			updatePercentage('ft', homeStats.freeThrowMakes, homeStats.freeThrowAttempts,
+				awayStats.freeThrowMakes, awayStats.freeThrowAttempts);
+
+			// Populate View 3: Top Scorers
+			populateTopScorers(statsData.Team1Players || [], statsData.Team2Players || []);
+		}
+
+		// Calculate team stats from player data
+		function calculateTeamStats(players, teamName) {
+			const stats = {
+				points: 0,
+				twoPointMakes: 0,
+				twoPointAttempts: 0,
+				threePointMakes: 0,
+				threePointAttempts: 0,
+				freeThrowMakes: 0,
+				freeThrowAttempts: 0,
+				fouls: 0,
+				offensiveRebounds: 0,
+				defensiveRebounds: 0,
+				steals: 0,
+				turnovers: 0
+			};
+
+			players.forEach(player => {
+				// Count points
+				stats.points += player.PlayerPoints || 0;
+				stats.fouls += player.PlayerFouls || 0;
+				stats.threePointMakes += player.PlayerThrees || 0;
+				stats.freeThrowMakes += player.PlayerFrees || 0;
+				stats.freeThrowAttempts += player.AttemptedFrees || 0;
+				stats.threePointAttempts += player.AttemptedThrees || 0;
+
+				// Count 2-pointers from shots array
+				if (player.Shots && Array.isArray(player.Shots)) {
+					player.Shots.forEach(shot => {
+						if (shot.PointValue === 2) {
+							stats.twoPointAttempts++;
+							if (shot.Made) {
+								stats.twoPointMakes++;
+							}
+						}
+					});
+				}
+			});
+
+			// Get scoreCentralStats for rebounds, steals, turnovers
+			if (scoreCentralData) {
+				const teamStats = processScoreCentralData(scoreCentralData, teamName);
+				stats.offensiveRebounds = teamStats.offensive_rebounds || 0;
+				stats.defensiveRebounds = teamStats.defensive_rebounds || 0;
+				stats.steals = teamStats.steals || 0;
+				stats.turnovers = teamStats.turnovers || 0;
+			}
+			return stats;
+		}
+
+		function processScoreCentralData(data, teamName) {
 			// Extract team stats
-			const homeStats = data.players.find(p => p.name === "Home Team Stats")?.stats_today || {};
-			const awayStats = data.players.find(p => p.name === "Visitor Team Stats")?.stats_today || {};
+			const homeStats = scoreCentralData.players.find(p => p.name === "Home Team Stats")?.stats_today || {};
+			const awayStats = scoreCentralData.players.find(p => p.name === "Visitor Team Stats")?.stats_today || {};
 
 			// Calculate individual player totals for home team
-			const homePlayers = data.players.filter(p =>
+			const homePlayers = scoreCentralData.players.filter(p =>
 				p.name !== "Home Team Stats" &&
 				p.name !== "Visitor Team Stats" &&
 				p.game_guid.includes("TEAM") === false
@@ -765,37 +906,12 @@
 			const finalHomeStats = homePlayerStats;
 			const finalAwayStats = awayStats;
 
-			// Set scores
-			document.getElementById('home-score').textContent = finalHomeStats.points;
-			document.getElementById('away-score').textContent = finalAwayStats.points;
-
-			// Calculate field goals (2pt + 3pt)
-			const homeFGM = finalHomeStats.two_point_makes + finalHomeStats.three_point_makes;
-			const homeFGA = finalHomeStats.two_point_attempts + finalHomeStats.three_point_attempts;
-			const awayFGM = finalAwayStats.two_point_makes + finalAwayStats.three_point_makes;
-			const awayFGA = finalAwayStats.two_point_attempts + finalAwayStats.three_point_attempts;
-
-			// Populate View 1: Shooting Stats
-			updateStatBar('fg', homeFGM, homeFGA, awayFGM, awayFGA);
-			updateStatBar('3pt', finalHomeStats.three_point_makes, finalHomeStats.three_point_attempts,
-				finalAwayStats.three_point_makes, finalAwayStats.three_point_attempts);
-			updateStatBar('ft', finalHomeStats.free_throw_makes, finalHomeStats.free_throw_attempts,
-				finalAwayStats.free_throw_makes, finalAwayStats.free_throw_attempts);
-			updateStatBar('fouls', finalHomeStats.fouls, 0, finalAwayStats.fouls, 0);
-			updateStatBar('off-reb', finalHomeStats.offensive_rebounds, 0, finalAwayStats.offensive_rebounds, 0);
-			updateStatBar('def-reb', finalHomeStats.defensive_rebounds, 0, finalAwayStats.defensive_rebounds, 0);
-			updateStatBar('stl', finalHomeStats.steals, 0, finalAwayStats.steals, 0);
-			updateStatBar('to', finalHomeStats.turnovers, 0, finalAwayStats.turnovers, 0);
-
-			// Populate View 2: Percentages
-			updatePercentage('fg', homeFGM, homeFGA, awayFGM, awayFGA);
-			updatePercentage('3pt', finalHomeStats.three_point_makes, finalHomeStats.three_point_attempts,
-				finalAwayStats.three_point_makes, finalAwayStats.three_point_attempts);
-			updatePercentage('ft', finalHomeStats.free_throw_makes, finalHomeStats.free_throw_attempts,
-				finalAwayStats.free_throw_makes, finalAwayStats.free_throw_attempts);
-
-			// Populate View 3: Top Scorers
-			populateTopScorers(homePlayers, awayStats);
+			return {
+				offensive_rebounds: teamName === "home" ? finalHomeStats.offensive_rebounds : finalAwayStats.offensive_rebounds,
+				defensive_rebounds: teamName === "home" ? finalHomeStats.defensive_rebounds : finalAwayStats.defensive_rebounds,
+				steals: teamName === "home" ? finalHomeStats.steals : finalAwayStats.steals,
+				turnovers: teamName === "home" ? finalHomeStats.turnovers : finalAwayStats.turnovers
+			};
 		}
 
 		function updateStatBar(stat, homeMakes, homeAttempts, awayMakes, awayAttempts) {
@@ -805,7 +921,7 @@
 			const awayValue = document.querySelector(`[data-value="${stat}-away"]`);
 
 			// For shooting stats, show makes/attempts
-			if (homeAttempts > 0) {
+			if (homeAttempts > 0 || awayAttempts > 0) {
 				homeValue.textContent = `${homeMakes}/${homeAttempts}`;
 				awayValue.textContent = `${awayMakes}/${awayAttempts}`;
 
@@ -836,30 +952,31 @@
 			document.getElementById(`${stat}-frac-away`).textContent = `${awayMakes}/${awayAttempts}`;
 		}
 
-		function populateTopScorers(homePlayers, awayStats) {
+		function populateTopScorers(homePlayers, awayPlayers) {
 			// Sort home players by points
 			const sortedHome = homePlayers
-				.filter(p => p.stats_today.points > 0)
-				.sort((a, b) => b.stats_today.points - a.stats_today.points)
+				.filter(p => (p.PlayerPoints || 0) > 0)
+				.sort((a, b) => (b.PlayerPoints || 0) - (a.PlayerPoints || 0))
 				.slice(0, TOP_SCORERS_COUNT);
 
 			const homeList = document.getElementById('home-players-list');
 			homeList.innerHTML = '';
 
 			sortedHome.forEach((player, index) => {
-				const stats = player.stats_today;
-				const fgm = stats.two_point_makes + stats.three_point_makes;
-				const fga = stats.two_point_attempts + stats.three_point_attempts;
+				const points = player.PlayerPoints || 0;
+				const threes = player.PlayerThrees || 0;
+				const frees = player.PlayerFrees || 0;
+				const fouls = player.PlayerFouls || 0;
 
 				const card = document.createElement('div');
 				card.className = 'player-card';
 				card.innerHTML = `
-					<div class="player-number">#${player.number}</div>
+					<div class="player-number">#${player.PlayerNumber}</div>
 					<div class="player-info">
-						<div class="player-name">${player.name}</div>
-						<div class="player-stat-line">${stats.rebounds} REB • ${stats.assists} AST • ${fgm}/${fga} FG</div>
+						<div class="player-name">${player.PlayerName}</div>
+						<div class="player-stat-line">${threes} 3PT • ${frees} FT • ${fouls} FOULS</div>
 					</div>
-					<div class="player-points">${stats.points}</div>
+					<div class="player-points">${points}</div>
 				`;
 				homeList.appendChild(card);
 
@@ -867,15 +984,36 @@
 				setTimeout(() => card.classList.add('show'), index * 100);
 			});
 
-			// For away team, we only have team stats, so show a message
+			// Sort away players by points
+			const sortedAway = awayPlayers
+				.filter(p => (p.PlayerPoints || 0) > 0)
+				.sort((a, b) => (b.PlayerPoints || 0) - (a.PlayerPoints || 0))
+				.slice(0, TOP_SCORERS_COUNT);
+
 			const awayList = document.getElementById('away-players-list');
-			awayList.innerHTML = `
-				<div class="player-card show" style="justify-content: center; text-align: center;">
-					<div style="font-size: 24px; color: rgba(255, 255, 255, 0.6);">
-						Individual stats not available
+			awayList.innerHTML = '';
+
+			sortedAway.forEach((player, index) => {
+				const points = player.PlayerPoints || 0;
+				const threes = player.PlayerThrees || 0;
+				const frees = player.PlayerFrees || 0;
+				const fouls = player.PlayerFouls || 0;
+
+				const card = document.createElement('div');
+				card.className = 'player-card';
+				card.innerHTML = `
+					<div class="player-number">#${player.PlayerNumber}</div>
+					<div class="player-info">
+						<div class="player-name">${player.PlayerName}</div>
+						<div class="player-stat-line">${threes} 3PT • ${frees} FT • ${fouls} FOULS</div>
 					</div>
-				</div>
-			`;
+					<div class="player-points">${points}</div>
+				`;
+				awayList.appendChild(card);
+
+				// Animate in with delay
+				setTimeout(() => card.classList.add('show'), index * 100);
+			});
 		}
 
 		function showView(index) {
@@ -904,6 +1042,14 @@
 			if (viewTimer) {
 				clearInterval(viewTimer);
 			}
+		}
+
+		// Start clock refresh timer
+		function startClockRefresh() {
+			clockTimer = setInterval(async () => {
+				await fetchGameState();
+				updateGameState();
+			}, CLOCK_REFRESH_INTERVAL);
 		}
 
 		// Manual navigation
