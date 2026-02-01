@@ -1,0 +1,927 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Basketball Stats Display</title>
+	<style>
+		* {
+			margin: 0;
+			padding: 0;
+			box-sizing: border-box;
+		}
+
+		body {
+			font-family: 'Rubik', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+			background: linear-gradient(155deg, #373741 0%, #2e0d16 100%);
+			overflow: hidden;
+			color: white;
+		}
+
+		#container {
+			position: relative;
+			width: 1920px;
+			height: 1080px;
+			margin: 0 auto;
+		}
+
+		/* Header */
+		#header {
+			position: absolute;
+			top: 30px;
+			left: 0;
+			right: 0;
+			text-align: center;
+			z-index: 100;
+		}
+
+		#period-desc {
+			font-size: 30px;
+			font-weight: 900;
+			text-transform: uppercase;
+			letter-spacing: 3px;
+			background: linear-gradient(90deg, #00d4ff, #7b2cbf);
+			-webkit-background-clip: text;
+			-webkit-text-fill-color: transparent;
+			background-clip: text;
+			margin-bottom: 10px;
+			text-shadow: 0 0 30px rgba(0, 212, 255, 0.3);
+		}
+
+		#clock-label {
+			font-size: 28px;
+			font-weight: 600;
+			color: rgba(255, 255, 255, 0.6);
+			letter-spacing: 8px;
+		}
+
+		/* Team Logos/Names */
+		.team-header {
+			position: absolute;
+			top: 30px;
+			width: 800px;
+			text-align: center;
+		}
+
+		.team-header.home {
+			left: 120px;
+		}
+
+		.team-header.away {
+			right: 120px;
+		}
+
+		.team-name {
+			font-size: 32px;
+			font-weight: 900;
+			margin-bottom: 10px;
+			text-transform: uppercase;
+			letter-spacing: 2px;
+		}
+
+		.team-header.home .team-name {
+			color: #ff006e;
+			text-shadow: 0 0 20px #830B2C80;
+		}
+
+		.team-header.away .team-name {
+			color: #FFCA38;
+			text-shadow: 0 0 20px #FFCA3880;
+		}
+
+		.team-score {
+			font-size: 64px;
+			font-weight: 900;
+			line-height: 1;
+		}
+
+		.team-header.home .team-score {
+			color: #ff006e;
+		}
+
+		.team-header.away .team-score {
+			color: #FFCA38;
+		}
+
+		/* Stats Container */
+		#stats-container {
+			position: absolute;
+			top: 190px;
+			left: 120px;
+			right: 120px;
+			bottom: 80px;
+		}
+
+		/* View: Shooting Stats */
+		.view {
+			position: absolute;
+			top: 0;
+			left: 0;
+			width: 100%;
+			height: 100%;
+			opacity: 0;
+			transform: scale(0.95);
+			transition: opacity 0.6s ease, transform 0.6s ease;
+		}
+
+		.view.active {
+			opacity: 1;
+			transform: scale(1);
+		}
+
+		.stat-row {
+			display: flex;
+			align-items: center;
+			margin-bottom: 35px;
+			position: relative;
+		}
+
+		.stat-label {
+			position: absolute;
+			left: 50%;
+			transform: translateX(-50%);
+			font-size: 32px;
+			font-weight: 700;
+			color: rgba(255, 255, 255, 0.9);
+			text-transform: uppercase;
+			letter-spacing: 2px;
+			z-index: 10;
+			background: rgba(0, 0, 0, 0.5);
+			padding: 8px 24px;
+			border-radius: 8px;
+			min-width: 280px;
+			text-align: center;
+		}
+
+		.stat-bars {
+			display: flex;
+			width: 100%;
+			height: 60px;
+			gap: 20px;
+			align-items: center;
+		}
+
+		.stat-bar {
+			height: 100%;
+			position: relative;
+			border-radius: 8px;
+			overflow: hidden;
+			box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+		}
+
+		.stat-bar.home {
+			flex: 1;
+			background: #ff006e1a;
+			border: 2px solid #ff006e4d;
+		}
+
+		.stat-bar.away {
+			flex: 1;
+			background: #00d4ff1a;
+			border: 2px solid #00d4ff4d;
+		}
+
+		.stat-fill {
+			height: 100%;
+			width: 0;
+			transition: width 1s cubic-bezier(0.4, 0, 0.2, 1);
+			position: relative;
+		}
+
+		.stat-bar.home .stat-fill {
+			background: linear-gradient(90deg, #ff006e 0%, #cc0058 100%);
+			box-shadow: 0 0 20px rgba(255, 0, 110, 0.5);
+		}
+
+		.stat-bar.away .stat-fill {
+			background: linear-gradient(90deg, #FFCA38 0%, #FFCA38 100%);
+			box-shadow: 0 0 20px rgba(255, 202, 56, 0.5);
+		}
+
+		.stat-value {
+			position: absolute;
+			top: 50%;
+			transform: translateY(-50%);
+			font-size: 28px;
+			font-weight: 900;
+			color: white;
+			text-shadow: 0 2px 8px rgba(0, 0, 0, 0.8);
+			padding: 0 16px;
+			z-index: 5;
+		}
+
+		.stat-bar.home .stat-value {
+			left: 12px;
+		}
+
+		.stat-bar.away .stat-value {
+			right: 12px;
+		}
+
+		/* Individual Player Stats View */
+		.player-stats-grid {
+			display: grid;
+			grid-template-columns: 1fr 1fr;
+			gap: 50px;
+			height: 100%;
+		}
+
+		.team-players {
+			display: flex;
+			flex-direction: column;
+			gap: 20px;
+		}
+
+		.team-players-title {
+			font-size: 36px;
+			font-weight: 900;
+			text-align: center;
+			margin-bottom: 10px;
+			padding-bottom: 15px;
+			border-bottom: 3px solid;
+		}
+
+		.team-players.home .team-players-title {
+			color: #ff006e;
+			border-color: rgba(255, 0, 110, 0.3);
+		}
+
+		.team-players.away .team-players-title {
+			color: #FFCA38;
+			border-color: rgba(255, 202, 56, 0.3);
+		}
+
+		.player-card {
+			background: rgba(255, 255, 255, 0.05);
+			border-radius: 12px;
+			padding: 20px 24px;
+			display: flex;
+			align-items: center;
+			gap: 20px;
+			border-left: 4px solid;
+			opacity: 0;
+			transform: translateY(20px);
+			transition: opacity 0.4s ease, transform 0.4s ease;
+			margin-bottom: 30px;
+		}
+
+		.player-card.show {
+			opacity: 1;
+			transform: translateY(0);
+		}
+
+		.team-players.home .player-card {
+			border-color: #ff006e;
+		}
+
+		.team-players.away .player-card {
+			border-color: #FFCA38;
+		}
+
+		.player-number {
+			font-size: 42px;
+			font-weight: 900;
+			min-width: 70px;
+			text-align: center;
+			opacity: 0.6;
+		}
+
+		.player-info {
+			flex: 1;
+		}
+
+		.player-name {
+			font-size: 24px;
+			font-weight: 700;
+			margin-bottom: 8px;
+		}
+
+		.player-stat-line {
+			font-size: 18px;
+			color: rgba(255, 255, 255, 0.7);
+			font-weight: 500;
+		}
+
+		.player-points {
+			font-size: 48px;
+			font-weight: 900;
+			min-width: 80px;
+			text-align: center;
+		}
+
+		.team-players.home .player-points {
+			color: #ff006e;
+		}
+
+		.team-players.away .player-points {
+			color: #FFCA38;
+		}
+
+		/* Percentages View */
+		.percentage-container {
+			display: flex;
+			flex-direction: column;
+			gap: 60px;
+			align-items: center;
+			justify-content: center;
+			height: 100%;
+		}
+
+		.percentage-row {
+			display: flex;
+			gap: 100px;
+			align-items: center;
+		}
+
+		.percentage-item {
+			text-align: center;
+			position: relative;
+		}
+
+		.percentage-label {
+			font-size: 28px;
+			font-weight: 700;
+			margin-bottom: 20px;
+			text-transform: uppercase;
+			letter-spacing: 2px;
+			color: rgba(255, 255, 255, 0.8);
+		}
+
+		.percentage-comparison {
+			display: flex;
+			gap: 80px;
+			align-items: center;
+		}
+
+		.percentage-team {
+			text-align: center;
+		}
+
+		.percentage-team-name {
+			font-size: 20px;
+			font-weight: 600;
+			margin-bottom: 12px;
+			opacity: 0.7;
+		}
+
+		.percentage-value {
+			font-size: 72px;
+			font-weight: 900;
+			line-height: 1;
+		}
+
+		.percentage-team.home .percentage-value {
+			color: #ff006e;
+		}
+
+		.percentage-team.away .percentage-value {
+			color: #FFCA38;
+		}
+
+		.percentage-fraction {
+			font-size: 24px;
+			font-weight: 600;
+			color: rgba(255, 255, 255, 0.5);
+			margin-top: 8px;
+		}
+
+		/* Footer indicator */
+		#view-indicator {
+			position: absolute;
+			bottom: 40px;
+			left: 50%;
+			transform: translateX(-50%);
+			display: flex;
+			gap: 12px;
+		}
+
+		.indicator-dot {
+			width: 12px;
+			height: 12px;
+			border-radius: 50%;
+			background: rgba(255, 255, 255, 0.3);
+			transition: all 0.3s ease;
+		}
+
+		.indicator-dot.active {
+			background: #ff006e;
+			box-shadow: 0 0 20px rgba(255, 0, 110, 0.6);
+			width: 36px;
+			border-radius: 6px;
+		}
+
+		/* Animations */
+		@keyframes slideInUp {
+			from {
+				opacity: 0;
+				transform: translateY(40px);
+			}
+
+			to {
+				opacity: 1;
+				transform: translateY(0);
+			}
+		}
+
+		@keyframes fadeIn {
+			from {
+				opacity: 0;
+			}
+
+			to {
+				opacity: 1;
+			}
+		}
+
+		@keyframes pulse {
+
+			0%,
+			100% {
+				transform: scale(1);
+			}
+
+			50% {
+				transform: scale(1.05);
+			}
+		}
+
+		.animate-in {
+			animation: slideInUp 0.8s ease-out forwards;
+		}
+	</style>
+</head>
+
+<body>
+	<div id="container">
+		<!-- Header -->
+		<div id="header">
+			<div id="period-desc">Stats</div>
+			<div id="clock-label">00:00</div>
+		</div>
+
+		<!-- Team Headers -->
+		<div class="team-header home">
+			<div class="team-name" id="home-team-name">Pella Christian</div>
+			<div class="team-score" id="home-score">0</div>
+		</div>
+
+		<div class="team-header away">
+			<div class="team-name" id="away-team-name">AWAY</div>
+			<div class="team-score" id="away-score">0</div>
+		</div>
+
+		<!-- Stats Container -->
+		<div id="stats-container">
+			<!-- View 1: Shooting Stats -->
+			<div class="view" id="view-shooting">
+				<div class="stat-row">
+					<div class="stat-label">Field Goals</div>
+					<div class="stat-bars">
+						<div class="stat-bar home">
+							<div class="stat-fill" data-stat="fg"></div>
+							<div class="stat-value" data-value="fg-home">0/0</div>
+						</div>
+						<div class="stat-bar away">
+							<div class="stat-fill" data-stat="fg"></div>
+							<div class="stat-value" data-value="fg-away">0/0</div>
+						</div>
+					</div>
+				</div>
+
+				<div class="stat-row">
+					<div class="stat-label">3-Pointers</div>
+					<div class="stat-bars">
+						<div class="stat-bar home">
+							<div class="stat-fill" data-stat="3pt"></div>
+							<div class="stat-value" data-value="3pt-home">0/0</div>
+						</div>
+						<div class="stat-bar away">
+							<div class="stat-fill" data-stat="3pt"></div>
+							<div class="stat-value" data-value="3pt-away">0/0</div>
+						</div>
+					</div>
+				</div>
+
+				<div class="stat-row">
+					<div class="stat-label">Free Throws</div>
+					<div class="stat-bars">
+						<div class="stat-bar home">
+							<div class="stat-fill" data-stat="ft"></div>
+							<div class="stat-value" data-value="ft-home">0/0</div>
+						</div>
+						<div class="stat-bar away">
+							<div class="stat-fill" data-stat="ft"></div>
+							<div class="stat-value" data-value="ft-away">0/0</div>
+						</div>
+					</div>
+				</div>
+
+				<div class="stat-row">
+					<div class="stat-label">Fouls</div>
+					<div class="stat-bars">
+						<div class="stat-bar home">
+							<div class="stat-fill" data-stat="fouls"></div>
+							<div class="stat-value" data-value="fouls-home">0</div>
+						</div>
+						<div class="stat-bar away">
+							<div class="stat-fill" data-stat="fouls"></div>
+							<div class="stat-value" data-value="fouls-away">0</div>
+						</div>
+					</div>
+				</div>
+
+				<div class="stat-row">
+					<div class="stat-label">Offensive Rebounds</div>
+					<div class="stat-bars">
+						<div class="stat-bar home">
+							<div class="stat-fill" data-stat="off-reb"></div>
+							<div class="stat-value" data-value="off-reb-home">0</div>
+						</div>
+						<div class="stat-bar away">
+							<div class="stat-fill" data-stat="off-reb"></div>
+							<div class="stat-value" data-value="off-reb-away">0</div>
+						</div>
+					</div>
+				</div>
+
+				<div class="stat-row">
+					<div class="stat-label">Defensive Rebounds</div>
+					<div class="stat-bars">
+						<div class="stat-bar home">
+							<div class="stat-fill" data-stat="def-reb"></div>
+							<div class="stat-value" data-value="def-reb-home">0</div>
+						</div>
+						<div class="stat-bar away">
+							<div class="stat-fill" data-stat="def-reb"></div>
+							<div class="stat-value" data-value="def-reb-away">0</div>
+						</div>
+					</div>
+				</div>
+
+				<div class="stat-row">
+					<div class="stat-label">Steals</div>
+					<div class="stat-bars">
+						<div class="stat-bar home">
+							<div class="stat-fill" data-stat="stl"></div>
+							<div class="stat-value" data-value="stl-home">0</div>
+						</div>
+						<div class="stat-bar away">
+							<div class="stat-fill" data-stat="stl"></div>
+							<div class="stat-value" data-value="stl-away">0</div>
+						</div>
+					</div>
+				</div>
+
+				<div class="stat-row">
+					<div class="stat-label">Turnovers</div>
+					<div class="stat-bars">
+						<div class="stat-bar home">
+							<div class="stat-fill" data-stat="to"></div>
+							<div class="stat-value" data-value="to-home">0</div>
+						</div>
+						<div class="stat-bar away">
+							<div class="stat-fill" data-stat="to"></div>
+							<div class="stat-value" data-value="to-away">0</div>
+						</div>
+					</div>
+				</div>
+			</div>
+
+			<!-- View 2: Shooting Percentages -->
+			<div class="view" id="view-percentages">
+				<div class="percentage-container">
+					<div class="percentage-row">
+						<div class="percentage-item">
+							<div class="percentage-label">3-Point %</div>
+							<div class="percentage-comparison">
+								<div class="percentage-team home">
+									<div class="percentage-team-name" id="home-name-3pt">PC</div>
+									<div class="percentage-value" id="3pt-pct-home">0%</div>
+									<div class="percentage-fraction" id="3pt-frac-home">0/0</div>
+								</div>
+								<div class="percentage-team away">
+									<div class="percentage-team-name" id="away-name-3pt">AWAY</div>
+									<div class="percentage-value" id="3pt-pct-away">0%</div>
+									<div class="percentage-fraction" id="3pt-frac-away">0/0</div>
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="percentage-row">
+						<div class="percentage-item">
+							<div class="percentage-label">Field Goal %</div>
+							<div class="percentage-comparison">
+								<div class="percentage-team home">
+									<div class="percentage-team-name" id="home-name-fg">PC</div>
+									<div class="percentage-value" id="fg-pct-home">0%</div>
+									<div class="percentage-fraction" id="fg-frac-home">0/0</div>
+								</div>
+								<div class="percentage-team away">
+									<div class="percentage-team-name" id="away-name-fg">AWAY</div>
+									<div class="percentage-value" id="fg-pct-away">0%</div>
+									<div class="percentage-fraction" id="fg-frac-away">0/0</div>
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="percentage-row">
+						<div class="percentage-item">
+							<div class="percentage-label">Free Throw %</div>
+							<div class="percentage-comparison">
+								<div class="percentage-team home">
+									<div class="percentage-team-name" id="home-name-ft">PC</div>
+									<div class="percentage-value" id="ft-pct-home">0%</div>
+									<div class="percentage-fraction" id="ft-frac-home">0/0</div>
+								</div>
+								<div class="percentage-team away">
+									<div class="percentage-team-name" id="away-name-ft">AWAY</div>
+									<div class="percentage-value" id="ft-pct-away">0%</div>
+									<div class="percentage-fraction" id="ft-frac-away">0/0</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+
+			<!-- View 3: Top Scorers -->
+			<div class="view" id="view-players">
+				<div class="player-stats-grid">
+					<div class="team-players home">
+						<div id="home-players-list"></div>
+					</div>
+					<div class="team-players away">
+						<div id="away-players-list"></div>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<!-- View Indicator -->
+		<div id="view-indicator">
+			<div class="indicator-dot active"></div>
+			<div class="indicator-dot"></div>
+			<div class="indicator-dot"></div>
+		</div>
+	</div>
+
+	<script>
+		// Configuration
+		const DATA_SOURCE = 'basketball_stats.json';
+		//const DATA_SOURCE = 'http://localhost:5000/stats';
+		const VIEW_DURATION = 8000; // 8 seconds per view
+		const TOP_SCORERS_COUNT = 6;
+
+		let currentViewIndex = 0;
+		let views = [];
+		let gameData = null;
+		let viewTimer = null;
+
+		// Initialize
+		async function init() {
+			views = [
+				document.getElementById('view-shooting'),
+				document.getElementById('view-percentages'),
+				document.getElementById('view-players'),
+			];
+
+			try {
+				const response = await fetch(DATA_SOURCE);
+				gameData = await response.json();
+				processData(gameData);
+				showView(0);
+				startViewCycle();
+			} catch (error) {
+				console.error('Error loading data:', error);
+				document.getElementById('period-desc').textContent = 'Error loading game data';
+			}
+		}
+
+		// Process and display data
+		function processData(data) {
+			// Set team names and scores
+			const homeTeam = data.game_info.home_team.trim();
+			const awayTeam = data.game_info.visitor_team.trim();
+
+			document.getElementById('away-team-name').textContent = awayTeam;
+
+			// Update all team name references
+			document.querySelectorAll('#away-name-fg, #away-name-3pt, #away-name-ft').forEach(el => {
+				el.textContent = awayTeam;
+			});
+
+			// Extract team stats
+			const homeStats = data.players.find(p => p.name === "Home Team Stats")?.stats_today || {};
+			const awayStats = data.players.find(p => p.name === "Visitor Team Stats")?.stats_today || {};
+
+			// Calculate individual player totals for home team
+			const homePlayers = data.players.filter(p =>
+				p.name !== "Home Team Stats" &&
+				p.name !== "Visitor Team Stats" &&
+				p.game_guid.includes("TEAM") === false
+			);
+
+			const homePlayerStats = {
+				points: 0,
+				three_point_makes: 0,
+				three_point_attempts: 0,
+				two_point_makes: 0,
+				two_point_attempts: 0,
+				free_throw_makes: 0,
+				free_throw_attempts: 0,
+				rebounds: 0,
+				assists: 0,
+				steals: 0,
+				blocks: 0,
+				turnovers: 0,
+				offensive_rebounds: 0,
+				defensive_rebounds: 0,
+				deflections: 0,
+				fouls: 0
+			};
+
+			homePlayers.forEach(player => {
+				const stats = player.stats_today;
+				homePlayerStats.points += stats.points;
+				homePlayerStats.three_point_makes += stats.three_point_makes;
+				homePlayerStats.three_point_attempts += stats.three_point_attempts;
+				homePlayerStats.two_point_makes += stats.two_point_makes;
+				homePlayerStats.two_point_attempts += stats.two_point_attempts;
+				homePlayerStats.free_throw_makes += stats.free_throw_makes;
+				homePlayerStats.free_throw_attempts += stats.free_throw_attempts;
+				homePlayerStats.rebounds += stats.rebounds;
+				homePlayerStats.assists += stats.assists;
+				homePlayerStats.steals += stats.steals;
+				homePlayerStats.blocks += stats.blocks;
+				homePlayerStats.turnovers += stats.turnovers;
+				homePlayerStats.offensive_rebounds += stats.offensive_rebounds;
+				homePlayerStats.defensive_rebounds += stats.defensive_rebounds;
+				homePlayerStats.deflections += stats.deflections;
+				homePlayerStats.fouls += stats.fouls;
+			});
+
+			// Use aggregated home stats
+			const finalHomeStats = homePlayerStats;
+			const finalAwayStats = awayStats;
+
+			// Set scores
+			document.getElementById('home-score').textContent = finalHomeStats.points;
+			document.getElementById('away-score').textContent = finalAwayStats.points;
+
+			// Calculate field goals (2pt + 3pt)
+			const homeFGM = finalHomeStats.two_point_makes + finalHomeStats.three_point_makes;
+			const homeFGA = finalHomeStats.two_point_attempts + finalHomeStats.three_point_attempts;
+			const awayFGM = finalAwayStats.two_point_makes + finalAwayStats.three_point_makes;
+			const awayFGA = finalAwayStats.two_point_attempts + finalAwayStats.three_point_attempts;
+
+			// Populate View 1: Shooting Stats
+			updateStatBar('fg', homeFGM, homeFGA, awayFGM, awayFGA);
+			updateStatBar('3pt', finalHomeStats.three_point_makes, finalHomeStats.three_point_attempts,
+				finalAwayStats.three_point_makes, finalAwayStats.three_point_attempts);
+			updateStatBar('ft', finalHomeStats.free_throw_makes, finalHomeStats.free_throw_attempts,
+				finalAwayStats.free_throw_makes, finalAwayStats.free_throw_attempts);
+			updateStatBar('fouls', finalHomeStats.fouls, 0, finalAwayStats.fouls, 0);
+			updateStatBar('off-reb', finalHomeStats.offensive_rebounds, 0, finalAwayStats.offensive_rebounds, 0);
+			updateStatBar('def-reb', finalHomeStats.defensive_rebounds, 0, finalAwayStats.defensive_rebounds, 0);
+			updateStatBar('stl', finalHomeStats.steals, 0, finalAwayStats.steals, 0);
+			updateStatBar('to', finalHomeStats.turnovers, 0, finalAwayStats.turnovers, 0);
+
+			// Populate View 2: Percentages
+			updatePercentage('fg', homeFGM, homeFGA, awayFGM, awayFGA);
+			updatePercentage('3pt', finalHomeStats.three_point_makes, finalHomeStats.three_point_attempts,
+				finalAwayStats.three_point_makes, finalAwayStats.three_point_attempts);
+			updatePercentage('ft', finalHomeStats.free_throw_makes, finalHomeStats.free_throw_attempts,
+				finalAwayStats.free_throw_makes, finalAwayStats.free_throw_attempts);
+
+			// Populate View 3: Top Scorers
+			populateTopScorers(homePlayers, awayStats);
+		}
+
+		function updateStatBar(stat, homeMakes, homeAttempts, awayMakes, awayAttempts) {
+			const homeBar = document.querySelector(`.stat-bar.home .stat-fill[data-stat="${stat}"]`);
+			const awayBar = document.querySelector(`.stat-bar.away .stat-fill[data-stat="${stat}"]`);
+			const homeValue = document.querySelector(`[data-value="${stat}-home"]`);
+			const awayValue = document.querySelector(`[data-value="${stat}-away"]`);
+
+			// For shooting stats, show makes/attempts
+			if (homeAttempts > 0) {
+				homeValue.textContent = `${homeMakes}/${homeAttempts}`;
+				awayValue.textContent = `${awayMakes}/${awayAttempts}`;
+
+				const homePct = homeAttempts > 0 ? (homeMakes / homeAttempts) : 0;
+				const awayPct = awayAttempts > 0 ? (awayMakes / awayAttempts) : 0;
+				const maxPct = Math.max(homePct, awayPct, 0.01);
+
+				homeBar.style.width = `${(homePct / maxPct) * 100}%`;
+				awayBar.style.width = `${(awayPct / maxPct) * 100}%`;
+			} else {
+				// For counting stats (rebounds, assists, etc.)
+				homeValue.textContent = homeMakes;
+				awayValue.textContent = awayMakes;
+
+				const maxValue = Math.max(homeMakes, awayMakes, 1);
+				homeBar.style.width = `${(homeMakes / maxValue) * 100}%`;
+				awayBar.style.width = `${(awayMakes / maxValue) * 100}%`;
+			}
+		}
+
+		function updatePercentage(stat, homeMakes, homeAttempts, awayMakes, awayAttempts) {
+			const homePct = homeAttempts > 0 ? ((homeMakes / homeAttempts) * 100).toFixed(1) : '0.0';
+			const awayPct = awayAttempts > 0 ? ((awayMakes / awayAttempts) * 100).toFixed(1) : '0.0';
+
+			document.getElementById(`${stat}-pct-home`).textContent = `${homePct}%`;
+			document.getElementById(`${stat}-pct-away`).textContent = `${awayPct}%`;
+			document.getElementById(`${stat}-frac-home`).textContent = `${homeMakes}/${homeAttempts}`;
+			document.getElementById(`${stat}-frac-away`).textContent = `${awayMakes}/${awayAttempts}`;
+		}
+
+		function populateTopScorers(homePlayers, awayStats) {
+			// Sort home players by points
+			const sortedHome = homePlayers
+				.filter(p => p.stats_today.points > 0)
+				.sort((a, b) => b.stats_today.points - a.stats_today.points)
+				.slice(0, TOP_SCORERS_COUNT);
+
+			const homeList = document.getElementById('home-players-list');
+			homeList.innerHTML = '';
+
+			sortedHome.forEach((player, index) => {
+				const stats = player.stats_today;
+				const fgm = stats.two_point_makes + stats.three_point_makes;
+				const fga = stats.two_point_attempts + stats.three_point_attempts;
+
+				const card = document.createElement('div');
+				card.className = 'player-card';
+				card.innerHTML = `
+					<div class="player-number">#${player.number}</div>
+					<div class="player-info">
+						<div class="player-name">${player.name}</div>
+						<div class="player-stat-line">${stats.rebounds} REB • ${stats.assists} AST • ${fgm}/${fga} FG</div>
+					</div>
+					<div class="player-points">${stats.points}</div>
+				`;
+				homeList.appendChild(card);
+
+				// Animate in with delay
+				setTimeout(() => card.classList.add('show'), index * 100);
+			});
+
+			// For away team, we only have team stats, so show a message
+			const awayList = document.getElementById('away-players-list');
+			awayList.innerHTML = `
+				<div class="player-card show" style="justify-content: center; text-align: center;">
+					<div style="font-size: 24px; color: rgba(255, 255, 255, 0.6);">
+						Individual stats not available
+					</div>
+				</div>
+			`;
+		}
+
+		function showView(index) {
+			// Remove active class from all views
+			views.forEach(view => view.classList.remove('active'));
+
+			// Update indicator dots
+			const dots = document.querySelectorAll('.indicator-dot');
+			dots.forEach(dot => dot.classList.remove('active'));
+
+			// Show new view
+			views[index].classList.add('active');
+			dots[index].classList.add('active');
+
+			currentViewIndex = index;
+		}
+
+		function startViewCycle() {
+			viewTimer = setInterval(() => {
+				const nextIndex = (currentViewIndex + 1) % views.length;
+				showView(nextIndex);
+			}, VIEW_DURATION);
+		}
+
+		function stopViewCycle() {
+			if (viewTimer) {
+				clearInterval(viewTimer);
+			}
+		}
+
+		// Manual navigation
+		document.addEventListener('keydown', (e) => {
+			if (e.key === 'ArrowRight') {
+				stopViewCycle();
+				showView((currentViewIndex + 1) % views.length);
+				startViewCycle();
+			} else if (e.key === 'ArrowLeft') {
+				stopViewCycle();
+				showView((currentViewIndex - 1 + views.length) % views.length);
+				startViewCycle();
+			}
+		});
+
+		// Start when page loads
+		window.addEventListener('load', init);
+	</script>
+</body>
+
+</html>
