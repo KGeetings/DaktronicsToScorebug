@@ -304,27 +304,34 @@ class iScoreCentralScraper:
 
         # Add placeholders for tracking stats with empty/missing player GUIDs
         # Use special keys to distinguish between home and visitor team stats
-        visitor_team_placeholder = PlayerRecord()
-        visitor_team_placeholder.player_name = "Visitor Team Stats"
-        visitor_team_placeholder.player_guid = ""
-        visitor_team_placeholder.player_game_guid = "__VISITOR_TEAM__"
-        players["__VISITOR_TEAM__"] = visitor_team_placeholder
-
-        # Also add the visitor team GUID if it exists
+        # Only add under the team GUID if it exists, otherwise use the placeholder key
         if visitor_team_guid:
+            visitor_team_placeholder = PlayerRecord()
+            visitor_team_placeholder.player_name = "Visitor Team Stats"
+            visitor_team_placeholder.player_guid = ""
+            visitor_team_placeholder.player_game_guid = visitor_team_guid
             players[visitor_team_guid] = visitor_team_placeholder
             self.visitor_player_guids.add(visitor_team_guid)
+        else:
+            visitor_team_placeholder = PlayerRecord()
+            visitor_team_placeholder.player_name = "Visitor Team Stats"
+            visitor_team_placeholder.player_guid = ""
+            visitor_team_placeholder.player_game_guid = "__VISITOR_TEAM__"
+            players["__VISITOR_TEAM__"] = visitor_team_placeholder
 
-        home_team_placeholder = PlayerRecord()
-        home_team_placeholder.player_name = "Home Team Stats"
-        home_team_placeholder.player_guid = ""
-        home_team_placeholder.player_game_guid = "__HOME_TEAM__"
-        players["__HOME_TEAM__"] = home_team_placeholder
-
-        # Also add the home team GUID if it exists
         if home_team_guid:
+            home_team_placeholder = PlayerRecord()
+            home_team_placeholder.player_name = "Home Team Stats"
+            home_team_placeholder.player_guid = ""
+            home_team_placeholder.player_game_guid = home_team_guid
             players[home_team_guid] = home_team_placeholder
             self.home_player_guids.add(home_team_guid)
+        else:
+            home_team_placeholder = PlayerRecord()
+            home_team_placeholder.player_name = "Home Team Stats"
+            home_team_placeholder.player_guid = ""
+            home_team_placeholder.player_game_guid = "__HOME_TEAM__"
+            players["__HOME_TEAM__"] = home_team_placeholder
 
         return players
 
