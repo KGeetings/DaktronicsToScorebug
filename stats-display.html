@@ -107,7 +107,7 @@
 		/* Stats Container */
 		#stats-container {
 			position: absolute;
-			top: 190px;
+			top: 150px;
 			left: 120px;
 			right: 120px;
 			bottom: 80px;
@@ -130,73 +130,59 @@
 			transform: scale(1);
 		}
 
+		#view-players {
+			top: 30px;
+		}
+
 		.stat-row {
 			display: flex;
-			align-items: center;
-			margin-bottom: 35px;
+			flex-direction: column;
+			margin-bottom: 20px;
 			position: relative;
 		}
 
 		.stat-label {
-			position: absolute;
-			left: 50%;
-			transform: translateX(-50%);
-			font-size: 32px;
+			font-size: 28px;
 			font-weight: 700;
-			color: rgba(255, 255, 255, 0.9);
+			color: rgba(255, 255, 255, 0.8);
 			text-transform: uppercase;
 			letter-spacing: 2px;
-			z-index: 10;
-			background: rgba(0, 0, 0, 0.5);
-			padding: 8px 24px;
-			border-radius: 8px;
-			min-width: 280px;
 			text-align: center;
+			margin-bottom: 10px;
 		}
 
 		.stat-bars {
 			display: flex;
 			width: 100%;
-			height: 60px;
-			gap: 20px;
+			height: 45px;
 			align-items: center;
 		}
 
 		.stat-bar {
+			width: 100%;
 			height: 100%;
 			position: relative;
 			border-radius: 8px;
 			overflow: hidden;
 			box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
-		}
-
-		.stat-bar.home {
-			flex: 1;
-			background: #ff006e1a;
-			border: 2px solid #ff006e4d;
-		}
-
-		.stat-bar.away {
-			flex: 1;
-			background: #00d4ff1a;
-			border: 2px solid #00d4ff4d;
+			background: rgba(255, 255, 255, 0.05);
+			display: flex;
 		}
 
 		.stat-fill {
 			height: 100%;
-			width: 0;
 			transition: width 1s cubic-bezier(0.4, 0, 0.2, 1);
 			position: relative;
 		}
 
-		.stat-bar.home .stat-fill {
+		.stat-fill.home {
 			background: linear-gradient(90deg, #ff006e 0%, #cc0058 100%);
-			box-shadow: 0 0 20px rgba(255, 0, 110, 0.5);
+			box-shadow: inset 0 0 20px rgba(255, 0, 110, 0.3);
 		}
 
-		.stat-bar.away .stat-fill {
-			background: linear-gradient(90deg, #FFCA38 0%, #FFCA38 100%);
-			box-shadow: 0 0 20px rgba(255, 202, 56, 0.5);
+		.stat-fill.away {
+			background: linear-gradient(90deg, #FFCA38 0%, #e6b532 100%);
+			box-shadow: inset 0 0 20px rgba(255, 202, 56, 0.3);
 		}
 
 		.stat-value {
@@ -211,11 +197,11 @@
 			z-index: 5;
 		}
 
-		.stat-bar.home .stat-value {
+		.stat-value.home {
 			left: 12px;
 		}
 
-		.stat-bar.away .stat-value {
+		.stat-value.away {
 			right: 12px;
 		}
 
@@ -478,13 +464,11 @@
 				<div class="stat-row">
 					<div class="stat-label">Field Goals</div>
 					<div class="stat-bars">
-						<div class="stat-bar home">
-							<div class="stat-fill" data-stat="fg"></div>
-							<div class="stat-value" data-value="fg-home">0/0</div>
-						</div>
-						<div class="stat-bar away">
-							<div class="stat-fill" data-stat="fg"></div>
-							<div class="stat-value" data-value="fg-away">0/0</div>
+						<div class="stat-bar">
+							<div class="stat-fill home" data-stat="fg"></div>
+							<div class="stat-fill away" data-stat="fg"></div>
+							<div class="stat-value home" data-value="fg-home">0/0</div>
+							<div class="stat-value away" data-value="fg-away">0/0</div>
 						</div>
 					</div>
 				</div>
@@ -492,13 +476,11 @@
 				<div class="stat-row">
 					<div class="stat-label">3-Pointers</div>
 					<div class="stat-bars">
-						<div class="stat-bar home">
-							<div class="stat-fill" data-stat="3pt"></div>
-							<div class="stat-value" data-value="3pt-home">0/0</div>
-						</div>
-						<div class="stat-bar away">
-							<div class="stat-fill" data-stat="3pt"></div>
-							<div class="stat-value" data-value="3pt-away">0/0</div>
+						<div class="stat-bar">
+							<div class="stat-fill home" data-stat="3pt"></div>
+							<div class="stat-fill away" data-stat="3pt"></div>
+							<div class="stat-value home" data-value="3pt-home">0/0</div>
+							<div class="stat-value away" data-value="3pt-away">0/0</div>
 						</div>
 					</div>
 				</div>
@@ -506,13 +488,11 @@
 				<div class="stat-row">
 					<div class="stat-label">Free Throws</div>
 					<div class="stat-bars">
-						<div class="stat-bar home">
-							<div class="stat-fill" data-stat="ft"></div>
-							<div class="stat-value" data-value="ft-home">0/0</div>
-						</div>
-						<div class="stat-bar away">
-							<div class="stat-fill" data-stat="ft"></div>
-							<div class="stat-value" data-value="ft-away">0/0</div>
+						<div class="stat-bar">
+							<div class="stat-fill home" data-stat="ft"></div>
+							<div class="stat-fill away" data-stat="ft"></div>
+							<div class="stat-value home" data-value="ft-home">0/0</div>
+							<div class="stat-value away" data-value="ft-away">0/0</div>
 						</div>
 					</div>
 				</div>
@@ -520,13 +500,11 @@
 				<div class="stat-row">
 					<div class="stat-label">Fouls</div>
 					<div class="stat-bars">
-						<div class="stat-bar home">
-							<div class="stat-fill" data-stat="fouls"></div>
-							<div class="stat-value" data-value="fouls-home">0</div>
-						</div>
-						<div class="stat-bar away">
-							<div class="stat-fill" data-stat="fouls"></div>
-							<div class="stat-value" data-value="fouls-away">0</div>
+						<div class="stat-bar">
+							<div class="stat-fill home" data-stat="fouls"></div>
+							<div class="stat-fill away" data-stat="fouls"></div>
+							<div class="stat-value home" data-value="fouls-home">0</div>
+							<div class="stat-value away" data-value="fouls-away">0</div>
 						</div>
 					</div>
 				</div>
@@ -534,13 +512,11 @@
 				<div class="stat-row">
 					<div class="stat-label">Offensive Rebounds</div>
 					<div class="stat-bars">
-						<div class="stat-bar home">
-							<div class="stat-fill" data-stat="off-reb"></div>
-							<div class="stat-value" data-value="off-reb-home">0</div>
-						</div>
-						<div class="stat-bar away">
-							<div class="stat-fill" data-stat="off-reb"></div>
-							<div class="stat-value" data-value="off-reb-away">0</div>
+						<div class="stat-bar">
+							<div class="stat-fill home" data-stat="off-reb"></div>
+							<div class="stat-fill away" data-stat="off-reb"></div>
+							<div class="stat-value home" data-value="off-reb-home">0</div>
+							<div class="stat-value away" data-value="off-reb-away">0</div>
 						</div>
 					</div>
 				</div>
@@ -548,13 +524,11 @@
 				<div class="stat-row">
 					<div class="stat-label">Defensive Rebounds</div>
 					<div class="stat-bars">
-						<div class="stat-bar home">
-							<div class="stat-fill" data-stat="def-reb"></div>
-							<div class="stat-value" data-value="def-reb-home">0</div>
-						</div>
-						<div class="stat-bar away">
-							<div class="stat-fill" data-stat="def-reb"></div>
-							<div class="stat-value" data-value="def-reb-away">0</div>
+						<div class="stat-bar">
+							<div class="stat-fill home" data-stat="def-reb"></div>
+							<div class="stat-fill away" data-stat="def-reb"></div>
+							<div class="stat-value home" data-value="def-reb-home">0</div>
+							<div class="stat-value away" data-value="def-reb-away">0</div>
 						</div>
 					</div>
 				</div>
@@ -562,13 +536,11 @@
 				<div class="stat-row">
 					<div class="stat-label">Steals</div>
 					<div class="stat-bars">
-						<div class="stat-bar home">
-							<div class="stat-fill" data-stat="stl"></div>
-							<div class="stat-value" data-value="stl-home">0</div>
-						</div>
-						<div class="stat-bar away">
-							<div class="stat-fill" data-stat="stl"></div>
-							<div class="stat-value" data-value="stl-away">0</div>
+						<div class="stat-bar">
+							<div class="stat-fill home" data-stat="stl"></div>
+							<div class="stat-fill away" data-stat="stl"></div>
+							<div class="stat-value home" data-value="stl-home">0</div>
+							<div class="stat-value away" data-value="stl-away">0</div>
 						</div>
 					</div>
 				</div>
@@ -576,17 +548,15 @@
 				<div class="stat-row">
 					<div class="stat-label">Turnovers</div>
 					<div class="stat-bars">
-						<div class="stat-bar home">
-							<div class="stat-fill" data-stat="to"></div>
-							<div class="stat-value" data-value="to-home">0</div>
-						</div>
-						<div class="stat-bar away">
-							<div class="stat-fill" data-stat="to"></div>
-							<div class="stat-value" data-value="to-away">0</div>
+						<div class="stat-bar">
+							<div class="stat-fill home" data-stat="to"></div>
+							<div class="stat-fill away" data-stat="to"></div>
+							<div class="stat-value home" data-value="to-home">0</div>
+							<div class="stat-value away" data-value="to-away">0</div>
 						</div>
 					</div>
 				</div>
-				</div>
+			</div>
 
 			<!-- View 2: Shooting Percentages -->
 			<div class="view" id="view-percentages">
@@ -915,30 +885,48 @@
 		}
 
 		function updateStatBar(stat, homeMakes, homeAttempts, awayMakes, awayAttempts) {
-			const homeBar = document.querySelector(`.stat-bar.home .stat-fill[data-stat="${stat}"]`);
-			const awayBar = document.querySelector(`.stat-bar.away .stat-fill[data-stat="${stat}"]`);
+			const homeBar = document.querySelector(`.stat-fill.home[data-stat="${stat}"]`);
+			const awayBar = document.querySelector(`.stat-fill.away[data-stat="${stat}"]`);
 			const homeValue = document.querySelector(`[data-value="${stat}-home"]`);
 			const awayValue = document.querySelector(`[data-value="${stat}-away"]`);
 
-			// For shooting stats, show makes/attempts
+			// For shooting stats, show makes/attempts but calculate proportion based on makes only
 			if (homeAttempts > 0 || awayAttempts > 0) {
 				homeValue.textContent = `${homeMakes}/${homeAttempts}`;
 				awayValue.textContent = `${awayMakes}/${awayAttempts}`;
 
-				const homePct = homeAttempts > 0 ? (homeMakes / homeAttempts) : 0;
-				const awayPct = awayAttempts > 0 ? (awayMakes / awayAttempts) : 0;
-				const maxPct = Math.max(homePct, awayPct, 0.01);
+				// Use only made shots for the proportion
+				const totalMakes = homeMakes + awayMakes;
 
-				homeBar.style.width = `${(homePct / maxPct) * 100}%`;
-				awayBar.style.width = `${(awayPct / maxPct) * 100}%`;
+				if (totalMakes > 0) {
+					const homeProportion = (homeMakes / totalMakes) * 100;
+					const awayProportion = (awayMakes / totalMakes) * 100;
+
+					homeBar.style.width = `${homeProportion}%`;
+					awayBar.style.width = `${awayProportion}%`;
+				} else {
+					// If both teams have 0 makes, show 50/50
+					homeBar.style.width = '50%';
+					awayBar.style.width = '50%';
+				}
 			} else {
 				// For counting stats (rebounds, assists, etc.)
 				homeValue.textContent = homeMakes;
 				awayValue.textContent = awayMakes;
 
-				const maxValue = Math.max(homeMakes, awayMakes, 1);
-				homeBar.style.width = `${(homeMakes / maxValue) * 100}%`;
-				awayBar.style.width = `${(awayMakes / maxValue) * 100}%`;
+				const totalValue = homeMakes + awayMakes;
+
+				if (totalValue > 0) {
+					const homeProportion = (homeMakes / totalValue) * 100;
+					const awayProportion = (awayMakes / totalValue) * 100;
+
+					homeBar.style.width = `${homeProportion}%`;
+					awayBar.style.width = `${awayProportion}%`;
+				} else {
+					// If both are 0, show 50/50
+					homeBar.style.width = '50%';
+					awayBar.style.width = '50%';
+				}
 			}
 		}
 
