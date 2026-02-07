@@ -565,49 +565,49 @@
 				</div>
 
 				<div class="stat-row">
-					<div class="stat-label">Offensive Rebounds</div>
-					<div class="stat-bars">
-						<div class="stat-bar">
-							<div class="stat-fill home" data-stat="off-reb"></div>
+					<div class="no-stats stat-label">Offensive Rebounds</div>
+					<div class="no-stats stat-bars">
+						<div class="no-stats stat-bar">
+							<div class="no-stats no-stats stat-fill home" data-stat="off-reb"></div>
 							<div class="stat-fill away" data-stat="off-reb"></div>
-							<div class="stat-value home" data-value="off-reb-home">0</div>
-							<div class="stat-value away" data-value="off-reb-away">0</div>
+							<div class="no-stats stat-value home" data-value="off-reb-home">0</div>
+							<div class="no-stats stat-value away" data-value="off-reb-away">0</div>
 						</div>
 					</div>
 				</div>
 
-				<div class="stat-row">
-					<div class="stat-label">Defensive Rebounds</div>
-					<div class="stat-bars">
-						<div class="stat-bar">
-							<div class="stat-fill home" data-stat="def-reb"></div>
-							<div class="stat-fill away" data-stat="def-reb"></div>
-							<div class="stat-value home" data-value="def-reb-home">0</div>
+				<div class="no-stats stat-row">
+					<div class="no-stats stat-label">Defensive Rebounds</div>
+					<div class="no-stats stat-bars">
+						<div class="no-stats stat-bar">
+							<div class="no-stats stat-fill home" data-stat="def-reb"></div>
+							<div class="no-stats stat-fill away" data-stat="def-reb"></div>
+							<div class="no-stats stat-value home" data-value="def-reb-home">0</div>
 							<div class="stat-value away" data-value="def-reb-away">0</div>
 						</div>
 					</div>
 				</div>
 
-				<div class="stat-row">
-					<div class="stat-label">Steals</div>
-					<div class="stat-bars">
-						<div class="stat-bar">
-							<div class="stat-fill home" data-stat="stl"></div>
-							<div class="stat-fill away" data-stat="stl"></div>
-							<div class="stat-value home" data-value="stl-home">0</div>
-							<div class="stat-value away" data-value="stl-away">0</div>
+				<div class="no-stats stat-row">
+					<div class="no-stats stat-label">Steals</div>
+					<div class="no-stats stat-bars">
+						<div class="no-stats stat-bar">
+							<div class="no-stats stat-fill home" data-stat="stl"></div>
+							<div class="no-stats stat-fill away" data-stat="stl"></div>
+							<div class="no-stats stat-value home" data-value="stl-home">0</div>
+							<div class="no-stats stat-value away" data-value="stl-away">0</div>
 						</div>
 					</div>
 				</div>
 
-				<div class="stat-row">
-					<div class="stat-label">Turnovers</div>
-					<div class="stat-bars">
-						<div class="stat-bar">
-							<div class="stat-fill home" data-stat="to"></div>
-							<div class="stat-fill away" data-stat="to"></div>
-							<div class="stat-value home" data-value="to-home">0</div>
-							<div class="stat-value away" data-value="to-away">0</div>
+				<div class="no-stats stat-row">
+					<div class="no-stats stat-label">Turnovers</div>
+					<div class="no-stats stat-bars">
+						<div class="no-stats stat-bar">
+							<div class="no-stats stat-fill home" data-stat="to"></div>
+							<div class="no-stats stat-fill away" data-stat="to"></div>
+							<div class="no-stats stat-value home" data-value="to-home">0</div>
+							<div class="no-stats stat-value away" data-value="to-away">0</div>
 						</div>
 					</div>
 				</div>
@@ -777,7 +777,17 @@
 
 		// Process and display stats data
 		function processStatsData() {
-			if (!statsData || !scoreCentralData) return;
+			if (!statsData) return;
+
+			if (!scoreCentralData) {
+				console.warn('Score central data not available, some stats may be missing');
+				// Hide stats that rely on score central data
+				document.querySelectorAll('.no-stats').forEach(el => {
+					el.style.display = 'none';
+				});
+				// Set #view-shooting top;
+				document.getElementById('view-shooting').style.top = '170px';
+			}
 
 			// Set team names
 			const homeTeam = statsData.Team1Name || 'PC';
@@ -810,10 +820,12 @@
 			updateStatBar('ft', homeStats.freeThrowMakes, homeStats.freeThrowAttempts,
 				awayStats.freeThrowMakes, awayStats.freeThrowAttempts);
 			updateStatBar('fouls', homeStats.fouls, 0, awayStats.fouls, 0);
-			updateStatBar('off-reb', homeStats.offensiveRebounds, 0, awayStats.offensiveRebounds, 0);
-			updateStatBar('def-reb', homeStats.defensiveRebounds, 0, awayStats.defensiveRebounds, 0);
-			updateStatBar('stl', homeStats.steals, 0, awayStats.steals, 0);
-			updateStatBar('to', homeStats.turnovers, 0, awayStats.turnovers, 0);
+			if (scoreCentralData) {
+				updateStatBar('off-reb', homeStats.offensiveRebounds, 0, awayStats.offensiveRebounds, 0);
+				updateStatBar('def-reb', homeStats.defensiveRebounds, 0, awayStats.defensiveRebounds, 0);
+				updateStatBar('stl', homeStats.steals, 0, awayStats.steals, 0);
+				updateStatBar('to', homeStats.turnovers, 0, awayStats.turnovers, 0);
+			}
 
 			// Populate View 2: Percentages
 			updatePercentage('fg', homeFGM, homeFGA, awayFGM, awayFGA);
