@@ -32,7 +32,7 @@ CORS(stats_display_app)
 
 # Global variables to store the game data
 current_game_data = {}
-current_sport = "basketball"  # Default sport
+current_sport = "football"  # Default sport
 
 # Global pause
 paused = False
@@ -122,10 +122,10 @@ SPORT_CONFIGS = {
         "data_template": {
             "sport": "football",
             "clock": "15:00",
-            "home_score": "0",
-            "guest_score": "0",
-            "home_timeouts": "III",
-            "guest_timeouts": "III",
+            "home_score": "28",
+            "guest_score": "14",
+            "home_timeouts": "3",
+            "guest_timeouts": "2",
             "quarter": "1",
             "period_desc": "1st Quarter",
             "down": "1",
@@ -445,7 +445,7 @@ def initialize_sport_data(sport):
 
 def main():
     # Sport Options: 'basketball', 'volleyball', 'football'
-    SPORT = "basketball"
+    SPORT = "football"
     # SPORT = 'volleyball'
 
     # Initialize sport-specific data
@@ -455,7 +455,7 @@ def main():
     SPORT_URLS = {
         "basketball": "http://192.168.10.166//player/dataset/tables/RTD%2FAS5-Basketball.json",
         "volleyball": "http://192.168.10.166//player/dataset/tables/RTD%2FAS5-Volleyball.json",
-        "football": "",
+        "football": "http://192.168.10.166//player/dataset/tables/RTD%2FAS5-Football.json" # Maybe?? Could be a different IP
     }
 
     url = SPORT_URLS.get(SPORT)
