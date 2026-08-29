@@ -1,0 +1,12 @@
+gameClock = 46:25
+period = 1
+homeScore = 36
+awayScore = 5
+playClock = 19
+homeTOL = 3
+awayTOL = 3
+downToGo = 12
+down = 1
+ballOn = 20
+homePoss = 0
+awayPoss = 1
