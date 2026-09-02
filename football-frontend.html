@@ -220,14 +220,14 @@
         font-weight: 500;
       }
 
-      #shot-clock {
+      #play-clock {
         top: 55%;
         right: 49.5%;
         font-size: 100px;
         font-weight: 600;
         z-index: 4;
       }
-      #shot-clock-countdown {
+      #play-clock-countdown {
         position: absolute;
         top: 71.7%;
         right: 7.9%;
@@ -287,9 +287,9 @@
       <div class="stats-text" id="guest-stats-text">Guest Team Stats</div>
     </div>
     <div id="scoreboard" class="scoreboard">
-      <div class="clock" id="main-clock">15:00</div>
-      <div class="clock" id="period">1ST QUARTER</div>
-      <div class="clock" id="shot-clock">--</div>
+      <div class="clock" id="main-clock">14:00</div>
+      <div class="clock" id="period">1ST</div>
+      <div class="clock" id="play-clock">-?</div>
 
       <div class="possession" id="home-possession">&gt;</div>
       <div class="score number-ticker" id="home-score" data-value="0"></div>
@@ -301,13 +301,13 @@
 
       <div id="down-indicator">2nd & 12</div>
 
-      <div id="shot-clock-countdown" style="display: none"></div>
+      <div id="play-clock-countdown" style="display: none"></div>
     </div>
 
     <!----- JavaScript  ----->
     <script>
-      const shotClockCountdown = document.getElementById(
-        "shot-clock-countdown",
+      const playClockCountdown = document.getElementById(
+        "play-clock-countdown",
       );
       const timeoutAnimation = document.getElementById("timeout-animation");
       const timeoutText = document.getElementById("timeout-text");
@@ -328,8 +328,8 @@
       }
 
       // Add new variables for shot clock tracking
-      let lastShotClockTime = null;
-      let lastShotClockScale = 1;
+      let lastPlayClockTime = null;
+      let lastPlayClockScale = 1;
 
       // Initialize tickers
       const homeTicker = createNumberTicker(
@@ -488,50 +488,50 @@
         }
       }
 
-      function updateShotClock(shotClockTime) {
-        if (!shotClockTime || shotClockTime === "--" || shotClockTime === "") {
-          shotClockCountdown.style.display = "none";
-          lastShotClockTime = null;
-          lastShotClockScale = 1;
+      function updatePlayClock(playClockTime) {
+        if (!playClockTime || playClockTime === "--" || playClockTime === "") {
+          playClockCountdown.style.display = "none";
+          lastPlayClockTime = null;
+          lastPlayClockScale = 1;
           return;
         }
 
-        const currentTime = parseInt(shotClockTime, 10) || 0;
+        const currentTime = parseInt(playClockTime, 10) || 0;
 
         // No change from previous update
-        if (currentTime === lastShotClockTime) return;
+        if (currentTime === lastPlayClockTime) return;
 
         // Initial state setup
-        if (lastShotClockTime === null) {
+        if (lastPlayClockTime === null) {
           if (currentTime <= 10) {
-            shotClockCountdown.style.display = "block";
+            playClockCountdown.style.display = "block";
             const targetScale = currentTime / 10;
-            shotClockCountdown.style.transform = `skew(-12.5deg) scaleY(${targetScale})`;
-            lastShotClockScale = targetScale;
+            playClockCountdown.style.transform = `skew(-12.5deg) scaleY(${targetScale})`;
+            lastPlayClockScale = targetScale;
           } else {
-            shotClockCountdown.style.display = "none";
-            lastShotClockScale = 1;
+            playClockCountdown.style.display = "none";
+            lastPlayClockScale = 1;
           }
-          lastShotClockTime = currentTime;
+          lastPlayClockTime = currentTime;
           return;
         }
 
         // Determine if the change is a consecutive decrement
         const buffer = 1;
         const animate =
-          currentTime >= lastShotClockTime - buffer &&
-          currentTime < lastShotClockTime;
+          currentTime >= lastPlayClockTime - buffer &&
+          currentTime < lastPlayClockTime;
 
         // When shot clock is 1 or below, flash at full scale
         if (currentTime <= 10) {
-          shotClockCountdown.style.display = "block";
+          playClockCountdown.style.display = "block";
           const targetScale = currentTime / 10;
 
           if (animate) {
             // Animate the scaleY transition
-            shotClockCountdown.animate(
+            playClockCountdown.animate(
               [
-                { transform: `skew(-12.5deg) scaleY(${lastShotClockScale})` },
+                { transform: `skew(-12.5deg) scaleY(${lastPlayClockScale})` },
                 { transform: `skew(-12.5deg) scaleY(${targetScale})` },
               ],
               {
@@ -542,16 +542,16 @@
             );
           } else {
             // Update immediately without animation
-            shotClockCountdown.style.transform = `skew(-12.5deg) scaleY(${targetScale})`;
+            playClockCountdown.style.transform = `skew(-12.5deg) scaleY(${targetScale})`;
           }
-          lastShotClockScale = targetScale;
+          lastPlayClockScale = targetScale;
         } else {
           // Hide and reset when shot clock is above 10
-          shotClockCountdown.style.display = "none";
-          lastShotClockScale = 1;
+          playClockCountdown.style.display = "none";
+          lastPlayClockScale = 1;
         }
 
-        lastShotClockTime = currentTime;
+        lastPlayClockTime = currentTime;
       }
 
       function updateTimeoutAnimation(timeoutClock) {
@@ -751,6 +751,10 @@
         // Update clock
         document.getElementById("main-clock").textContent = data.clock;
 
+        // Update Down and To-Go
+        let downString = data.down.toLowerCase() + " & " + data.distance;
+        document.getElementById("down-indicator").textContent = downString;
+
         // Update period, make sure UPPERCASE is used for period_desc
         document.getElementById("period").textContent =
           data.period_desc.toLowerCase().substring(0, 3) ||
@@ -799,10 +803,9 @@
           data.guest_possession ? ">" : "",
         );
 
-        // Update shot clock and status
-        document.getElementById("shot-clock").textContent =
-          data.shot_clock || "--";
-        updateShotClock(data.shot_clock);
+        // Update play clock and status
+        document.getElementById("play-clock").textContent = data.play_clock || "--";
+        updatePlayClock(data.play_clock);
 
         // Update timeout animation
         updateTimeoutAnimation(data.timeout_clock);

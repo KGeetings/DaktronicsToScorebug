@@ -121,9 +121,9 @@ SPORT_CONFIGS = {
     "football": {
         "data_template": {
             "sport": "football",
-            "clock": "15:00",
-            "home_score": "28",
-            "guest_score": "14",
+            "clock": "15:61",
+            "home_score": "25",
+            "guest_score": "15",
             "home_timeouts": "3",
             "guest_timeouts": "2",
             "quarter": "1",
@@ -143,20 +143,20 @@ SPORT_CONFIGS = {
             "guest_new_animation": True,
         },
         "fields_mapping": {
-            "clock": "clock",
-            "home_score": "home_score",
-            "guest_score": "guest_score",
-            "home_timeouts": "home_timeouts",
-            "guest_timeouts": "guest_timeouts",
-            "quarter": "quarter",
-            "period_desc": "period_desc",
-            "down": "down",
-            "distance": "distance",
-            "yard_line": "yard_line",
-            "home_possession": "home_possession",
-            "guest_possession": "guest_possession",
-            "play_clock": "play_clock",
-            "timeout_clock": "timeout_clock",
+            "Main_Clock_Time__mm_ss_ss_t__": "clock",
+            "Home_Team_Score": "home_score",
+            "Guest_Team_Score": "guest_score",
+            "Home_Time_Outs_Left___Total": "home_timeouts",
+            "Guest_Time_Outs_Left___Total": "guest_timeouts",
+            "Quarter_Text___1st_____OT______OT_2__": "quarter",
+            "Quarter_Description___End_of_1st____": "period_desc",
+            "Down___1st____2nd____3rd____4th__": "down",
+            "To_Go": "distance",
+            "Ball_On": "yard_line",
+            "Home_Possession_Indicator______or_____": "home_possession",
+            "Guest_Possession_Indicator______or_____": "guest_possession",
+            "Play_Clock_Time__mm_ss____": "play_clock",
+            "Time_Out_Time__mm_ss____": "timeout_clock",
         },
     },
 }
@@ -300,6 +300,8 @@ class SportDataFetcher:
             response = requests.get(self.url)
             response.raise_for_status()
             data = response.json()
+            # data = json.load(open("Football-Example-File.json", "r"))   # DEBUG DATA LINE
+
 
             # Update the current game data
             for field, mapped_name in self.fields_mapping.items():
@@ -445,7 +447,8 @@ def initialize_sport_data(sport):
 
 def main():
     # Sport Options: 'basketball', 'volleyball', 'football'
-    SPORT = "football"
+    # SPORT = 'basketball'
+    SPORT = 'football'
     # SPORT = 'volleyball'
 
     # Initialize sport-specific data
@@ -455,7 +458,7 @@ def main():
     SPORT_URLS = {
         "basketball": "http://192.168.10.166//player/dataset/tables/RTD%2FAS5-Basketball.json",
         "volleyball": "http://192.168.10.166//player/dataset/tables/RTD%2FAS5-Volleyball.json",
-        "football": "http://192.168.10.166//player/dataset/tables/RTD%2FAS5-Football.json" # Maybe?? Could be a different IP
+        "football": "http://192.168.0.7//player/dataset/tables/RTD%2FAS5-Football.json" # This is a DHCP address on 192.168.0.# // There are only single digit IPs on this network.
     }
 
     url = SPORT_URLS.get(SPORT)
