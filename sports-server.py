@@ -133,7 +133,7 @@ SPORT_CONFIGS = {
             "yard_line": "50",
             "home_possession": ".",
             "guest_possession": ".",
-            "play_clock": "40",
+            "play_clock": "4",
             "timeout_clock": "00:00",
             "home_stats": "",
             "guest_stats": "",

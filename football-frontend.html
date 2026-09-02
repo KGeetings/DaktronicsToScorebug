@@ -229,11 +229,11 @@
       }
       #play-clock-countdown {
         position: absolute;
-        top: 71.7%;
-        right: 7.9%;
-        width: 291.9px;
-        height: 193px;
-        transform: skew(-12.5deg);
+        top: 29.85%;
+        right: 48.6%;
+        width: 158.7px;
+        height: 315px;
+        transform: skew(-13.3deg);
         background: rgba(255, 0, 0, 0.5);
         transform-origin: bottom;
         display: none;
@@ -618,7 +618,8 @@
 
         function updateTimeouts(newCount) {
           newCount = parseInt(newCount) || 0;
-          const previousCount = currentTimeouts;
+          const previousCount = currentTimeouts.length;
+		  //const previousCount = currentTimeouts;
 
           if (newCount === previousCount) return;
 
@@ -776,7 +777,7 @@
 
         // console.log("homeFouls: " + homeFouls, " LastHomeFouls: " + lastHomeFouls, " homeTimeouts: " + homeTimeouts, " LastHomeTimeouts: " + lastHomeTimeouts);
 
-        // Home fouls animation
+        /* // Home fouls animation
         if (homeFouls !== lastHomeFouls) {
           const element = document.getElementById("home-fouls");
           element.classList.add("blink");
@@ -791,7 +792,7 @@
         document.getElementById("home-fouls").textContent = homeFouls;
         document.getElementById("guest-fouls").textContent = guestFouls;
         lastHomeFouls = homeFouls;
-        lastGuestFouls = guestFouls;
+        lastGuestFouls = guestFouls; */
 
         // Update possession indicators
         document.getElementById("home-possession").textContent = transformText(
