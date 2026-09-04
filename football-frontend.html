@@ -221,16 +221,18 @@
       }
 
       #play-clock {
-        top: 55%;
-        right: 49.5%;
+        top: 55.8%;
+        right: 48.6%;
         font-size: 100px;
         font-weight: 600;
         z-index: 4;
+		width: 133px;
+		text-align: center;
       }
       #play-clock-countdown {
         position: absolute;
         top: 55.1%;
-        right: 48.6%;
+        right: 48.5%;
         width: 158.7px;
         height: 125.9px;
         transform: skew(-13.3deg);
@@ -805,8 +807,8 @@
         );
 
         // Update play clock and status
-        document.getElementById("play-clock").textContent = data.play_clock || "--";
-        updatePlayClock(data.play_clock);
+        document.getElementById("play-clock").textContent = data.play_clock.slice(-2) || "--";
+        updatePlayClock(data.play_clock.slice(-2));
 
         // Update timeout animation
         updateTimeoutAnimation(data.timeout_clock);

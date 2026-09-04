@@ -458,7 +458,7 @@ def main():
     SPORT_URLS = {
         "basketball": "http://192.168.10.166//player/dataset/tables/RTD%2FAS5-Basketball.json",
         "volleyball": "http://192.168.10.166//player/dataset/tables/RTD%2FAS5-Volleyball.json",
-        "football": "http://192.168.0.7//player/dataset/tables/RTD%2FAS5-Football.json" # This is a DHCP address on 192.168.0.# // There are only single digit IPs on this network.
+        "football": "http://192.168.0.2//player/dataset/tables/RTD%2FAS5-Football.json" # This is a DHCP address on 192.168.0.# // There are only single digit IPs on this network.
     }
 
     url = SPORT_URLS.get(SPORT)
