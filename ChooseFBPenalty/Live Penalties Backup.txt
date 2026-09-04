@@ -1,0 +1,35 @@
+Chop Block - 15 Yard Penalty
+Clipping - 15 Yard Penalty
+Defensive Holding - 10 Yard Penalty
+Defensive Offside - 5 Yard Penalty
+Defensive Pass Interference - 15 Yard Penalty
+Delay of Game - 5 Yard Penalty
+Delay of Kickoff - 5 Yard Penalty
+Enroachment  - 5 Yard Penalty
+Facemask - 15 Yard Penalty
+Fair Catch Interference - 15 Yard Penalty
+False Start - 5 Yard Penalty
+Horse Collar - 15 Yard Penalty
+Illegal Blindside Block - 15 Yard Penalty
+Illegal Block - 10 Yard Penalty
+Illegal Contact - Automatic First Down
+Illegal Formation - 5 Yard Penalty
+Illegal Forward Handoff - 5 Yard Penalty
+Illegal Forward Pass - 5 Yard Penalty
+Illegal Motion - 5 Yard Penalty
+Illegal Shift - 5 Yard Penalty
+Illegal Substitution - 5 Yard Penalty
+Illegal Use of Hands - Automatic First Down
+Intentional Grounding - 5 Yards, Loss of Down
+Offensive Holding - 10 Yard Penalty
+Offensive Offside - 5 Yard Penalty
+Offensive Pass Interference - 10 Yard Penalty
+Roughing the Kicker - Automatic First Down
+Roughing the Passer - Automatic First Down
+Running Into The Kicker - 5 Yard Penalty
+Taunting - Automatic First Down
+Too Many Men On Field - 5 Yard Penalty
+Tripping - Automatic First Down
+Unnecessary Roughness - Automatic First Down
+Unsportsmanlike Conduct - Automatic First Down
+Use of Helmet - Automatic First Down
