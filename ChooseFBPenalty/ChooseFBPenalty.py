@@ -4,8 +4,9 @@ import os.path
 from shutil import move
 from tkinter import filedialog
 
-penaltyFile = r"C:\Users\PCTech\Videos\OBS Capture\OBS Graphics\LivePenalty.txt"
-#penaltyFile = r"..\TestPython\ChooseFBPenalty\LivePenalty.txt"
+# penaltyFile = r"C:\Users\PCTech\Videos\OBS Capture\OBS Graphics\LivePenalty.txt"
+# penaltyFile = r"..\TestPython\ChooseFBPenalty\LivePenalty.txt"
+penaltyFile = r"C:\Users\pctech\Documents\LivePenalty.txt"
 
 root = Tk()
 root.resizable(height=None, width=None)
@@ -13,6 +14,7 @@ root.title(" Choose Current FB Penalty")
 
 # List of penalties
 penalties = [
+    "Injury Timeout",
     "Chop Block",
     "Clipping",
     "Defensive Holding",

@@ -148,10 +148,14 @@
 
 		#timeout-animation {
 			position: absolute;
-			top: 100px;
-			left: 1778.7px;
-			width: 1773px;
-			height: 140px;
+			/* top: 100px;
+			left: 1727px;
+			width: 1827px;
+			height: 140px; */
+			top: -90px;
+			left: 1750px;
+			width: 1827px;
+			height: 228px;
 			background: rgba(255, 165, 0, 0.7);
 			transform-origin: bottom;
 			transform: skew(-13.3deg) translateY(100%);
@@ -551,11 +555,13 @@
 			lastPlayClockTime = currentTime;
 		}
 
-		function updateTimeoutAnimation(timeoutClock) {
+		function updateTimeoutAnimation(timeoutClock, penaltyData) {
+			penaltyData = penaltyData ? String(penaltyData) : "";
+			console.log("Timeout clock:", timeoutClock, "Penalty data:", penaltyData);
 			const [minutes, seconds] = timeoutClock.split(":").map(parseFloat);
 			const time = minutes * 60 + seconds;
 
-			if (!time || time <= 0) {
+			if ((!time || time <= 0) && penaltyData === "") {
 				if (timeoutAnimationState === "showing") {
 					timeoutAnimation.style.display = "block";
 					if (currentTimeoutAnimation) {
@@ -584,6 +590,9 @@
 			}
 
 			timeoutText.textContent = `Timeout: ${minutes}:${seconds < 10 ? "0" : ""}${seconds}`;
+			if (penaltyData) {
+				timeoutText.textContent = `${penaltyData}`;
+			}
 
 			if (timeoutAnimationState !== "showing") {
 				timeoutAnimation.style.display = "block";
@@ -805,8 +814,10 @@
 			document.getElementById("play-clock").textContent = data.play_clock.slice(-2) || "--";
 			updatePlayClock(data.play_clock.slice(-2));
 
+			// Update timeout display with penalty data
+			const penaltyData = data.penalty_data || null;
 			// Update timeout animation
-			updateTimeoutAnimation(data.timeout_clock);
+			updateTimeoutAnimation(data.timeout_clock, penaltyData);
 
 			// Update home and guest team stats with durations
 			const homeStats = data.home_stats;
