@@ -759,7 +759,16 @@
 			document.getElementById("main-clock").textContent = data.clock;
 
 			// Update Down and To-Go
-			let downString = data.down.toLowerCase() + " & " + data.distance;
+			let downString = "";
+			if (data.down) {
+				if (data.distance) {
+					downString = data.down.toLowerCase() + " & " + data.distance;
+				} else {
+					downString = data.down.toLowerCase() + " Down";
+				}
+			} else {
+				downString = "";
+			}
 			document.getElementById("down-indicator").textContent = downString;
 
 			// Update period, make sure UPPERCASE is used for period_desc
