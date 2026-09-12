@@ -346,7 +346,7 @@ class SportDataFetcher:
 					with open(penaltyFile, "r") as f:
 						for line in f:
 							current_game_data["penalty_data"] = line.strip()
-							print(f"Current_Game_PenaltyData {current_game_data["penalty_data"]}")
+							#print(f"Current_Game_PenaltyData {current_game_data["penalty_data"]}")
 
 			except (IOError, json.JSONDecodeError) as e:
 				print(f"Error reading penaltyFile: {e}")

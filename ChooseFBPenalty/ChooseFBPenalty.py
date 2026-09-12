@@ -14,7 +14,10 @@ root.title(" Choose Current FB Penalty")
 
 # List of penalties
 penalties = [
+    "Voice of Dane Geetings",
+    "Voice of Tyler Crabb",
     "Injury Timeout",
+    "Official Timeout"
     "Chop Block",
     "Clipping",
     "Defensive Holding",
