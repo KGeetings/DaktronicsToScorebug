@@ -112,25 +112,33 @@
 		/* ----- Timeouts ----- */
 		.timeouts {
 			position: absolute;
+			top: 35.5%;
+			height: 1.042em;
 			font-size: 114px;
-			font-weight: 600;
-			top: -35.5%;
-			scale: 0.28;
+			font-weight: 800;
+			line-height: 1;
 		}
 
 		#home-timeouts {
-			left: 70.63%;
+			left: 94.45%;
 		}
 
 		#guest-timeouts {
-			left: -21.14%;
+			left: 2.65%;
 		}
 
-		.timeouts span {
+		.timeouts .timeout {
+			position: absolute;
+			top: 0;
+			line-height: 1;
 			transition: opacity 0.3s ease-in-out;
 		}
 
-		.timeouts span.blink {
+		.timeouts .timeout-1 { top: 0em; left: 0em; }
+		.timeouts .timeout-2 { top: -0.8em; left: 0.18em; }
+		.timeouts .timeout-3 { top: -1.6em; left: 0.36em; }
+
+		.timeouts .timeout.blink {
 			animation: blinkTimeout 0.5s ease-in-out 6;
 		}
 
@@ -226,19 +234,19 @@
 		}
 
 		#play-clock {
-			top: 55.8%;
-			right: 48.6%;
+			top: 54.2%;
+			right: 48.57%;
 			font-size: 100px;
 			font-weight: 600;
 			z-index: 4;
-			width: 133px;
+			width: 136px;
 			text-align: center;
 		}
 
 		#play-clock-countdown {
 			position: absolute;
-			top: 55.1%;
-			right: 48.5%;
+			top: 54.2%;
+			right: 48.57%;
 			width: 158.7px;
 			height: 125.9px;
 			transform: skew(-13.3deg);
@@ -294,11 +302,11 @@
 
 		<div class="possession" id="home-possession">&gt;</div>
 		<div class="score number-ticker" id="home-score" data-value="0"></div>
-		<img src="Timeout-3.png" class="timeouts" id="home-timeouts" />
+		<div class="timeouts" id="home-timeouts"></div>
 
 		<div class="possession" id="guest-possession">&lt;</div>
 		<div class="score number-ticker" id="guest-score" data-value="0"></div>
-		<img src="Timeout-3.png" class="timeouts" id="guest-timeouts" />
+		<div class="timeouts" id="guest-timeouts"></div>
 
 		<div id="down-indicator">2nd & 12</div>
 
@@ -507,7 +515,7 @@
 				if (currentTime <= 10) {
 					playClockCountdown.style.display = "block";
 					const targetScale = currentTime / 10;
-					playClockCountdown.style.transform = `skew(-12.5deg) scaleY(${targetScale})`;
+					playClockCountdown.style.transform = `skew(-13deg) scaleY(${targetScale})`;
 					lastPlayClockScale = targetScale;
 				} else {
 					playClockCountdown.style.display = "none";
@@ -532,8 +540,8 @@
 					// Animate the scaleY transition
 					playClockCountdown.animate(
 						[
-							{ transform: `skew(-12.5deg) scaleY(${lastPlayClockScale})` },
-							{ transform: `skew(-12.5deg) scaleY(${targetScale})` },
+							{ transform: `skew(-13deg) scaleY(${lastPlayClockScale})` },
+							{ transform: `skew(-13deg) scaleY(${targetScale})` },
 						],
 						{
 							duration: 1000,
@@ -543,7 +551,7 @@
 					);
 				} else {
 					// Update immediately without animation
-					playClockCountdown.style.transform = `skew(-12.5deg) scaleY(${targetScale})`;
+					playClockCountdown.style.transform = `skew(-13deg) scaleY(${targetScale})`;
 				}
 				lastPlayClockScale = targetScale;
 			} else {
@@ -617,40 +625,47 @@
 		}
 
 		function createTimeoutDisplay(elementId) {
-			const element = document.getElementById(elementId);
-			element.innerHTML = ""; // Clears any existing content, otherwise we just append a LOT more...oops
-			let currentTimeouts = [];
-			let isAnimating = false;
+				const element = document.getElementById(elementId);
+				element.innerHTML = ""; // Clears any existing content
+				let currentTimeouts = [];
 
-			function updateTimeouts(newCount) {
-				newCount = parseInt(newCount) || 0;
-				const previousCount = currentTimeouts.length;
-				//const previousCount = currentTimeouts;
-
-				if (newCount === previousCount) return;
-
-				// Clear existing timeouts first
-				element.innerHTML = "";
-				currentTimeouts = [];
-
-				switch (newCount) {
-					case 0:
-						element.src = "Timeout-0.png";
-						break;
-					case 1:
-						element.src = "Timeout-1.png";
-						break;
-					case 2:
-						element.src = "Timeout-2.png";
-						break;
-					case 3:
-						element.src = "Timeout-3.png";
-						break;
+				function makeTimeoutSpan(index, blink = false) {
+					const timeoutSpan = document.createElement("span");
+					timeoutSpan.textContent = "I";
+					timeoutSpan.classList.add("timeout", `timeout-${index + 1}`);
+					if (blink) timeoutSpan.classList.add("blink");
+					return timeoutSpan;
 				}
-			}
 
-			return { updateTimeouts };
-		}
+				function updateTimeouts(newCount) {
+					newCount = parseInt(newCount) || 0;
+					const previousCount = currentTimeouts.length;
+
+					if (newCount === previousCount) return;
+
+					// Clear existing timeouts first
+					element.innerHTML = "";
+					currentTimeouts = [];
+
+					// Create timeout indicators
+					for (let i = 0; i < newCount; i++) {
+						const timeoutSpan = makeTimeoutSpan(i);
+						element.appendChild(timeoutSpan);
+						currentTimeouts.push(timeoutSpan);
+					}
+
+					// If timeouts were removed, blink the lost one
+					if (newCount < previousCount) {
+						for (let i = newCount; i < previousCount; i++) {
+							const timeoutSpan = makeTimeoutSpan(i, true);
+							element.appendChild(timeoutSpan);
+							setTimeout(() => timeoutSpan.remove(), 3000);
+						}
+					}
+				}
+
+				return { updateTimeouts };
+			}
 
 		const textTransformations = {
 			"home-possession": {

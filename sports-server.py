@@ -127,7 +127,7 @@ SPORT_CONFIGS = {
 			"clock": "15:61",
 			"home_score": "25",
 			"guest_score": "15",
-			"home_timeouts": "2",
+			"home_timeouts": "3",
 			"guest_timeouts": "2",
 			"quarter": "1",
 			"period_desc": "1st Quarter",
