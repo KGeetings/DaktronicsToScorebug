@@ -564,12 +564,12 @@
 		}
 
 		function updateTimeoutAnimation(timeoutClock, penaltyData) {
-			penaltyData = penaltyData ? String(penaltyData) : "";
-			console.log("Timeout clock:", timeoutClock, "Penalty data:", penaltyData);
-			const [minutes, seconds] = timeoutClock.split(":").map(parseFloat);
-			const time = minutes * 60 + seconds;
+				penaltyData = penaltyData ? String(penaltyData) : "";
+				console.log("Timeout clock:", timeoutClock, "Penalty data:", penaltyData);
+				const [minutes, seconds] = timeoutClock.split(":").map(parseFloat);
+				const time = minutes * 60 + seconds;
 
-			if ((!time || time <= 0) && penaltyData === "") {
+				if ((!time || time <= 0) && penaltyData === "") {
 				if (timeoutAnimationState === "showing") {
 					timeoutAnimation.style.display = "block";
 					if (currentTimeoutAnimation) {
@@ -841,6 +841,15 @@
 			// Update timeout display with penalty data
 			const penaltyData = data.penalty_data || null;
 			// Update timeout animation
+			/* const [timeoutClockMinutes, timeoutClockSeconds] = data.timeout_clock.split(":").map(parseFloat);
+			const timeoutClockTime = timeoutClockMinutes * 60 + timeoutClockSeconds;
+			if (!timeoutClockTime || timeoutClockTime <= 0) {
+				clockWhenTimeout = null;
+				clockWhenTimeout = data.clock;
+			} else {
+				updateTimeoutAnimation(timeoutClockTime, penaltyData);
+			}
+			updateTimeoutAnimation(timeoutClockTime, penaltyData); */
 			updateTimeoutAnimation(data.timeout_clock, penaltyData);
 
 			// Update home and guest team stats with durations

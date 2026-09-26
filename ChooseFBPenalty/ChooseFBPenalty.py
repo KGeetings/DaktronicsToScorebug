@@ -17,7 +17,7 @@ penalties = [
     "Voice of Dane Geetings",
     "Voice of Tyler Crabb",
     "Injury Timeout",
-    "Official Timeout"
+    "Official Timeout",
     "Chop Block",
     "Clipping",
     "Defensive Holding",
