@@ -134,9 +134,20 @@
 			transition: opacity 0.3s ease-in-out;
 		}
 
-		.timeouts .timeout-1 { top: 0em; left: 0em; }
-		.timeouts .timeout-2 { top: -0.8em; left: 0.18em; }
-		.timeouts .timeout-3 { top: -1.6em; left: 0.36em; }
+		.timeouts .timeout-1 {
+			top: 0em;
+			left: 0em;
+		}
+
+		.timeouts .timeout-2 {
+			top: -0.8em;
+			left: 0.18em;
+		}
+
+		.timeouts .timeout-3 {
+			top: -1.6em;
+			left: 0.36em;
+		}
 
 		.timeouts .timeout.blink {
 			animation: blinkTimeout 0.5s ease-in-out 6;
@@ -350,6 +361,9 @@
 		const homeTimeoutDisplay = createTimeoutDisplay("home-timeouts");
 		const guestTimeoutDisplay = createTimeoutDisplay("guest-timeouts");
 
+		let lastMainClockValue = null;
+		let suppressStaleTimeoutClock = false;
+		let suppressedTimeoutClockValue = null;
 		let lastHomeScore = 0;
 		let lastGuestScore = 0;
 		let lastHomeTimeouts = 0;
@@ -372,11 +386,11 @@
 			const currentStats = statsText.trim();
 			const lastStats = isHome ? lastHomeStats : lastGuestStats;
 
-			console.log(
+			/* console.log(
 				"currentStats: " + currentStats,
 				" lastStats: " + lastStats,
 				" duration: " + duration,
-			);
+			); */
 			if (currentStats === lastStats) return;
 			// Clear any existing timeouts
 			if (isHome && homeStatsTimeout) {
@@ -564,12 +578,12 @@
 		}
 
 		function updateTimeoutAnimation(timeoutClock, penaltyData) {
-				penaltyData = penaltyData ? String(penaltyData) : "";
-				console.log("Timeout clock:", timeoutClock, "Penalty data:", penaltyData);
-				const [minutes, seconds] = timeoutClock.split(":").map(parseFloat);
-				const time = minutes * 60 + seconds;
+			penaltyData = penaltyData ? String(penaltyData) : "";
+			// console.log("Timeout clock:", timeoutClock, "Penalty data:", penaltyData);
+			const [minutes, seconds] = timeoutClock.split(":").map(parseFloat);
+			const time = minutes * 60 + seconds;
 
-				if ((!time || time <= 0) && penaltyData === "") {
+			if ((!time || time <= 0) && penaltyData === "") {
 				if (timeoutAnimationState === "showing") {
 					timeoutAnimation.style.display = "block";
 					if (currentTimeoutAnimation) {
@@ -625,47 +639,47 @@
 		}
 
 		function createTimeoutDisplay(elementId) {
-				const element = document.getElementById(elementId);
-				element.innerHTML = ""; // Clears any existing content
-				let currentTimeouts = [];
+			const element = document.getElementById(elementId);
+			element.innerHTML = ""; // Clears any existing content
+			let currentTimeouts = [];
 
-				function makeTimeoutSpan(index, blink = false) {
-					const timeoutSpan = document.createElement("span");
-					timeoutSpan.textContent = "I";
-					timeoutSpan.classList.add("timeout", `timeout-${index + 1}`);
-					if (blink) timeoutSpan.classList.add("blink");
-					return timeoutSpan;
-				}
-
-				function updateTimeouts(newCount) {
-					newCount = parseInt(newCount) || 0;
-					const previousCount = currentTimeouts.length;
-
-					if (newCount === previousCount) return;
-
-					// Clear existing timeouts first
-					element.innerHTML = "";
-					currentTimeouts = [];
-
-					// Create timeout indicators
-					for (let i = 0; i < newCount; i++) {
-						const timeoutSpan = makeTimeoutSpan(i);
-						element.appendChild(timeoutSpan);
-						currentTimeouts.push(timeoutSpan);
-					}
-
-					// If timeouts were removed, blink the lost one
-					if (newCount < previousCount) {
-						for (let i = newCount; i < previousCount; i++) {
-							const timeoutSpan = makeTimeoutSpan(i, true);
-							element.appendChild(timeoutSpan);
-							setTimeout(() => timeoutSpan.remove(), 3000);
-						}
-					}
-				}
-
-				return { updateTimeouts };
+			function makeTimeoutSpan(index, blink = false) {
+				const timeoutSpan = document.createElement("span");
+				timeoutSpan.textContent = "I";
+				timeoutSpan.classList.add("timeout", `timeout-${index + 1}`);
+				if (blink) timeoutSpan.classList.add("blink");
+				return timeoutSpan;
 			}
+
+			function updateTimeouts(newCount) {
+				newCount = parseInt(newCount) || 0;
+				const previousCount = currentTimeouts.length;
+
+				if (newCount === previousCount) return;
+
+				// Clear existing timeouts first
+				element.innerHTML = "";
+				currentTimeouts = [];
+
+				// Create timeout indicators
+				for (let i = 0; i < newCount; i++) {
+					const timeoutSpan = makeTimeoutSpan(i);
+					element.appendChild(timeoutSpan);
+					currentTimeouts.push(timeoutSpan);
+				}
+
+				// If timeouts were removed, blink the lost one
+				if (newCount < previousCount) {
+					for (let i = newCount; i < previousCount; i++) {
+						const timeoutSpan = makeTimeoutSpan(i, true);
+						element.appendChild(timeoutSpan);
+						setTimeout(() => timeoutSpan.remove(), 3000);
+					}
+				}
+			}
+
+			return { updateTimeouts };
+		}
 
 		const textTransformations = {
 			"home-possession": {
@@ -773,6 +787,25 @@
 			// Update clock
 			document.getElementById("main-clock").textContent = data.clock;
 
+			// Detect whether the main game clock has actually ticked since the last update
+			// If it has, play has probably resumed, even if Daktronics' timeout_clock value wasn't reset to 0:00
+			const clockHasResumed = lastMainClockValue !== null && data.clock !== lastMainClockValue;
+			lastMainClockValue = data.clock;
+
+			if (clockHasResumed) {
+				// I believe we are polling too quickly, so this should latch onto timeout_clock even if
+				// the clock has not ticked yet until we see something different (a reset to 0:00, or an actually new timeout)
+				suppressStaleTimeoutClock = true;
+				suppressedTimeoutClockValue = data.timeout_clock;
+			} else if (
+				suppressStaleTimeoutClock &&
+				data.timeout_clock !== suppressedTimeoutClockValue
+			) {
+				// The feed sent an updated value, so stop overriding it.
+				suppressStaleTimeoutClock = false;
+				suppressedTimeoutClockValue = null;
+			}
+
 			// Update Down and To-Go
 			let downString = "";
 			if (data.down) {
@@ -807,22 +840,6 @@
 
 			// console.log("homeFouls: " + homeFouls, " LastHomeFouls: " + lastHomeFouls, " homeTimeouts: " + homeTimeouts, " LastHomeTimeouts: " + lastHomeTimeouts);
 
-			/* // Home fouls animation
-			if (homeFouls !== lastHomeFouls) {
-			  const element = document.getElementById("home-fouls");
-			  element.classList.add("blink");
-			  setTimeout(() => element.classList.remove("blink"), 6000);
-			}
-			// Guest fouls animation
-			if (guestFouls !== lastGuestFouls) {
-			  const element = document.getElementById("guest-fouls");
-			  element.classList.add("blink");
-			  setTimeout(() => element.classList.remove("blink"), 6000);
-			}
-			document.getElementById("home-fouls").textContent = homeFouls;
-			document.getElementById("guest-fouls").textContent = guestFouls;
-			lastHomeFouls = homeFouls;
-			lastGuestFouls = guestFouls; */
 
 			// Update possession indicators
 			document.getElementById("home-possession").textContent = transformText(
@@ -841,16 +858,11 @@
 			// Update timeout display with penalty data
 			const penaltyData = data.penalty_data || null;
 			// Update timeout animation
-			/* const [timeoutClockMinutes, timeoutClockSeconds] = data.timeout_clock.split(":").map(parseFloat);
-			const timeoutClockTime = timeoutClockMinutes * 60 + timeoutClockSeconds;
-			if (!timeoutClockTime || timeoutClockTime <= 0) {
-				clockWhenTimeout = null;
-				clockWhenTimeout = data.clock;
-			} else {
-				updateTimeoutAnimation(timeoutClockTime, penaltyData);
-			}
-			updateTimeoutAnimation(timeoutClockTime, penaltyData); */
-			updateTimeoutAnimation(data.timeout_clock, penaltyData);
+			// While suppressStaleTimeoutClock is latched we will treat the timeout as over
+			// regardless of what timeout_clock says, so a stale/un-reset value
+			// can't leave the timeout animation stuck on.
+			const effectiveTimeoutClock = suppressStaleTimeoutClock ? "0:00" : data.timeout_clock;
+			updateTimeoutAnimation(effectiveTimeoutClock, penaltyData);
 
 			// Update home and guest team stats with durations
 			const homeStats = data.home_stats;
