@@ -13,22 +13,204 @@
 			margin: 0;
 			padding: 0;
 			background: transparent;
-			font-family: "Rubik", serif;
+			font-family: "Rubik", sans-serif;
 			font-style: italic;
 			font-weight: 600;
 			color: white;
 		}
 
+		/* Same spot the old PNG occupied on the 5200x1080 canvas. */
 		#scoreboard {
-			position: relative;
+			position: absolute;
 			top: 300px;
 			left: 1600px;
 			width: 1920px;
-			height: calc(1920px * (3014 / 7743));
-			background-image: url('PC Basketball Scoreboard v4.png');
-			background-size: contain;
-			background-repeat: no-repeat;
+			height: 747px;
 			z-index: 2;
+		}
+
+		/* Translate moves the entire scoreboard over */
+		.world {
+			position: absolute;
+			left: 0;
+			top: 0;
+			width: 1920px;
+			height: 1080px;
+			transform: translate(14px, -91px);
+		}
+
+		/* ----- Shapes ----- */
+		.slab {
+			position: absolute;
+			box-sizing: border-box;
+			transform-origin: 0 100%;
+			transform: matrix(1, 0, calc(-1 * var(--t)), 1, 0, 0);
+		}
+
+		.plate {
+			overflow: hidden;
+			z-index: 1;
+		}
+
+		#guest-plate {
+			--t: 0.2143;
+			left: 149.3px;
+			top: 216.9px;
+			width: 793.3px;
+			height: 233px;
+			background: #999;
+			box-shadow: 0 0 0 25px #000;
+		}
+
+		/* Fill + gradient ring.
+			The ring is a transparent border painted with its own gradient
+			(because somewhat annoyingly, box-shadow can't do gradients). */
+		#home-plate {
+			--t: 0.2143;
+			--home-ring: linear-gradient(60deg, rgba(215, 213, 210, .25) 0%, rgba(138, 21, 56, 0.89) 25%,
+					rgba(112, 121, 128, .48) 50%, rgba(138, 21, 56, 0.45) 75%, rgba(138, 21, 56, 1.00) 100%);
+			left: 996px;
+			top: 191.9px;
+			width: 843.3px;
+			height: 283px;
+			border: 25px solid transparent;
+			background:
+				linear-gradient(104deg,
+					#8A1538 0%, #901739 5.6%, #A21B3B 13.2%, #B8213D 20.3%, #A61C3B 28.6%,
+					#8A1538 42.8%, #901739 48.3%, #A21B3A 55.8%, #A81D3B 57.7%, #9E1A3A 61.2%,
+					#911738 67.9%, #8D1638 74.1%, #A01B3A 86.7%, #A61C3B 90%, #921739 95.9%, #8A1538 100%) padding-box,
+				var(--home-ring) border-box;
+		}
+
+		/* Score sheen sweep effect. */
+		.plate::after {
+			content: "";
+			position: absolute;
+			inset: 0;
+			background: linear-gradient(100deg, transparent 38%, rgba(255, 255, 255, 0.6) 50%, transparent 62%);
+			background-size: 250% 100%;
+			background-position: 0% 0;
+			pointer-events: none;
+		}
+
+		.plate.scored::after {
+			animation: sheen 1.1s ease-out;
+		}
+
+		@keyframes sheen {
+			from {
+				background-position: 100% 0;
+			}
+
+			to {
+				background-position: 0% 0;
+			}
+		}
+
+		#clock-plate {
+			--t: 0.2221;
+			left: 40.9px;
+			top: 620.5px;
+			width: 1400.3px;
+			height: 211px;
+			border: 12px solid transparent;
+			background:
+				linear-gradient(353deg, #5E6972 0%, #69747C 40%, #7C858C 70%, #959DA2 100%) padding-box,
+				linear-gradient(339deg, rgba(0, 0, 0, 1) 0%, rgba(0, 0, 0, 1) 18%, rgba(0, 0, 0, 1) 31%, rgba(28, 28, 28, .57) 43%,
+					rgba(51, 51, 51, .46) 54%, rgba(80, 80, 80, .36) 64%, rgba(115, 115, 115, .26) 74%,
+					rgba(158, 158, 158, .17) 83%, rgba(206, 206, 206, .08) 92%, rgba(255, 255, 255, 0) 100%) border-box;
+		}
+
+		#shot-plate {
+			--t: 0.2226;
+			left: 1454.1px;
+			top: 620.5px;
+			width: 307.7px;
+			height: 211px;
+			border: 12px solid transparent;
+			background:
+				linear-gradient(199deg, #858A8C 0%, #727A7F 35%, #656F77 65%, #5D6971 100%) padding-box,
+				linear-gradient(34deg, rgba(215, 213, 210, .25), rgba(179, 181, 181, .3) 7%, rgba(151, 156, 160, .36) 14%,
+					rgba(129, 137, 142, .41) 22%, rgba(112, 121, 128, .48) 31%, rgba(100, 111, 119, .57) 43%,
+					rgba(93, 105, 114, .69) 58%, #5B6770) border-box;
+		}
+
+		/* timeouts / fouls */
+		.strip {
+			--t: 0.21;
+			top: 488.2px;
+			height: 118px;
+			z-index: 1;
+		}
+
+		#guest-strip {
+			left: 94.4px;
+			width: 842.2px;
+			background: #999;
+			box-shadow: 0 0 0 0.5px #000;
+		}
+
+		#home-strip {
+			left: 968px;
+			width: 840.3px;
+			background: #8A1538;
+		}
+
+		#shot-clock-countdown {
+			--t: 0.2226;
+			left: 1460.1px;
+			top: 626.5px;
+			width: 295.7px;
+			height: 199px;
+			display: none;
+			z-index: 3;
+		}
+
+		#shot-clock-fill {
+			width: 100%;
+			height: 100%;
+			background: rgba(255, 0, 0, 0.5);
+			transform-origin: bottom;
+		}
+
+		#pc-logo {
+			position: absolute;
+			left: 1563px;
+			top: 147px;
+			width: 300px;
+			overflow: visible;
+			z-index: 2;
+		}
+
+		/* ----- Text ----- */
+		.t {
+			position: absolute;
+			line-height: 1;
+			white-space: nowrap;
+			z-index: 4;
+		}
+
+		.label {
+			font-size: 76px;
+			font-weight: 600;
+			top: 511px;
+			letter-spacing: -2px;
+		}
+
+		#guest-tol-label {
+			left: 130px;
+		}
+
+		#guest-fls-label {
+			left: 676px;
+		}
+
+		#home-tol-label {
+			left: 1015px;
+		}
+
+		#home-fls-label {
+			left: 1543px;
 		}
 
 		/* ----- Stats ----- */
@@ -46,12 +228,10 @@
 		}
 
 		#home-stats-animation {
-			/* left: 1800px; */
 			left: 2390px;
 		}
 
 		#guest-stats-animation {
-			/* left: -1548px; */
 			left: -414px;
 		}
 
@@ -73,9 +253,10 @@
 			position: absolute;
 			font-size: 230px;
 			font-weight: 700;
-			top: 14.3%;
-			font-family: "Rubik", serif;
+			top: 214px;
+			font-family: "Rubik", sans-serif;
 			font-style: italic;
+			z-index: 4;
 		}
 
 		.digit {
@@ -86,43 +267,62 @@
 		}
 
 		#home-score {
-			left: 57.5%;
+			left: 1102px;
 		}
 
 		#guest-score {
-			right: 54%;
+			right: 1019px;
+		}
+
+		.number-ticker.pop {
+			animation: scorePop 0.9s ease-out;
+		}
+
+		@keyframes scorePop {
+			0% {
+				transform: scale(1);
+				filter: brightness(1);
+			}
+
+			20% {
+				transform: scale(1.18);
+				filter: brightness(1.6);
+			}
+
+			100% {
+				transform: scale(1);
+				filter: brightness(1);
+			}
 		}
 
 		/* ----- Possession ----- */
 		.possession {
-			position: absolute;
 			font-size: 100px;
 			font-weight: 700;
-			top: 22%;
+			top: 278px;
 		}
 
 		#home-possession {
-			left: 55%;
+			left: 1056px;
 		}
 
 		#guest-possession {
-			left: 46.5%;
+			left: 908px;
 		}
 
 		/* ----- Timeouts ----- */
 		.timeouts {
-			position: absolute;
 			font-size: 114px;
 			font-weight: 600;
-			top: 51%;
+			top: 491px;
 		}
 
 		#home-timeouts {
-			left: 59.5%;
+			left: 1170px;
 		}
 
 		#guest-timeouts {
-			left: 12.5%;
+			left: 292px;
 		}
 
 		.timeouts span {
@@ -134,8 +334,15 @@
 		}
 
 		@keyframes blinkTimeout {
-			0%, 100% { opacity: 1; }
-			50% { opacity: 0; }
+
+			0%,
+			100% {
+				opacity: 1;
+			}
+
+			50% {
+				opacity: 0;
+			}
 		}
 
 		#timeout-animation {
@@ -164,21 +371,21 @@
 
 		/* ----- Fouls ----- */
 		.fouls {
-			position: absolute;
-			top: 52.5%;
 			font-size: 91px;
 			font-weight: 600;
+			top: 502px;
 		}
 
 		#home-fouls {
-			left: 88.5%;
+			left: 1698px;
 		}
 
 		#guest-fouls {
-			left: 42%;
+			left: 832px;
 		}
 
 		@keyframes blink {
+
 			0%,
 			100% {
 				opacity: 1;
@@ -194,52 +401,30 @@
 		}
 
 		/* ----- Clocks ----- */
-		.clock {
-			position: absolute;
-		}
-
 		#main-clock {
-			top: 73%;
-			right: 28%;
+			top: 656px;
+			right: 552px;
 			font-size: 141px;
 			font-weight: 600;
+			font-variant-numeric: tabular-nums;
 		}
 
 		#period {
-			top: 77%;
-			left: 3.5%;
+			top: 680px;
+			left: 100px;
 			font-size: 93px;
 			font-weight: 500;
 		}
 
 		#shot-clock {
-			top: 75.5%;
-			right: 10.5%;
+			top: 663px;
+			left: 1482px;
+			width: 296px;
+			text-align: center;
 			font-size: 125px;
 			font-weight: 600;
-			z-index: 4;
-		}
-
-		#shot-clock-countdown {
-			position: absolute;
-			top: 71.7%;
-			right: 7.9%;
-			width: 291.9px;
-			height: 193px;
-			transform: skew(-12.5deg);
-			background: rgba(255, 0, 0, 0.5);
-			transform-origin: bottom;
-			display: none;
-			z-index: 3;
-		}
-
-		@keyframes flashRed {
-			0% {
-				background: rgba(255, 0, 0, 1);
-			}
-			100% {
-				background: rgba(255, 0, 0, 0.3);
-			}
+			font-variant-numeric: tabular-nums;
+			z-index: 5;
 		}
 	</style>
 </head>
@@ -249,34 +434,56 @@
 	<div id="timeout-animation">
 		<div id="timeout-text">Timeout</div>
 	</div>
-	<div class="stats-animation" id="home-stats-animation"
-	style="display: none;">
+	<div class="stats-animation" id="home-stats-animation" style="display: none;">
 		<div class="stats-text" id="home-stats-text">Home Team Stats</div>
 	</div>
 	<div class="stats-animation" id="guest-stats-animation" style="display: none;">
 		<div class="stats-text" id="guest-stats-text">Guest Team Stats</div>
 	</div>
+
 	<div id="scoreboard" class="scoreboard">
-		<div class="clock" id="main-clock">20:02</div>
-		<div class="clock" id="period">1st Quarter</div>
-		<div class="clock" id="shot-clock">12</div>
+		<div class="world">
+			<!-- shapes -->
+			<div class="slab plate" id="guest-plate"></div>
+			<div class="slab plate" id="home-plate"></div>
+			<div class="slab strip" id="guest-strip"></div>
+			<div class="slab strip" id="home-strip"></div>
+			<div class="slab" id="clock-plate"></div>
+			<div class="slab" id="shot-plate"></div>
+			<div class="slab" id="shot-clock-countdown">
+				<div id="shot-clock-fill"></div>
+			</div>
 
-		<div class="possession" id="home-possession"></div>
-		<div class="score number-ticker" id="home-score" data-value="0"></div>
-		<div class="timeouts" id="home-timeouts"></div>
-		<div class="fouls" id="home-fouls">0</div>
+			<!-- logo -->
+			<img class="pc-logo" id="pc-logo" src="images/Eagle Head-white outline.png"/>
 
-		<div class="possession" id="guest-possession"></div>
-		<div class="score number-ticker" id="guest-score" data-value="0"></div>
-		<div class="timeouts" id="guest-timeouts"></div>
-		<div class="fouls" id="guest-fouls">0</div>
+			<!-- static labels -->
+			<div class="t label" id="guest-tol-label">TOL</div>
+			<div class="t label" id="guest-fls-label">FLS</div>
+			<div class="t label" id="home-tol-label">TOL</div>
+			<div class="t label" id="home-fls-label">FLS</div>
 
-		<div id="shot-clock-countdown"></div>
+			<!-- live data -->
+			<div class="t clock" id="main-clock">20:02</div>
+			<div class="t clock" id="period">1st Quarter</div>
+			<div class="t clock" id="shot-clock">12</div>
+
+			<div class="t possession" id="home-possession"></div>
+			<div class="score number-ticker" id="home-score" data-value="0"></div>
+			<div class="t timeouts" id="home-timeouts"></div>
+			<div class="t fouls" id="home-fouls">0</div>
+
+			<div class="t possession" id="guest-possession"></div>
+			<div class="score number-ticker" id="guest-score" data-value="0"></div>
+			<div class="t timeouts" id="guest-timeouts"></div>
+			<div class="t fouls" id="guest-fouls">0</div>
+		</div>
 	</div>
 
 	<!----- JavaScript  ----->
 	<script>
 		const shotClockCountdown = document.getElementById('shot-clock-countdown');
+		const shotClockFill = document.getElementById('shot-clock-fill');
 		const timeoutAnimation = document.getElementById('timeout-animation');
 		const timeoutText = document.getElementById('timeout-text');
 		const homeStatsAnimation = document.getElementById('home-stats-animation');
@@ -307,16 +514,30 @@
 		let lastGuestTimeouts = 0;
 		let lastHomeFouls = 0;
 		let lastGuestFouls = 0;
+		let firstUpdate = true; // don't fire score effects for the first value we receive
 
 		// Stats animation state and tracking
 		let currentHomeStatsAnimation = null;
 		let currentGuestStatsAnimation = null;
-		/* let homeStatsAnimationState = 'hidden';
-		let guestStatsAnimationState = 'hidden'; */
 		let lastHomeStats = null;
 		let lastGuestStats = null;
 		let homeStatsTimeout = null;
 		let guestStatsTimeout = null;
+
+		/* ----- Score effects -----
+		   Hook for scoring animations. 'side' is 'home' or 'guest', 'points' is how many were scored.
+		   Sheen sweep across the plate + pop on the score digits. */
+		function replayClass(el, cls, ms) {
+			el.classList.remove(cls);
+			void el.offsetWidth; // restart the animation
+			el.classList.add(cls);
+			setTimeout(() => el.classList.remove(cls), ms);
+		}
+
+		function scoreEffect(side, points) {
+			replayClass(document.getElementById(side + '-plate'), 'scored', 1200);
+			replayClass(document.getElementById(side + '-score'), 'pop', 1000);
+		}
 
 		function updateStatsAnimation(statsElement, statsText, duration, isHome) {
 			// If no stats or stats haven't changed, do nothing
@@ -435,7 +656,7 @@
 				if (currentTime <= 10) {
 					shotClockCountdown.style.display = 'block';
 					const targetScale = currentTime / 10;
-					shotClockCountdown.style.transform = `skew(-12.5deg) scaleY(${targetScale})`;
+					shotClockFill.style.transform = `scaleY(${targetScale})`;
 					lastShotClockScale = targetScale;
 				} else {
 					shotClockCountdown.style.display = 'none';
@@ -449,16 +670,15 @@
 			const buffer = 1;
 			const animate = currentTime >= lastShotClockTime - buffer && currentTime < lastShotClockTime;
 
-			// When shot clock is 1 or below, flash at full scale
 			if (currentTime <= 10) {
 				shotClockCountdown.style.display = 'block';
 				const targetScale = currentTime / 10;
 
 				if (animate) {
 					// Animate the scaleY transition
-					shotClockCountdown.animate([
-						{ transform: `skew(-12.5deg) scaleY(${lastShotClockScale})` },
-						{ transform: `skew(-12.5deg) scaleY(${targetScale})` }
+					shotClockFill.animate([
+						{ transform: `scaleY(${lastShotClockScale})` },
+						{ transform: `scaleY(${targetScale})` }
 					], {
 						duration: 1000,
 						easing: 'linear',
@@ -466,7 +686,7 @@
 					});
 				} else {
 					// Update immediately without animation
-					shotClockCountdown.style.transform = `skew(-12.5deg) scaleY(${targetScale})`;
+					shotClockFill.style.transform = `scaleY(${targetScale})`;
 				}
 				lastShotClockScale = targetScale;
 			} else {
@@ -659,19 +879,22 @@
 
 			if (homeScore !== lastHomeScore) {
 				homeTicker.setValue(homeScore);
+				if (!firstUpdate && homeScore > lastHomeScore) scoreEffect('home', homeScore - lastHomeScore);
 				lastHomeScore = homeScore;
 			}
 
 			if (guestScore !== lastGuestScore) {
 				guestTicker.setValue(guestScore);
+				if (!firstUpdate && guestScore > lastGuestScore) scoreEffect('guest', guestScore - lastGuestScore);
 				lastGuestScore = guestScore;
 			}
+			firstUpdate = false;
 
 			// Update clock
 			document.getElementById('main-clock').textContent = data.clock;
 
 			// Update period, make sure UPPERCASE is used for period_desc
-			document.getElementById('period').textContent = data.period_desc.toUpperCase() || data.period;
+			document.getElementById('period').textContent = (data.period_desc || '').toUpperCase() || data.period;
 
 			// Update timeouts with animation
 			const homeTimeouts = parseInt(data.home_timeouts, 10) || 0;
@@ -686,8 +909,6 @@
 			// Update fouls with animation
 			const homeFouls = parseInt(data.home_fouls, 10) || 0;
 			const guestFouls = parseInt(data.guest_fouls, 10) || 0;
-
-			// console.log("homeFouls: " + homeFouls, " LastHomeFouls: " + lastHomeFouls, " homeTimeouts: " + homeTimeouts, " LastHomeTimeouts: " + lastHomeTimeouts);
 
 			// Home fouls animation
 			if (homeFouls !== lastHomeFouls) {
@@ -717,7 +938,7 @@
 			// Update timeout animation
 			updateTimeoutAnimation(data.timeout_clock);
 
-			 // Update home and guest team stats with durations
+			// Update home and guest team stats with durations
 			const homeStats = data.home_stats;
 			const guestStats = data.guest_stats;
 			const homeStatsDuration = data.home_stats_duration;
@@ -745,7 +966,6 @@
 				.catch(error => console.error('Error fetching data:', error));
 		}
 
-		// Update every 50ms
 		setInterval(fetchData, 250);
 	</script>
 </body>

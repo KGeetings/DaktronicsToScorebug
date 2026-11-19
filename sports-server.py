@@ -49,8 +49,8 @@ SPORT_CONFIGS = {
 		"data_template": {
 			"sport": "basketball",
 			"clock": "55:55",
-			"home_score": "123",
-			"guest_score": "123",
+			"home_score": "19",
+			"guest_score": "12",
 			"home_timeouts": "3",
 			"guest_timeouts": "2",
 			"period": "5TH",
@@ -461,8 +461,8 @@ def initialize_sport_data(sport):
 
 def main():
 	# Sport Options: 'basketball', 'volleyball', 'football'
-	# SPORT = 'basketball'
-	SPORT = 'football'
+	SPORT = 'basketball'
+	# SPORT = 'football'
 	# SPORT = 'volleyball'
 
 	# Initialize sport-specific data
