@@ -8,12 +8,25 @@
 	<link href="https://fonts.googleapis.com/css2?family=Rubik:ital,wght@0,300..900;1,300..900&display=swap" rel="stylesheet">
 
 	<style>
+		@font-face {
+			font-family: 'Rubik';
+			font-style: italic;
+			font-weight: 300 900;
+			font-display: swap;
+			src: url('fonts/Rubik-Italic-VariableFont_wght.ttf') format('truetype');
+		}
+
+		:root {
+			--home-color: #8A1538;
+			--guest-color: #999;
+		}
+
 		/* Main */
 		body {
 			margin: 0;
 			padding: 0;
 			background: transparent;
-			font-family: "Rubik", sans-serif;
+			font-family: "Rubik", "Segoe UI", "Helvetica Neue", Arial, sans-serif;
 			font-style: italic;
 			font-weight: 600;
 			color: white;
@@ -58,17 +71,13 @@
 			top: 216.9px;
 			width: 793.3px;
 			height: 233px;
-			background: #999;
+			background: var(--guest-color);
 			box-shadow: 0 0 0 25px #000;
 		}
 
-		/* Fill + gradient ring.
-			The ring is a transparent border painted with its own gradient
-			(because somewhat annoyingly, box-shadow can't do gradients). */
+		/* Fill + gradient ring. The ring is a transparent border painted with its own gradient. */
 		#home-plate {
 			--t: 0.2143;
-			/* --home-ring: linear-gradient(60deg, rgba(215, 213, 210, .25) 0%, rgba(138, 21, 56, 0.89) 25%,
-					rgba(112, 121, 128, .48) 50%, rgba(138, 21, 56, 0.45) 75%, rgba(138, 21, 56, 1.00) 100%); */
 			--home-ring: linear-gradient(60deg, rgba(252, 252, 252, 0.692) 0%, rgba(138, 21, 56, 0.95) 25%,
 					rgba(245, 245, 245, 0.75) 50%, rgba(138, 21, 56, 0.9) 75%, rgba(138, 21, 56, 1.00) 100%);
 			left: 996px;
@@ -84,15 +93,15 @@
 				var(--home-ring) border-box;
 		}
 
-		/* Score sheen sweep effect. */
+		/* Score sheen sweep effect - compositor-only translateX instead of background-position. */
 		.plate::after {
 			content: "";
 			position: absolute;
 			inset: 0;
 			background: linear-gradient(100deg, transparent 38%, rgba(255, 255, 255, 0.6) 50%, transparent 62%);
-			background-size: 250% 100%;
-			background-position: 0% 0;
 			pointer-events: none;
+			transform: translateX(-100%);
+			will-change: transform;
 		}
 
 		.plate.scored::after {
@@ -101,11 +110,11 @@
 
 		@keyframes sheen {
 			from {
-				background-position: 100% 0;
+				transform: translateX(-100%);
 			}
 
 			to {
-				background-position: 0% 0;
+				transform: translateX(100%);
 			}
 		}
 
@@ -137,6 +146,24 @@
 					rgba(93, 105, 114, .69) 58%, #5B6770) border-box;
 		}
 
+		/* Buzzer beater flash on the clock/shot clock plates */
+		#clock-plate.buzzer,
+		#shot-plate.buzzer {
+			animation: buzzerPlate 0.35s ease-in-out 4;
+		}
+
+		@keyframes buzzerPlate {
+
+			0%,
+			100% {
+				filter: brightness(1);
+			}
+
+			50% {
+				filter: brightness(1.8) saturate(1.5);
+			}
+		}
+
 		/* timeouts / fouls */
 		.strip {
 			--t: 0.21;
@@ -148,18 +175,17 @@
 		#guest-strip {
 			left: 94.4px;
 			width: 842.2px;
-			background: #999;
+			background: var(--guest-color);
 			box-shadow: 0 0 0 0.5px #000;
 		}
 
 		#home-strip {
 			left: 968px;
 			width: 840.3px;
-			background: #8A1538;
+			background: var(--home-color);
 		}
 
-		/* Strip call-out (foul / timeout) */
-
+		/* Strip call-out (foul / timeout)
 		/* Dim the strip contents while a call-out is swiping across.
 		visibility (with a delayed transition) is used so the blink animation
 		on the foul numbers can't keep them visible during the fade-out. */
@@ -257,15 +283,16 @@
 			}
 		}
 
-		/* Light sheen that sweeps the strip at the same time */
+		/* Light sheen that sweeps the strip at the same time - compositor-only. */
 		.strip-fx::before {
 			content: "";
 			position: absolute;
 			inset: 0;
 			background: linear-gradient(100deg, transparent 35%, rgba(255, 255, 255, 0.45) 50%, transparent 65%);
-			background-size: 250% 100%;
-			background-position: 100% 0;
+			transform: translateX(100%);
 			opacity: 0;
+			pointer-events: none;
+			will-change: transform;
 		}
 
 		.strip-fx.active::before {
@@ -275,11 +302,11 @@
 
 		@keyframes stripSheen {
 			from {
-				background-position: 100% 0;
+				transform: translateX(100%);
 			}
 
 			to {
-				background-position: -80% 0;
+				transform: translateX(-100%);
 			}
 		}
 
@@ -367,6 +394,35 @@
 			top: 191.9px;
 			width: 843.3px;
 			height: 283px;
+		}
+
+		/* Rim glow while a plate is on fire */
+		#home-plate.on-fire {
+			animation: rimGlowHome 0.9s ease-in-out infinite alternate;
+		}
+
+		@keyframes rimGlowHome {
+			from {
+				box-shadow: 0 0 25px 5px rgba(255, 80, 0, 0.40);
+			}
+
+			to {
+				box-shadow: 0 0 55px 15px rgba(255, 60, 0, 0.70);
+			}
+		}
+
+		#guest-plate.on-fire {
+			animation: rimGlowGuest 0.9s ease-in-out infinite alternate;
+		}
+
+		@keyframes rimGlowGuest {
+			from {
+				box-shadow: 0 0 0 25px #000, 0 0 25px 5px rgba(255, 80, 0, 0.40);
+			}
+
+			to {
+				box-shadow: 0 0 0 25px #000, 0 0 55px 15px rgba(255, 60, 0, 0.70);
+			}
 		}
 
 		/* Soft heat haze halo behind the whole plate */
@@ -538,21 +594,30 @@
 
 		.fire-bed {
 			position: absolute;
-			left: 4%; right: 4%;
+			left: 4%;
+			right: 4%;
 			bottom: 97%;
 			height: 135px;
 			background: radial-gradient(ellipse 50% 100% at 50% 100%,
-				rgba(255, 232, 160, .85) 0%,
-				rgba(255, 140, 20, .55) 38%,
-				rgba(255, 50, 0, .22) 68%,
-				rgba(255, 0, 0, 0) 100%);
+					rgba(255, 232, 160, .85) 0%,
+					rgba(255, 140, 20, .55) 38%,
+					rgba(255, 50, 0, .22) 68%,
+					rgba(255, 0, 0, 0) 100%);
 			filter: blur(12px);
 			animation: bedPulse 1.5s ease-in-out infinite alternate;
+		}
+
+		@keyframes bedPulse {
+			from {
+				opacity: .6;
+				transform: scaleX(.97);
 			}
-			@keyframes bedPulse {
-			from { opacity: .6; transform: scaleX(.97); }
-			to   { opacity: 1;  transform: scaleX(1.03); }
+
+			to {
+				opacity: 1;
+				transform: scaleX(1.03);
 			}
+		}
 
 		@keyframes emberRise {
 			0% {
@@ -619,7 +684,6 @@
 			width: 1000px;
 			height: 661px;
 			background: rgb(150, 17, 54, 0.8);
-			/* background: rgba(179, 85, 85, 1); */
 			transform-origin: bottom;
 			transform: skew(-12.5deg) translateX(100%);
 			display: none;
@@ -653,16 +717,18 @@
 			font-size: 230px;
 			font-weight: 700;
 			top: 214px;
-			font-family: "Rubik", sans-serif;
+			font-family: "Rubik", "Segoe UI", "Helvetica Neue", Arial, sans-serif;
 			font-style: italic;
 			z-index: 4;
 		}
 
+		/* Compositor-only digit scroll (translateY instead of margin-top). */
 		.digit {
 			float: left;
 			line-height: 1;
-			transition: margin-top 3s ease;
+			transition: transform 3s cubic-bezier(.2, .9, .2, 1);
 			font-variant-numeric: tabular-nums;
+			will-change: transform;
 		}
 
 		#home-score {
@@ -763,7 +829,6 @@
 			text-align: center;
 			top: 50%;
 			transform: translateY(-50%) skew(12.5deg);
-			/* Counter-skew the text */
 			font-size: 122px;
 			color: white;
 		}
@@ -842,11 +907,30 @@
 				text-shadow: 0 0 28px rgba(255, 60, 30, 0.95), 0 0 60px rgba(255, 0, 0, 0.5);
 			}
 		}
+
+		/* Buzzer flash on clock digits, declared after .hot so it wins when both are present. */
+		#main-clock.buzzer,
+		#shot-clock.buzzer {
+			animation: buzzerFlash 0.35s ease-in-out 4;
+		}
+
+		@keyframes buzzerFlash {
+
+			0%,
+			100% {
+				color: #fff;
+				text-shadow: 0 0 0 transparent;
+			}
+
+			50% {
+				color: #ff4030;
+				text-shadow: 0 0 28px rgba(255, 60, 30, 0.95);
+			}
+		}
 	</style>
 </head>
 
 <body>
-	<!HTML  ----->
 	<div id="timeout-animation">
 		<div id="timeout-text">Timeout</div>
 	</div>
@@ -896,8 +980,6 @@
 			<div class="slab plate" id="home-plate"></div>
 			<div class="slab strip" id="guest-strip"></div>
 			<div class="slab strip" id="home-strip"></div>
-			<div class="slab strip" id="guest-strip"></div>
-			<div class="slab strip" id="home-strip"></div>
 
 			<!-- strip call-out overlays -->
 			<div class="slab strip-fx" id="guest-strip-fx">
@@ -914,7 +996,7 @@
 			</div>
 
 			<!-- logo -->
-			<img class="pc-logo" id="pc-logo" src="images/Eagle Head-white outline.png" />
+			<img class="pc-logo" id="pc-logo" src="images/Eagle Head-white outline.png" onerror="this.style.display='none'" />
 
 			<!-- static labels -->
 			<div class="t label" id="guest-tol-label">TOL</div>
@@ -939,38 +1021,82 @@
 		</div>
 	</div>
 
-	<!JavaScript  ----->
 	<script>
-		const shotClockCountdown = document.getElementById('shot-clock-countdown');
-		const shotClockFill = document.getElementById('shot-clock-fill');
-		const shotClockGlow = document.getElementById('shot-clock-glow');
-		const shotClockText = document.getElementById('shot-clock');
-		const timeoutAnimation = document.getElementById('timeout-animation');
-		const timeoutText = document.getElementById('timeout-text');
-		const homeStatsAnimation = document.getElementById('home-stats-animation');
-		const guestStatsAnimation = document.getElementById('guest-stats-animation');
-		const homeFire = document.getElementById('home-fire');
-		const guestFire = document.getElementById('guest-fire');
+		/* ------------------------------------------------------------------ */
+		/* DOM cache                                                          */
+		/* ------------------------------------------------------------------ */
+		const el = {
+			mainClock: document.getElementById('main-clock'),
+			period: document.getElementById('period'),
+			shotClock: document.getElementById('shot-clock'),
+			shotClockCountdown: document.getElementById('shot-clock-countdown'),
+			shotClockFill: document.getElementById('shot-clock-fill'),
+			shotClockGlow: document.getElementById('shot-clock-glow'),
+			timeoutAnimation: document.getElementById('timeout-animation'),
+			timeoutText: document.getElementById('timeout-text'),
+			periodBanner: document.getElementById('period-banner'),
+			periodBannerText: document.getElementById('period-banner-text'),
+			homeStatsAnimation: document.getElementById('home-stats-animation'),
+			guestStatsAnimation: document.getElementById('guest-stats-animation'),
+			homeStatsText: document.getElementById('home-stats-text'),
+			guestStatsText: document.getElementById('guest-stats-text'),
+			homeFire: document.getElementById('home-fire'),
+			guestFire: document.getElementById('guest-fire'),
+			homePlate: document.getElementById('home-plate'),
+			guestPlate: document.getElementById('guest-plate'),
+			clockPlate: document.getElementById('clock-plate'),
+			shotPlate: document.getElementById('shot-plate'),
+			homeScore: document.getElementById('home-score'),
+			guestScore: document.getElementById('guest-score'),
+			homeFouls: document.getElementById('home-fouls'),
+			guestFouls: document.getElementById('guest-fouls'),
+			homePossession: document.getElementById('home-possession'),
+			guestPossession: document.getElementById('guest-possession'),
+			homeTimeouts: document.getElementById('home-timeouts'),
+			guestTimeouts: document.getElementById('guest-timeouts'),
+		};
 
-		let currentTimeoutAnimation = null;
-		let timeoutAnimationState = 'hidden'; // Can be 'hidden', 'showing', or 'hiding'
+		/* ------------------------------------------------------------------ */
+		/* Small utilities                                                    */
+		/* ------------------------------------------------------------------ */
+		const replayTimers = new WeakMap();
+		function replayClass(node, cls, ms) {
+			if (!node) return;
+			clearTimeout(replayTimers.get(node));
+			node.classList.remove(cls);
+			void node.offsetWidth;          // restart the animation
+			node.classList.add(cls);
+			replayTimers.set(node, setTimeout(() => node.classList.remove(cls), ms));
+		}
 
-		// Each digit is a vertical strip holding three full 0-9 runs, so it can
-		// always keep rolling in the direction the score is going — even through
-		// the 9 -> 0 wrap. The middle run is the "resting" home; once a roll
-		// finishes we silently jump back to it (same number on screen, so the
-		// swap is invisible) and we're ready for the next roll.
+		const blinkTimers = new WeakMap();
+		function blinkElement(node) {
+			if (!node) return;
+			clearTimeout(blinkTimers.get(node));
+			node.classList.remove('blink');
+			void node.offsetWidth;
+			node.classList.add('blink');
+			blinkTimers.set(node, setTimeout(() => node.classList.remove('blink'), 3200));
+		}
+
+		function parseClockSeconds(str) {
+			if (typeof str !== 'string') return null;
+			const m = str.match(/^(\d+):(\d+)/);
+			return m ? parseInt(m[1], 10) * 60 + parseInt(m[2], 10) : null;
+		}
+
+		/* ------------------------------------------------------------------ */
+		/* Number ticker (compositor-only translateY rolls)                   */
+		/* ------------------------------------------------------------------ */
 		const DIGIT_RUNS = 3;
-		const DIGIT_BASE = 10;                      // rest position of digit "0"
-		const DIGIT_MAX_POS = DIGIT_RUNS * 10 - 1;  // 29
+		const DIGIT_BASE = 10;
+		const DIGIT_MAX_POS = DIGIT_RUNS * 10 - 1;
 
 		function createDigitNode() {
 			const node = document.createElement('div');
 			node.classList.add('digit');
 			let html = '';
-			for (let i = 0; i < DIGIT_RUNS * 10; i++) {
-				html += (i % 10) + '<br>';
-			}
+			for (let i = 0; i < DIGIT_RUNS * 10; i++) html += (i % 10) + '<br>';
 			node.innerHTML = html;
 			return node;
 		}
@@ -983,7 +1109,7 @@
 
 			digit.node.style.transition = 'none';
 			digit.pos = restPos;
-			digit.node.style.marginTop = `-${restPos}em`;
+			digit.node.style.transform = `translateY(-${restPos}em)`;
 			void digit.node.offsetHeight;      // flush the jump before transitions return
 			digit.node.style.transition = '';
 		}
@@ -995,13 +1121,9 @@
 			if (digit.value === target) return;
 
 			let delta;
-			if (direction > 0) {
-				delta = (target - digit.value + 10) % 10;        // e.g. 9 -> 0 = +1
-			} else if (direction < 0) {
-				delta = -((digit.value - target + 10) % 10);     // e.g. 0 -> 9 = -1
-			} else {
-				delta = ((target - digit.value + 15) % 10) - 5;  // shortest path
-			}
+			if (direction > 0) delta = (target - digit.value + 10) % 10;
+			else if (direction < 0) delta = -((digit.value - target + 10) % 10);
+			else delta = ((target - digit.value + 15) % 10) - 5;
 
 			let nextPos = digit.pos + delta;
 
@@ -1012,7 +1134,7 @@
 				const restPos = DIGIT_BASE + digit.value;
 				digit.node.style.transition = 'none';
 				digit.pos = restPos;
-				digit.node.style.marginTop = `-${restPos}em`;
+				digit.node.style.transform = `translateY(-${restPos}em)`;
 				void digit.node.offsetHeight;
 				digit.node.style.transition = '';
 				nextPos = digit.pos + delta;
@@ -1020,16 +1142,115 @@
 
 			digit.pos = nextPos;
 			digit.value = target;
-			digit.node.style.marginTop = `-${nextPos}em`;
+			digit.node.style.transform = `translateY(-${nextPos}em)`;
 		}
 
-		// Add new variables for shot clock tracking
-		let lastShotClockTime = null;
-		let lastShotClockScale = 1;
+		function createNumberTicker(element) {
+			let currentValue = null;    // null = uninitialised; first setValue() builds the digits
+			let digits = [];
 
-		// Initialize tickers
-		const homeTicker = createNumberTicker(document.getElementById('home-score'));
-		const guestTicker = createNumberTicker(document.getElementById('guest-score'));
+			function addDigit() {
+				const node = createDigitNode();
+				node.style.transform = `translateY(-${DIGIT_BASE}em)`;
+
+				const digit = { node, pos: DIGIT_BASE, value: 0 };
+				node.addEventListener('transitionend', (event) => {
+					if (event.propertyName === 'transform') resetDigit(digit);
+				});
+
+				element.appendChild(node);
+				void node.offsetHeight;
+				digits.unshift(digit);
+			}
+
+			function removeExtraDigits(targetLength) {
+				while (digits.length > targetLength) {
+					const digit = digits.shift();
+					element.removeChild(digit.node);
+				}
+			}
+
+			function setValue(newValue) {
+				const newNumber = parseInt(newValue, 10) || 0;
+				if (newNumber === currentValue) return;
+
+				const reversed = String(newNumber).split('').reverse().join('');
+
+				while (digits.length < reversed.length) addDigit();
+				if (digits.length > reversed.length) removeExtraDigits(reversed.length);
+
+				const direction = currentValue === null ? 0
+					: (newNumber > currentValue ? 1 : newNumber < currentValue ? -1 : 0);
+
+				digits.forEach((digit, index) => {
+					const target = parseInt(reversed[index] || '0', 10);
+					setDigit(digit, target, direction);
+				});
+
+				currentValue = newNumber;
+			}
+
+			const initial = parseInt(element.getAttribute('data-value'), 10) || 0;
+			setValue(initial);
+
+			return { setValue };
+		}
+
+		/* ------------------------------------------------------------------ */
+		/* Timeout display                                                    */
+		/* ------------------------------------------------------------------ */
+		function createTimeoutDisplay(elementId) {
+			const element = document.getElementById(elementId);
+			element.innerHTML = '';
+			let currentTimeouts = [];
+			let isAnimating = false;
+
+			function updateTimeouts(newCount) {
+				newCount = parseInt(newCount, 10) || 0;
+				const previousCount = currentTimeouts.length;
+				if (newCount === previousCount) return;
+
+				element.innerHTML = '';
+				currentTimeouts = [];
+
+				for (let i = 0; i < newCount; i++) {
+					const span = document.createElement('span');
+					span.textContent = 'I ';
+					element.appendChild(span);
+					currentTimeouts.push(span);
+				}
+
+				if (newCount < previousCount && !isAnimating) {
+					for (let i = newCount; i < previousCount; i++) {
+						const span = document.createElement('span');
+						span.textContent = 'I ';
+						span.classList.add('blink');
+						element.appendChild(span);
+
+						isAnimating = true;
+						setTimeout(() => {
+							span.remove();
+							isAnimating = false;
+						}, 3000);
+					}
+				}
+			}
+
+			return { updateTimeouts };
+		}
+
+		/* ------------------------------------------------------------------ */
+		/* State                                                              */
+		/* ------------------------------------------------------------------ */
+		let currentTimeoutAnimation = null;
+		let timeoutAnimationState = 'hidden';
+
+		let lastShotClockTime = null;
+		let lastMainClockSec = null;
+
+
+		const homeTicker = createNumberTicker(el.homeScore);
+		const guestTicker = createNumberTicker(el.guestScore);
 		const homeTimeoutDisplay = createTimeoutDisplay('home-timeouts');
 		const guestTimeoutDisplay = createTimeoutDisplay('guest-timeouts');
 
@@ -1039,47 +1260,42 @@
 		let lastGuestTimeouts = 0;
 		let lastHomeFouls = 0;
 		let lastGuestFouls = 0;
-		let firstUpdate = true; // don't fire score effects for the first value we receive
+		let firstUpdate = true;
 
-		// Unanswered-points streaks (drives the fire effect)
 		const FIRE_STREAK = 10;
 		let homeStreak = 0;
 		let guestStreak = 0;
 
-		// Stats animation state and tracking
 		let currentHomeStatsAnimation = null;
 		let currentGuestStatsAnimation = null;
 		let lastHomeStats = null;
 		let lastGuestStats = null;
+		let lastHomeStatsHTML = '';
+		let lastGuestStatsHTML = '';
 		let homeStatsTimeout = null;
 		let guestStatsTimeout = null;
 
-		/* Score effects -----
-		   Hook for scoring animations. 'side' is 'home' or 'guest', 'points' is how many were scored.
-		   Sheen sweep across the plate + pop on the score digits. */
-		function replayClass(el, cls, ms) {
-			el.classList.remove(cls);
-			void el.offsetWidth; // restart the animation
-			el.classList.add(cls);
-			setTimeout(() => el.classList.remove(cls), ms);
-		}
+		let periodBannerTimer = null;
 
+		/* ------------------------------------------------------------------ */
+		/* Score effects                                                      */
+		/* ------------------------------------------------------------------ */
 		function scoreEffect(side, points) {
 			replayClass(document.getElementById(side + '-plate'), 'scored', 1200);
 			replayClass(document.getElementById(side + '-score'), 'pop', 1000);
 		}
 
-		/* On-fire effect */
 		function setOnFire(side, on) {
-			const el = side === 'home' ? homeFire : guestFire;
-			if (!el) return;
-			if (el.classList.contains('active') === on) return;
+			const fireEl = side === 'home' ? el.homeFire : el.guestFire;
+			const plateEl = side === 'home' ? el.homePlate : el.guestPlate;
+			if (!fireEl) return;
+			if (fireEl.classList.contains('active') === on) return;
 
-			el.classList.toggle('active', on);
+			fireEl.classList.toggle('active', on);
+			if (plateEl) plateEl.classList.toggle('on-fire', on);
 
-			// Re-roll the flicker timings so every ignition looks a little different
 			if (on) {
-				el.querySelectorAll('.flame, .ember, .fire-glow').forEach(node => {
+				fireEl.querySelectorAll('.flame, .ember, .fire-glow').forEach(node => {
 					node.style.animation = 'none';
 					void node.offsetWidth;
 					node.style.animation = '';
@@ -1087,107 +1303,102 @@
 			}
 		}
 
-		function updateStatsAnimation(statsElement, statsText, duration, isHome) {
-			// If no stats or stats haven't changed, do nothing
-			const currentStats = statsText.trim();
-			const lastStats = isHome ? lastHomeStats : lastGuestStats;
-
-			console.log("currentStats: " + currentStats, " lastStats: " + lastStats, " duration: " + duration);
-			if (currentStats === lastStats) return;
-			// Clear any existing timeouts
-			if (isHome && homeStatsTimeout) {
-				clearTimeout(homeStatsTimeout);
-				homeStatsTimeout = null;
-			} else if (!isHome && guestStatsTimeout) {
-				clearTimeout(guestStatsTimeout);
-				guestStatsTimeout = null;
-			}
-
-			// Update the tracked last stats
-			if (isHome) {
-				lastHomeStats = currentStats;
+		/* ------------------------------------------------------------------ */
+		/* Buzzer beater                                                      */
+		/* ------------------------------------------------------------------ */
+		function triggerBuzzer(kind) {
+			if (kind === 'main') {
+				replayClass(el.mainClock, 'buzzer', 1400);
+				replayClass(el.clockPlate, 'buzzer', 1400);
 			} else {
-				lastGuestStats = currentStats;
-			}
-
-			// If stats are empty, hide the element
-			if (!currentStats) {
-				const slideOutAnimation = statsElement.animate([
-					{ clipPath: isHome ? 'inset(0% 0% 0% 0%)' : 'inset(0% 0% 0% 0%)' },
-					{ clipPath: isHome ? 'inset(0% 100% 0% 0%)' : 'inset(0% 0% 0% 100%)' }
-				], {
-					duration: 1000,
-					easing: 'ease-in',
-					fill: 'forwards'
-				});
-				slideOutAnimation.onfinish = () => {
-					statsElement.style.display = 'none';
-				};
-				return;
-			}
-
-			// Cancel any existing animation for this stats element
-			if (isHome && currentHomeStatsAnimation) {
-				currentHomeStatsAnimation.cancel();
-			}
-			if (!isHome && currentGuestStatsAnimation) {
-				currentGuestStatsAnimation.cancel();
-			}
-			// Show the stats animation
-			statsElement.style.display = 'block';
-
-			// Animate sliding in
-			const slideInAnimation = statsElement.animate([
-				{ clipPath: isHome ? 'inset(0% 100% 0% 0%)' : 'inset(0% 0% 0% 100%)' },
-				{ clipPath: isHome ? 'inset(0% 0% 0% 0%)' : 'inset(0% 0% 0% 0%)' }
-			], {
-				duration: 1000,
-				easing: 'ease-out',
-				fill: 'forwards'
-			});
-
-			// Store the current animation
-			if (isHome) {
-				currentHomeStatsAnimation = slideInAnimation;
-			} else {
-				currentGuestStatsAnimation = slideInAnimation;
-			}
-
-			// If duration is set (not infinite), schedule the hide animation
-			if (duration > 0) {
-				const hideTimeout = setTimeout(() => {
-					const slideOutAnimation = statsElement.animate([
-						{ clipPath: isHome ? 'inset(0% 0% 0% 0%)' : 'inset(0% 0% 0% 0%)' },
-						{ clipPath: isHome ? 'inset(0% 100% 0% 0%)' : 'inset(0% 0% 0% 100%)' }
-					], {
-						duration: 1000,
-						easing: 'ease-in',
-						fill: 'forwards'
-					});
-
-					slideOutAnimation.onfinish = () => {
-						statsElement.style.display = 'none';
-					};
-
-					// Store the current animation
-					if (isHome) {
-						currentHomeStatsAnimation = slideOutAnimation;
-					} else {
-						currentGuestStatsAnimation = slideOutAnimation;
-					}
-				}, duration * 1000);
-
-				// Store the timeout
-				if (isHome) {
-					homeStatsTimeout = hideTimeout;
-				} else {
-					guestStatsTimeout = hideTimeout;
-				}
+				replayClass(el.shotClock, 'buzzer', 1400);
+				replayClass(el.shotPlate, 'buzzer', 1400);
 			}
 		}
 
-		/* Strip call-outs (fouls / timeouts) */
-		const STRIP_FX_MS = 1600; // must match the stripSwipe animation duration
+		/* ------------------------------------------------------------------ */
+		/* Quarter-end banner                                                 */
+		/* ------------------------------------------------------------------ */
+		function showPeriodBanner(text) {
+			if (!el.periodBanner || !el.periodBannerText) return;
+
+			clearTimeout(periodBannerTimer);
+			if (el.periodBanner._anim) el.periodBanner._anim.cancel();
+
+			el.periodBannerText.textContent = text;
+			el.periodBanner.style.display = 'block';
+
+			el.periodBanner._anim = el.periodBanner.animate([
+				{ clipPath: 'inset(100% 0% 0% 0%)' },
+				{ clipPath: 'inset(0% 0% 0% 0%)' }
+			], { duration: 800, easing: 'ease-out', fill: 'forwards' });
+
+			periodBannerTimer = setTimeout(() => {
+				const out = el.periodBanner.animate([
+					{ clipPath: 'inset(0% 0% 0% 0%)' },
+					{ clipPath: 'inset(100% 0% 0% 0%)' }
+				], { duration: 800, easing: 'ease-in', fill: 'forwards' });
+				out.onfinish = () => { el.periodBanner.style.display = 'none'; };
+			}, 3000);
+		}
+
+		/* ------------------------------------------------------------------ */
+		/* Stats panel                                                        */
+		/* ------------------------------------------------------------------ */
+		function updateStatsAnimation(statsElement, statsText, duration, isHome) {
+			const currentStats = String(statsText ?? '').trim();
+			const lastStats = isHome ? lastHomeStats : lastGuestStats;
+
+			if (currentStats === lastStats) return;
+
+			if (isHome && homeStatsTimeout) { clearTimeout(homeStatsTimeout); homeStatsTimeout = null; }
+			else if (!isHome && guestStatsTimeout) { clearTimeout(guestStatsTimeout); guestStatsTimeout = null; }
+
+			if (isHome) lastHomeStats = currentStats;
+			else lastGuestStats = currentStats;
+
+			if (!currentStats) {
+				const slideOut = statsElement.animate([
+					{ clipPath: 'inset(0% 0% 0% 0%)' },
+					{ clipPath: isHome ? 'inset(0% 100% 0% 0%)' : 'inset(0% 0% 0% 100%)' }
+				], { duration: 1000, easing: 'ease-in', fill: 'forwards' });
+				slideOut.onfinish = () => { statsElement.style.display = 'none'; };
+				return;
+			}
+
+			if (isHome && currentHomeStatsAnimation) currentHomeStatsAnimation.cancel();
+			if (!isHome && currentGuestStatsAnimation) currentGuestStatsAnimation.cancel();
+
+			statsElement.style.display = 'block';
+
+			const slideIn = statsElement.animate([
+				{ clipPath: isHome ? 'inset(0% 100% 0% 0%)' : 'inset(0% 0% 0% 100%)' },
+				{ clipPath: 'inset(0% 0% 0% 0%)' }
+			], { duration: 1000, easing: 'ease-out', fill: 'forwards' });
+
+			if (isHome) currentHomeStatsAnimation = slideIn;
+			else currentGuestStatsAnimation = slideIn;
+
+			if (duration > 0) {
+				const hideTimeout = setTimeout(() => {
+					const slideOut = statsElement.animate([
+						{ clipPath: 'inset(0% 0% 0% 0%)' },
+						{ clipPath: isHome ? 'inset(0% 100% 0% 0%)' : 'inset(0% 0% 0% 100%)' }
+					], { duration: 1000, easing: 'ease-in', fill: 'forwards' });
+					slideOut.onfinish = () => { statsElement.style.display = 'none'; };
+					if (isHome) currentHomeStatsAnimation = slideOut;
+					else currentGuestStatsAnimation = slideOut;
+				}, duration * 1000);
+
+				if (isHome) homeStatsTimeout = hideTimeout;
+				else guestStatsTimeout = hideTimeout;
+			}
+		}
+
+		/* ------------------------------------------------------------------ */
+		/* Strip call-outs                                                    */
+		/* ------------------------------------------------------------------ */
+		const STRIP_FX_MS = 1600;
 		const STRIP_ALERT_TEXT = { foul: 'FOUL', timeout: 'TIMEOUT' };
 
 		const stripFx = {
@@ -1210,10 +1421,9 @@
 			const textEl = fx.el.querySelector('.fx-text');
 			const text = STRIP_ALERT_TEXT[kind] || STRIP_ALERT_TEXT.foul;
 
-			// Restart cleanly if an alert is already running
 			clearTimeout(fx.timer);
 			fx.el.classList.remove('active');
-			void fx.el.offsetWidth; // reflow so the animation replays
+			void fx.el.offsetWidth;
 
 			textEl.textContent = text;
 			fx.el.classList.add('active');
@@ -1223,7 +1433,6 @@
 				if (node) node.classList.add('dimmed');
 			});
 
-			// Bring the TOL / FLS text back once the swipe has finished
 			fx.timer = setTimeout(() => {
 				fx.el.classList.remove('active');
 				fx.ids.forEach(id => {
@@ -1234,260 +1443,134 @@
 			}, STRIP_FX_MS);
 		}
 
-		// Single switch for the whole "shot clock is counting down" state:
-		// shows/hides the inner fill and pulses the red ring + digits.
+		/* ------------------------------------------------------------------ */
+		/* Shot clock (CSS transition instead of accumulating WAAPI layers)   */
+		/* ------------------------------------------------------------------ */
 		function setShotClockActive(on) {
-			shotClockCountdown.style.display = on ? 'block' : 'none';
-			shotClockGlow.classList.toggle('active', on);
-			shotClockText.classList.toggle('hot', on);
+			el.shotClockCountdown.style.display = on ? 'block' : 'none';
+			el.shotClockGlow.classList.toggle('active', on);
+			el.shotClock.classList.toggle('hot', on);
 		}
 
 		function updateShotClock(shotClockTime) {
-			if (!shotClockTime || shotClockTime === '--' || shotClockTime === "") {
+			const shotClockStr = String(shotClockTime ?? '').trim();
+			if (shotClockStr === '' || shotClockStr === '--') {
 				setShotClockActive(false);
 				lastShotClockTime = null;
-				lastShotClockScale = 1;
 				return;
 			}
 
-			const currentTime = parseInt(shotClockTime, 10) || 0;
+			const currentTime = parseFloat(shotClockStr);
+			if (isNaN(currentTime)) {
+				setShotClockActive(false);
+				lastShotClockTime = null;
+				return;
+			}
 
-			// No change from previous update
 			if (currentTime === lastShotClockTime) return;
 
-			// Initial state setup
+			// Buzzer beater when the clock crosses to 0 (or below)
+			if (lastShotClockTime !== null && lastShotClockTime > 0 && currentTime <= 0) {
+				triggerBuzzer('shot');
+			}
+
+			// First observation: no transition, just snap to the correct fill.
 			if (lastShotClockTime === null) {
 				if (currentTime <= 10) {
 					setShotClockActive(true);
-					const targetScale = currentTime / 10;
-					shotClockFill.style.transform = `scaleY(${targetScale})`;
-					lastShotClockScale = targetScale;
+					el.shotClockFill.style.transition = 'none';
+					el.shotClockFill.style.transform = `scaleY(${Math.max(0, currentTime / 10)})`;
+					void el.shotClockFill.offsetHeight;
 				} else {
 					setShotClockActive(false);
-					lastShotClockScale = 1;
 				}
 				lastShotClockTime = currentTime;
 				return;
 			}
 
-			// Determine if the change is a consecutive decrement
-			const buffer = 1;
-			const animate = currentTime >= lastShotClockTime - buffer && currentTime < lastShotClockTime;
+			const animate = currentTime >= lastShotClockTime - 1 && currentTime < lastShotClockTime;
 
 			if (currentTime <= 10) {
 				setShotClockActive(true);
-				const targetScale = currentTime / 10;
-
-				if (animate) {
-					// Animate the scaleY transition
-					shotClockFill.animate([
-						{ transform: `scaleY(${lastShotClockScale})` },
-						{ transform: `scaleY(${targetScale})` }
-					], {
-						duration: 1000,
-						easing: 'linear',
-						fill: 'forwards'
-					});
-				} else {
-					// Update immediately without animation
-					shotClockFill.style.transform = `scaleY(${targetScale})`;
-				}
-				lastShotClockScale = targetScale;
+				const targetScale = Math.max(0, currentTime / 10);
+				el.shotClockFill.style.transition = animate ? 'transform 1s linear' : 'none';
+				el.shotClockFill.style.transform = `scaleY(${targetScale})`;
+				if (!animate) void el.shotClockFill.offsetHeight;
 			} else {
-				// Hide and reset when shot clock is above 10
 				setShotClockActive(false);
-				lastShotClockScale = 1;
 			}
 
 			lastShotClockTime = currentTime;
 		}
 
+		/* ------------------------------------------------------------------ */
+		/* Timeout banner (guarded against malformed payloads)                */
+		/* ------------------------------------------------------------------ */
 		function updateTimeoutAnimation(timeoutClock) {
-			const [minutes, seconds] = timeoutClock.split(':').map(parseFloat);
-			const time = minutes * 60 + seconds;
+			let time = 0;
+			let displayText = '';
+
+			if (typeof timeoutClock === 'string' && timeoutClock.includes(':')) {
+				const parts = timeoutClock.split(':');
+				const m = parseFloat(parts[0]);
+				const s = parseFloat(parts[1]);
+				if (!isNaN(m) && !isNaN(s)) {
+					time = m * 60 + s;
+					displayText = `Timeout: ${m}:${s < 10 ? '0' : ''}${s}`;
+				}
+			}
 
 			if (!time || time <= 0) {
 				if (timeoutAnimationState === 'showing') {
-					timeoutAnimation.style.display = 'block';
-					if (currentTimeoutAnimation) {
-						currentTimeoutAnimation.cancel();
-					}
+					el.timeoutAnimation.style.display = 'block';
+					if (currentTimeoutAnimation) currentTimeoutAnimation.cancel();
 
-					currentTimeoutAnimation = timeoutAnimation.animate([
+					currentTimeoutAnimation = el.timeoutAnimation.animate([
 						{ clipPath: 'inset(0% 0% 0% 0%)' },
 						{ clipPath: 'inset(100% 0% 0% 0%)' }
-					], {
-						duration: 2000,
-						easing: 'ease-out',
-						fill: 'forwards'
-					});
+					], { duration: 2000, easing: 'ease-out', fill: 'forwards' });
 
 					timeoutAnimationState = 'hiding';
 					currentTimeoutAnimation.onfinish = () => {
-						timeoutAnimation.style.display = 'none';
+						el.timeoutAnimation.style.display = 'none';
 						timeoutAnimationState = 'hidden';
 					};
 				}
 				return;
 			}
 
-			timeoutText.textContent = `Timeout: ${minutes}:${seconds < 10 ? '0' : ''}${seconds}`;
+			if (el.timeoutText.textContent !== displayText) {
+				el.timeoutText.textContent = displayText;
+			}
 
 			if (timeoutAnimationState !== 'showing') {
-				timeoutAnimation.style.display = 'block';
-				if (currentTimeoutAnimation) {
-					currentTimeoutAnimation.cancel();
-				}
+				el.timeoutAnimation.style.display = 'block';
+				if (currentTimeoutAnimation) currentTimeoutAnimation.cancel();
 
-				currentTimeoutAnimation = timeoutAnimation.animate([
+				currentTimeoutAnimation = el.timeoutAnimation.animate([
 					{ clipPath: 'inset(100% 0% 0% 0%)' },
 					{ clipPath: 'inset(0% 0% 0% 0%)' }
-				], {
-					duration: 2000,
-					easing: 'ease-out',
-					fill: 'forwards'
-				});
+				], { duration: 2000, easing: 'ease-out', fill: 'forwards' });
 
 				timeoutAnimationState = 'showing';
 			}
 		}
 
-		function createTimeoutDisplay(elementId) {
-			const element = document.getElementById(elementId);
-			element.innerHTML = ''; // Clears any existing content, otherwise we just append a LOT more...oops
-			let currentTimeouts = [];
-			let isAnimating = false;
-
-			function updateTimeouts(newCount) {
-				newCount = parseInt(newCount) || 0;
-				const previousCount = currentTimeouts.length;
-
-				if (newCount === previousCount) return;
-
-				// Clear existing timeouts first
-				element.innerHTML = '';
-				currentTimeouts = [];
-
-				// Create all new timeout indicators
-				for (let i = 0; i < newCount; i++) {
-					const timeoutSpan = document.createElement('span');
-					timeoutSpan.textContent = 'I ';
-					element.appendChild(timeoutSpan);
-					currentTimeouts.push(timeoutSpan);
-				}
-
-				// If we're removing timeouts and not currently animating
-				if (newCount < previousCount && !isAnimating) {
-					for (let i = newCount; i < previousCount; i++) {
-						const timeoutSpan = document.createElement('span');
-						timeoutSpan.textContent = 'I ';
-						timeoutSpan.classList.add('blink');
-						element.appendChild(timeoutSpan);
-
-						isAnimating = true;
-						setTimeout(() => {
-							timeoutSpan.remove();
-							isAnimating = false;
-						}, 3000);
-					}
-				}
-			}
-
-			return { updateTimeouts };
-		}
-
-		const textTransformations = {
-			"home-possession": {
-				">": ">",
-				"<": ">",
-				"None": "",
-				"": ""
-			},
-			"guest-possession": {
-				">": "<",
-				"<": "<",
-				"None": "",
-				"": ""
-			}
-		};
-
-		function transformText(key, value) {
-			if (textTransformations[key] && textTransformations[key][value] !== undefined) {
-				return textTransformations[key][value];
-			}
-			return value;
-		}
-
-		function createNumberTicker(element) {
-			let currentValue = 0;
-			let digits = [];
-
-			function addDigit() {
-				const node = createDigitNode();
-				node.style.marginTop = `-${DIGIT_BASE}em`;   // start parked on the middle "0"
-
-				const digit = { node, pos: DIGIT_BASE, value: 0 };
-				node.addEventListener('transitionend', (event) => {
-					if (event.propertyName === 'margin-top') resetDigit(digit);
-				});
-
-				element.appendChild(node);
-				void node.offsetHeight;   // commit the start position so the first roll animates
-				digits.unshift(digit);    // index 0 = units (rightmost)
-			}
-
-			function removeExtraDigits(targetLength) {
-				while (digits.length > targetLength) {
-					const digit = digits.shift();
-					element.removeChild(digit.node);
-				}
-			}
-
-			function setValue(newValue) {
-				const newNumber = parseInt(newValue, 10) || 0;
-
-				if (newNumber === currentValue && newNumber !== 0) return;
-
-				const reversedNumberString = String(newNumber).split('').reverse().join('');
-
-				while (digits.length < reversedNumberString.length) addDigit();
-				if (digits.length > reversedNumberString.length) {
-					removeExtraDigits(reversedNumberString.length);
-				}
-
-				const direction = newNumber > currentValue ? 1 : newNumber < currentValue ? -1 : 0;
-
-				digits.forEach((digit, index) => {
-					const target = reversedNumberString[index] || '0';
-					setDigit(digit, parseInt(target, 10), direction);
-				});
-
-				currentValue = newNumber;
-			}
-
-			// Initialize with current value
-			const initialValue = parseInt(element.getAttribute('data-value'), 10) || 0;
-			setValue(initialValue);
-
-			return { setValue };
-		}
-
+		/* ------------------------------------------------------------------ */
+		/* Scoreboard update                                                  */
+		/* ------------------------------------------------------------------ */
 		function updateScoreboard(data) {
-			const initializing = firstUpdate; // don't fire call-outs on the first payload
+			if (!data || typeof data !== 'object') return;
+			const initializing = firstUpdate;
 
-			// Update scores with animation
+			// ---- scores --------------------------------------------------
 			const homeScore = parseInt(data.home_score, 10) || 0;
 			const guestScore = parseInt(data.guest_score, 10) || 0;
 
 			if (homeScore !== lastHomeScore) {
 				const delta = homeScore - lastHomeScore;
-				if (!firstUpdate && delta > 0) {
-					homeStreak += delta;
-					guestStreak = 0;
-				} else if (delta < 0) {
-					// score correction - kill the streak
-					homeStreak = 0;
-				}
+				if (!firstUpdate && delta > 0) { homeStreak += delta; guestStreak = 0; }
+				else if (delta < 0) { homeStreak = 0; }
 				homeTicker.setValue(homeScore);
 				if (!firstUpdate && delta > 0) scoreEffect('home', delta);
 				lastHomeScore = homeScore;
@@ -1495,29 +1578,35 @@
 
 			if (guestScore !== lastGuestScore) {
 				const delta = guestScore - lastGuestScore;
-				if (!firstUpdate && delta > 0) {
-					guestStreak += delta;
-					homeStreak = 0;
-				} else if (delta < 0) {
-					guestStreak = 0;
-				}
+				if (!firstUpdate && delta > 0) { guestStreak += delta; homeStreak = 0; }
+				else if (delta < 0) { guestStreak = 0; }
 				guestTicker.setValue(guestScore);
 				if (!firstUpdate && delta > 0) scoreEffect('guest', delta);
 				lastGuestScore = guestScore;
 			}
 			firstUpdate = false;
 
-			// Light the plates on fire for an unanswered-point run
 			setOnFire('home', homeStreak >= FIRE_STREAK);
 			setOnFire('guest', guestStreak >= FIRE_STREAK);
 
-			// Update clock
-			document.getElementById('main-clock').textContent = data.clock;
+			// ---- clock ---------------------------------------------------
+			const clockText = data.clock || '';
+			if (el.mainClock.textContent !== clockText) el.mainClock.textContent = clockText;
 
-			// Update period, make sure UPPERCASE is used for period_desc
-			document.getElementById('period').textContent = (data.period_desc || '').toUpperCase() || data.period;
+			const mainClockSec = parseClockSeconds(clockText);
+			if (mainClockSec !== null) {
+				if (lastMainClockSec !== null && lastMainClockSec > 0 && mainClockSec === 0) {
+					triggerBuzzer('main');
+				}
+				lastMainClockSec = mainClockSec;
+			}
 
-			// Update timeouts with animation
+			// ---- period + quarter-end banner -----------------------------
+			const periodText = (data.period_desc || '').toUpperCase() || (data.period || '');
+			const periodNorm = periodText.toUpperCase();
+			if (el.period.textContent !== periodText) el.period.textContent = periodText;
+
+			// ---- timeouts ------------------------------------------------
 			const homeTimeouts = parseInt(data.home_timeouts, 10) || 0;
 			const guestTimeouts = parseInt(data.guest_timeouts, 10) || 0;
 
@@ -1530,69 +1619,84 @@
 			lastHomeTimeouts = homeTimeouts;
 			lastGuestTimeouts = guestTimeouts;
 
-			// Update fouls with animation
+			// ---- fouls ---------------------------------------------------
 			const homeFouls = parseInt(data.home_fouls, 10) || 0;
 			const guestFouls = parseInt(data.guest_fouls, 10) || 0;
 
-			// Home fouls animation
 			if (homeFouls !== lastHomeFouls) {
-				const element = document.getElementById('home-fouls');
-				element.classList.add('blink');
-				setTimeout(() => element.classList.remove('blink'), 6000);
+				blinkElement(el.homeFouls);
 				if (!initializing && homeFouls > lastHomeFouls) playStripAlert('home', 'foul');
 			}
-			// Guest fouls animation
 			if (guestFouls !== lastGuestFouls) {
-				const element = document.getElementById('guest-fouls');
-				element.classList.add('blink');
-				setTimeout(() => element.classList.remove('blink'), 6000);
+				blinkElement(el.guestFouls);
 				if (!initializing && guestFouls > lastGuestFouls) playStripAlert('guest', 'foul');
 			}
-			document.getElementById('home-fouls').textContent = homeFouls;
-			document.getElementById('guest-fouls').textContent = guestFouls;
+
+			const homeFoulsStr = String(homeFouls);
+			const guestFoulsStr = String(guestFouls);
+			if (el.homeFouls.textContent !== homeFoulsStr) el.homeFouls.textContent = homeFoulsStr;
+			if (el.guestFouls.textContent !== guestFoulsStr) el.guestFouls.textContent = guestFoulsStr;
 			lastHomeFouls = homeFouls;
 			lastGuestFouls = guestFouls;
 
-			// Update possession indicators
-			document.getElementById('home-possession').textContent = transformText("home-possession", data.home_possession ? '>' : '');
-			document.getElementById('guest-possession').textContent = transformText("guest-possession", data.guest_possession ? '>' : '');
+			// ---- possession ----------------------------------------------
+			const homePoss = data.home_possession ? '>' : '';
+			const guestPoss = data.guest_possession ? '<' : '';
+			if (el.homePossession.textContent !== homePoss) el.homePossession.textContent = homePoss;
+			if (el.guestPossession.textContent !== guestPoss) el.guestPossession.textContent = guestPoss;
 
-			// Update shot clock and status
-			shotClockText.textContent = data.shot_clock || '--';
+			// ---- shot clock ----------------------------------------------
+			const shotClockDisplay = String(data.shot_clock ?? '').trim() || '--';
+			if (el.shotClock.textContent !== shotClockDisplay) el.shotClock.textContent = shotClockDisplay;
 			updateShotClock(data.shot_clock);
 
-			// Update timeout animation
+			// ---- timeout clock -------------------------------------------
 			updateTimeoutAnimation(data.timeout_clock);
 
-			// Update home and guest team stats with durations
-			const homeStats = data.home_stats;
-			const guestStats = data.guest_stats;
+			// ---- team stats ----------------------------------------------
+			const homeStatsSafe = data.home_stats || '';
+			const guestStatsSafe = data.guest_stats || '';
 			const homeStatsDuration = data.home_stats_duration;
 			const guestStatsDuration = data.guest_stats_duration;
 			const homeNewAnimation = data.home_new_animation;
 			const guestNewAnimation = data.guest_new_animation;
 
-			document.getElementById('home-stats-text').innerHTML = homeStats;  // Using innerHTML to support HTML formatting
-			document.getElementById('guest-stats-text').innerHTML = guestStats;
-
-			if (homeNewAnimation || homeStatsAnimation.style.display === 'none') {
-				updateStatsAnimation(homeStatsAnimation, homeStats, homeStatsDuration, true);
+			if (lastHomeStatsHTML !== homeStatsSafe) {
+				el.homeStatsText.innerHTML = homeStatsSafe;
+				lastHomeStatsHTML = homeStatsSafe;
 			}
-			if (guestNewAnimation || guestStatsAnimation.style.display === 'none') {
-				updateStatsAnimation(guestStatsAnimation, guestStats, guestStatsDuration, false);
+			if (lastGuestStatsHTML !== guestStatsSafe) {
+				el.guestStatsText.innerHTML = guestStatsSafe;
+				lastGuestStatsHTML = guestStatsSafe;
+			}
+
+			if (homeNewAnimation || el.homeStatsAnimation.style.display === 'none') {
+				updateStatsAnimation(el.homeStatsAnimation, homeStatsSafe, homeStatsDuration, true);
+			}
+			if (guestNewAnimation || el.guestStatsAnimation.style.display === 'none') {
+				updateStatsAnimation(el.guestStatsAnimation, guestStatsSafe, guestStatsDuration, false);
 			}
 		}
 
-		function fetchData() {
-			fetch('http://localhost:5000/data')
-				.then(response => response.json())
-				.then(data => {
-					updateScoreboard(data);
-				})
-				.catch(error => console.error('Error fetching data:', error));
+		/* ------------------------------------------------------------------ */
+		/* Polling loop (chained so slow responses never pile up)             */
+		/* ------------------------------------------------------------------ */
+		async function fetchData() {
+			try {
+				const response = await fetch('http://localhost:5000/data');
+				const data = await response.json();
+				updateScoreboard(data);
+			} catch (error) {
+				console.error('Error fetching data:', error);
+			}
 		}
 
-		setInterval(fetchData, 250);
+		async function pollLoop() {
+			await fetchData();
+			setTimeout(pollLoop, 250);
+		}
+
+		pollLoop();
 	</script>
 </body>
 
