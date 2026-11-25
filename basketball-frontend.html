@@ -8,7 +8,7 @@
 	<link href="https://fonts.googleapis.com/css2?family=Rubik:ital,wght@0,300..900;1,300..900&display=swap" rel="stylesheet">
 
 	<style>
-		/* ----- Main ----- */
+		/* Main */
 		body {
 			margin: 0;
 			padding: 0;
@@ -39,7 +39,7 @@
 			transform: translate(14px, -91px);
 		}
 
-		/* ----- Shapes ----- */
+		/* Shapes */
 		.slab {
 			position: absolute;
 			box-sizing: border-box;
@@ -70,7 +70,7 @@
 			/* --home-ring: linear-gradient(60deg, rgba(215, 213, 210, .25) 0%, rgba(138, 21, 56, 0.89) 25%,
 					rgba(112, 121, 128, .48) 50%, rgba(138, 21, 56, 0.45) 75%, rgba(138, 21, 56, 1.00) 100%); */
 			--home-ring: linear-gradient(60deg, rgba(252, 252, 252, 0.692) 0%, rgba(138, 21, 56, 0.95) 25%,
-					rgba(245, 245, 245, 0.75) 50%, rgba(138, 21, 56,0.9) 75%, rgba(138, 21, 56, 1.00) 100%);
+					rgba(245, 245, 245, 0.75) 50%, rgba(138, 21, 56, 0.9) 75%, rgba(138, 21, 56, 1.00) 100%);
 			left: 996px;
 			top: 191.9px;
 			width: 843.3px;
@@ -158,13 +158,171 @@
 			background: #8A1538;
 		}
 
+		/* Strip call-out (foul / timeout) */
+
+		/* Dim the strip contents while a call-out is swiping across.
+		visibility (with a delayed transition) is used so the blink animation
+		on the foul numbers can't keep them visible during the fade-out. */
+		.t.label,
+		.t.timeouts,
+		.t.fouls {
+			transition: opacity 0.3s ease, visibility 0s linear 0s;
+		}
+
+		.t.label.dimmed,
+		.t.timeouts.dimmed,
+		.t.fouls.dimmed {
+			opacity: 0;
+			visibility: hidden;
+			transition: opacity 0.3s ease, visibility 0s linear 0.3s;
+		}
+
+		/* Overlay that sits exactly on top of the strip. Same --t / left / top /
+		width / height as the strip so it clips to the same parallelogram. */
+		.strip-fx {
+			--t: 0.21;
+			top: 488.2px;
+			height: 118px;
+			overflow: hidden;
+			pointer-events: none;
+			z-index: 5;
+			opacity: 0;
+			transition: opacity 0.25s ease;
+		}
+
+		#guest-strip-fx {
+			left: 94.4px;
+			width: 842.2px;
+		}
+
+		#home-strip-fx {
+			left: 968px;
+			width: 840.3px;
+		}
+
+		.strip-fx.active {
+			opacity: 1;
+		}
+
+		/* The text is counter-skewed so it reads upright, and slides the full
+		width of the strip (translate % is relative to the text box = strip width). */
+		.strip-fx .fx-text {
+			position: absolute;
+			left: 0;
+			top: 0;
+			width: 100%;
+			height: 100%;
+			display: flex;
+			align-items: center;
+			justify-content: center;
+			font-size: 96px;
+			font-weight: 800;
+			letter-spacing: 6px;
+			color: #fff;
+			text-shadow: 0 0 24px rgba(0, 0, 0, 0.45);
+			transform: translateX(-115%) skewX(11.86deg);
+		}
+
+		.strip-fx.active .fx-text {
+			animation: stripSwipe 1.6s cubic-bezier(0.22, 0.7, 0.3, 1) forwards;
+		}
+
+		@keyframes stripSwipe {
+			0% {
+				transform: translateX(-115%) skewX(11.86deg);
+				opacity: 0;
+			}
+
+			10% {
+				opacity: 1;
+			}
+
+			30% {
+				transform: translateX(0%) skewX(11.86deg);
+				opacity: 1;
+			}
+
+			70% {
+				transform: translateX(0%) skewX(11.86deg);
+				opacity: 1;
+			}
+
+			90% {
+				opacity: 1;
+			}
+
+			100% {
+				transform: translateX(115%) skewX(11.86deg);
+				opacity: 0;
+			}
+		}
+
+		/* Light sheen that sweeps the strip at the same time */
+		.strip-fx::before {
+			content: "";
+			position: absolute;
+			inset: 0;
+			background: linear-gradient(100deg, transparent 35%, rgba(255, 255, 255, 0.45) 50%, transparent 65%);
+			background-size: 250% 100%;
+			background-position: 100% 0;
+			opacity: 0;
+		}
+
+		.strip-fx.active::before {
+			opacity: 1;
+			animation: stripSheen 1.6s ease-out forwards;
+		}
+
+		@keyframes stripSheen {
+			from {
+				background-position: 100% 0;
+			}
+
+			to {
+				background-position: -80% 0;
+			}
+		}
+
+		/* Red glow that pulses on the shot-clock border during the 10s countdown.
+		   Sits exactly on top of #shot-plate's ring so the glow hugs the frame. */
+		#shot-clock-glow {
+			--t: 0.2226;
+			left: 1454.1px;
+			top: 620.5px;
+			width: 307.7px;
+			height: 211px;
+			border: 12px solid transparent;
+			pointer-events: none;
+			z-index: 4;
+		}
+
+		#shot-clock-glow.active {
+			animation: shotClockGlow 1s ease-in-out infinite;
+		}
+
+		@keyframes shotClockGlow {
+
+			0%,
+			100% {
+				border-color: rgba(255, 46, 34, 0.10);
+				box-shadow: 0 0 10px 0 rgba(255, 20, 10, 0.25);
+			}
+
+			50% {
+				border-color: rgba(255, 46, 34, 0.90);
+				box-shadow: 0 0 38px 8px rgba(255, 30, 10, 0.75);
+			}
+		}
+
+		/* Countdown fill: inset by the full 12px border so it lives INSIDE the ring */
 		#shot-clock-countdown {
 			--t: 0.2226;
-			left: 1460.1px;
-			top: 626.5px;
-			width: 295.7px;
-			height: 199px;
+			left: 1468.8px;
+			top: 632.5px;
+			width: 283.7px;
+			height: 187px;
 			display: none;
+			overflow: hidden;
 			z-index: 3;
 		}
 
@@ -184,7 +342,228 @@
 			z-index: 2;
 		}
 
-		/* ----- Text ----- */
+		/* On-fire effect */
+		.fire {
+			--t: 0.2143;
+			z-index: 0;
+			pointer-events: none;
+			opacity: 0;
+			transition: opacity 0.7s ease;
+		}
+
+		.fire.active {
+			opacity: 1;
+		}
+
+		#guest-fire {
+			left: 149.3px;
+			top: 216.9px;
+			width: 793.3px;
+			height: 233px;
+		}
+
+		#home-fire {
+			left: 996px;
+			top: 191.9px;
+			width: 843.3px;
+			height: 283px;
+		}
+
+		/* Soft heat haze halo behind the whole plate */
+		.fire-glow {
+			position: absolute;
+			left: -12%;
+			top: -65%;
+			width: 124%;
+			height: 180%;
+			background: radial-gradient(ellipse at 50% 72%,
+					rgba(255, 140, 20, 0.55) 0%,
+					rgba(255, 70, 0, 0.34) 34%,
+					rgba(210, 25, 0, 0.14) 58%,
+					rgba(255, 0, 0, 0) 78%);
+			filter: blur(16px);
+			animation: fireGlowPulse 1.8s ease-in-out infinite alternate;
+		}
+
+		@keyframes fireGlowPulse {
+			from {
+				opacity: 0.55;
+				transform: scale(0.97);
+			}
+
+			to {
+				opacity: 1;
+				transform: scale(1.03);
+			}
+		}
+
+		.flame {
+			position: absolute;
+			bottom: 88%;
+			left: var(--x, 50%);
+			width: var(--w, 80px);
+			height: var(--h, 160px);
+			margin-left: calc(-0.5 * var(--w, 80px));
+			border-radius: 50% 50% 42% 42% / 62% 62% 38% 38%;
+			background: radial-gradient(ellipse 60% 45% at 50% 82%,
+					rgba(255, 255, 232, 0.95) 0%,
+					rgba(255, 232, 132, 0.92) 20%,
+					rgba(255, 172, 42, 0.80) 42%,
+					rgba(255, 92, 10, 0.50) 65%,
+					rgba(255, 40, 0, 0) 85%);
+			filter: blur(5px);
+			transform-origin: 50% 100%;
+			animation: flameDance var(--dur, 1.1s) ease-in-out infinite alternate;
+			animation-delay: var(--delay, 0s);
+		}
+
+		@keyframes flameDance {
+			0% {
+				transform: translateY(8%) scale(0.85, 0.90) rotate(-5deg);
+				opacity: 0.55;
+			}
+
+			50% {
+				transform: translateY(-2%) scale(1.05, 1.06) rotate(2deg);
+				opacity: 0.95;
+			}
+
+			100% {
+				transform: translateY(-16%) scale(0.90, 1.20) rotate(6deg);
+				opacity: 0.45;
+			}
+		}
+
+		/* Per-flame variation (nth-child(1) is .fire-glow) */
+		.fire .flame:nth-child(2) {
+			--x: 7%;
+			--w: 90px;
+			--h: 170px;
+			--dur: 1.05s;
+			--delay: -0.10s;
+		}
+
+		.fire .flame:nth-child(3) {
+			--x: 21%;
+			--w: 70px;
+			--h: 140px;
+			--dur: 1.35s;
+			--delay: -0.45s;
+		}
+
+		.fire .flame:nth-child(4) {
+			--x: 35%;
+			--w: 105px;
+			--h: 200px;
+			--dur: 0.95s;
+			--delay: -0.25s;
+		}
+
+		.fire .flame:nth-child(5) {
+			--x: 50%;
+			--w: 80px;
+			--h: 160px;
+			--dur: 1.20s;
+			--delay: -0.60s;
+		}
+
+		.fire .flame:nth-child(6) {
+			--x: 65%;
+			--w: 95px;
+			--h: 185px;
+			--dur: 1.10s;
+			--delay: -0.35s;
+		}
+
+		.fire .flame:nth-child(7) {
+			--x: 79%;
+			--w: 75px;
+			--h: 145px;
+			--dur: 1.30s;
+			--delay: -0.05s;
+		}
+
+		.fire .flame:nth-child(8) {
+			--x: 93%;
+			--w: 85px;
+			--h: 165px;
+			--dur: 1.00s;
+			--delay: -0.50s;
+		}
+
+		.ember {
+			position: absolute;
+			left: var(--x, 50%);
+			bottom: 90%;
+			width: 10px;
+			height: 10px;
+			border-radius: 50%;
+			background: radial-gradient(circle,
+					rgba(255, 236, 170, 1) 0%,
+					rgba(255, 150, 25, 0.9) 45%,
+					rgba(255, 60, 0, 0) 72%);
+			filter: blur(1px);
+			opacity: 0;
+			animation: emberRise var(--edur, 2.6s) linear infinite;
+			animation-delay: var(--edelay, 0s);
+		}
+
+		.fire .ember:nth-child(9) {
+			--x: 15%;
+			--edur: 2.6s;
+			--edelay: -0.4s;
+			--drift: -18px;
+		}
+
+		.fire .ember:nth-child(10) {
+			--x: 38%;
+			--edur: 3.1s;
+			--edelay: -1.6s;
+			--drift: 24px;
+		}
+
+		.fire .ember:nth-child(11) {
+			--x: 62%;
+			--edur: 2.3s;
+			--edelay: -0.9s;
+			--drift: -12px;
+		}
+
+		.fire .ember:nth-child(12) {
+			--x: 85%;
+			--edur: 2.9s;
+			--edelay: -2.2s;
+			--drift: 16px;
+		}
+
+		@keyframes emberRise {
+			0% {
+				transform: translate(0, 0) scale(1);
+				opacity: 0;
+			}
+
+			10% {
+				opacity: 1;
+			}
+
+			70% {
+				opacity: 0.85;
+			}
+
+			100% {
+				transform: translate(var(--drift, 20px), -280px) scale(0.3);
+				opacity: 0;
+			}
+		}
+
+		/* Don't *burn* the CPU when nobody is on fire */
+		.fire:not(.active) .flame,
+		.fire:not(.active) .ember,
+		.fire:not(.active) .fire-glow {
+			animation-play-state: paused;
+		}
+
+		/* Text */
 		.t {
 			position: absolute;
 			line-height: 1;
@@ -215,7 +594,7 @@
 			left: 1543px;
 		}
 
-		/* ----- Stats ----- */
+		/* Stats */
 		.stats-animation {
 			position: absolute;
 			top: 380px;
@@ -247,7 +626,7 @@
 			color: white;
 		}
 
-		/* ----- Score ----- */
+		/* Score */
 		.number-ticker {
 			overflow: hidden;
 			height: 1.042em;
@@ -297,7 +676,7 @@
 			}
 		}
 
-		/* ----- Possession ----- */
+		/* Possession */
 		.possession {
 			font-size: 100px;
 			font-weight: 700;
@@ -312,7 +691,7 @@
 			left: 908px;
 		}
 
-		/* ----- Timeouts ----- */
+		/* Timeouts */
 		.timeouts {
 			font-size: 114px;
 			font-weight: 600;
@@ -371,7 +750,7 @@
 			color: white;
 		}
 
-		/* ----- Fouls ----- */
+		/* Fouls */
 		.fouls {
 			font-size: 91px;
 			font-weight: 600;
@@ -402,7 +781,7 @@
 			animation: blink 0.5s ease-in-out 6;
 		}
 
-		/* ----- Clocks ----- */
+		/* Clocks */
 		#main-clock {
 			top: 656px;
 			right: 552px;
@@ -428,11 +807,28 @@
 			font-variant-numeric: tabular-nums;
 			z-index: 5;
 		}
+
+		/* Digits glow in step with the ring during the countdown */
+		#shot-clock.hot {
+			animation: shotClockTextGlow 1s ease-in-out infinite;
+		}
+
+		@keyframes shotClockTextGlow {
+
+			0%,
+			100% {
+				text-shadow: 0 0 10px rgba(255, 40, 20, 0.35);
+			}
+
+			50% {
+				text-shadow: 0 0 28px rgba(255, 60, 30, 0.95), 0 0 60px rgba(255, 0, 0, 0.5);
+			}
+		}
 	</style>
 </head>
 
 <body>
-	<!----- HTML  ----->
+	<!HTML  ----->
 	<div id="timeout-animation">
 		<div id="timeout-text">Timeout</div>
 	</div>
@@ -445,19 +841,60 @@
 
 	<div id="scoreboard" class="scoreboard">
 		<div class="world">
+			<!-- on-fire effects (behind the plates) -->
+			<div class="slab fire" id="guest-fire">
+				<div class="fire-glow"></div>
+				<div class="flame"></div>
+				<div class="flame"></div>
+				<div class="flame"></div>
+				<div class="flame"></div>
+				<div class="flame"></div>
+				<div class="flame"></div>
+				<div class="flame"></div>
+				<div class="ember"></div>
+				<div class="ember"></div>
+				<div class="ember"></div>
+				<div class="ember"></div>
+			</div>
+			<div class="slab fire" id="home-fire">
+				<div class="fire-glow"></div>
+				<div class="flame"></div>
+				<div class="flame"></div>
+				<div class="flame"></div>
+				<div class="flame"></div>
+				<div class="flame"></div>
+				<div class="flame"></div>
+				<div class="flame"></div>
+				<div class="ember"></div>
+				<div class="ember"></div>
+				<div class="ember"></div>
+				<div class="ember"></div>
+			</div>
+
 			<!-- shapes -->
 			<div class="slab plate" id="guest-plate"></div>
 			<div class="slab plate" id="home-plate"></div>
 			<div class="slab strip" id="guest-strip"></div>
 			<div class="slab strip" id="home-strip"></div>
+			<div class="slab strip" id="guest-strip"></div>
+			<div class="slab strip" id="home-strip"></div>
+
+			<!-- strip call-out overlays -->
+			<div class="slab strip-fx" id="guest-strip-fx">
+				<div class="fx-text">FOUL</div>
+			</div>
+			<div class="slab strip-fx" id="home-strip-fx">
+				<div class="fx-text">FOUL</div>
+			</div>
 			<div class="slab" id="clock-plate"></div>
 			<div class="slab" id="shot-plate"></div>
+			<div class="slab" id="shot-clock-glow"></div>
 			<div class="slab" id="shot-clock-countdown">
 				<div id="shot-clock-fill"></div>
 			</div>
 
 			<!-- logo -->
-			<img class="pc-logo" id="pc-logo" src="images/Eagle Head-white outline.png"/>
+			<img class="pc-logo" id="pc-logo" src="images/Eagle Head-white outline.png" />
 
 			<!-- static labels -->
 			<div class="t label" id="guest-tol-label">TOL</div>
@@ -482,14 +919,18 @@
 		</div>
 	</div>
 
-	<!----- JavaScript  ----->
+	<!JavaScript  ----->
 	<script>
 		const shotClockCountdown = document.getElementById('shot-clock-countdown');
 		const shotClockFill = document.getElementById('shot-clock-fill');
+		const shotClockGlow = document.getElementById('shot-clock-glow');
+		const shotClockText = document.getElementById('shot-clock');
 		const timeoutAnimation = document.getElementById('timeout-animation');
 		const timeoutText = document.getElementById('timeout-text');
 		const homeStatsAnimation = document.getElementById('home-stats-animation');
 		const guestStatsAnimation = document.getElementById('guest-stats-animation');
+		const homeFire = document.getElementById('home-fire');
+		const guestFire = document.getElementById('guest-fire');
 
 		let currentTimeoutAnimation = null;
 		let timeoutAnimationState = 'hidden'; // Can be 'hidden', 'showing', or 'hiding'
@@ -518,6 +959,11 @@
 		let lastGuestFouls = 0;
 		let firstUpdate = true; // don't fire score effects for the first value we receive
 
+		// Unanswered-points streaks (drives the fire effect)
+		const FIRE_STREAK = 10;
+		let homeStreak = 0;
+		let guestStreak = 0;
+
 		// Stats animation state and tracking
 		let currentHomeStatsAnimation = null;
 		let currentGuestStatsAnimation = null;
@@ -526,7 +972,7 @@
 		let homeStatsTimeout = null;
 		let guestStatsTimeout = null;
 
-		/* ----- Score effects -----
+		/* Score effects -----
 		   Hook for scoring animations. 'side' is 'home' or 'guest', 'points' is how many were scored.
 		   Sheen sweep across the plate + pop on the score digits. */
 		function replayClass(el, cls, ms) {
@@ -539,6 +985,24 @@
 		function scoreEffect(side, points) {
 			replayClass(document.getElementById(side + '-plate'), 'scored', 1200);
 			replayClass(document.getElementById(side + '-score'), 'pop', 1000);
+		}
+
+		/* On-fire effect */
+		function setOnFire(side, on) {
+			const el = side === 'home' ? homeFire : guestFire;
+			if (!el) return;
+			if (el.classList.contains('active') === on) return;
+
+			el.classList.toggle('active', on);
+
+			// Re-roll the flicker timings so every ignition looks a little different
+			if (on) {
+				el.querySelectorAll('.flame, .ember, .fire-glow').forEach(node => {
+					node.style.animation = 'none';
+					void node.offsetWidth;
+					node.style.animation = '';
+				});
+			}
 		}
 
 		function updateStatsAnimation(statsElement, statsText, duration, isHome) {
@@ -640,9 +1104,65 @@
 			}
 		}
 
+		/* Strip call-outs (fouls / timeouts) */
+		const STRIP_FX_MS = 1600; // must match the stripSwipe animation duration
+		const STRIP_ALERT_TEXT = { foul: 'FOUL', timeout: 'TIMEOUT' };
+
+		const stripFx = {
+			home: {
+				el: document.getElementById('home-strip-fx'),
+				ids: ['home-tol-label', 'home-fls-label', 'home-timeouts', 'home-fouls'],
+				timer: null
+			},
+			guest: {
+				el: document.getElementById('guest-strip-fx'),
+				ids: ['guest-tol-label', 'guest-fls-label', 'guest-timeouts', 'guest-fouls'],
+				timer: null
+			}
+		};
+
+		function playStripAlert(side, kind) {
+			const fx = stripFx[side];
+			if (!fx || !fx.el) return;
+
+			const textEl = fx.el.querySelector('.fx-text');
+			const text = STRIP_ALERT_TEXT[kind] || STRIP_ALERT_TEXT.foul;
+
+			// Restart cleanly if an alert is already running
+			clearTimeout(fx.timer);
+			fx.el.classList.remove('active');
+			void fx.el.offsetWidth; // reflow so the animation replays
+
+			textEl.textContent = text;
+			fx.el.classList.add('active');
+
+			fx.ids.forEach(id => {
+				const node = document.getElementById(id);
+				if (node) node.classList.add('dimmed');
+			});
+
+			// Bring the TOL / FLS text back once the swipe has finished
+			fx.timer = setTimeout(() => {
+				fx.el.classList.remove('active');
+				fx.ids.forEach(id => {
+					const node = document.getElementById(id);
+					if (node) node.classList.remove('dimmed');
+				});
+				fx.timer = null;
+			}, STRIP_FX_MS);
+		}
+
+		// Single switch for the whole "shot clock is counting down" state:
+		// shows/hides the inner fill and pulses the red ring + digits.
+		function setShotClockActive(on) {
+			shotClockCountdown.style.display = on ? 'block' : 'none';
+			shotClockGlow.classList.toggle('active', on);
+			shotClockText.classList.toggle('hot', on);
+		}
+
 		function updateShotClock(shotClockTime) {
 			if (!shotClockTime || shotClockTime === '--' || shotClockTime === "") {
-				shotClockCountdown.style.display = 'none';
+				setShotClockActive(false);
 				lastShotClockTime = null;
 				lastShotClockScale = 1;
 				return;
@@ -656,12 +1176,12 @@
 			// Initial state setup
 			if (lastShotClockTime === null) {
 				if (currentTime <= 10) {
-					shotClockCountdown.style.display = 'block';
+					setShotClockActive(true);
 					const targetScale = currentTime / 10;
 					shotClockFill.style.transform = `scaleY(${targetScale})`;
 					lastShotClockScale = targetScale;
 				} else {
-					shotClockCountdown.style.display = 'none';
+					setShotClockActive(false);
 					lastShotClockScale = 1;
 				}
 				lastShotClockTime = currentTime;
@@ -673,7 +1193,7 @@
 			const animate = currentTime >= lastShotClockTime - buffer && currentTime < lastShotClockTime;
 
 			if (currentTime <= 10) {
-				shotClockCountdown.style.display = 'block';
+				setShotClockActive(true);
 				const targetScale = currentTime / 10;
 
 				if (animate) {
@@ -693,7 +1213,7 @@
 				lastShotClockScale = targetScale;
 			} else {
 				// Hide and reset when shot clock is above 10
-				shotClockCountdown.style.display = 'none';
+				setShotClockActive(false);
 				lastShotClockScale = 1;
 			}
 
@@ -875,22 +1395,43 @@
 		}
 
 		function updateScoreboard(data) {
+			const initializing = firstUpdate; // don't fire call-outs on the first payload
+
 			// Update scores with animation
-			const homeScore = parseInt(data.home_score, 10);
-			const guestScore = parseInt(data.guest_score, 10);
+			const homeScore = parseInt(data.home_score, 10) || 0;
+			const guestScore = parseInt(data.guest_score, 10) || 0;
 
 			if (homeScore !== lastHomeScore) {
+				const delta = homeScore - lastHomeScore;
+				if (!firstUpdate && delta > 0) {
+					homeStreak += delta;
+					guestStreak = 0;
+				} else if (delta < 0) {
+					// score correction - kill the streak
+					homeStreak = 0;
+				}
 				homeTicker.setValue(homeScore);
-				if (!firstUpdate && homeScore > lastHomeScore) scoreEffect('home', homeScore - lastHomeScore);
+				if (!firstUpdate && delta > 0) scoreEffect('home', delta);
 				lastHomeScore = homeScore;
 			}
 
 			if (guestScore !== lastGuestScore) {
+				const delta = guestScore - lastGuestScore;
+				if (!firstUpdate && delta > 0) {
+					guestStreak += delta;
+					homeStreak = 0;
+				} else if (delta < 0) {
+					guestStreak = 0;
+				}
 				guestTicker.setValue(guestScore);
-				if (!firstUpdate && guestScore > lastGuestScore) scoreEffect('guest', guestScore - lastGuestScore);
+				if (!firstUpdate && delta > 0) scoreEffect('guest', delta);
 				lastGuestScore = guestScore;
 			}
 			firstUpdate = false;
+
+			// Light the plates on fire for an unanswered-point run
+			setOnFire('home', homeStreak >= FIRE_STREAK);
+			setOnFire('guest', guestStreak >= FIRE_STREAK);
 
 			// Update clock
 			document.getElementById('main-clock').textContent = data.clock;
@@ -905,6 +1446,9 @@
 			homeTimeoutDisplay.updateTimeouts(homeTimeouts);
 			guestTimeoutDisplay.updateTimeouts(guestTimeouts);
 
+			if (!initializing && homeTimeouts < lastHomeTimeouts) playStripAlert('home', 'timeout');
+			if (!initializing && guestTimeouts < lastGuestTimeouts) playStripAlert('guest', 'timeout');
+
 			lastHomeTimeouts = homeTimeouts;
 			lastGuestTimeouts = guestTimeouts;
 
@@ -917,12 +1461,14 @@
 				const element = document.getElementById('home-fouls');
 				element.classList.add('blink');
 				setTimeout(() => element.classList.remove('blink'), 6000);
+				if (!initializing && homeFouls > lastHomeFouls) playStripAlert('home', 'foul');
 			}
 			// Guest fouls animation
 			if (guestFouls !== lastGuestFouls) {
 				const element = document.getElementById('guest-fouls');
 				element.classList.add('blink');
 				setTimeout(() => element.classList.remove('blink'), 6000);
+				if (!initializing && guestFouls > lastGuestFouls) playStripAlert('guest', 'foul');
 			}
 			document.getElementById('home-fouls').textContent = homeFouls;
 			document.getElementById('guest-fouls').textContent = guestFouls;
@@ -934,7 +1480,7 @@
 			document.getElementById('guest-possession').textContent = transformText("guest-possession", data.guest_possession ? '>' : '');
 
 			// Update shot clock and status
-			document.getElementById('shot-clock').textContent = data.shot_clock || '--';
+			shotClockText.textContent = data.shot_clock || '--';
 			updateShotClock(data.shot_clock);
 
 			// Update timeout animation
