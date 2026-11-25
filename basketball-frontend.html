@@ -400,7 +400,7 @@
 		.flame {
 			position: absolute;
 			bottom: 88%;
-			left: var(--x, 50%);
+			left: var(--x, 8%);
 			width: var(--w, 80px);
 			height: var(--h, 160px);
 			margin-left: calc(-0.5 * var(--w, 80px));
@@ -535,6 +535,24 @@
 			--edelay: -2.2s;
 			--drift: 16px;
 		}
+
+		.fire-bed {
+			position: absolute;
+			left: 4%; right: 4%;
+			bottom: 97%;
+			height: 135px;
+			background: radial-gradient(ellipse 50% 100% at 50% 100%,
+				rgba(255, 232, 160, .85) 0%,
+				rgba(255, 140, 20, .55) 38%,
+				rgba(255, 50, 0, .22) 68%,
+				rgba(255, 0, 0, 0) 100%);
+			filter: blur(12px);
+			animation: bedPulse 1.5s ease-in-out infinite alternate;
+			}
+			@keyframes bedPulse {
+			from { opacity: .6; transform: scaleX(.97); }
+			to   { opacity: 1;  transform: scaleX(1.03); }
+			}
 
 		@keyframes emberRise {
 			0% {
@@ -843,6 +861,7 @@
 		<div class="world">
 			<!-- on-fire effects (behind the plates) -->
 			<div class="slab fire" id="guest-fire">
+				<div class="fire-bed"></div>
 				<div class="fire-glow"></div>
 				<div class="flame"></div>
 				<div class="flame"></div>
@@ -857,6 +876,7 @@
 				<div class="ember"></div>
 			</div>
 			<div class="slab fire" id="home-fire">
+				<div class="fire-bed"></div>
 				<div class="fire-glow"></div>
 				<div class="flame"></div>
 				<div class="flame"></div>
